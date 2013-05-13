@@ -3,20 +3,21 @@
                        xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                        xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd">
     <NamedLayer>
-        <Name>ward</Name>
+        <Name>lga</Name>
         <UserStyle>
             <FeatureTypeStyle>
                 <Rule>
                     <Name>Scale &lt; 50000</Name>
                     <MaxScaleDenominator>50000</MaxScaleDenominator>
                     <PolygonSymbolizer>
-                        <Stroke>
+                         <Fill>
+                            <CssParameter name="fill">#ffffff</CssParameter>
+                            <CssParameter name="fill-opacity">0.0</CssParameter>
+                        </Fill>
+                       <Stroke>
                             <CssParameter name="stroke">#660033</CssParameter>
                             <CssParameter name="stroke-width">1.5</CssParameter>
                         </Stroke>
-                        <Fill>
-                            <CssParameter name="fill">#ffffff</CssParameter>
-                        </Fill>
                     </PolygonSymbolizer>
                     <TextSymbolizer>
                         <Label>
@@ -44,30 +45,31 @@
                 <Rule>
                     <Name>Scale 50000 - 625000</Name>
                     <MinScaleDenominator>50000</MinScaleDenominator>
-                    <MaxScaleDenominator>625000</MaxScaleDenominator>
-	   
+                    <MaxScaleDenominator>625000</MaxScaleDenominator>   
                     <PolygonSymbolizer>
-                        <Fill>
+                          <Fill>
                             <CssParameter name="fill">#ffffff</CssParameter>
+                            <CssParameter name="fill-opacity">0.0</CssParameter>
                         </Fill>
-                        <Stroke>
+                       <Stroke>
                             <CssParameter name="stroke">#660033</CssParameter>
                             <CssParameter name="stroke-width">1</CssParameter>
                         </Stroke>
-                    </PolygonSymbolizer>
+                   </PolygonSymbolizer>
                 </Rule>
                 <Rule>
                     <Name>Scale &gt; 625000</Name>
                     <MinScaleDenominator>625000</MinScaleDenominator>
                     <PolygonSymbolizer>
-                        <Fill>
+                          <Fill>
                             <CssParameter name="fill">#ffffff</CssParameter>
+                            <CssParameter name="fill-opacity">0.0</CssParameter>
                         </Fill>
-                        <Stroke>
+                       <Stroke>
                             <CssParameter name="stroke">#660033</CssParameter>
                             <CssParameter name="stroke-width">0.2</CssParameter>
                         </Stroke>
-                    </PolygonSymbolizer>
+                   </PolygonSymbolizer>
                 </Rule>
             </FeatureTypeStyle>
         </UserStyle>
