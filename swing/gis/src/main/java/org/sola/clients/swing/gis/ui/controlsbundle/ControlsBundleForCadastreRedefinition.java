@@ -31,6 +31,7 @@ package org.sola.clients.swing.gis.ui.controlsbundle;
 
 import com.vividsolutions.jts.geom.Geometry;
 import java.util.List;
+import org.geotools.feature.SchemaException;
 import org.geotools.geometry.jts.JTS;
 import org.geotools.geometry.jts.ReferencedEnvelope;
 import org.geotools.swing.extended.exception.InitializeLayerException;
@@ -129,8 +130,8 @@ public final class ControlsBundleForCadastreRedefinition extends ControlsBundleF
         this.getDocumentsPanel().setSourceIds(this.transactionBean.getSourceIdList());
     }
 
-    @Override
-    protected void addLayers() throws InitializeLayerException {
+      @Override
+    protected void addLayers() throws InitializeLayerException, SchemaException {
         super.addLayers();
         this.cadastreObjectModifiedLayer = new CadastreRedefinitionObjectLayer();
         this.getMap().addLayer(this.cadastreObjectModifiedLayer);
