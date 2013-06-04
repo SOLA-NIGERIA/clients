@@ -875,11 +875,25 @@ public class ApplicationBean extends ApplicationSummaryBean {
     }
 
     /**
+     * set the contact person's role to applicant
+     *
+     */
+    public boolean setApplicantRole() {
+        PartyRoleTypeBean partyRoleType = new PartyRoleTypeBean();
+        partyRoleType.setCode("applicant");
+        if (!contactPerson.checkRoleExists(partyRoleType)) {
+           contactPerson.addRole(partyRoleType);
+        } 
+        return true;
+    }
+    
+    /**
      * Creates new application in the database.
      *
      * @throws Exception
      */
     public boolean lodgeApplication() {
+        setApplicantRole();
         ApplicationTO app = TypeConverters.BeanToTrasferObject(this, ApplicationTO.class);
         app = WSManager.getInstance().getCaseManagementService().createApplication(app);
         TypeConverters.TransferObjectToBean(app, ApplicationBean.class, this);
@@ -893,6 +907,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
      * @throws Exception
      */
     public boolean saveApplication() {
+        setApplicantRole();
         ApplicationTO app = TypeConverters.BeanToTrasferObject(this, ApplicationTO.class);
         app = WSManager.getInstance().getCaseManagementService().saveApplication(app);
         TypeConverters.TransferObjectToBean(app, ApplicationBean.class, this);

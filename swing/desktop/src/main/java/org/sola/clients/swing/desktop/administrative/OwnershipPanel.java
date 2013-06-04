@@ -69,7 +69,8 @@ public class OwnershipPanel extends ContentPanel {
     private ApplicationServiceBean appService;
     private RrrBean.RRR_ACTION rrrAction;
     public static final String UPDATED_RRR = "updatedRRR";
-
+    public static final String SYS_REG = "systematicRegn";
+    
     private DocumentsManagementExtPanel createDocumentsPanel() {
         if (rrrBean == null) {
             rrrBean = new RrrBean();
@@ -106,6 +107,8 @@ public class OwnershipPanel extends ContentPanel {
         initComponents();
 
         customizeForm();
+        
+        
         customizeSharesButtons(null);
         saveRrrState();
     }
@@ -154,7 +157,18 @@ public class OwnershipPanel extends ContentPanel {
     }
 
     private void customizeForm() {
-        headerPanel.setTitleText(rrrBean.getRrrType().getDisplayValue());
+        String stringTitle = rrrBean.getRrrType().getDisplayValue();
+        if (appService.getRequestType().getCode().contentEquals(SYS_REG)){
+           stringTitle = stringTitle+" "+ MessageUtility.getLocalizedMessage(
+                            ClientMessage.SYSTEMATIC_REGISTRATION_CLAIM).getMessage(); 
+           this.groupPanel1.setTitleText(this.groupPanel1.getTitleText()+" "+MessageUtility.getLocalizedMessage(
+                            ClientMessage.SYSTEMATIC_REGISTRATION_CLAIMANTS).getMessage());
+           this.tableShares.getColumnModel().getColumn(0).setHeaderValue(MessageUtility.getLocalizedMessage(
+                            ClientMessage.SYSTEMATIC_REGISTRATION_CLAIMANT).getMessage());
+
+        }
+           
+        headerPanel.setTitleText(stringTitle);
         if (rrrAction == RrrBean.RRR_ACTION.NEW) {
             btnSave.setText(MessageUtility.getLocalizedMessage(
                             ClientMessage.GENERAL_LABELS_CREATE_AND_CLOSE).getMessage());
@@ -180,10 +194,19 @@ public class OwnershipPanel extends ContentPanel {
     }
 
     private void openShareForm(RrrShareBean shareBean, RrrBean.RRR_ACTION rrrAction) {
-        SharePanel shareForm = new SharePanel(shareBean, rrrAction);
-        ShareFormListener listener = new ShareFormListener();
-        shareForm.addPropertyChangeListener(SharePanel.UPDATED_RRR_SHARE, listener);
-        getMainContentPanel().addPanel(shareForm, MainContentPanel.CARD_OWNERSHIP_SHARE, true);
+         if (appService.getRequestType().getCode().contentEquals(SYS_REG)){
+          SharePanel shareForm = new SharePanel(shareBean, rrrAction, appService);
+          ShareFormListener listener = new ShareFormListener();
+          shareForm.addPropertyChangeListener(SharePanel.UPDATED_RRR_SHARE, listener);
+          getMainContentPanel().addPanel(shareForm, MainContentPanel.CARD_OWNERSHIP_SHARE, true);
+         }    
+        else { 
+          SharePanel shareForm = new SharePanel(shareBean, rrrAction);
+          ShareFormListener listener = new ShareFormListener();
+          shareForm.addPropertyChangeListener(SharePanel.UPDATED_RRR_SHARE, listener);
+          getMainContentPanel().addPanel(shareForm, MainContentPanel.CARD_OWNERSHIP_SHARE, true);
+        }
+       
     }
 
     private boolean saveRrr() {

@@ -33,6 +33,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.administrative.RrrShareBean;
+import org.sola.clients.beans.application.ApplicationServiceBean;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.swing.common.LafManager;
 import org.sola.clients.swing.common.tasks.SolaTask;
@@ -74,7 +75,21 @@ public class SharePanel extends ContentPanel {
         customizeOwnersButtons(null);
         saveRrrShareState();
     }
+    
+    public SharePanel(RrrShareBean rrrShareBean, RrrBean.RRR_ACTION rrrAction, ApplicationServiceBean applicationService) {
+        this.rrrAction = rrrAction;
+        prepareRrrShareBean(rrrShareBean);
 
+        initComponents();
+
+        customizeForm(rrrAction);
+        this.groupPanel1.setTitleText(MessageUtility.getLocalizedMessage(
+                            ClientMessage.SYSTEMATIC_REGISTRATION_CLAIMANTS).getMessage());
+        
+        customizeOwnersButtons(null);
+        saveRrrShareState();
+    }
+    
     private RrrShareBean CreateRrrShareBean() {
         if (rrrShareBean == null) {
             rrrShareBean = new RrrShareBean();
