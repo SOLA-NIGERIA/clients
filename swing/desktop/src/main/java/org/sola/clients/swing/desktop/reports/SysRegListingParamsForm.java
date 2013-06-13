@@ -103,7 +103,9 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
         Date recDate = (Date) txtFromDate.getValue();
         Date expDate = (Date) txtToDate.getValue();
         String location = this.tmpLocation.replace(" ", "_");
-
+        this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
+        this.reportTogenerate = this.reportTogenerate.replace("/", "_");
+        
         JRPdfExporter exporterPdf = new JRPdfExporter();
 
         exporterPdf.setParameter(JRXlsExporterParameter.JASPER_PRINT, populatedReport);
@@ -142,6 +144,7 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
         DocumentBean document = new DocumentBean();
         File file = new File(cachePath + fileName);
         document = DocumentBean.createDocumentFromLocalFile(file);
+        
         documentPanel.archiveDocument = document;
         documentPanel.saveDocument();
 
@@ -307,7 +310,9 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
         String reportRequested = "subTitlePN";
         if (cadastreObjectSearch.getSelectedElement() != null) {
             this.location = cadastreObjectSearch.getSelectedElement().toString();
-            tmpLocation = (this.location.substring(this.location.indexOf("/") + 1).trim());
+//            tmpLocation = (this.location.substring(this.location.indexOf("/") + 1).trim());
+              tmpLocation = (this.location);
+       
         } else {
             MessageUtility.displayMessage(ClientMessage.CHECK_SELECT_LOCATION);
             return;
@@ -328,6 +333,9 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
             SimpleDateFormat formatter = new SimpleDateFormat("ddMMyy");
             this.reportdate = formatter.format(currentdate);
             this.reportTogenerate = this.report + "_" + tmpLocation + "_" + this.reportdate + ".pdf";
+            this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
+            this.reportTogenerate = this.reportTogenerate.replace("/", "_");
+        
             showDocMessage(this.reportTogenerate);
 
             if (this.report.contentEquals("Owners")) {
