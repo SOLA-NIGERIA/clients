@@ -306,12 +306,20 @@ public class PojoDataAccess {
      * @param nameLastPart
      * @return 
      */
-    public ReferencedEnvelope getExtentOfPublicDisplay(String nameLastPart){
-        byte[] e = getBulkOperationsService().getExtentOfPublicDisplayMap(nameLastPart);
-        Geometry extent = GeometryUtility.getGeometryFromWkb(e);
-        if (extent == null){
+//    public ReferencedEnvelope getExtentOfPublicDisplay(String nameLastPart){
+//        byte[] e = getBulkOperationsService().getExtentOfPublicDisplayMap(nameLastPart);
+//        Geometry extent = GeometryUtility.getGeometryFromWkb(e);
+//        if (extent == null){
+//            return null;
+//        }
+//        return JTS.toEnvelope(extent);
+//    }
+     public ReferencedEnvelope getExtentOfPublicDisplay(String nameLastPart){
+        byte[] e = getSearchService().getExtentOfPublicDisplayMap(nameLastPart);
+        if (e == null){
             return null;
         }
+        Geometry extent = GeometryUtility.getGeometryFromWkb(e);
         return JTS.toEnvelope(extent);
     }
 }
