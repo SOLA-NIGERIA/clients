@@ -813,9 +813,11 @@ public class ApplicationPanel extends ContentPanel {
 
         String[] params = {"" + nrPropRequired};
         if (appBean.getPropertyList().size() < nrPropRequired) {
+           if (!appBean.getServiceList().get(0).getRequestTypeCode().contains("cadastreChange")){ 
             if (MessageUtility.displayMessage(ClientMessage.APPLICATION_ATLEAST_PROPERTY_REQUIRED, params) == MessageUtility.BUTTON_TWO) {
                 return false;
             }
+           }
         }
         return true;
     }
