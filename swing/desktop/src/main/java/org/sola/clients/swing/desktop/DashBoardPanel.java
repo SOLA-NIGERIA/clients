@@ -179,13 +179,13 @@ public class DashBoardPanel extends ContentPanel {
         if (appList == null || appList.size() < 1) {
             return;
         }
-
-        for (ApplicationSearchResultBean app : appList) {
-            if (!app.isFeePaid()&& !app.getServiceList().contains(ApplicationBean.NOT_REQUIRE_FEE_PAID)) {
-                MessageUtility.displayMessage(ClientMessage.CHECK_FEES_NOT_PAID, new Object[]{app.getNr()});
-                return;
-            }
-        }
+// Remove Requirement for Fees to be Paid prior to Lodgement  TICKET #11 LH reported by neil on 17th june 2013
+//        for (ApplicationSearchResultBean app : appList) {
+//            if (!app.isFeePaid()&& !app.getServiceList().contains(ApplicationBean.NOT_REQUIRE_FEE_PAID)) {
+//                MessageUtility.displayMessage(ClientMessage.CHECK_FEES_NOT_PAID, new Object[]{app.getNr()});
+//                return;
+//            }
+//        }
 
         if (assign) {
             ApplicationAssignmentDialog form = new ApplicationAssignmentDialog(appList, MainForm.getInstance(), true);
