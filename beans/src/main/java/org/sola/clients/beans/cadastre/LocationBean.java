@@ -19,6 +19,7 @@ package org.sola.clients.beans.cadastre;
  *
  * @author RizzoM
  */
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -28,52 +29,126 @@ import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.referencedata.CadastreObjectTypeBean;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
-import org.sola.webservices.transferobjects.cadastre.CadastreObjectTO;
+//import org.sola.webservices.transferobjects.cadastre.CadastreObjectTO;
+import org.sola.webservices.transferobjects.cadastre.SpatialUnitGroupTO;
 
 /** 
  * Contains properties and methods to manage <b>Cadastre</b> object of the 
- * domain model. Could be populated from the {@link CadastreObjectTO} object.
+ * domain model. Could be populated from the {@link SpatialUnitGroupTO} object.
  */
 public class LocationBean extends AbstractTransactionedBean {
 
-    public static final String NAME_FIRSTPART_PROPERTY = "nameFirstpart";
-    public static final String NAME_LASTPART_PROPERTY = "nameLastpart";
+//    public static final String NAME_FIRSTPART_PROPERTY = "nameFirstpart";
+//    public static final String NAME_LASTPART_PROPERTY = "nameLastpart";
    
-    @Length(max = 20, message =  ClientMessage.CHECK_FIELD_INVALID_LENGTH_FIRSTPART, payload=Localized.class)
-    @NotEmpty(message =  ClientMessage.CHECK_NOTNULL_CADFIRSTPART, payload=Localized.class)
-    private String nameFirstpart;
-    @Length(max = 50, message =  ClientMessage.CHECK_FIELD_INVALID_LENGTH_LASTPART, payload=Localized.class)
-    @NotEmpty(message =  ClientMessage.CHECK_NOTNULL_CADLASTPART, payload=Localized.class)
-    private String nameLastpart;
+//    @Length(max = 20, message =  ClientMessage.CHECK_FIELD_INVALID_LENGTH_FIRSTPART, payload=Localized.class)
+//    @NotEmpty(message =  ClientMessage.CHECK_NOTNULL_CADFIRSTPART, payload=Localized.class)
+//    private String nameFirstpart;
+//    @Length(max = 50, message =  ClientMessage.CHECK_FIELD_INVALID_LENGTH_LASTPART, payload=Localized.class)
+//    @NotEmpty(message =  ClientMessage.CHECK_NOTNULL_CADLASTPART, payload=Localized.class)
+//    private String nameLastpart;
     
-    public LocationBean() {
+    public static final String NAME_PROPERTY = "name";
+    public static final String GEOM_PROPERTY = "geom";
+   
+    
+    @Length(max = 50, message =  ClientMessage.CHECK_FIELD_INVALID_LENGTH_NAME, payload=Localized.class)
+    @NotEmpty(message =  ClientMessage.CHECK_NOTNULL_NAME, payload=Localized.class)
+    private String name;
+    private String label;
+    private String foundInSpatialId;
+    private byte[] geom;
+    private byte[] referencePoint;
+    private BigDecimal hierarchyLevel;
+    private BigDecimal seqNr;
+    
+     public LocationBean() {
         super();
     }
-    public String getNameFirstpart() {
-        return nameFirstpart;
-    }
-
-    public void setNameFirstpart(String nameFirstpart) {
-        this.nameFirstpart = nameFirstpart;
-    }
-
-    public String getNameLastpart() {
-        return nameLastpart;
-    }
-
-    public void setNameLastpart(String nameLastpart) {
-        this.nameLastpart = nameLastpart;
-    }
     
+//    public String getFoundInSpatialId() {
+//        return foundInSpatialId;
+//    }
+//
+//    public void setFoundInSpatialId(String foundInSpatialId) {
+//        this.foundInSpatialId = foundInSpatialId;
+//    }
+
+//    public byte[] getGeom() {
+//        return geom;
+//    }
+//
+//    public void setGeom(byte[] geom) {
+//        this.geom = geom;
+//    }
+
+//    public Integer getHierarchyLevel() {
+//        return hierarchyLevel;
+//    }
+//
+//    public void setHierarchyLevel(Integer hierarchyLevel) {
+//        this.hierarchyLevel = hierarchyLevel;
+//    }
+//
+//    public String getLabel() {
+//        return label;
+//    }
+//
+//    public void setLabel(String label) {
+//        this.label = label;
+//    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+//    public byte[] getReferencePoint() {
+//        return referencePoint;
+//    }
+//
+//    public void setReferencePoint(byte[] referencePoint) {
+//        this.referencePoint = referencePoint;
+//    }
+//
+//    public Integer getSeqNr() {
+//        return seqNr;
+//    }
+//
+//    public void setSeqNr(Integer seqNr) {
+//        this.seqNr = seqNr;
+//    }
+   
+//    public String getNameFirstpart() {
+//        return nameFirstpart;
+//    }
+//
+//    public void setNameFirstpart(String nameFirstpart) {
+//        this.nameFirstpart = nameFirstpart;
+//    }
+//
+//    public String getNameLastpart() {
+//        return nameLastpart;
+//    }
+//
+//    public void setNameLastpart(String nameLastpart) {
+//        this.nameLastpart = nameLastpart;
+//    }
+      
+     
     @Override
     public String toString() {
         String result = "";
-//        String subStringLastpart = nameLastpart.substring(nameLastpart.indexOf(" ")).trim();
-//        System.out.println("LASTPART  "+subStringLastpart);
-//        subStringLastpart = nameLastpart.substring(0,(subStringLastpart.indexOf(" ")+nameLastpart.indexOf(" ")+1));
-//        System.out.println("LASTPART  "+subStringLastpart);
-//        result += subStringLastpart;
-        result += nameLastpart; 
+////        String subStringLastpart = nameLastpart.substring(nameLastpart.indexOf(" ")).trim();
+////        System.out.println("LASTPART  "+subStringLastpart);
+////        subStringLastpart = nameLastpart.substring(0,(subStringLastpart.indexOf(" ")+nameLastpart.indexOf(" ")+1));
+////        System.out.println("LASTPART  "+subStringLastpart);
+////        result += subStringLastpart;
+//        result += nameLastpart; 
+        result += name; 
         return result;
     }
     

@@ -54,7 +54,8 @@ public class LocationSearch extends FreeTextSearch {
                     // before executing the search if the user is still typing. 
                     Thread.sleep(500);
                     TypeConverters.TransferObjectListToBeanList(
-                            WSManager.getInstance().getCadastreService().getCadastreObjectByParts(searchString),
+//                            WSManager.getInstance().getCadastreService().getCadastreObjectByParts(searchString),
+                            WSManager.getInstance().getCadastreService().getSpatialUnitGroupByParts(searchString),
                             LocationBean.class, (List) searchResult);
                 } catch (InterruptedException ex) {
                 }
@@ -69,7 +70,8 @@ public class LocationSearch extends FreeTextSearch {
                 String subStringLastpart;
                 if (searchResult.size() > 0) {
                     for (LocationBean cadastreObject : searchResult) {
-                        newValue = cadastreObject.getNameLastpart();
+//                        newValue = cadastreObject.getNameLastpart();
+                        newValue = cadastreObject.getName();
 //                        subStringLastpart = cadastreObject.getNameLastpart().substring(cadastreObject.getNameLastpart().indexOf(" ")).trim();
 //                        newValue = cadastreObject.getNameLastpart().substring(0, (subStringLastpart.indexOf(" ") + cadastreObject.getNameLastpart().indexOf(" ") + 1));
 //                        if (!newValue.toUpperCase().trim().contains(oldValue.toUpperCase().trim())) {
@@ -81,7 +83,8 @@ public class LocationSearch extends FreeTextSearch {
 //                        subStringLastpart = cadastreObject.getNameLastpart().substring(cadastreObject.getNameLastpart().indexOf(" ")).trim();
 //                        oldValue = cadastreObject.getNameLastpart().substring(0, (subStringLastpart.indexOf(" ") + cadastreObject.getNameLastpart().indexOf(" ") + 1));
 
-                        oldValue = cadastreObject.getNameLastpart();
+//                        oldValue = cadastreObject.getNameLastpart();
+                        oldValue = cadastreObject.getName();
 
                     }
                 }

@@ -36,9 +36,12 @@ public class StateLandListingBean extends AbstractIdBean {
     public static final String PUBLIC_NOTIFICATION_DURATION_PROPERTY = "publicNotificationDuration";
     public static final String SIZE_PROPERTY = "size";
     public static final String OBJECTIONS_PROPERTY = "objections";
+    public static final String NAME_PROPERTY = "name";
+    
     
     private String nameFirstpart;
     private String nameLastpart;
+    private String name;
     private String landUsecode;
     private String baUnitId;
     private String value;
@@ -145,4 +148,13 @@ public class StateLandListingBean extends AbstractIdBean {
     public void setSize(BigDecimal size) {
         this.size = size;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
 }

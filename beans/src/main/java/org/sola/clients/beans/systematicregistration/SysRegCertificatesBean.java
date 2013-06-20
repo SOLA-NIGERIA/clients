@@ -30,11 +30,13 @@ public class SysRegCertificatesBean extends AbstractIdBean {
     public static final String NAME_LASTPART_PROPERTY = "nameLastpart";
     public static final String BAUNIT_PROPERTY = "baUnitId";
     public static final String NR_PROPERTY = "nr";
+    public static final String NAME_PROPERTY = "name";
     private String nameFirstpart;
     private String nameLastpart;
     private String baUnitId;
     private String nr;
-
+    private String name;
+    
     public String getBaUnitId() {
         return baUnitId;
     }
@@ -65,5 +67,12 @@ public class SysRegCertificatesBean extends AbstractIdBean {
 
     public void setNr(String nr) {
         this.nr = nr;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
