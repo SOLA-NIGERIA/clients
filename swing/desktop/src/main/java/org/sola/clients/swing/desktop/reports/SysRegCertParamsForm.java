@@ -231,13 +231,14 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
      */
     private BaUnitBean getBaUnit(String id) {
         BaUnitTO baUnitTO = WSManager.getInstance().getAdministrative().getBaUnitById(id);
-        return TypeConverters.TransferObjectToBean(baUnitTO, BaUnitBean.class, null);
-    }
+       return TypeConverters.TransferObjectToBean(baUnitTO, BaUnitBean.class, null);
+    }   
 
     private void btnGenCertificateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenCertificateActionPerformed
         if (cadastreObjectSearch.getSelectedElement() != null) {
             this.location = cadastreObjectSearch.getSelectedElement().toString();
-            tmpLocation = (this.location.substring(this.location.indexOf("/") + 1).trim());
+//            tmpLocation = (this.location.substring(this.location.indexOf("/") + 1).trim());
+            tmpLocation = (this.location);
         } else {
             MessageUtility.displayMessage(ClientMessage.CHECK_SELECT_LOCATION);
             return;
@@ -265,7 +266,8 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             this.reportTogenerate = baUnitId + "_" + tmpLocation + "_" + this.reportdate + ".pdf";
             this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
             this.reportTogenerate = this.reportTogenerate.replace("/", "_");
-        
+            
+          
 //            showReport(ReportManager.getBaUnitReport(getBaUnit(baUnitId)));
             showReport(ReportManager.getSysRegCertificatesReport(getBaUnit(baUnitId),tmpLocation));
             i = i + 1;
