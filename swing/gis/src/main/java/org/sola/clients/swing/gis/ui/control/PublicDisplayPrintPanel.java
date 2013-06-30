@@ -51,6 +51,7 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
      */
     public PublicDisplayPrintPanel(ControlsBundleForPublicDisplay mapBundle) {
         initComponents();
+        this.txtNameLastPart.setVisible(false);
         setPrintLayoutList();
         this.mapBundle = mapBundle;
     }
@@ -222,6 +223,13 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
      * @return True if the filter is set.
      */
     private boolean setLayerFilter() {
+        if (cadastreObjectSearch.getSelectedElement() != null) {
+            this.txtNameLastPart.setText(cadastreObjectSearch.getSelectedElement().toString());
+       
+        } else {
+            MessageUtility.displayMessage(ClientMessage.CHECK_SELECT_LOCATION);
+            return false;
+        }
         String nameLastPart = getFilterNameLastPart();
         if ( nameLastPart.isEmpty()) {
             Messaging.getInstance().show(GisMessage.PRINT_PUBLIC_DISPLAY_FILTER_NOT_FOUND);
@@ -264,6 +272,7 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         txtScale = new javax.swing.JTextField();
         cmdCenterMap = new javax.swing.JButton();
+        cadastreObjectSearch = new org.sola.clients.swing.ui.cadastre.LocationSearch();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/gis/ui/control/Bundle"); // NOI18N
         jLabel2.setText(bundle.getString("PublicDisplayPrintForm.jLabel2.text")); // NOI18N
@@ -300,36 +309,43 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
             }
         });
 
+        cadastreObjectSearch.setText(bundle.getString("PublicDisplayPrintPanel.cadastreObjectSearch.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cmdCenterMap)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmdPrint))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel2)
-                        .addComponent(labNotificationFrom)
-                        .addComponent(jLabel1)
-                        .addComponent(labLocation)
-                        .addComponent(txtArea)
-                        .addComponent(txtNotificationPeriod)
-                        .addComponent(txtNameLastPart)
-                        .addComponent(cmbLayoutList, 0, 179, Short.MAX_VALUE)
-                        .addComponent(txtScale, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cmdCenterMap)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmdPrint))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel2)
+                                .addComponent(labNotificationFrom)
+                                .addComponent(jLabel1)
+                                .addComponent(labLocation)
+                                .addComponent(txtArea)
+                                .addComponent(txtNotificationPeriod)
+                                .addComponent(txtNameLastPart)
+                                .addComponent(cmbLayoutList, 0, 179, Short.MAX_VALUE)
+                                .addComponent(txtScale, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(labLocation)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(txtNameLastPart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
@@ -351,7 +367,7 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmdPrint)
                     .addComponent(cmdCenterMap))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -379,6 +395,7 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
         centerMap();
     }//GEN-LAST:event_cmdCenterMapActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.sola.clients.swing.ui.cadastre.LocationSearch cadastreObjectSearch;
     private javax.swing.JComboBox cmbLayoutList;
     private javax.swing.JButton cmdCenterMap;
     private javax.swing.JButton cmdPrint;
