@@ -92,7 +92,7 @@
 			<variableExpression><![CDATA[$F{appIncDoc}]]></variableExpression>
 		</variable>
 		<variable name="TotalAppPrLand" class="java.math.BigDecimal" calculation="Sum">
-			<variableExpression><![CDATA[$F{appPubLand}]]></variableExpression>
+			<variableExpression><![CDATA[$F{appPrLand}]]></variableExpression>
 		</variable>
 		<variable name="TotalAppPubLand" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{appPubLand}]]></variableExpression>
@@ -255,7 +255,7 @@
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="30" rowSpan="1">
-							<textField>
+							<textField isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="56" height="30"/>
 								<textElement textAlignment="Right"/>
 								<textFieldExpression><![CDATA[$F{totApp}]]></textFieldExpression>
@@ -285,7 +285,7 @@
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="30" rowSpan="1">
-							<textField pattern="" isBlankWhenNull="false">
+							<textField pattern="" isBlankWhenNull="true">
 								<reportElement mode="Transparent" x="0" y="0" width="48" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -318,7 +318,7 @@
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="30" rowSpan="1">
-							<textField pattern="" isBlankWhenNull="false">
+							<textField pattern="" isBlankWhenNull="true">
 								<reportElement mode="Transparent" x="0" y="0" width="55" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -351,7 +351,7 @@
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="30" rowSpan="1">
-							<textField pattern="" isBlankWhenNull="false">
+							<textField pattern="" isBlankWhenNull="true">
 								<reportElement mode="Transparent" x="0" y="0" width="61" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -384,7 +384,7 @@
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="30" rowSpan="1">
-							<textField pattern="" isBlankWhenNull="false">
+							<textField pattern="" isBlankWhenNull="true">
 								<reportElement mode="Transparent" x="0" y="0" width="57" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -417,7 +417,7 @@
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="30" rowSpan="1">
-							<textField pattern="" isBlankWhenNull="false">
+							<textField pattern="" isBlankWhenNull="true">
 								<reportElement mode="Transparent" x="0" y="0" width="56" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -450,7 +450,7 @@
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="30" rowSpan="1">
-							<textField pattern="" isBlankWhenNull="false">
+							<textField pattern="" isBlankWhenNull="true">
 								<reportElement mode="Transparent" x="0" y="0" width="60" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -483,7 +483,7 @@
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="30" rowSpan="1">
-							<textField pattern="" isBlankWhenNull="false">
+							<textField pattern="" isBlankWhenNull="true">
 								<reportElement mode="Transparent" x="0" y="0" width="59" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -516,7 +516,7 @@
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="30" rowSpan="1">
-							<textField pattern="" isBlankWhenNull="false">
+							<textField pattern="" isBlankWhenNull="true">
 								<reportElement mode="Transparent" x="0" y="0" width="52" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -549,7 +549,7 @@
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="30" rowSpan="1">
-							<textField pattern="" isBlankWhenNull="false">
+							<textField pattern="" isBlankWhenNull="true">
 								<reportElement mode="Transparent" x="0" y="0" width="57" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -582,7 +582,7 @@
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="30" rowSpan="1">
-							<textField pattern="" isBlankWhenNull="false">
+							<textField pattern="" isBlankWhenNull="true">
 								<reportElement mode="Transparent" x="0" y="0" width="61" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -615,7 +615,7 @@
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="30" rowSpan="1">
-							<textField pattern="" isBlankWhenNull="false">
+							<textField pattern="" isBlankWhenNull="true">
 								<reportElement mode="Transparent" x="0" y="0" width="57" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>

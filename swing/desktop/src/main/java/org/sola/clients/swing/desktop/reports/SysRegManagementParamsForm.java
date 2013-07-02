@@ -58,8 +58,8 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
     public SysRegManagementParamsForm(java.awt.Frame parent, boolean modal, String whichReport) {
         super(parent, modal);
         initComponents();
-        this.labSearchArea.setVisible(false);
-        this.cadastreObjectSearch.setVisible(false);
+        this.labSearchArea.setVisible(true);
+        this.cadastreObjectSearch.setVisible(true);
         this.whichReport=whichReport;
     }
     
@@ -69,8 +69,8 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
     public SysRegManagementParamsForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.labSearchArea.setVisible(false);
-        this.cadastreObjectSearch.setVisible(false);
+        this.labSearchArea.setVisible(true);
+        this.cadastreObjectSearch.setVisible(true);
         this.whichReport=whichReport;
     }
     /**
@@ -178,9 +178,11 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnShowCalendarTo))
                     .addComponent(labSearchArea)
-                    .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(viewReport))
-                .addContainerGap(84, Short.MAX_VALUE))
+                    .addGroup(reportViewerPanelLayout.createSequentialGroup()
+                        .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(viewReport)))
+                .addContainerGap())
         );
         reportViewerPanelLayout.setVerticalGroup(
             reportViewerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,13 +201,13 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
                             .addComponent(btnShowCalendarFrom)
                             .addComponent(txtToDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnShowCalendarTo))
-                .addGap(18, 18, 18)
-                .addComponent(viewReport)
-                .addGap(13, 13, 13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labSearchArea)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addGroup(reportViewerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewReport))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -291,6 +293,18 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
             tmpTo = (Date) txtToDate.getValue();
             searchParams.setToDate(tmpTo);
         }
+// added for base reports on sections        
+         if (cadastreObjectSearch.getSelectedElement() != null) {
+            this.location = cadastreObjectSearch.getSelectedElement().toString();
+              tmpLocation = (this.location);
+              searchParams.setNameLastpart(tmpLocation);
+       
+        }
+//         else {
+//            MessageUtility.displayMessage(ClientMessage.CHECK_SELECT_LOCATION);
+//            return;
+//        }
+        
         if (dateFilled) {
             if (this.whichReport.contentEquals("sysRegManagementBean") ) {
               sysRegManagementBean.passParameter(searchParams);
