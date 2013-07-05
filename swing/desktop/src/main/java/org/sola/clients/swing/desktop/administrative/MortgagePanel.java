@@ -163,7 +163,12 @@ public class MortgagePanel extends ContentPanel {
 
     private void openLenderForm() {
         QuickSearchPartyForm searchForm = new QuickSearchPartyForm(this, true);
-        searchForm.getSearchParams().setRoleTypeCode("bank");
+        if (this.appService.getRequestType().getRrrTypeCode().equals(RrrBean.CODE_LIEN)) {
+            searchForm.getSearchParams().setRoleTypeCode("moneyProvider");
+        }
+        else {
+            searchForm.getSearchParams().setRoleTypeCode("bank");
+        }
         searchForm.setLocationRelativeTo(this);
 
         PropertyChangeListener listener = new PropertyChangeListener() {

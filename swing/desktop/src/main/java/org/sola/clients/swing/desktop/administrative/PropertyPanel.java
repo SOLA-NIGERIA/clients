@@ -34,7 +34,6 @@ import java.awt.BorderLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.math.BigDecimal;
-import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -289,13 +288,6 @@ public class PropertyPanel extends ContentPanel {
      * the {@link BaUnitBean} and other components.
      */
     private void customizeForm() {
-//        System.out.println("this.applicationService.getRequestTypeCode()   "+this.applicationService.getRequestTypeCode());
-//        if (this.applicationService.getRequestTypeCode().equals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
-//            System.out.println(""+this.rrrTypes.getRrrTypeBeanList().get(8).getCode());
-//            this.rrrTypes..setExcludedCodes("ownership");
-//        }
-//        QUI
-        
         
         if (nameFirstPart != null && nameLastPart != null) {
             headerPanel.setTitleText(String.format(
@@ -617,23 +609,15 @@ public class PropertyPanel extends ContentPanel {
      * state.
      */
     private void customizeRightTypesList() {
-            
         cbxRightType.setSelectedIndex(-1);
         rrrTypes.setSelectedRrrType(null);
-//        Systematic registration rrr
-        if (this.applicationService.getRequestTypeCode().equals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
-            for (Iterator<RrrTypeBean> it = rrrTypes.getRrrTypeBeanList().iterator(); it.hasNext();) {
-                RrrTypeBean rrrTypesBean = it.next();
-                  if (! RequestTypeBean.CODES_FOR_SYSREG.contains(rrrTypesBean.getCode())) {
-                      it.remove();
-                  }
-            }
-        }
         
         if (!readOnly && isActionAllowed(RrrTypeActionConstants.NEW)) {
             cbxRightType.setEnabled(true);
 
             // Restrict selection of right type by application service
+            
+            
             if (applicationService != null && applicationService.getRequestType() != null
                     && applicationService.getRequestType().getRrrTypeCode() != null) {
                 rrrTypes.setSelectedRightByCode(applicationService.getRequestType().getRrrTypeCode());
@@ -644,7 +628,6 @@ public class PropertyPanel extends ContentPanel {
         } else {
             cbxRightType.setEnabled(false);
         }
-        
         customizeCreateRightButton(rrrTypes.getSelectedRrrType());
     }
 
@@ -674,7 +657,7 @@ public class PropertyPanel extends ContentPanel {
         
         if (rrrBean != null && !rrrBean.isLocked() && !readOnly) {
             boolean isPending = rrrBean.getStatusCode().equals(StatusConstants.PENDING);
-           
+
             // Control pending state and allowed types of RRR for edit/remove buttons
             if (isPending && isRightTypeAllowed(rrrBean.getTypeCode())) {
                 btnEditRight.setEnabled(true);
@@ -732,9 +715,6 @@ public class PropertyPanel extends ContentPanel {
                 && applicationService.getRequestType().getRrrTypeCode() != null) {
             result = applicationService.getRequestType().getRrrTypeCode().equalsIgnoreCase(rrrTypeCode);
         }
-        
-        
-        
         return result;
     }
 
@@ -941,7 +921,7 @@ public class PropertyPanel extends ContentPanel {
         String cardName = MainContentPanel.CARD_SIMPLE_RIGHT;
         String rrrCode = rrrBean.getRrrType().getCode();
         
-        if (rrrCode.equals(RrrBean.CODE_MORTGAGE)) {
+        if (rrrCode.equals(RrrBean.CODE_MORTGAGE)||rrrCode.equals(RrrBean.CODE_LIEN)) {
             panel = new MortgagePanel(rrrBean, applicationBean, applicationService, action);
             cardName = MainContentPanel.CARD_MORTGAGE;
         } else if (rrrCode.equalsIgnoreCase(RrrBean.CODE_LEASE)){
