@@ -256,7 +256,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="122" max="32767" attributes="0"/>
+                              <EmptySpace pref="165" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtExpiryDate" alignment="0" pref="214" max="32767" attributes="1"/>
                       </Group>
@@ -307,7 +307,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="172" max="32767" attributes="0"/>
+                              <EmptySpace pref="214" max="32767" attributes="0"/>
                           </Group>
                           <Component id="cbxType" alignment="0" pref="214" max="32767" attributes="1"/>
                       </Group>
@@ -361,7 +361,7 @@
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="163" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="browseLender" alignment="0" pref="214" max="32767" attributes="0"/>
+                          <Component id="browseLender" alignment="0" pref="256" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -422,7 +422,7 @@
                               <Component id="jLabel4" min="-2" max="-2" attributes="1"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
-                          <Component id="txtAmount" alignment="0" pref="214" max="32767" attributes="1"/>
+                          <Component id="txtAmount" alignment="0" pref="256" max="32767" attributes="1"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -482,7 +482,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="57" max="32767" attributes="0"/>
+                                  <EmptySpace pref="78" max="32767" attributes="0"/>
                               </Group>
                               <Component id="txtRanking" alignment="0" pref="99" max="32767" attributes="1"/>
                           </Group>
@@ -530,7 +530,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="jLabel5" min="-2" max="-2" attributes="1"/>
-                                  <EmptySpace pref="33" max="32767" attributes="0"/>
+                                  <EmptySpace pref="54" max="32767" attributes="0"/>
                               </Group>
                               <Component id="txtInterestRate" alignment="0" pref="99" max="32767" attributes="1"/>
                           </Group>

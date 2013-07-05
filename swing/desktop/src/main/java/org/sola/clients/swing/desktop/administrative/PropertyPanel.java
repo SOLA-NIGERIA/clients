@@ -921,7 +921,7 @@ public class PropertyPanel extends ContentPanel {
         String cardName = MainContentPanel.CARD_SIMPLE_RIGHT;
         String rrrCode = rrrBean.getRrrType().getCode();
         
-        if (rrrCode.equals(RrrBean.CODE_MORTGAGE)) {
+        if (rrrCode.equals(RrrBean.CODE_MORTGAGE)||rrrCode.equals(RrrBean.CODE_LIEN)) {
             panel = new MortgagePanel(rrrBean, applicationBean, applicationService, action);
             cardName = MainContentPanel.CARD_MORTGAGE;
         } else if (rrrCode.equalsIgnoreCase(RrrBean.CODE_LEASE)){
