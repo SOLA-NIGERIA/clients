@@ -349,8 +349,9 @@ public class ReportManager {
      * to be passed as SCALE_IMAGE PARAMETER to the report. It is necessary for
      * visualizing the scalebar
      */
-    public static JasperPrint getSolaPrintReport(String layoutId, Object dataBean,
-            String mapImageLocation, String scalebarImageLocation) throws IOException {
+//    --public static JasperPrint getSolaPrintReport(String layoutId, Object dataBean,
+        public static JasperPrint getSolaPrintReport(String fileName, Object dataBean,
+         String mapImageLocation, String scalebarImageLocation) throws IOException {
 
         // Image Location of the north-arrow image
         String navigatorImage = "/images/sola/north-arrow.png";
@@ -361,7 +362,9 @@ public class ReportManager {
         inputParameters.put("SCALE_IMAGE", scalebarImageLocation);
         inputParameters.put("NAVIGATOR_IMAGE",
                 ReportManager.class.getResourceAsStream(navigatorImage));
-        inputParameters.put("LAYOUT", layoutId);
+//        inputParameters.put("LAYOUT", layoutId);
+        inputParameters.put("LAYOUT", fileName);
+        
         inputParameters.put("INPUT_DATE",
                 DateFormat.getInstance().format(Calendar.getInstance().getTime()));
 
@@ -379,7 +382,8 @@ public class ReportManager {
         try {
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                     ReportManager.class.getResourceAsStream(
-                    "/reports/map/" + layoutId + ".jasper"), inputParameters, jds);
+                    "/reports/map/" + fileName + ".jasper"), inputParameters, jds);
+//                    "/reports/map/" + layoutId + ".jasper"), inputParameters, jds);
             return jasperPrint;
         } catch (JRException ex) {
             MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
