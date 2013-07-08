@@ -172,7 +172,8 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
                 serviceBean.setApplicationId(this.applicationId);
             }
             serviceBean.saveInformationService();
-            generateAndShowReport(layout.getId(), mapImageLocation, scalebarImageLocation);
+//            generateAndShowReport(layout.getId(), mapImageLocation, scalebarImageLocation);
+            generateAndShowReport(layout.getFileName(), mapImageLocation, scalebarImageLocation);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -181,20 +182,22 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
     /**
      * It calls the generate report functionality and displays it.
      *
-     * @param layoutId
+     * @param fileName
      * @param mapImageLocation
      * @param scalebarImageLocation
      * @throws IOException
      */
     private void generateAndShowReport(
-            String layoutId,
+//            String layoutId,
+            String fileName,
             String mapImageLocation,
             String scalebarImageLocation) throws IOException {
 
         //   This is to call the report generation         
         SolaPrintViewerForm form = new SolaPrintViewerForm(
                 ReportManager.getMapPublicDisplayReport(
-                layoutId, this.txtArea.getText(),
+//                layoutId, this.txtArea.getText(),
+                fileName, this.txtArea.getText(),
                 this.txtNotificationPeriod.getText(),
                 mapImageLocation, scalebarImageLocation));
         // this is to visualize the generated report            
