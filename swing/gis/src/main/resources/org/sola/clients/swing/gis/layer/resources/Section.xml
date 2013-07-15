@@ -11,7 +11,7 @@
        <MaxScaleDenominator>50000</MaxScaleDenominator>
        <PolygonSymbolizer>
         <Stroke>
-            <CssParameter name="stroke">#ff3300</CssParameter>
+            <CssParameter name="stroke">#FF3300</CssParameter>
             <CssParameter name="stroke-width">1.5</CssParameter>
         </Stroke>
        </PolygonSymbolizer>
