@@ -82,6 +82,8 @@ public class ApplicationBean extends ApplicationSummaryBean {
     public static final String STATUS_TYPE_PROPERTY = "statusType";
     public static final String APPLICATION_PROPERTY = "application";
     public static final String NOT_REQUIRE_FEE_PAID = "Registration Claim";
+    public static final String SELECTED_CADASTRE_OBJECT = "selectedCadastreObject";
+    public static final String LODGED_ROLE = "applicant";
     private ApplicationActionTypeBean actionBean;
     private String actionNotes;
     private SolaList<ApplicationPropertyBean> propertyList;
@@ -941,18 +943,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
     
     /**
     
-    /**
-     * set the contact person's role to applicant
-     *
-     */
-    public boolean setApplicantRole() {
-        PartyRoleTypeBean partyRoleType = new PartyRoleTypeBean();
-        partyRoleType.setCode("applicant");
-        if (!contactPerson.checkRoleExists(partyRoleType)) {
-           contactPerson.addRole(partyRoleType);
-        } 
-        return true;
-    }
+    
     
     /**
      * Creates new application in the database.
@@ -998,4 +989,6 @@ public class ApplicationBean extends ApplicationSummaryBean {
                 WSManager.getInstance().getCaseManagementService().getApplicationByTransactionId(transactionId),
                 ApplicationBean.class, null);
     }
+    
+    
 }
