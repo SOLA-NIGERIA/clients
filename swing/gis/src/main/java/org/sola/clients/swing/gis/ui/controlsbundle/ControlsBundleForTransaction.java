@@ -117,7 +117,8 @@ public abstract class ControlsBundleForTransaction extends SolaControlsBundle {
         return instance;
     }
     
-     /**
+    
+      /**
      * It sets up the bundle. It calls the adding layer method and adding tools method. It also
      * identifies the pending layer which will be refreshed if a transaction is being saved in the
      * database.
@@ -216,6 +217,7 @@ public abstract class ControlsBundleForTransaction extends SolaControlsBundle {
      */
     protected abstract boolean transactionIsStarted();
 
+      
      /**
      * Adds layers that are needed for the transaction
      *
@@ -230,6 +232,7 @@ public abstract class ControlsBundleForTransaction extends SolaControlsBundle {
         this.cadastreBoundaryPointLayer = new CadastreBoundaryPointLayer();
         this.getMap().addLayer(this.cadastreBoundaryPointLayer);
     }
+
 
     /**
      * Adds tools and commands that are relevant to the transaction
