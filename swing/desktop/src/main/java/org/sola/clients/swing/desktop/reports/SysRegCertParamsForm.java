@@ -131,8 +131,10 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         String reportdate = formatter.format(recDate);
         documentPanel.browseAttachment.setText(fileName);
+        
+        
         for (int i = 0, n = documentPanel.cbxDocType.getItemCount(); i < n; i++) {
-            if (documentPanel.cbxDocType.getItemAt(i).toString().contains("Title")) {
+            if (documentPanel.cbxDocType.getItemAt(i).toString().contains("Certificate")) {
                 documentPanel.cbxDocType.setSelectedIndex(i);
                 break;
             }
