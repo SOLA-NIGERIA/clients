@@ -65,6 +65,7 @@ import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.DashBoardPanel;
 import org.sola.clients.swing.desktop.MainForm;
 import org.sola.clients.swing.desktop.ReportViewerForm;
+import org.sola.clients.swing.desktop.administrative.DisputePanelForm;
 import org.sola.clients.swing.desktop.administrative.PropertyPanel;
 import org.sola.clients.swing.desktop.cadastre.CadastreTransactionMapPanel;
 import org.sola.clients.swing.desktop.cadastre.MapPanelForm;
@@ -584,8 +585,8 @@ public class ApplicationPanel extends ContentPanel {
         if (service != null) {
 
             String requestType = service.getRequestTypeCode();
-
-            // Determine what form to start for selected service
+                          
+             // Determine what form to start for selected service
 
             // Power of attorney or other type document registration
             if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_REG_POWER_OF_ATTORNEY)
@@ -615,6 +616,22 @@ public class ApplicationPanel extends ContentPanel {
                             getMainContentPanel().addPanel(documentSearchPanel, MainContentPanel.CARD_DOCUMENT_SEARCH);
                         }
                         getMainContentPanel().showPanel(MainContentPanel.CARD_DOCUMENT_SEARCH);
+                        return null;
+                    }
+                };
+                TaskManager.getInstance().runTask(t);
+            } // Dispute
+             else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_DISPUTE)) {
+                SolaTask t = new SolaTask<Void, Void>() {
+
+                    @Override
+                    public Void doTask() {
+                        setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_DISFORM));
+                        if (!getMainContentPanel().isPanelOpened(MainContentPanel.CARD_DISPUTE)) {
+                            DisputePanelForm disputePanel = new DisputePanelForm(appBean, service);
+                            getMainContentPanel().addPanel(disputePanel, MainContentPanel.CARD_DISPUTE);
+                        }
+                        getMainContentPanel().showPanel(MainContentPanel.CARD_DISPUTE);
                         return null;
                     }
                 };
@@ -2273,9 +2290,9 @@ public class ApplicationPanel extends ContentPanel {
             .addGroup(propertyPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(propertyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPropertyDetails)
+                    .addComponent(scrollPropertyDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
                     .addComponent(tbPropertyDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(propertypartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(propertypartPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         propertyPanelLayout.setVerticalGroup(

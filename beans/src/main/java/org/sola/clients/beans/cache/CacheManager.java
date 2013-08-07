@@ -192,6 +192,30 @@ public final class CacheManager {
      */
     public static final String LEASE_CONDITION_CODES_KEY = LeaseConditionBean.class.getName() + LIST_POSTFIX;
     
+     /*
+     * DISPUTE
+     */
+    /**
+     * Cache key of the {@link DisputeActionBean} collection.
+     */
+    public static final String DISPUTE_ACTION_CODES_KEY = DisputeActionBean.class.getName() + LIST_POSTFIX;
+    /**
+     * Cache key of the {@link DisputeCategoryBean} collection.
+     */
+    public static final String DISPUTE_CATEGORY_CODES_KEY = DisputeCategoryBean.class.getName() + LIST_POSTFIX;
+    /**
+     * Cache key of the {@link DisputeStatusBean} collection.
+     */
+    public static final String DISPUTE_STATUS_CODES_KEY = DisputeStatusBean.class.getName() + LIST_POSTFIX;
+    /**
+     * Cache key of the {@link DisputeTypeBean} collection.
+     */
+    public static final String DISPUTE_TYPE_CODES_KEY = DisputeTypeBean.class.getName() + LIST_POSTFIX;
+    /**
+     * Cache key of the {@link OtherAuthoritiesBean} collection.
+     */
+    public static final String OTHER_AUTHORITIES_CODES_KEY = OtherAuthoritiesBean.class.getName() + LIST_POSTFIX;
+    
     private static final String GET_APPLICATION_STATUS_TYPES = "getApplicationStatusTypes";
     private static final String GET_SOURCE_TYPES = "getSourceTypes";
     private static final String GET_COMMUNICATION_TYPES = "getCommunicationTypes";
@@ -221,6 +245,12 @@ public final class CacheManager {
     private static final String GET_BA_UNIT_REL_TYPES = "getBaUnitRelTypes";
     private static final String GET_LAND_USE_TYPES = "getLandUseTypes";
     private static final String GET_LEASE_CONDITIONS = "getLeaseConditions";
+    private static final String GET_DISPUTE_ACTION = "getDisputeAction";
+    private static final String GET_DISPUTE_CATEGORY = "getDisputeCategory";
+    private static final String GET_DISPUTE_STATUS = "getDisputeStatus";
+    private static final String GET_DISPUTE_TYPE = "getDisputeType";
+    private static final String GET_OTHER_AUTHORITIES = "getOtherAuthorities";
+    
             
     public static List<BrValidationTargetTypeBean> getBrValidationTargetTypes() {
         return getCachedBeanList(BrValidationTargetTypeBean.class,
@@ -571,4 +601,38 @@ public final class CacheManager {
             cache.remove(key);
         }
     }
+    
+     /*
+     * DISPUTE
+     */
+    public static List<DisputeActionBean> getDisputeAction() {
+        return getCachedBeanList(DisputeActionBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_DISPUTE_ACTION, DISPUTE_ACTION_CODES_KEY);
+    }
+
+    public static List<DisputeCategoryBean> getDisputeCategory() {
+        return getCachedBeanList(DisputeCategoryBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_DISPUTE_CATEGORY, DISPUTE_CATEGORY_CODES_KEY);
+    }
+
+    public static List<DisputeStatusBean> getDisputeStatus() {
+        return getCachedBeanList(DisputeStatusBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_DISPUTE_STATUS, DISPUTE_STATUS_CODES_KEY);
+    }
+
+    public static List<DisputeTypeBean> getDisputeType() {
+        return getCachedBeanList(DisputeTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_DISPUTE_TYPE, DISPUTE_TYPE_CODES_KEY);
+    }
+
+    public static List<OtherAuthoritiesBean> getOtherAuthorities() {
+        return getCachedBeanList(OtherAuthoritiesBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_OTHER_AUTHORITIES, OTHER_AUTHORITIES_CODES_KEY);
+    }
+
 }
