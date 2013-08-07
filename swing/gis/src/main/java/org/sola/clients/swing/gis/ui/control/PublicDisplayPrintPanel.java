@@ -4,13 +4,11 @@
  */
 package org.sola.clients.swing.gis.ui.control;
 
-import com.vividsolutions.jts.geom.Envelope;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import org.geotools.geometry.jts.ReferencedEnvelope;
-import org.geotools.swing.extended.Map;
 import org.geotools.swing.extended.util.MapImageGenerator;
 import org.geotools.swing.extended.util.Messaging;
 import org.geotools.swing.extended.util.ScalebarGenerator;
@@ -172,7 +170,6 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
                 serviceBean.setApplicationId(this.applicationId);
             }
             serviceBean.saveInformationService();
-//            generateAndShowReport(layout.getId(), mapImageLocation, scalebarImageLocation);
             generateAndShowReport(layout.getFileName(), mapImageLocation, scalebarImageLocation);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
@@ -188,7 +185,6 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
      * @throws IOException
      */
     private void generateAndShowReport(
-//            String layoutId,
             String fileName,
             String mapImageLocation,
             String scalebarImageLocation) throws IOException {
@@ -196,7 +192,6 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
         //   This is to call the report generation         
         SolaPrintViewerForm form = new SolaPrintViewerForm(
                 ReportManager.getMapPublicDisplayReport(
-//                layoutId, this.txtArea.getText(),
                 fileName, this.txtArea.getText(),
                 this.txtNotificationPeriod.getText(),
                 mapImageLocation, scalebarImageLocation));

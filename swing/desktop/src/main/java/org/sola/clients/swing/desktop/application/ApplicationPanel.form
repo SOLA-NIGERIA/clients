@@ -1776,7 +1776,7 @@
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                            <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.tabPropertyDetails.columnModel.title6_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                            <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.tabPropertyDetails.columnModel.title6" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                           </Title>
                           <Editor/>
                           <Renderer/>
@@ -2004,10 +2004,10 @@
                           <Component id="cbxLandUse" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="labLandUse" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                                  <Component id="btnAddProperty" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnAddProperty" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labLandUse" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="105" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="25" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>

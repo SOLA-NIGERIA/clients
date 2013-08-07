@@ -84,7 +84,6 @@ public class LocateApplicationTool extends ExtendedEditGeometryTool {
                 result = result.union(geom);
             }
         }
-        
         if (result != null){
             result.setSRID(this.getMapControl().getSrid());
         }

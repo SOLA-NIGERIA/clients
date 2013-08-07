@@ -2132,7 +2132,7 @@ public class ApplicationPanel extends ContentPanel {
         tabPropertyDetails.getColumnModel().getColumn(4).setCellRenderer(new ExistingObjectCellRenderer());
         tabPropertyDetails.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title4")); // NOI18N
         tabPropertyDetails.getColumnModel().getColumn(5).setCellRenderer(new ExistingObjectCellRenderer());
-        tabPropertyDetails.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title6_1")); // NOI18N
+        tabPropertyDetails.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title6")); // NOI18N
 
         propertypartPanel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         propertypartPanel.setName("propertypartPanel"); // NOI18N
@@ -2266,9 +2266,9 @@ public class ApplicationPanel extends ContentPanel {
             .addComponent(cbxLandUse, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labLandUse, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddProperty))
-                .addGap(0, 105, Short.MAX_VALUE))
+                    .addComponent(btnAddProperty)
+                    .addComponent(labLandUse))
+                .addGap(0, 25, Short.MAX_VALUE))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -143,6 +143,9 @@ public final class ControlsBundleForCadastreRedefinition extends ControlsBundleF
     private CadastreRedefinitionModifyNodeTool modifyNodeTool;
     private CadastreRedefinitionBoundarySelectTool boundarySelectTool;
 
+    
+    
+    
     @Override
     protected void addToolsAndCommands() {
         this.addNodeTool = new CadastreRedefinitionAddNodeTool(

@@ -51,6 +51,13 @@ public final class CacheManager {
     private static Cache cache = new Cache();
     private static final String LIST_POSTFIX = "_LIST";
     private static final String MAP_POSTFIX = "_MAP";
+    
+    /**
+     * Cache key of the {@link HierarchyLevelBean} collection.
+     */
+    public static final String HIERARCHY_LEVEL_KEY = HierarchyLevelBean.class.getName() + LIST_POSTFIX;
+
+
     /**
      * Cache key of the {@link RequestTypeBean} collection.
      */
@@ -250,7 +257,8 @@ public final class CacheManager {
     private static final String GET_DISPUTE_STATUS = "getDisputeStatus";
     private static final String GET_DISPUTE_TYPE = "getDisputeType";
     private static final String GET_OTHER_AUTHORITIES = "getOtherAuthorities";
-    
+    private static final String GET_HIERARCHY_LEVELS = "getHierarchyLevels";
+
             
     public static List<BrValidationTargetTypeBean> getBrValidationTargetTypes() {
         return getCachedBeanList(BrValidationTargetTypeBean.class,
@@ -466,6 +474,12 @@ public final class CacheManager {
                 REQUEST_TYPES_MAP_KEY);
     }
 
+    public static List<HierarchyLevelBean> getHierarchyLevels() {
+        return getCachedBeanList(HierarchyLevelBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_HIERARCHY_LEVELS, HIERARCHY_LEVEL_KEY);
+    }
+
     /**
      * Generic method to create cached list of the beans, representing reference
      * table data. The list holds full object, transfered from the server. If
@@ -634,5 +648,5 @@ public final class CacheManager {
                 WSManager.getInstance().getReferenceDataService(),
                 GET_OTHER_AUTHORITIES, OTHER_AUTHORITIES_CODES_KEY);
     }
-
+   
 }

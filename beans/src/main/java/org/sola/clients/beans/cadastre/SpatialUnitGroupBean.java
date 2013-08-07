@@ -57,24 +57,24 @@ public class SpatialUnitGroupBean extends AbstractTransactionedBean {
   
     private String name;
     private String label;
-    private String foundInSpatialId;
+//    private String foundInSpatialId;
     private byte[] geom;
-    private byte[] referencePoint;
+//    private byte[] referencePoint;
     private BigDecimal hierarchyLevel;
-    private BigDecimal seqNr;
+//    private BigDecimal seqNr;
 
     
     public SpatialUnitGroupBean () {
        super();
     }
  
-      public String getFoundInSpatialId() {
-        return foundInSpatialId;
-    }
-
-    public void setFoundInSpatialId(String foundInSpatialId) {
-        this.foundInSpatialId = foundInSpatialId;
-    }
+//      public String getFoundInSpatialId() {
+//        return foundInSpatialId;
+//    }
+//
+//    public void setFoundInSpatialId(String foundInSpatialId) {
+//        this.foundInSpatialId = foundInSpatialId;
+//    }
 
     public byte[] getGeom() {
         return geom;
@@ -108,21 +108,21 @@ public class SpatialUnitGroupBean extends AbstractTransactionedBean {
         this.name = name;
     }
 
-    public byte[] getReferencePoint() {
-        return referencePoint;
-    }
-
-    public void setReferencePoint(byte[] referencePoint) {
-        this.referencePoint = referencePoint;
-    }
-
-    public BigDecimal getSeqNr() {
-        return seqNr;
-    }
-
-    public void setSeqNr(BigDecimal seqNr) {
-        this.seqNr = seqNr;
-    }
-      
+//    public byte[] getReferencePoint() {
+//        return referencePoint;
+//    }
+//
+//    public void setReferencePoint(byte[] referencePoint) {
+//        this.referencePoint = referencePoint;
+//    }
+//
+//    public BigDecimal getSeqNr() {
+//        return seqNr;
+//    }
+//
+//    public void setSeqNr(BigDecimal seqNr) {
+//        this.seqNr = seqNr;
+//    }
+//      
     
 }
