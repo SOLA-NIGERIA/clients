@@ -32,7 +32,7 @@ package org.sola.clients.beans.administrative;
  *
  * /**
  *
- * LAA Addition thoriso
+ * 
  */
 import java.util.Date;
 import org.sola.clients.beans.AbstractBindingBean;

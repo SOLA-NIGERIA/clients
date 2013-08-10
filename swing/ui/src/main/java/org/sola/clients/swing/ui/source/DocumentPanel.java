@@ -192,7 +192,6 @@ public class DocumentPanel extends javax.swing.JPanel {
     
     public boolean saveDocument() {
         if (validateDocument(true)) {
-            System.out.println("this.archiveDocument===  "+this.archiveDocument.getFileName());
            if (!(this.archiveDocument==null)){ 
             if (!this.archiveDocument.getId().equals("")) {
                 getDocument().setArchiveDocument(this.archiveDocument);

@@ -38,15 +38,6 @@ import org.sola.webservices.transferobjects.cadastre.SpatialUnitGroupTO;
  */
 public class LocationBean extends AbstractTransactionedBean {
 
-//    public static final String NAME_FIRSTPART_PROPERTY = "nameFirstpart";
-//    public static final String NAME_LASTPART_PROPERTY = "nameLastpart";
-   
-//    @Length(max = 20, message =  ClientMessage.CHECK_FIELD_INVALID_LENGTH_FIRSTPART, payload=Localized.class)
-//    @NotEmpty(message =  ClientMessage.CHECK_NOTNULL_CADFIRSTPART, payload=Localized.class)
-//    private String nameFirstpart;
-//    @Length(max = 50, message =  ClientMessage.CHECK_FIELD_INVALID_LENGTH_LASTPART, payload=Localized.class)
-//    @NotEmpty(message =  ClientMessage.CHECK_NOTNULL_CADLASTPART, payload=Localized.class)
-//    private String nameLastpart;
     
     public static final String NAME_PROPERTY = "name";
     public static final String GEOM_PROPERTY = "geom";
@@ -55,49 +46,12 @@ public class LocationBean extends AbstractTransactionedBean {
     @Length(max = 50, message =  ClientMessage.CHECK_FIELD_INVALID_LENGTH_NAME, payload=Localized.class)
     @NotEmpty(message =  ClientMessage.CHECK_NOTNULL_NAME, payload=Localized.class)
     private String name;
-    private String label;
-    private String foundInSpatialId;
     private byte[] geom;
-    private byte[] referencePoint;
-    private BigDecimal hierarchyLevel;
-    private BigDecimal seqNr;
     
      public LocationBean() {
         super();
     }
     
-//    public String getFoundInSpatialId() {
-//        return foundInSpatialId;
-//    }
-//
-//    public void setFoundInSpatialId(String foundInSpatialId) {
-//        this.foundInSpatialId = foundInSpatialId;
-//    }
-
-//    public byte[] getGeom() {
-//        return geom;
-//    }
-//
-//    public void setGeom(byte[] geom) {
-//        this.geom = geom;
-//    }
-
-//    public Integer getHierarchyLevel() {
-//        return hierarchyLevel;
-//    }
-//
-//    public void setHierarchyLevel(Integer hierarchyLevel) {
-//        this.hierarchyLevel = hierarchyLevel;
-//    }
-//
-//    public String getLabel() {
-//        return label;
-//    }
-//
-//    public void setLabel(String label) {
-//        this.label = label;
-//    }
-
     public String getName() {
         return name;
     }
@@ -106,48 +60,10 @@ public class LocationBean extends AbstractTransactionedBean {
         this.name = name;
     }
 
-//    public byte[] getReferencePoint() {
-//        return referencePoint;
-//    }
-//
-//    public void setReferencePoint(byte[] referencePoint) {
-//        this.referencePoint = referencePoint;
-//    }
-//
-//    public Integer getSeqNr() {
-//        return seqNr;
-//    }
-//
-//    public void setSeqNr(Integer seqNr) {
-//        this.seqNr = seqNr;
-//    }
-   
-//    public String getNameFirstpart() {
-//        return nameFirstpart;
-//    }
-//
-//    public void setNameFirstpart(String nameFirstpart) {
-//        this.nameFirstpart = nameFirstpart;
-//    }
-//
-//    public String getNameLastpart() {
-//        return nameLastpart;
-//    }
-//
-//    public void setNameLastpart(String nameLastpart) {
-//        this.nameLastpart = nameLastpart;
-//    }
-      
      
     @Override
     public String toString() {
         String result = "";
-////        String subStringLastpart = nameLastpart.substring(nameLastpart.indexOf(" ")).trim();
-////        System.out.println("LASTPART  "+subStringLastpart);
-////        subStringLastpart = nameLastpart.substring(0,(subStringLastpart.indexOf(" ")+nameLastpart.indexOf(" ")+1));
-////        System.out.println("LASTPART  "+subStringLastpart);
-////        result += subStringLastpart;
-//        result += nameLastpart; 
         result += name; 
         return result;
     }

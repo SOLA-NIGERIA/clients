@@ -48,12 +48,12 @@ import org.sola.webservices.transferobjects.administrative.DisputePartyTO;
 
 public class DisputePartyBean extends PartyBean {
 
-    public static final String ID_PROPERTY = "id";
+//    public static final String ID_PROPERTY = "id";
     public static final String DISPUTE_NR_PROPERTY = "disputeNr";
     public static final String PARTY_ROLE_PROPERTY = "partyRole";
     public static final String PARTY_ID_PROPERTY = "partyId";
     public static final String PARTY_ID_NAME = "partyName";
-    private String id;
+//    private String id;
     private String disputeNr;
     private String partyRole;
     private String partyId;
@@ -73,39 +73,20 @@ public class DisputePartyBean extends PartyBean {
 
     }
 
-    public String getPartyName(String pId) {
-//        pId = getPartyId();
-//        System.out.println("pId  "+pId);
-//        partyTO = WSManager.getInstance().getCaseManagementService().getParty(pId);
-//        if (partyTO != null) {
-//             partyName =  partyTO.getName()+" "+partyTO.getLastName();
-//        }
-
-        System.out.println("GETpartyName 1 " + partyName);
-        return partyName;
-    }
 
     public String getPartyName() {
-        System.out.println("GETpartyName 2 " + partyName);
-        System.out.println("GETpartyid 2 " + this.getPartyId());
-
         if (partyName == null || partyName == "") {
             String pId = getPartyId();
-            System.out.println("pId  " + pId);
             partyTO = WSManager.getInstance().getCaseManagementService().getParty(pId);
             if (partyTO != null) {
                 partyName = partyTO.getName() + " " + partyTO.getLastName();
             }
-
-//            partyName = this.getName() + " " + this.getLastName();
         }
         return partyName;
     }
 
     public void setPartyName(String partyName) {
         this.partyName = partyName;
-        System.out.println("SETpartyName  " + partyName);
-
     }
 
     public String getDisputeNr() {

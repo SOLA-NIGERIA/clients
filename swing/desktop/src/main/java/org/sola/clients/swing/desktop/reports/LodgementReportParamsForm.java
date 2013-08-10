@@ -277,9 +277,6 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
             searchParams.setToDate(tmpTo);
           }  
           
-          System.out.println(dateFilled);
-          System.out.println(txtFromDate.getValue());
-          System.out.println(txtToDate.getValue());
            if (dateFilled) { 
             lodgementBean1.passParameter(searchParams);
             showReport(ReportManager.getLodgementReport(lodgementBean1,tmpFrom,tmpTo));  

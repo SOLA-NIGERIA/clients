@@ -218,6 +218,10 @@ public final class CacheManager {
      * Cache key of the {@link DisputeTypeBean} collection.
      */
     public static final String DISPUTE_TYPE_CODES_KEY = DisputeTypeBean.class.getName() + LIST_POSTFIX;
+     /**
+     * Cache key of the {@link DisputeRoleTypeBean} collection.
+     */
+    public static final String DISPUTE_ROLE_TYPE_CODES_KEY = DisputeRoleTypeBean.class.getName() + LIST_POSTFIX;
     /**
      * Cache key of the {@link OtherAuthoritiesBean} collection.
      */
@@ -256,6 +260,7 @@ public final class CacheManager {
     private static final String GET_DISPUTE_CATEGORY = "getDisputeCategory";
     private static final String GET_DISPUTE_STATUS = "getDisputeStatus";
     private static final String GET_DISPUTE_TYPE = "getDisputeType";
+    private static final String GET_DISPUTE_ROLE_TYPE = "getDisputeRoleType";
     private static final String GET_OTHER_AUTHORITIES = "getOtherAuthorities";
     private static final String GET_HIERARCHY_LEVELS = "getHierarchyLevels";
 
@@ -641,6 +646,12 @@ public final class CacheManager {
         return getCachedBeanList(DisputeTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
                 GET_DISPUTE_TYPE, DISPUTE_TYPE_CODES_KEY);
+    }
+    
+    public static List<DisputeRoleTypeBean> getDisputeRoleType() {
+        return getCachedBeanList(DisputeRoleTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_DISPUTE_ROLE_TYPE, DISPUTE_ROLE_TYPE_CODES_KEY);
     }
 
     public static List<OtherAuthoritiesBean> getOtherAuthorities() {

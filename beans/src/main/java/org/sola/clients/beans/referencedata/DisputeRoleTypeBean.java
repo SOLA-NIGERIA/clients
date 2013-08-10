@@ -31,23 +31,20 @@
  * 
  */
 
-
 package org.sola.clients.beans.referencedata;
 
 import org.sola.clients.beans.AbstractCodeBean;
-import org.sola.webservices.transferobjects.referencedata.OtherAuthoritiesTO;
+import org.sola.webservices.transferobjects.referencedata.DisputeRoleTypeTO;
 
 /** 
- * Represents reference data object of the <b>Other_Authorities</b> table. 
- * Could be populated from the {@link OtherAuthoritiesTO} object.<br />
+ * Represents reference data object of the <b>Dispute_Type</b> table. 
+ * Could be populated from the {@link DisputeTypeTO} object.<br />
  * For more information see data dictionary <b>Administrative</b> schema.
  */
-public class OtherAuthoritiesBean extends AbstractCodeBean {
+public class DisputeRoleTypeBean extends AbstractCodeBean {
 
-    public OtherAuthoritiesBean() {
+    public DisputeRoleTypeBean() {
         super();
     }
 }
-
-
 

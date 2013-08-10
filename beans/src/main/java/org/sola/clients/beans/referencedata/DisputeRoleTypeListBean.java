@@ -25,29 +25,59 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
-
-/**
- *
- * 
- */
-
-
 package org.sola.clients.beans.referencedata;
 
-import org.sola.clients.beans.AbstractCodeBean;
-import org.sola.webservices.transferobjects.referencedata.OtherAuthoritiesTO;
+import org.jdesktop.observablecollections.ObservableList;
+import org.sola.clients.beans.AbstractBindingListBean;
+import org.sola.clients.beans.cache.CacheManager;
+import org.sola.clients.beans.controls.SolaCodeList;
 
-/** 
- * Represents reference data object of the <b>Other_Authorities</b> table. 
- * Could be populated from the {@link OtherAuthoritiesTO} object.<br />
- * For more information see data dictionary <b>Administrative</b> schema.
+/**
+ * Holds the list of {@link CommunicationTypeBean} objects and used to bound the
+ * data in the combobox on the forms.
  */
-public class OtherAuthoritiesBean extends AbstractCodeBean {
 
-    public OtherAuthoritiesBean() {
-        super();
+public class DisputeRoleTypeListBean extends  AbstractBindingListBean{
+    
+    public static final String SELECTED_DISPUTEROLETYPE_PROPERTY = "selectedDisputeRoleType";
+    private SolaCodeList<DisputeRoleTypeBean> disputeRoleTypeListBean;
+    private DisputeRoleTypeBean selectedDisputeRoleType;
+    
+    public DisputeRoleTypeListBean() {
+        this(false);
     }
+    
+    public DisputeRoleTypeListBean(boolean createDummy) {
+        this(createDummy, (String) null);
+    }
+    
+    public DisputeRoleTypeListBean(boolean createDummy, String ... excludedCodes) {
+        super();
+        disputeRoleTypeListBean = new SolaCodeList<DisputeRoleTypeBean>(excludedCodes);
+        loadList(createDummy);
+    }
+    
+    public final void loadList(boolean createDummy) {
+        loadCodeList(DisputeRoleTypeBean.class, disputeRoleTypeListBean, 
+                CacheManager.getDisputeRoleType(), createDummy);
+    }
+    
+   public ObservableList<DisputeRoleTypeBean> getDisputeRoleTypeListBean() {
+        return disputeRoleTypeListBean.getFilteredList();
+    }
+    
+   public void setExcludedCodes(String ... codes){
+        disputeRoleTypeListBean.setExcludedCodes(codes);
+    }
+   
+   
+    public DisputeRoleTypeBean getSelectedDisputeRoleType() {
+        return selectedDisputeRoleType;
+    }
+
+    public void setSelectedDisputeRoleType(DisputeRoleTypeBean value) {
+        selectedDisputeRoleType = value;
+        propertySupport.firePropertyChange(SELECTED_DISPUTEROLETYPE_PROPERTY, null, value);
+    }
+    
 }
-
-
-

@@ -556,6 +556,9 @@
                             <BindingProperty name="elements" source="partyRoleTyps" sourcePath="${partyRoleTypeList}" target="cbxRoles" targetPath="elements" updateStrategy="0" immediately="false"/>
                             <BindingProperty name="selectedItem" source="partySearchParams" sourcePath="${roleType}" target="cbxRoles" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
                           </BindingProperties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>

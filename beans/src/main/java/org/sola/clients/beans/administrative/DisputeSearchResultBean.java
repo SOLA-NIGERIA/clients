@@ -29,7 +29,7 @@
  */
 /**
  *
- * LAA Addition thoriso
+ *
  */
 package org.sola.clients.beans.administrative;
 

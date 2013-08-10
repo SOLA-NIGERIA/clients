@@ -29,7 +29,7 @@
  */
 /**
  *
- * LAA Addition thoriso
+ * 
  */
 package org.sola.clients.beans.administrative;
 
@@ -38,6 +38,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.validation.Valid;
+import javax.validation.constraints.Size;
 import org.sola.clients.beans.AbstractTransactionedBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.converters.TypeConverters;
@@ -49,6 +50,12 @@ import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.controls.SolaList;
 import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.controls.SolaObservableList;
+import org.sola.clients.beans.party.PartySummaryBean;
+import org.sola.clients.beans.referencedata.DisputeRoleTypeBean;
+import org.sola.clients.beans.source.SourceBean;
+import org.sola.clients.beans.validation.Localized;
+import org.sola.clients.beans.validation.NoDuplicates;
+import org.sola.common.messaging.ClientMessage;
 
 /**
  *
@@ -62,6 +69,7 @@ public class DisputeBean extends AbstractTransactionedBean {
     public static final String COMPLETION_DATE_PROPERTY = "completiondate";
     public static final String DISPUTE_CATEGORY_PROPERTY = "disputeCategory";
     public static final String DISPUTE_TYPE_PROPERTY = "disputeType";
+    public static final String DISPUTE_ROLE_TYPE_PROPERTY = "disputeRoleType";
     public static final String STATUS_CODE_PROPERTY = "statusCode";
     public static final String LEASE_NUMBER_PROPERTY = "leaseNumber";
     public static final String PLOT_LOCATION_PROPERTY = "plotLocation";
@@ -78,6 +86,12 @@ public class DisputeBean extends AbstractTransactionedBean {
     public static final String SELECTED_COMMENTS_PROPERTY = "selectedComments";
     public static final String SELECTED_PARTY_PROPERTY = "selectedParty";
     public static final String DISPUTE_PROPERTY = "dispute";
+    public static final String FIRST_DISPUTEPARTY_PROPERTY = "disputeParty";
+    public static final String PROCLAIMANT_DISPUTE_PROPERTY = "ResolvedProClaimant";
+    public static final String REJECTED_DISPUTE_PROPERTY = "Rejected";
+    public static final String UNSOLVED_DISPUTE_PROPERTY = "Unsolved";
+    public static final String AGAINSTCLAIMANT_DISPUTE_PROPERTY = "ResolvedAgainstClaimant";
+    
     private String id;
     private String applicationId;
     private String serviceId;
@@ -86,6 +100,7 @@ public class DisputeBean extends AbstractTransactionedBean {
     private Date completionDate;
     private DisputeCategoryBean disputeCategoryCode;
     private DisputeTypeBean disputeTypeCode;
+    private DisputeRoleTypeBean disputeRoleTypeCode;
     private String statusCode;
     private String leaseNumber;
     private String plotLocation;
@@ -95,24 +110,27 @@ public class DisputeBean extends AbstractTransactionedBean {
     private String actionRequired;
     private String userId;
     private DisputeBean bean;
+    private SolaList<SourceBean> sourceList;
+    
     private SolaList<DisputesCommentsBean> disputeCommentsList;
-    private SolaList<DisputePartyBean> disputePartyList;
     private SolaList<DisputePartyBean> disputePartyByDispute;
     private transient DisputesCommentsBean selectedComment;
+    private SolaList<DisputePartyBean> disputePartyList;
     private transient DisputePartyBean selectedParty;
+    private SolaList<PartySummaryBean> partyList;
+    
 
     public DisputeBean() {
         super();
-//        disputeCommentsList = new SolaList<DisputesCommentsBean>();
         disputePartyByDispute = new SolaList<DisputePartyBean>();
-        disputePartyList = new SolaList<DisputePartyBean>();
-       
-        //selectedComment = new DisputesCommentsBean();
-        //selectedParty = new DisputePartyBean(); 
+        disputePartyList = new SolaList();
+        sourceList = new SolaList();
         disputeCommentsList = new SolaList();
-
+        partyList = new SolaList();
+        
     }
-
+   
+    
     public void clean() {
         this.setPlotNumber(null);
         this.setLodgementDate(null);
@@ -141,17 +159,11 @@ public class DisputeBean extends AbstractTransactionedBean {
     }
 
     public SolaList<DisputesCommentsBean> getDisputeCommentsList() {
-//        if (disputeCommentsList == null) {
-//            disputeCommentsList = new SolaList();
-//        }
         return disputeCommentsList;
     }
 
     @Valid
     public ObservableList<DisputesCommentsBean> getFilteredDisputeCommentsList() {
-//        if (disputeCommentsList == null) {
-//            disputeCommentsList = new SolaList();
-//        }
         return disputeCommentsList.getFilteredList();
     }
 
@@ -160,7 +172,6 @@ public class DisputeBean extends AbstractTransactionedBean {
     }
 
     public void setSelectedComment(DisputesCommentsBean selectedComment) {
-        //DisputesCommentsBean oldValue = this.selectedComment;
         this.selectedComment = selectedComment;
         propertySupport.firePropertyChange(SELECTED_COMMENTS_PROPERTY, null, this.selectedComment);
     }
@@ -193,78 +204,54 @@ public class DisputeBean extends AbstractTransactionedBean {
         }
     }
 
-    public SolaList<DisputePartyBean> getDisputePartyList() {
-        if (disputePartyList == null) {
-            disputePartyList = new SolaList();
-        }
-        return disputePartyList;
-    }
-
-    public ObservableList<DisputePartyBean> getFilteredDisputePartyList() {
-        if (disputePartyList == null) {
-            disputePartyList = new SolaList();
-        }
-        
-         System.out.println("disputePartyList  "+disputePartyList);
-        
+      public ObservableList<DisputePartyBean> getFilteredDisputePartyList() {
         return disputePartyList.getFilteredList();
     }
-
-    public void setDisputePartyList(SolaList<DisputePartyBean> disputePartyList) {
+     
+    public SolaList<DisputePartyBean> getDisputePartyList() {
+        return disputePartyList;
+    }
+     public void setDisputePartyList(SolaList<DisputePartyBean> disputePartyList) {
         this.disputePartyList = disputePartyList;
     }
-
-    public void setSelectedParty(DisputePartyBean selectedParty) {
-        this.selectedParty = selectedParty;
-        propertySupport.firePropertyChange(SELECTED_PARTY_PROPERTY, null, this.selectedParty);
-    }
-
-    public DisputePartyBean getDisputeParty() {
+     
+      public DisputePartyBean getSelectedParty() {
         return selectedParty;
     }
 
-    public void addDisputeParty(DisputePartyBean disputeParty) {
-        if (getDisputePartyList() != null && disputeParty != null
-                && disputeParty.getEntityAction() != EntityAction.DELETE
-                && disputeParty.getEntityAction() != EntityAction.DISASSOCIATE) {
-            if (getDisputePartyList().size() < 2) {
-                for (DisputePartyBean co : getDisputePartyList()) {
-                    System.out.println("co.getId()   " + co.getId());
-                    System.out.println("disputeParty.getId() " + disputeParty.getId());
-                    System.out.println("SIZE   " + getDisputePartyList().size());
-
-                    if (co.getId() != null && disputeParty.getId() != null && co.getId().equals(disputeParty.getId())) {
-                        if (co.getEntityAction() == EntityAction.DELETE || co.getEntityAction() == EntityAction.DISASSOCIATE) {
-                            co.setEntityAction(null);
-                        }
-                        return;
-                    }
-
-                    if (co.getPartyId().equals(disputeParty.getPartyId())) {
-//                    MESSAGE TOBEADDED
-                        System.out.println("PAOLA 1 " + co.getPartyId());
-                        System.out.println("PAOLA 2 " + disputeParty.getPartyId());
-                        return;
-                    }
-
-                }
-                System.out.println("disputeParty " + disputeParty.getPartyName(disputeParty.getId()));
-                getDisputePartyList().addAsNew(disputeParty);
+    public void setSelectedParty(DisputePartyBean value) {
+        selectedParty = value;
+        propertySupport.firePropertyChange(SELECTED_PARTY_PROPERTY, null, value);
+    }
+   
+    public void addDisputeParty(String partyId, String disputeID, String partyRole, String partyName) {
+           if (disputePartyList != null) {  
+                DisputePartyBean newDisputeParty = new DisputePartyBean();
+                newDisputeParty.setDisputeNr(disputeID);
+                newDisputeParty.setPartyId(partyId);
+                newDisputeParty.setPartyName(partyName);
+                newDisputeParty.setPartyRole(partyRole);
+                disputePartyList.addAsNew(newDisputeParty);
+                selectedParty = newDisputeParty;
+       }
+    }
+    
+    public void addOrUpdateDisputeParty(DisputePartyBean disputeParty) {
+        if (disputeParty != null && disputeParty != null) {
+            if (disputePartyList.contains(disputeParty)) {
+                disputePartyList.set(disputePartyList.indexOf(disputeParty), disputeParty);
             } else {
-//                MESSAGE TOBEADDED
-                        System.out.println("PAOLA 3 " + getDisputePartyList().size());
-                        return;
-                
+                disputePartyList.addAsNew(disputeParty);
             }
         }
     }
-
     public void removeSelectedParty() {
-        if (selectedParty != null && disputePartyList != null) {
-            disputePartyList.safeRemove(selectedParty, EntityAction.DISASSOCIATE);
+       if (selectedParty != null && disputePartyList != null) {
+           disputePartyList.safeRemove(selectedParty, EntityAction.DELETE);
         }
     }
-
+    
+     
     public String getId() {
         return id;
     }
@@ -361,6 +348,41 @@ public class DisputeBean extends AbstractTransactionedBean {
         }
         this.setJointRefDataBean(this.disputeTypeCode, disputeType, DISPUTE_TYPE_PROPERTY);
     }
+    
+    public String getDisputeRoleTypeCode() {
+        if (disputeRoleTypeCode != null) {
+            return disputeRoleTypeCode.getCode();
+        } else {
+            return null;
+        }
+    }
+
+    public void setDisputeRoleTypeCode(String disputeRoleTypeCode) {
+        String oldValue = null;
+        if (this.disputeRoleTypeCode != null) {
+            oldValue = this.disputeRoleTypeCode.getCode();
+            return;
+        }
+
+        setDisputeRoleType(CacheManager.getBeanByCode(
+                CacheManager.getDisputeRoleType(), disputeRoleTypeCode));
+        propertySupport.firePropertyChange(DISPUTE_ROLE_TYPE_PROPERTY, oldValue, disputeRoleTypeCode);
+    }
+
+    
+    public DisputeRoleTypeBean getDisputeRoleType() {
+        if (this.disputeRoleTypeCode == null) {
+            this.disputeRoleTypeCode = new DisputeRoleTypeBean();
+        }
+        return disputeRoleTypeCode;
+    }
+
+    public void setDisputeRoleType(DisputeRoleTypeBean disputeRoleType) {
+        if (this.disputeRoleTypeCode == null) {
+            this.disputeRoleTypeCode = new DisputeRoleTypeBean();
+        }
+        this.setJointRefDataBean(this.disputeRoleTypeCode, disputeRoleType, DISPUTE_TYPE_PROPERTY);
+    }
 
     public Date getLodgementDate() {
         return lodgementDate;
@@ -450,7 +472,6 @@ public class DisputeBean extends AbstractTransactionedBean {
 
     public void assignDispute(DisputeSearchResultBean disputeSearchResultBean) {
         if (disputeSearchResultBean.getId() != null) {
-            //String disputeId = disputeSearchResultBean.getId();
             DisputeTO dispute = TypeConverters.BeanToTrasferObject(disputeSearchResultBean, DisputeTO.class);
             DisputeBean disputeBean = TypeConverters.TransferObjectToBean(dispute, DisputeBean.class, this);
             setBean(disputeBean);
@@ -497,7 +518,22 @@ public class DisputeBean extends AbstractTransactionedBean {
     public void setServiceId(String serviceId) {
         this.serviceId = serviceId;
     }
+      
+    public SolaList<SourceBean> getSourceList() {
+        return sourceList;
+    }
 
+    @NoDuplicates(message = ClientMessage.CHECK_NODUPLICATED_SOURCELIST, payload = Localized.class)
+    public ObservableList<SourceBean> getFilteredSourceList() {
+        return sourceList.getFilteredList();
+    }
+
+    public void setSourceList(SolaList<SourceBean> sourceList) {
+        this.sourceList = sourceList;
+    }
+
+    
+    
     public boolean createDispute() {
         DisputeTO dispute = TypeConverters.BeanToTrasferObject(this, DisputeTO.class);
         dispute = WSManager.getInstance().getAdministrative().createDispute(dispute);

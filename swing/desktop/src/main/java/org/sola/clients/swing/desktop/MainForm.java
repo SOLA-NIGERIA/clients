@@ -54,6 +54,7 @@ import org.sola.clients.swing.common.controls.LanguageCombobox;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.administrative.BaUnitSearchPanel;
+import org.sola.clients.swing.desktop.administrative.DisputeSearchPanel;
 import org.sola.clients.swing.desktop.administrative.RightsExportForm;
 import org.sola.clients.swing.desktop.application.ApplicationPanel;
 import org.sola.clients.swing.desktop.application.ApplicationSearchPanel;
@@ -83,6 +84,7 @@ public class MainForm extends javax.swing.JFrame {
     private DocumentSearchForm searchDocPanel;
     private PartySearchPanelForm searchPartyPanel;
     private BaUnitSearchPanel searchBaUnitPanel;
+    private DisputeSearchPanel searchDisputePanel;
     
     // Create a variable holding the listener
     KeyAdapter keyAdapterAppSearch = new KeyAdapter() {
@@ -161,7 +163,10 @@ public class MainForm extends javax.swing.JFrame {
     public void setSearchPartyPanel(PartySearchPanelForm searchPartyPanel) {
         this.searchPartyPanel = searchPartyPanel;
     }
-
+     
+    public void setSearchDisputePanel(DisputeSearchPanel searchDisputePanel) {
+        this.searchDisputePanel = searchDisputePanel;
+    }
     /**
      * Private class to hold singleton instance of the MainForm.
      */
@@ -278,7 +283,40 @@ public class MainForm extends javax.swing.JFrame {
         };
         TaskManager.getInstance().runTask(t);
     }
+    
+    
+    
 
+    private void openDisputeSearch() {
+        SolaTask t = new SolaTask<Void, Void>() {
+
+            @Override
+            public Void doTask() {
+                setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_DISSEARCH));
+                if (!pnlContent.isPanelOpened(MainContentPanel.CARD_DISPUTE_SEARCH)) {
+                    DisputeSearchPanel disputeSearchDialog = new DisputeSearchPanel();
+                    pnlContent.addPanel(disputeSearchDialog, MainContentPanel.CARD_DISPUTE_SEARCH, true);
+                    setSearchDisputePanel(disputeSearchDialog);
+                } else {
+                    pnlContent.showPanel(MainContentPanel.CARD_DISPUTE_SEARCH);
+                }
+                return null;
+            }
+
+            @Override
+            protected void taskDone() {
+                addKeyListeners(MainContentPanel.CARD_SEARCH_PERSONS);
+            }
+        };
+        TaskManager.getInstance().runTask(t);
+    }
+
+    
+    
+    
+    
+    
+    
     private void openMapSpatialUnitGroupEditor() {
         SolaTask t = new SolaTask<Void, Void>() {
 
@@ -612,6 +650,7 @@ public class MainForm extends javax.swing.JFrame {
         btnOpenBaUnitSearch = new javax.swing.JButton();
         btnDocumentSearch = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
+        btnSearch1 = new org.sola.clients.swing.common.buttons.BtnSearch();
         btnManageParties = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnOpenMap = new javax.swing.JButton();
@@ -733,6 +772,15 @@ public class MainForm extends javax.swing.JFrame {
         });
         applicationsMain.add(btnDocumentSearch);
         applicationsMain.add(jSeparator3);
+
+        btnSearch1.setText(bundle.getString("MainForm.btnSearch1.text")); // NOI18N
+        btnSearch1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSearch1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearch1ActionPerformed(evt);
+            }
+        });
+        applicationsMain.add(btnSearch1);
 
         btnManageParties.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/users.png"))); // NOI18N
         btnManageParties.setText(bundle.getString("MainForm.btnManageParties.text")); // NOI18N
@@ -1224,6 +1272,10 @@ public class MainForm extends javax.swing.JFrame {
         openMapSpatialUnitGroupEditor();
     }//GEN-LAST:event_menuSpatialUnitGroupActionPerformed
 
+    private void btnSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch1ActionPerformed
+        openDisputeSearch();
+    }//GEN-LAST:event_btnSearch1ActionPerformed
+
     private void editPassword() {
         showPasswordPanel();
     }
@@ -1254,6 +1306,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton btnNewApplication;
     private javax.swing.JButton btnOpenBaUnitSearch;
     private javax.swing.JButton btnOpenMap;
+    private org.sola.clients.swing.common.buttons.BtnSearch btnSearch1;
     private javax.swing.JButton btnSearchApplications;
     private javax.swing.JButton btnSetPassword;
     private javax.swing.JButton btnShowDashboard;

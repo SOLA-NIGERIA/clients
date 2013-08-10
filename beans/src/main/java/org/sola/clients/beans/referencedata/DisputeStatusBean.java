@@ -28,7 +28,7 @@
 
 /**
  *
- * LAA Additions thoriso
+ * 
  */
 
 package org.sola.clients.beans.referencedata;

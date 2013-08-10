@@ -66,6 +66,8 @@ public class LoginPanel extends javax.swing.JPanel {
     public LoginPanel() {
         initComponents();
         txtUsername.requestFocus();
+        this.languageCombobox.setVisible(false);
+        
     }
 
     /**
@@ -77,7 +79,7 @@ public class LoginPanel extends javax.swing.JPanel {
         this.mainClass = mainClasss;
         initComponents();
         txtUsername.requestFocus();
-
+        this.languageCombobox.setVisible(false);
         // TODO: REMOVE IN RELEASE!!!
         txtUsername.setText("test");
         txtUserPassword.setText("test");
