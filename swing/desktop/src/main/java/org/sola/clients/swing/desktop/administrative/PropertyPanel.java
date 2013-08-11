@@ -766,7 +766,7 @@ public class PropertyPanel extends ContentPanel {
         form.setLocationRelativeTo(this);
         form.setVisible(true);
     }
-
+     
     /**
      * Open form to add new parcel or search for existing one.\
      * @param isNew Opens {@link CreateParcelDialog} if true, otherwise opens {@link SearchParcelDialog}
@@ -890,7 +890,8 @@ public class PropertyPanel extends ContentPanel {
                     baUnitBean1.getNameFirstpart(), baUnitBean1.getNameLastpart())));
         }
     }
-
+    
+     
     /**
      * Links document as a paper title on the BaUnit object.
      */
@@ -1596,7 +1597,7 @@ public class PropertyPanel extends ContentPanel {
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel9Layout.createSequentialGroup()
                 .add(jLabel2)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
             .add(txtLastPart)
         );
         jPanel9Layout.setVerticalGroup(

@@ -30,6 +30,7 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import org.sola.clients.beans.administrative.BaUnitBean;
+import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.digitalarchive.DocumentBean;
 import org.sola.clients.beans.systematicregistration.SysRegCertificatesBean;
@@ -45,6 +46,7 @@ import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.administrative.BaUnitTO;
+import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
 
 /**
  *
@@ -235,7 +237,12 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         BaUnitTO baUnitTO = WSManager.getInstance().getAdministrative().getBaUnitById(id);
        return TypeConverters.TransferObjectToBean(baUnitTO, BaUnitBean.class, null);
     }   
-
+    
+    private ApplicationBean getApplication(String id) {
+        ApplicationTO applicationTO = WSManager.getInstance().getCaseManagementService().getApplication(id);
+       return TypeConverters.TransferObjectToBean(applicationTO, ApplicationBean.class, null);
+    }
+    
     private void btnGenCertificateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenCertificateActionPerformed
         if (cadastreObjectSearch.getSelectedElement() != null) {
             this.location = cadastreObjectSearch.getSelectedElement().toString();
@@ -259,19 +266,22 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 
         String baUnitId = null;
         String nrTmp = null;
+        String appId = null;
         int i = 0;
        
         for (Iterator<SysRegCertificatesBean> it = sysRegCertificatesListBean.getSysRegCertificates().iterator(); it.hasNext();) {
             SysRegCertificatesBean appBaunit = it.next();
              baUnitId = appBaunit.getBaUnitId();
+             appId =  appBaunit.getAppId();
              
             this.reportTogenerate = baUnitId + "_" + tmpLocation + "_" + this.reportdate + ".pdf";
             this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
             this.reportTogenerate = this.reportTogenerate.replace("/", "_");
-            
-          
+            BaUnitBean baUnit = getBaUnit(baUnitId);
+            ApplicationBean applicationBean = getApplication(appId); 
+             
 //            showReport(ReportManager.getBaUnitReport(getBaUnit(baUnitId)));
-            showReport(ReportManager.getSysRegCertificatesReport(getBaUnit(baUnitId),tmpLocation));
+            showReport(ReportManager.getSysRegCertificatesReport(baUnit,tmpLocation, applicationBean, appBaunit));
             i = i + 1;
         }
         if (i==0) {

@@ -31,6 +31,7 @@ package org.sola.clients.reports;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -538,19 +539,63 @@ public class ReportManager {
      * report.
      *
      */
-    public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location) {
+    public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit) {
         HashMap inputParameters = new HashMap();
+        String me ="/images/sola/Picture1.png";       
+        String appNr = null;
+        String claimant = null;
+        String address = null;
+        Date lodgingDate = null;
+        Integer timeToDevelop = null;
+        Integer valueForImprov = null;       
+        Date termOfO = null;
+        Date commencingDate = null;
+        String landUse = null;
+        String propLocation = null;
+        BigDecimal size = null;
+        
+        appNr =    appBaunit.getNr();
+        claimant = appBean.getContactPerson().getFullName();
+        address =  appBean.getContactPerson().getAddress().getDescription();
+        lodgingDate = appBean.getLodgingDatetime();
+        commencingDate = appBaunit.getCommencingDate();
+        landUse = appBaunit.getLandUse();
+        propLocation = appBaunit.getPropLocation();
+        size = appBaunit.getSize();
+        
+//        TO BE ADDED ON THE APPLICATION FORM 
+//        timeToDevelop = appBean.getTimeToDevelop();
+//        valueForImprov = appBean.getValueForImprov();       
+//        termOfO = appBean.getTermOfOccupancy();
+        
+
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("LOCATION", location);
         inputParameters.put("AREA", location);
+        inputParameters.put("APP_NR", appNr);
+        inputParameters.put("CLIENT_NAME", claimant);
+        inputParameters.put("ADDRESS", address);
+        inputParameters.put("LODGING_DATE", lodgingDate);
+        inputParameters.put("COMMENCING_DATE", commencingDate);
+        inputParameters.put("TIME_DEVELOP", timeToDevelop);
+        inputParameters.put("VALUE_IMPROV", valueForImprov);
+        inputParameters.put("TERM_DATE", termOfO);
+        inputParameters.put("LAND_USE", landUse);
+        inputParameters.put("PROP_LOCATION", propLocation);
+        inputParameters.put("SIZE", size);
+        inputParameters.put("IMG_URL", ReportManager.class.getResourceAsStream(me));
+
+//        TOBEVERIFIED   
+//        inputParameters.put("QR_URL", ReportManager.class.getResourceAsStream(xxx));
+//        inputParameters.put("MAP_URL", ReportManager.class.getResourceAsStream(xxx));
         BaUnitBean[] beans = new BaUnitBean[1];
         beans[0] = baUnitBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
-
         try {
             return JasperFillManager.fillReport(
-                    ReportManager.class.getResourceAsStream("/reports/SysRegCertificates.jasper"),
+//                    ReportManager.class.getResourceAsStream("/reports/SysRegCertificates.jasper"),
+                    ReportManager.class.getResourceAsStream("/reports/CofO.jasper"),
                     inputParameters, jds);
         } catch (JRException ex) {
             MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
@@ -558,6 +603,7 @@ public class ReportManager {
             return null;
         }
     }
+      
     
      /**
      * Generates and displays <b>BA Unit</b> report.
@@ -676,5 +722,4 @@ public class ReportManager {
             return null;
         }
     }
-   
 }

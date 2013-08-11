@@ -401,7 +401,7 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="documentsPanel1" alignment="0" pref="658" max="32767" attributes="0"/>
+                              <Component id="documentsPanel1" alignment="0" max="32767" attributes="0"/>
                               <Component id="jPanel12" alignment="0" max="32767" attributes="0"/>
                               <Component id="groupPanel1" alignment="0" max="32767" attributes="0"/>
                               <Component id="jToolBar4" alignment="0" max="32767" attributes="0"/>

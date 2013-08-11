@@ -36,6 +36,53 @@ public class SysRegCertificatesBean extends AbstractIdBean {
     private String baUnitId;
     private String nr;
     private String name;
+    private String appId;
+    private Date commencingDate;
+    private String landUse;
+    private String propLocation;
+    private BigDecimal size;
+
+    public BigDecimal getSize() {
+        return size;
+    }
+
+    public void setSize(BigDecimal size) {
+        this.size = size;
+    }
+    
+    public String getPropLocation() {
+        return propLocation;
+    }
+
+    public void setPropLocation(String propLocation) {
+        this.propLocation = propLocation;
+    }
+
+    public String getLandUse() {
+        return landUse;
+    }
+
+    public void setLandUse(String landUse) {
+        this.landUse = landUse;
+    }
+       
+    public Date getCommencingDate() {
+        return commencingDate;
+    }
+
+    public void setCommencingDate(Date commencingDate) {
+        this.commencingDate = commencingDate;
+    }
+    
+    
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+    
     
     public String getBaUnitId() {
         return baUnitId;
