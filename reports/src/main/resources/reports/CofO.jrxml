@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="org.sola.clients.reports.locale.CofO" uuid="c13fb486-9550-4921-89f9-de2012a10280">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.1"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="728"/>
+	<property name="ireport.y" value="896"/>
 	<subDataset name="dataset1" uuid="4768022e-de28-4fdd-afea-f95b0f9af7eb">
 		<parameter name="AREA" class="java.lang.Object">
 			<parameterDescription><![CDATA[]]></parameterDescription>
@@ -306,41 +306,6 @@
 					</textElement>
 					<text><![CDATA[Description Of Land]]></text>
 				</staticText>
-				<staticText>
-					<reportElement uuid="88fa65b3-f3f0-4ab8-a9fd-5d9b3d706e67" x="132" y="98" width="100" height="20"/>
-					<textElement>
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[Last Part:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="e63e7ec1-e615-41b3-ba88-9a9428259f95" x="132" y="137" width="100" height="20"/>
-					<textElement>
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[Size/Area:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="d89a610b-e5a7-40c8-bb06-de48549ae474" x="132" y="170" width="100" height="20"/>
-					<textElement>
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[Location:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="3e95acef-18cb-4f23-b250-054e244184fa" x="132" y="214" width="100" height="20"/>
-					<textElement>
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[Type of Ownership:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="83e2107e-991e-4c32-b284-d91a76014649" x="132" y="249" width="100" height="20"/>
-					<textElement>
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[Type of Use:]]></text>
-				</staticText>
 				<textField>
 					<reportElement uuid="177aaff0-9675-4247-8032-4b61c143559b" x="274" y="249" width="100" height="20"/>
 					<textElement>
@@ -407,34 +372,50 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$P{TERM_DATE}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement uuid="735051b0-28aa-415a-85ce-0260000007f5" mode="Transparent" x="132" y="287" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-						<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<text><![CDATA[Years to Develop:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="c298a3d9-3e00-45e4-b4bb-1c1dde1faa88" mode="Transparent" x="132" y="323" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-						<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<text><![CDATA[Value to Improve:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="dd10951a-7bd3-41e2-b1ce-a52bc34c4f83" mode="Transparent" x="132" y="361" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-						<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<text><![CDATA[Term:]]></text>
-				</staticText>
 				<textField>
 					<reportElement uuid="69f526ac-846d-4e51-a816-cd1ccdb5f6ee" x="132" y="58" width="100" height="20"/>
 					<textElement/>
 					<textFieldExpression><![CDATA[$R{parcelNumber}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="1204b202-9850-4ba2-9782-0b255652b581" x="132" y="99" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$R{upi}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="72ef3a20-82af-4f4d-b97b-704c8b28dbdd" x="132" y="138" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$R{sizeArea}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="1b75385c-7a2d-4099-adad-d51d79f8b8f3" x="132" y="171" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$R{location}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="6e58475e-f34f-4ed5-8e29-dd3bf7cafc35" x="130" y="215" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$R{typeOf}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="7a9e9e21-b197-45b8-89d8-56d4e72eeebb" x="130" y="250" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$R{typeOfUse}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="e72297ba-001b-4a83-bf19-808ca7cc6699" x="130" y="288" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$R{yearsToDevelop}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="93ba54a2-87cc-4410-a1b0-86ab261b04e7" x="130" y="324" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$R{valueToImprove}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="0eddb3fa-9b5c-47ec-9975-06d2f1c9dd4e" x="130" y="362" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$R{term}]]></textFieldExpression>
 				</textField>
 			</frame>
 			<staticText>
