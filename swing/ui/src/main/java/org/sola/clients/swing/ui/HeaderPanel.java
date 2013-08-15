@@ -82,7 +82,7 @@ public class HeaderPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(204, 102, 0));
+        setBackground(new java.awt.Color(51, 153, 0));
 
         lblHeaderTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblHeaderTitle.setForeground(new java.awt.Color(255, 255, 255));

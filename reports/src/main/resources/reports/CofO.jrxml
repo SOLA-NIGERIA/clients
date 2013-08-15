@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="org.sola.clients.reports.locale.CofO">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="org.sola.clients.reports.locale.CofO" uuid="c13fb486-9550-4921-89f9-de2012a10280">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1287"/>
-	<subDataset name="dataset1">
+	<property name="ireport.y" value="728"/>
+	<subDataset name="dataset1" uuid="4768022e-de28-4fdd-afea-f95b0f9af7eb">
 		<parameter name="AREA" class="java.lang.Object">
 			<parameterDescription><![CDATA[]]></parameterDescription>
 			<defaultValueExpression><![CDATA[$P{AREA}.toString()]]></defaultValueExpression>
@@ -27,7 +27,7 @@
 			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
 		</field>
 	</subDataset>
-	<subDataset name="Rights">
+	<subDataset name="Rights" uuid="fe424584-12f5-4077-b016-d9afcd32c5b8">
 		<field name="rrrType" class="java.lang.String">
 			<fieldDescription><![CDATA[rrrType.displayValue]]></fieldDescription>
 		</field>
@@ -38,7 +38,7 @@
 			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
 		</field>
 	</subDataset>
-	<subDataset name="Ownership">
+	<subDataset name="Ownership" uuid="6e076322-061b-4a60-8079-71005c8a1b2b">
 		<field name="Owners" class="java.lang.String">
 			<fieldDescription><![CDATA[rrrShare.rightHoldersStringList]]></fieldDescription>
 		</field>
@@ -49,7 +49,7 @@
 			<fieldDescription><![CDATA[status]]></fieldDescription>
 		</field>
 	</subDataset>
-	<subDataset name="Notations">
+	<subDataset name="Notations" uuid="47d52b65-cdd2-4d3d-975e-c4d681e22373">
 		<field name="Ref. Number" class="java.lang.String">
 			<fieldDescription><![CDATA[referenceNr]]></fieldDescription>
 		</field>
@@ -116,34 +116,34 @@
 	<detail>
 		<band height="802" splitType="Stretch">
 			<staticText>
-				<reportElement x="5" y="149" width="544" height="54"/>
+				<reportElement uuid="b092dd43-a1f7-40a2-bbe6-fe0e09630583" x="5" y="149" width="544" height="54"/>
 				<textElement/>
 				<text><![CDATA[(herein after called the holder/holders, which term shall include any person/persons in title), is hereby granted a right of occupancy in and over the land described overleaf for a term of ..... years commencing from thedate specified above according to the true intent and meaning of the Land Use Act No.202 of 1990 and subject to the provisions thereof and to the following special terms and conditions:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="7" y="203" width="548" height="15"/>
+				<reportElement uuid="b8fdc5c9-e92a-47bf-888e-2dd01409b1bf" x="7" y="203" width="548" height="15"/>
 				<textElement/>
 				<text><![CDATA[(1)  To pay in advance without demand to the Board of Internal Revenue or any other Officer appointed by the Governor;]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="25" y="218" width="529" height="16"/>
+				<reportElement uuid="a74a0c1a-df9a-42fc-a24e-e2bd0d53ee4b" x="25" y="218" width="529" height="16"/>
 				<textElement/>
 				<text><![CDATA[(a)   The annual ground rent of N........from the first day of January of each year, ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="24" y="234" width="529" height="77"/>
+				<reportElement uuid="2c4d4196-285c-47f8-9e95-8be547d42828" x="24" y="234" width="529" height="77"/>
 				<textElement/>
 				<text><![CDATA[(b)   Revision period every..........................years of the term of these presents subject to any general revision of rents of similar lands granted under this law and/or to any other charges which the government may wish to impose by way of levy or levies for improvement which the government may wish to undertake at any time in the future and such revised rent and/or charges shall be payable by the holder either from the date of such revision or such other date thereafter as may be determined by government without prejudice to the original provisions herein contained with respect to the Revision period.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="25" y="311" width="529" height="20"/>
+				<reportElement uuid="48deb0c5-fa14-4271-991b-07da3829b23f" x="25" y="311" width="529" height="20"/>
 				<textElement/>
 				<text><![CDATA[(c)   Such revised ground rent as the Governor may from time to time prescribe,
 (d)   Such penal rent as the Governor may from time to time impose.
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="5" y="331" width="544" height="321"/>
+				<reportElement uuid="f891662c-0ccd-432c-8e91-b16b160e2354" x="5" y="331" width="544" height="321"/>
 				<textElement/>
 				<text><![CDATA[(2)   To pay and discharge all rates (including utilities), assessments and impositions, whatsoever which shall at any time be charged or imposed on the said land or any part thereof or any building thereon, or upon the occupier or occupiers thereof.
 (3)   To pay forthwith without demand to the Board of Internal Revenue or such other body or person appointed by the Governor (if not sooner paid) all survey fees, and other charges due in respect of the preparation, registration and issuance of this certificate.
@@ -156,112 +156,112 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="6" y="652" width="163" height="20"/>
+				<reportElement uuid="d4b86eb2-cfc9-47af-9264-f6b1c6f14fda" x="6" y="652" width="163" height="20"/>
 				<textElement/>
 				<text><![CDATA[(10)  To use the said land only for]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="166" y="652" width="88" height="20" forecolor="#000000" backcolor="#FFFFCC"/>
+				<reportElement uuid="c7f567d2-3a60-4229-a262-f72472373fcb" x="166" y="652" width="88" height="20" forecolor="#000000" backcolor="#FFFFCC"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{LAND_USE}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="254" y="652" width="43" height="20"/>
+				<reportElement uuid="b466f431-cc23-4a58-8bb9-2f859ee36880" x="254" y="652" width="43" height="20"/>
 				<textElement/>
 				<text><![CDATA[purpose.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="6" y="672" width="543" height="30"/>
+				<reportElement uuid="af6922f8-0c3b-4253-9ded-fe275177de67" x="6" y="672" width="543" height="30"/>
 				<textElement/>
 				<text><![CDATA[(11)   Not to contravene any of the provisions of the Land Use Act No. 6 of 1978, and to conform and comply with all rules and regulations laid down from time to time by relevant agencies of the State Government]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="704" width="126" height="20"/>
+				<reportElement uuid="06d42970-4f48-44d5-8739-c4231f94e3aa" x="141" y="704" width="126" height="20"/>
 				<textElement/>
 				<text><![CDATA[Given under my hand on ]]></text>
 			</staticText>
 			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="267" y="704" width="100" height="20"/>
+				<reportElement uuid="50e70a84-3db4-4d00-80ee-c626a5626887" x="267" y="704" width="100" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="212" y="748" width="79" height="20"/>
+				<reportElement uuid="766d8644-7f35-47fd-82e6-081f07aba319" x="212" y="748" width="79" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[The Governor]]></text>
 			</staticText>
 			<line>
-				<reportElement x="144" y="747" width="226" height="1"/>
+				<reportElement uuid="0f0f0452-5936-4371-aea8-d491b55cfd64" x="144" y="747" width="226" height="1"/>
 			</line>
 			<staticText>
-				<reportElement x="139" y="41" width="223" height="20"/>
+				<reportElement uuid="eb92e5b0-9b39-4938-8e34-3a1abb3dcce7" x="139" y="41" width="223" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[The Land Use Act, Chapter 202 of 1990]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="104" y="62" width="319" height="20"/>
+				<reportElement uuid="28818642-60fe-4450-966f-66286c5bbe86" x="104" y="62" width="319" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CERTIFICATE OF STATUTORY RIGHT OF OCCUPANCY]]></text>
 			</staticText>
 			<image>
-				<reportElement x="4" y="4" width="101" height="79"/>
+				<reportElement uuid="6ea7b975-42aa-4489-9b3f-1a8b38e42191" x="4" y="4" width="101" height="79"/>
 				<imageExpression><![CDATA[$P{IMG_URL}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="169" y="21" width="153" height="20"/>
+				<reportElement uuid="6b537273-1285-4afb-8567-b62866d452af" x="169" y="21" width="153" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[KADUNA STATE OF NIGERIA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="4" y="104" width="100" height="20"/>
+				<reportElement uuid="b793d1da-66f1-4693-8dcf-575aee1cc713" x="4" y="104" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[Whose address is:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="4" y="124" width="100" height="20"/>
+				<reportElement uuid="298d8394-5ac1-4d65-b22d-1ebda21bb7be" x="4" y="124" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[Date:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="111" y="84" width="303" height="20"/>
+				<reportElement uuid="12029bb4-7442-4577-9ada-e37c4edf6a3b" x="111" y="84" width="303" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{CLIENT_NAME}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="4" y="84" width="100" height="20"/>
+				<reportElement uuid="1cd85bed-7736-4bbb-8ed3-f1d8cba3c1f4" x="4" y="84" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[This is to certify that:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="111" y="104" width="438" height="20"/>
+				<reportElement uuid="5bb92344-3bcb-41bc-97d8-326a06bb8e49" x="111" y="104" width="438" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ADDRESS}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd MMMMM yyyy">
-				<reportElement x="111" y="124" width="128" height="20"/>
+				<reportElement uuid="5d1b3dbd-71ea-437a-a44d-72195d113c6d" x="111" y="124" width="128" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{COMMENCING_DATE}]]></textFieldExpression>
 			</textField>
 			<frame>
-				<reportElement x="435" y="4" width="112" height="40"/>
+				<reportElement uuid="2a38f40a-ae0b-4256-851a-c7c840faf984" x="435" y="4" width="112" height="40"/>
 				<box>
 					<pen lineWidth="2.0"/>
 					<topPen lineWidth="2.0"/>
@@ -270,7 +270,7 @@
 					<rightPen lineWidth="2.0"/>
 				</box>
 				<textField>
-					<reportElement mode="Transparent" x="0" y="0" width="112" height="37" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="c3b0af98-8165-4b74-94ce-fc5e4a5c3a68" mode="Transparent" x="0" y="0" width="112" height="37" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -281,7 +281,7 @@
 		</band>
 		<band height="802">
 			<frame>
-				<reportElement x="5" y="3" width="548" height="799"/>
+				<reportElement uuid="84563846-9204-4b5d-b15c-783ea341cdd2" x="5" y="3" width="548" height="799"/>
 				<box>
 					<pen lineWidth="5.0" lineStyle="Double"/>
 					<topPen lineWidth="5.0" lineStyle="Double"/>
@@ -291,7 +291,7 @@
 				</box>
 			</frame>
 			<frame>
-				<reportElement x="12" y="53" width="535" height="552"/>
+				<reportElement uuid="2d9296ef-8cec-4ad5-af17-5d926cb96b44" x="12" y="53" width="535" height="552"/>
 				<box>
 					<pen lineWidth="1.25" lineStyle="Solid"/>
 					<topPen lineWidth="1.25" lineStyle="Solid"/>
@@ -300,98 +300,91 @@
 					<rightPen lineWidth="1.25" lineStyle="Solid"/>
 				</box>
 				<staticText>
-					<reportElement x="207" y="5" width="127" height="20"/>
+					<reportElement uuid="b3c61dcb-1cda-4b2d-8dc7-6d27a0c2d718" x="207" y="5" width="127" height="20"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Description Of Land]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="132" y="58" width="100" height="20"/>
-					<textElement>
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[First Part:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="132" y="98" width="100" height="20"/>
+					<reportElement uuid="88fa65b3-f3f0-4ab8-a9fd-5d9b3d706e67" x="132" y="98" width="100" height="20"/>
 					<textElement>
 						<font size="12"/>
 					</textElement>
 					<text><![CDATA[Last Part:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="132" y="137" width="100" height="20"/>
+					<reportElement uuid="e63e7ec1-e615-41b3-ba88-9a9428259f95" x="132" y="137" width="100" height="20"/>
 					<textElement>
 						<font size="12"/>
 					</textElement>
 					<text><![CDATA[Size/Area:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="132" y="170" width="100" height="20"/>
+					<reportElement uuid="d89a610b-e5a7-40c8-bb06-de48549ae474" x="132" y="170" width="100" height="20"/>
 					<textElement>
 						<font size="12"/>
 					</textElement>
 					<text><![CDATA[Location:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="132" y="214" width="100" height="20"/>
+					<reportElement uuid="3e95acef-18cb-4f23-b250-054e244184fa" x="132" y="214" width="100" height="20"/>
 					<textElement>
 						<font size="12"/>
 					</textElement>
 					<text><![CDATA[Type of Ownership:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="132" y="249" width="100" height="20"/>
+					<reportElement uuid="83e2107e-991e-4c32-b284-d91a76014649" x="132" y="249" width="100" height="20"/>
 					<textElement>
 						<font size="12"/>
 					</textElement>
 					<text><![CDATA[Type of Use:]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="274" y="249" width="100" height="20"/>
+					<reportElement uuid="177aaff0-9675-4247-8032-4b61c143559b" x="274" y="249" width="100" height="20"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{LAND_USE}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="274" y="214" width="100" height="20"/>
+					<reportElement uuid="57900da3-f237-41c4-93b2-2e8a719d7428" x="274" y="214" width="100" height="20"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{baUnitType}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="274" y="170" width="244" height="33"/>
+					<reportElement uuid="631b3a4a-e3b5-4c86-8fbe-570cc7802471" x="274" y="170" width="244" height="33"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{PROP_LOCATION}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="274" y="138" width="100" height="20"/>
+					<reportElement uuid="d94a7ca1-eda3-4de7-9b5d-cef4d572f172" x="274" y="138" width="100" height="20"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{SIZE}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="274" y="98" width="100" height="20"/>
+					<reportElement uuid="0345e367-a00b-4b04-a4b7-2156c124f7d1" x="274" y="98" width="100" height="20"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{nameLastpart}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="273" y="58" width="100" height="20"/>
+					<reportElement uuid="e0dbe6dd-9294-46cf-91ca-b3c7d9714260" x="273" y="58" width="100" height="20"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{nameFirstpart}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement mode="Transparent" x="274" y="287" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="299c17dd-13a1-4d11-8ad4-6dc26661845a" mode="Transparent" x="274" y="287" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -399,7 +392,7 @@
 					<textFieldExpression><![CDATA[$P{TIME_DEVELOP}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement mode="Transparent" x="273" y="323" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="4ac930ff-fc0b-412f-bb90-68bfd1ee85a0" mode="Transparent" x="273" y="323" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -407,7 +400,7 @@
 					<textFieldExpression><![CDATA[$P{VALUE_IMPROV}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement mode="Transparent" x="273" y="361" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="07d1633d-398e-49f8-931d-ad11c88f40ce" mode="Transparent" x="273" y="361" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -415,7 +408,7 @@
 					<textFieldExpression><![CDATA[$P{TERM_DATE}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement mode="Transparent" x="132" y="287" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="735051b0-28aa-415a-85ce-0260000007f5" mode="Transparent" x="132" y="287" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -423,7 +416,7 @@
 					<text><![CDATA[Years to Develop:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Transparent" x="132" y="323" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="c298a3d9-3e00-45e4-b4bb-1c1dde1faa88" mode="Transparent" x="132" y="323" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -431,85 +424,90 @@
 					<text><![CDATA[Value to Improve:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Transparent" x="132" y="361" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="dd10951a-7bd3-41e2-b1ce-a52bc34c4f83" mode="Transparent" x="132" y="361" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<text><![CDATA[Term:]]></text>
 				</staticText>
+				<textField>
+					<reportElement uuid="69f526ac-846d-4e51-a816-cd1ccdb5f6ee" x="132" y="58" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$R{parcelNumber}]]></textFieldExpression>
+				</textField>
 			</frame>
 			<staticText>
-				<reportElement x="7" y="651" width="162" height="20"/>
+				<reportElement uuid="14d18968-c1b9-40f6-a161-b3c346c22620" x="7" y="651" width="162" height="20"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[This Instrument is registered on:]]></text>
 			</staticText>
 			<textField pattern="dd MMMMM yyyy">
-				<reportElement x="169" y="651" width="100" height="20"/>
+				<reportElement uuid="d3492dd8-382c-4659-a413-131aba94f22e" x="169" y="651" width="100" height="20"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{LODGING_DATE}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="9" y="671" width="162" height="20"/>
+				<reportElement uuid="3d2926b6-4679-4869-af33-4609a9f77c57" x="9" y="671" width="162" height="20"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[with Application Number:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="171" y="671" width="100" height="20"/>
+				<reportElement uuid="56a404d8-bfd9-479e-87b6-683519315d12" x="171" y="671" width="100" height="20"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{APP_NR}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="273" y="651" width="276" height="20"/>
+				<reportElement uuid="02d65a7e-f21e-41be-af03-c92a1829f1b5" x="273" y="651" width="276" height="20"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[This instrument was delivered to me for registration by]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="272" y="671" width="263" height="20"/>
+				<reportElement uuid="f4565265-3800-4a57-a26d-84ad9850639d" x="272" y="671" width="263" height="20"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{CLIENT_NAME}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="272" y="691" width="21" height="20"/>
+				<reportElement uuid="be3f6575-8b14-4ebc-881b-62a2e9250900" x="272" y="691" width="21" height="20"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[On:]]></text>
 			</staticText>
 			<textField pattern="EEE, d MMM yyyy HH:mm:ss">
-				<reportElement x="293" y="691" width="241" height="20"/>
+				<reportElement uuid="7ba7251a-b217-402b-800b-e5af4f17bbac" x="293" y="691" width="241" height="20"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="12" y="744" width="227" height="1"/>
+				<reportElement uuid="a997a82c-c060-4b06-8a92-6409fa9da444" x="12" y="744" width="227" height="1"/>
 			</line>
 			<line>
-				<reportElement x="290" y="743" width="240" height="1"/>
+				<reportElement uuid="437c3592-5f74-43a0-8d7a-5d309386bd27" x="290" y="743" width="240" height="1"/>
 			</line>
 			<staticText>
-				<reportElement x="57" y="757" width="143" height="20"/>
+				<reportElement uuid="045d677d-c5d1-4a48-8acc-db7288236ad6" x="57" y="757" width="143" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Chief Registrar of Deeds]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="309" y="757" width="200" height="20"/>
+				<reportElement uuid="7339a38d-976a-4937-a925-65e241264e4a" x="309" y="757" width="200" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>

@@ -27,6 +27,7 @@
  */
 package org.sola.clients.beans.party;
 
+import java.util.Date;
 import java.util.UUID;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
@@ -93,15 +94,15 @@ public class PartyBean extends PartySummaryBean {
     private CommunicationTypeBean communicationTypeBean;
     private SolaList<PartyRoleBean> roleList;
     private transient PartyRoleBean selectedRole;
-    private String dob;
+    private Date dob;
     private String state;
     private String nationality;
 
-    public String getDob() {
+    public Date getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 

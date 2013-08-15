@@ -69,8 +69,8 @@ public class DesktopApplication {
                 Thread.setDefaultUncaughtExceptionHandler(new DesktopClientExceptionHandler());
                 LocalizationManager.loadLanguage(DesktopApplication.class);
                 LogUtility.initialize(DesktopApplication.class);
-               // LafManager.getInstance().setProperties("green");
-                LafManager.getInstance().setProperties("autumn");
+                LafManager.getInstance().setProperties("green");
+                //LafManager.getInstance().setProperties("autumn");
 
                 final LoginForm loginForm = new LoginForm(DesktopApplication.class);
                 loginForm.addPropertyChangeListener(new PropertyChangeListener() {
