@@ -907,6 +907,7 @@ public DisputePanelForm(String disputeNr) {
         popUpReport.add(menuPrintConfirmation);
 
         setHeaderPanel(pnlHeader);
+        setHelpTopic(bundle.getString("DisputePanelForm.helpTopic")); // NOI18N
         setName(bundle.getString("DisputePanelForm.name")); // NOI18N
 
         jToolBar1.setBorder(null);
@@ -1051,7 +1052,7 @@ public DisputePanelForm(String disputeNr) {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addGap(0, 364, Short.MAX_VALUE))
+                        .addGap(0, 385, Short.MAX_VALUE))
                     .addComponent(txtupdateDate))
                 .addContainerGap())
         );
@@ -1061,7 +1062,7 @@ public DisputePanelForm(String disputeNr) {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtupdateDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addGap(0, 15, Short.MAX_VALUE))
         );
 
         jPanel6.add(jPanel7);
@@ -1086,7 +1087,7 @@ public DisputePanelForm(String disputeNr) {
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel21Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addGap(0, 318, Short.MAX_VALUE))
+                        .addGap(0, 330, Short.MAX_VALUE))
                     .addComponent(dbxdisputeAction1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1119,7 +1120,7 @@ public DisputePanelForm(String disputeNr) {
             .addGroup(jPanel22Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
                     .addComponent(dbxotherAuthorities1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1163,7 +1164,7 @@ public DisputePanelForm(String disputeNr) {
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel26.add(jPanel37);
@@ -1201,7 +1202,7 @@ public DisputePanelForm(String disputeNr) {
                 .addContainerGap(542, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addComponent(txtcadastreId, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
+                .addComponent(txtcadastreId, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSearchPlot))
         );
@@ -1214,7 +1215,7 @@ public DisputePanelForm(String disputeNr) {
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearchPlot)
                     .addComponent(txtcadastreId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel8.add(jPanel23);
@@ -1236,7 +1237,7 @@ public DisputePanelForm(String disputeNr) {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(lblPlotLocation)
-                        .addGap(0, 529, Short.MAX_VALUE))
+                        .addGap(0, 555, Short.MAX_VALUE))
                     .addComponent(txtplotLocation))
                 .addContainerGap())
         );
@@ -1247,7 +1248,7 @@ public DisputePanelForm(String disputeNr) {
                 .addComponent(lblPlotLocation)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtplotLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jPanel8.add(jPanel3);
@@ -1272,7 +1273,7 @@ public DisputePanelForm(String disputeNr) {
                 .addContainerGap()
                 .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dbxdisputeCategory, 0, 288, Short.MAX_VALUE)
-                    .addComponent(lblLeaseCategory1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
+                    .addComponent(lblLeaseCategory1, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel40Layout.setVerticalGroup(
@@ -1281,7 +1282,7 @@ public DisputePanelForm(String disputeNr) {
                 .addComponent(lblLeaseCategory1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dbxdisputeCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 35, Short.MAX_VALUE))
+                .addGap(0, 28, Short.MAX_VALUE))
         );
 
         jPanel39.add(jPanel40);
@@ -1303,7 +1304,7 @@ public DisputePanelForm(String disputeNr) {
                 .addContainerGap()
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dbxdisputeType, 0, 288, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel41Layout.setVerticalGroup(
@@ -1312,7 +1313,7 @@ public DisputePanelForm(String disputeNr) {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dbxdisputeType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 35, Short.MAX_VALUE))
+                .addGap(0, 28, Short.MAX_VALUE))
         );
 
         jPanel39.add(jPanel41);
@@ -1323,7 +1324,7 @@ public DisputePanelForm(String disputeNr) {
         jPanel42.setLayout(jPanel42Layout);
         jPanel42Layout.setHorizontalGroup(
             jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 621, Short.MAX_VALUE)
+            .addGap(0, 665, Short.MAX_VALUE)
         );
         jPanel42Layout.setVerticalGroup(
             jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1357,7 +1358,7 @@ public DisputePanelForm(String disputeNr) {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         tabContainer.addTab(bundle.getString("DisputePanelForm.tabGeneralInfo.TabConstraints.tabTitle"), tabGeneralInfo); // NOI18N
@@ -1441,7 +1442,7 @@ public DisputePanelForm(String disputeNr) {
                                     .addComponent(cbxPartyRole, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtPartyRole, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1233, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1317, Short.MAX_VALUE))
                 .addContainerGap())
         );
         tabPartyLayout.setVerticalGroup(
@@ -1464,7 +1465,7 @@ public DisputePanelForm(String disputeNr) {
                     .addComponent(btnAddOwner, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         tabContainer.addTab(bundle.getString("DisputePanelForm.tabParty.TabConstraints.tabTitle"), tabParty); // NOI18N
@@ -1473,11 +1474,11 @@ public DisputePanelForm(String disputeNr) {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(documentsManagementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1253, Short.MAX_VALUE)
+            .addComponent(documentsManagementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1341, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(documentsManagementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+            .addComponent(documentsManagementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
         );
 
         tabContainer.addTab(bundle.getString("DisputePanelForm.jPanel9.TabConstraints.tabTitle_1"), jPanel9); // NOI18N
@@ -1529,7 +1530,7 @@ public DisputePanelForm(String disputeNr) {
                 .addContainerGap())
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 1036, Short.MAX_VALUE))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1557,7 +1558,7 @@ public DisputePanelForm(String disputeNr) {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
 
         tabContainer.addTab(bundle.getString("DisputePanelForm.jPanel13.TabConstraints.tabTitle"), jPanel13); // NOI18N
@@ -1597,7 +1598,7 @@ public DisputePanelForm(String disputeNr) {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDisputeMode)
                     .addComponent(btnCourtProcess))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel4);
@@ -1619,7 +1620,7 @@ public DisputePanelForm(String disputeNr) {
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel19Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 211, Short.MAX_VALUE))
+                        .addGap(0, 214, Short.MAX_VALUE))
                     .addComponent(txtdisputeNumber, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -1653,7 +1654,7 @@ public DisputePanelForm(String disputeNr) {
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel20Layout.createSequentialGroup()
                         .addComponent(lblLodgementDate)
-                        .addGap(0, 208, Short.MAX_VALUE))
+                        .addGap(0, 212, Short.MAX_VALUE))
                     .addComponent(txtlodgementDate))
                 .addContainerGap())
         );
@@ -1687,7 +1688,7 @@ public DisputePanelForm(String disputeNr) {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 213, Short.MAX_VALUE))
+                        .addGap(0, 231, Short.MAX_VALUE))
                     .addComponent(txtstatus))
                 .addContainerGap())
         );
