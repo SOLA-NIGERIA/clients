@@ -881,7 +881,14 @@ public class ApplicationBean extends ApplicationSummaryBean {
      */
     public boolean setApplicantRole() {
         PartyRoleTypeBean partyRoleType = new PartyRoleTypeBean();
-        partyRoleType.setCode("applicant");
+        if (this.serviceList.get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
+            partyRoleType.setCode("claimant");
+//        } TOBE UNCOMMENTED FOR WEEKLY REPORT
+//        if (this.serviceList.get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_CADASTRE_CHANGE)) {
+//            partyRoleType.setCode("recordOfficer");
+        }else {
+         partyRoleType.setCode("applicant");
+        } 
         if (!contactPerson.checkRoleExists(partyRoleType)) {
            contactPerson.addRole(partyRoleType);
         } 

@@ -179,7 +179,11 @@ public class BaUnitBean extends BaUnitSummaryBean {
     public static final String PENDING_ACTION_CODE_PROPERTY = "pendingActionCode";
     public static final String PENDING_ACTION_PROPERTY = "pendingTypeAction";
     public static final String SELECTED_BA_UNIT_AREA_PROPERTY = "selectedBaUnitArea";
-    
+    public static final String IS_DEVELOPED_PROPERTY = "isDeveloped";
+    public static final String YEARS_FORDEVELOP_PROPERTY = "yearsForDev";
+    public static final String VALUE_TOIMPROVE_PROPERTY = "valueToImp";
+    public static final String TERM_PROPERTY = "term";
+    public static final String LOCATION_PROPERTY = "location";
     
     private SolaList<RrrBean> rrrList;
     private SolaList<BaUnitNotationBean> baUnitNotationList;
@@ -202,7 +206,74 @@ public class BaUnitBean extends BaUnitSummaryBean {
     private String estateType;
     private TypeActionBean pendingTypeAction;
     private BigDecimal calculatedAreaSize;
+    
+    private boolean isDeveloped;
+    private Integer yearsForDev;
+    private BigDecimal valueToImp;
+    private Integer term;
+    private String landUse;
+    private String location;
 
+    public String getLandUse() {
+        return landUse;
+    }
+
+    public void setLandUse(String landUse) {
+        this.landUse = landUse;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        String old = this.location;
+        this.location = location;
+        propertySupport.firePropertyChange(LOCATION_PROPERTY, old, this.location);
+     }
+
+    public Integer getTerm() {
+        return term;
+    }
+
+    public void setTerm(Integer term) {
+        Integer old = this.term;
+        this.term = term;
+        propertySupport.firePropertyChange(TERM_PROPERTY, old, this.term);
+    }
+
+    public BigDecimal getValueToImp() {
+        return valueToImp;
+    }
+
+    public void setValueToImp(BigDecimal valueToImp) {
+        BigDecimal old = this.valueToImp;
+        this.valueToImp = valueToImp;
+        propertySupport.firePropertyChange(VALUE_TOIMPROVE_PROPERTY, old, this.valueToImp);
+    }
+
+    public Integer getYearsForDev() {
+        return yearsForDev;
+    }
+
+    public void setYearsForDev(Integer yearsForDev) {
+        Integer old = this.yearsForDev;
+        this.yearsForDev = yearsForDev;
+        propertySupport.firePropertyChange(YEARS_FORDEVELOP_PROPERTY, old, this.yearsForDev);
+     }
+    
+    public boolean isIsDeveloped() {
+        return isDeveloped;
+    }
+
+    public void setIsDeveloped(boolean isDeveloped) {
+        boolean old = this.isDeveloped;
+        this.isDeveloped = isDeveloped;
+        propertySupport.firePropertyChange(IS_DEVELOPED_PROPERTY, old, this.isDeveloped);
+    
+    }
+    
+    
     public BigDecimal getCalculatedAreaSize() {
         return calculatedAreaSize;
     }
@@ -602,6 +673,7 @@ public class BaUnitBean extends BaUnitSummaryBean {
         return sourceList.getFilteredList();
     }
 
+       
     public void removeSelectedParentBaUnit(){
         if(getSelectedParentBaUnit() != null){
             getParentBaUnits().safeRemove(getSelectedParentBaUnit(), EntityAction.DELETE);

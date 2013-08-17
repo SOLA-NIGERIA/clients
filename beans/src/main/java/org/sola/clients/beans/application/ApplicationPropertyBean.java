@@ -68,6 +68,8 @@ public class ApplicationPropertyBean extends AbstractIdBean {
     private boolean verifiedLocation;
     private boolean verifiedApplications;
     private LandUseTypeBean landUseType;
+    private String landUseCode;
+    
 
     public ApplicationPropertyBean() {
         super();
@@ -77,7 +79,8 @@ public class ApplicationPropertyBean extends AbstractIdBean {
         if (landUseType != null) {
             return landUseType.getCode();
         } else {
-            return null;
+//            return null;
+          return this.landUseCode;  
         }
     }
 
@@ -85,6 +88,8 @@ public class ApplicationPropertyBean extends AbstractIdBean {
         String oldValue = null;
         if (landUseType != null) {
             oldValue = landUseType.getCode();
+        }  else  {
+            oldValue = this.landUseCode;
         }
         setLandUseType(CacheManager.getBeanByCode(
                 CacheManager.getLandUseTypes(), landUseCode));

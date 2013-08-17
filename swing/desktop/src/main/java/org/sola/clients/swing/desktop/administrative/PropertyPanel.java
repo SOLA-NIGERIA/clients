@@ -95,6 +95,8 @@ public class PropertyPanel extends ContentPanel {
     private String baUnitID;
     private String nameFirstPart;
     private String nameLastPart;
+    private String landUse;
+    private LandUseTypeBean landUseType;
     private ControlsBundleForBaUnit mapControl = null;
     private AddDocumentForm applicationDocumentsForm;
     private boolean readOnly = false;
@@ -102,6 +104,7 @@ public class PropertyPanel extends ContentPanel {
     private PropertyChangeListener newPropertyWizardListener;
     public BaUnitBean whichBaUnitSelected;
     private boolean isBtnNext = false;
+            
 
     /**
      * Creates {@link BaUnitBean} used to bind form components.
@@ -122,8 +125,18 @@ public class PropertyPanel extends ContentPanel {
                     baUnitBean.setNameFirstpart(nameFirstPart);
                     baUnitBean.setNameLastpart(nameLastPart);
                 }
+            
+                this.landUseType = this.applicationBean.getFilteredPropertyList().get(0).getLandUseType();
+                this.landUse = this.landUseType.getCode();
+//                this.txtLandUse.setText(this.landUseType.getDisplayValue());
+                if (landUse != null ) {
+                    baUnitBean.setLandUse(landUse);
+                    baUnitBean.setTerm(getTerm(landUse,this.applicationBean.getContactPerson().getNationality() ));
+                }
+                
             }
             baUnitBean1 = baUnitBean;
+           
             if (baUnitBean1.getStatusCode() != null && !baUnitBean1.getStatusCode().equals(StatusConstants.CURRENT)
                     && !baUnitBean1.getStatusCode().equals(StatusConstants.PENDING)) {
                 readOnly = true;
@@ -131,7 +144,19 @@ public class PropertyPanel extends ContentPanel {
         }
         return baUnitBean1;
     }
-
+     
+    private Integer getTerm(String landUse,String nationality ) {
+        Integer term=null;
+        if (landUse.startsWith("res")&& nationality.contains("Nigeria")) {
+            term=99;
+        } 
+        if (landUse.startsWith("bus")&& nationality.contains("Nigeria")) {
+            term = 40;
+        }
+        
+        return term;
+    }
+    
     /**
      * Creates {@link BaUnitAreaBean} used to bind form components.
      */
@@ -219,14 +244,43 @@ public class PropertyPanel extends ContentPanel {
             this.nameFirstPart = baUnitBean.getNameFirstpart();
             this.nameLastPart = baUnitBean.getNameLastpart();
         }
-        
         resourceBundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
         initComponents();
         portInit();
         
         
     }
-
+    
+    
+    
+    /**
+     * Form constructor.
+     *
+     * @param applicationBean {@link ApplicationBean} instance, used to get data
+     * on BaUnit and provide list of documents.
+     * @param applicationService {@link ApplicationServiceBean} instance, used
+     * to determine what actions should be taken on this form.
+     * @param nameFirstPart First part of the property code.
+     * @param nameLastPart Last part of the property code.
+     * @param readOnly If true, opens form in read only mode.
+     */
+    
+//     QUI TOGLIERE TODO  
+    public PropertyPanel(ApplicationBean applicationBean,
+            ApplicationServiceBean applicationService,
+            String nameFirstPart, String nameLastPart, boolean readOnly, LandUseTypeBean landUseType) {
+        this.readOnly = readOnly || !SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_BA_UNIT_SAVE);
+        this.applicationBean = applicationBean;
+        this.applicationService = applicationService;
+        this.nameFirstPart = nameFirstPart;
+        this.nameLastPart = nameLastPart;
+        this.landUse = landUseType.getCode();
+        this.txtLandUse.setText(landUseType.getDisplayValue());
+        resourceBundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
+        initComponents();
+        portInit();
+     }
+    
     /**
      * Makes post initialization tasks.
      */
@@ -261,6 +315,8 @@ public class PropertyPanel extends ContentPanel {
                     customizeParentPropertyButtons();
                 } else if (evt.getPropertyName().equals(BaUnitBean.SELECTED_CHILD_BA_UNIT_PROPERTY)) {
                     customizeChildPropertyButtons();
+                } else if (evt.getPropertyName().equals(BaUnitBean.IS_DEVELOPED_PROPERTY)) {
+                    setIfItIsDeveloped();
                 }
                 
             }
@@ -277,11 +333,32 @@ public class PropertyPanel extends ContentPanel {
         });
         
         saveBaUnitState();
+        
+        setIfItIsDeveloped();
     }
     
     private void formatSize(String size) {
         txtArea.setText(size.substring(0, size.indexOf('.')));
     }
+    
+    
+    private void setIfItIsDeveloped() {
+       if (!this.chkIsDeveloped.isSelected()){ 
+       this.txtYearsToDev.setEditable(false);
+       this.txtValueToImprove.setEditable(false);
+       this.txtYearsToDev.setEnabled(false);
+       this.txtValueToImprove.setEnabled(false);
+       this.baUnitBean1.setYearsForDev(null);
+       this.baUnitBean1.setValueToImp(null);
+       this.pnlToDev.setVisible(false);
+       } else {
+       this.txtYearsToDev.setEditable(true);
+       this.txtValueToImprove.setEditable(true);
+       this.txtYearsToDev.setEnabled(true);
+       this.txtValueToImprove.setEnabled(true);
+       this.pnlToDev.setVisible(true);
+      }
+    }     
 
     /**
      * Runs form customization, to restrict certain actions, bind listeners on
@@ -353,6 +430,10 @@ public class PropertyPanel extends ContentPanel {
 //        TO BE REMOVED btnNext after well tested and before pushing the code
         btnNext.setVisible(false);        
         btnNext.setEnabled(false);
+        
+        if(applicationService.getRequestType().getCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
+            this.btnAddParcel.setVisible(false);
+        }
         
     }
 
@@ -1208,13 +1289,24 @@ public class PropertyPanel extends ContentPanel {
         tabsMain = new javax.swing.JTabbedPane();
         jPanel7 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
+        chkIsDeveloped = new javax.swing.JCheckBox();
+        pnlToDev = new javax.swing.JPanel();
+        lblYearsToDev = new javax.swing.JLabel();
+        txtYearsToDev = new javax.swing.JTextField();
+        lblValueToImprove = new javax.swing.JLabel();
+        txtValueToImprove = new javax.swing.JTextField();
+        jPanel18 = new javax.swing.JPanel();
+        lblLandUse = new javax.swing.JLabel();
+        txtLandUse = new javax.swing.JTextField();
+        lblTerm = new javax.swing.JLabel();
+        txtTerm = new javax.swing.JTextField();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        txtLocation = new javax.swing.JTextArea();
+        lblLocation = new javax.swing.JLabel();
         jToolBar4 = new javax.swing.JToolBar();
         btnViewPaperTitle = new javax.swing.JButton();
         btnLinkPaperTitle = new javax.swing.JButton();
         documentsPanel1 = createDocumentsPanel();
-        groupPanel1 = new org.sola.clients.swing.ui.GroupPanel();
         jPanel13 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -1231,6 +1323,9 @@ public class PropertyPanel extends ContentPanel {
         areaPanel = new javax.swing.JPanel();
         labArea = new javax.swing.JLabel();
         txtArea = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
+        groupPanel1 = new org.sola.clients.swing.ui.GroupPanel();
+        jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableParcels = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
@@ -1491,30 +1586,146 @@ public class PropertyPanel extends ContentPanel {
 
         jPanel12.setName("jPanel12"); // NOI18N
 
-        jLabel5.setText(bundle.getString("PropertyPanel.jLabel5.text")); // NOI18N
-        jLabel5.setName("jLabel5"); // NOI18N
+        chkIsDeveloped.setText(bundle.getString("PropertyPanel.chkIsDeveloped.text")); // NOI18N
+        chkIsDeveloped.setName(bundle.getString("PropertyPanel.chkIsDeveloped.name")); // NOI18N
 
-        txtName.setName("txtName"); // NOI18N
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${name}"), txtName, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${isDeveloped}"), chkIsDeveloped, org.jdesktop.beansbinding.BeanProperty.create("selected"));
         bindingGroup.addBinding(binding);
+
+        pnlToDev.setName(bundle.getString("PropertyPanel.pnlToDev.name")); // NOI18N
+
+        lblYearsToDev.setText(bundle.getString("PropertyPanel.lblYearsToDev.text")); // NOI18N
+        lblYearsToDev.setName(bundle.getString("PropertyPanel.lblYearsToDev.name")); // NOI18N
+
+        txtYearsToDev.setName(bundle.getString("PropertyPanel.txtYearsToDev.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${yearsForDev}"), txtYearsToDev, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        lblValueToImprove.setText(bundle.getString("PropertyPanel.lblValueToImprove.text")); // NOI18N
+        lblValueToImprove.setName(bundle.getString("PropertyPanel.lblValueToImprove.name")); // NOI18N
+
+        txtValueToImprove.setName(bundle.getString("PropertyPanel.txtValueToImprove.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${valueToImp}"), txtValueToImprove, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        org.jdesktop.layout.GroupLayout pnlToDevLayout = new org.jdesktop.layout.GroupLayout(pnlToDev);
+        pnlToDev.setLayout(pnlToDevLayout);
+        pnlToDevLayout.setHorizontalGroup(
+            pnlToDevLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(pnlToDevLayout.createSequentialGroup()
+                .add(pnlToDevLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblYearsToDev, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(txtYearsToDev, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lblValueToImprove, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(txtValueToImprove, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlToDevLayout.setVerticalGroup(
+            pnlToDevLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(pnlToDevLayout.createSequentialGroup()
+                .add(lblYearsToDev)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(txtYearsToDev, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(lblValueToImprove)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(txtValueToImprove, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel18.setName(bundle.getString("PropertyPanel.jPanel18.name")); // NOI18N
+
+        lblLandUse.setText(bundle.getString("PropertyPanel.lblLandUse.text")); // NOI18N
+        lblLandUse.setName(bundle.getString("PropertyPanel.lblLandUse.name")); // NOI18N
+
+        txtLandUse.setEnabled(false);
+        txtLandUse.setName(bundle.getString("PropertyPanel.txtLandUse.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${landUse}"), txtLandUse, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        lblTerm.setText(bundle.getString("PropertyPanel.lblTerm.text")); // NOI18N
+        lblTerm.setName(bundle.getString("PropertyPanel.lblTerm.name")); // NOI18N
+
+        txtTerm.setName(bundle.getString("PropertyPanel.txtTerm.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${term}"), txtTerm, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        org.jdesktop.layout.GroupLayout jPanel18Layout = new org.jdesktop.layout.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel18Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel18Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(txtLandUse)
+                    .add(lblTerm, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(lblLandUse, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                    .add(txtTerm))
+                .addContainerGap())
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel18Layout.createSequentialGroup()
+                .add(lblLandUse, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(txtLandUse, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(lblTerm)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(txtTerm, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jScrollPane9.setName(bundle.getString("PropertyPanel.jScrollPane9.name")); // NOI18N
+
+        txtLocation.setColumns(20);
+        txtLocation.setRows(5);
+        txtLocation.setName(bundle.getString("PropertyPanel.txtLocation.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${location}"), txtLocation, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jScrollPane9.setViewportView(txtLocation);
+
+        lblLocation.setText(bundle.getString("PropertyPanel.lblLocation.text")); // NOI18N
+        lblLocation.setName(bundle.getString("PropertyPanel.lblLocation.name")); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel12Layout = new org.jdesktop.layout.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel12Layout.createSequentialGroup()
-                .add(jLabel5)
-                .addContainerGap())
-            .add(txtName)
+                .addContainerGap()
+                .add(jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(chkIsDeveloped, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(pnlToDev, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jScrollPane9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lblLocation, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 166, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel12Layout.createSequentialGroup()
-                .add(jLabel5)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(txtName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jPanel12Layout.createSequentialGroup()
+                        .add(lblLocation)
+                        .add(8, 8, 8)
+                        .add(jScrollPane9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(jPanel18, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jPanel12Layout.createSequentialGroup()
+                            .add(chkIsDeveloped)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(pnlToDev, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jToolBar4.setFloatable(false);
@@ -1542,9 +1753,6 @@ public class PropertyPanel extends ContentPanel {
         jToolBar4.add(btnLinkPaperTitle);
 
         documentsPanel1.setName("documentsPanel1"); // NOI18N
-
-        groupPanel1.setName("groupPanel1"); // NOI18N
-        groupPanel1.setTitleText(bundle.getString("PropertyPanel.groupPanel1.titleText")); // NOI18N
 
         jPanel13.setName("jPanel13"); // NOI18N
         jPanel13.setLayout(new java.awt.GridLayout(1, 5, 12, 0));
@@ -1575,7 +1783,7 @@ public class PropertyPanel extends ContentPanel {
                 .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(txtFirstPart, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jPanel13.add(jPanel10);
@@ -1606,7 +1814,7 @@ public class PropertyPanel extends ContentPanel {
                 .add(jLabel2)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(txtLastPart, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jPanel13.add(jPanel9);
@@ -1637,7 +1845,7 @@ public class PropertyPanel extends ContentPanel {
                 .add(jLabel4)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(txtEstateType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jPanel13.add(jPanel11);
@@ -1668,7 +1876,7 @@ public class PropertyPanel extends ContentPanel {
                 .add(jLabel7)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(txtBaUnitStatus, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jPanel13.add(jPanel6);
@@ -1704,10 +1912,21 @@ public class PropertyPanel extends ContentPanel {
                 .add(labArea)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(txtArea, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jPanel13.add(areaPanel);
+
+        txtName.setName("txtName"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${name}"), txtName, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        groupPanel1.setName("groupPanel1"); // NOI18N
+        groupPanel1.setTitleText(bundle.getString("PropertyPanel.groupPanel1.titleText")); // NOI18N
+
+        jLabel5.setText(bundle.getString("PropertyPanel.jLabel5.text")); // NOI18N
+        jLabel5.setName("jLabel5"); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel7Layout = new org.jdesktop.layout.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -1716,11 +1935,15 @@ public class PropertyPanel extends ContentPanel {
             .add(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(documentsPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel12, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(groupPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .add(documentsPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .add(jToolBar4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .add(txtName)
+                    .add(jPanel7Layout.createSequentialGroup()
+                        .add(jLabel5)
+                        .add(0, 0, Short.MAX_VALUE))
+                    .add(jPanel12, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(groupPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -1728,15 +1951,19 @@ public class PropertyPanel extends ContentPanel {
             .add(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(groupPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jLabel5)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(txtName)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(groupPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(4, 4, 4)
                 .add(jToolBar4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(documentsPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .add(24, 24, 24))
         );
 
         tabsMain.addTab(bundle.getString("PropertyPanel.jPanel7.TabConstraints.tabTitle"), jPanel7); // NOI18N
@@ -2838,6 +3065,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JButton btnViewPaperTitle;
     private javax.swing.JButton btnViewRight;
     private javax.swing.JComboBox cbxRightType;
+    private javax.swing.JCheckBox chkIsDeveloped;
     private org.sola.clients.swing.ui.source.DocumentsPanel documentsPanel1;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
@@ -2863,6 +3091,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -2879,6 +3108,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
@@ -2894,6 +3124,11 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JToolBar jToolBar7;
     private javax.swing.JToolBar jToolBar8;
     private javax.swing.JLabel labArea;
+    private javax.swing.JLabel lblLandUse;
+    private javax.swing.JLabel lblLocation;
+    private javax.swing.JLabel lblTerm;
+    private javax.swing.JLabel lblValueToImprove;
+    private javax.swing.JLabel lblYearsToDev;
     private javax.swing.JPanel mapPanel;
     private javax.swing.JMenuItem menuAddParcel;
     private javax.swing.JMenuItem menuAddParentBaUnit;
@@ -2909,6 +3144,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JMenuItem menuViewRight;
     private javax.swing.JPanel pnlNextButton;
     private javax.swing.JPanel pnlPriorProperties;
+    private javax.swing.JPanel pnlToDev;
     private javax.swing.JPopupMenu popupChildBaUnits;
     private javax.swing.JPopupMenu popupNotations;
     private javax.swing.JPopupMenu popupParcels;
@@ -2927,9 +3163,14 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JTextField txtBaUnitStatus;
     private javax.swing.JTextField txtEstateType;
     private javax.swing.JTextField txtFirstPart;
+    private javax.swing.JTextField txtLandUse;
     private javax.swing.JTextField txtLastPart;
+    private javax.swing.JTextArea txtLocation;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtNotationText;
+    private javax.swing.JTextField txtTerm;
+    private javax.swing.JTextField txtValueToImprove;
+    private javax.swing.JTextField txtYearsToDev;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
