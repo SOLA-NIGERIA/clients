@@ -546,9 +546,9 @@ public class ReportManager {
         String claimant = null;
         String address = null;
         Date lodgingDate = null;
-        Integer timeToDevelop = null;
-        Integer valueForImprov = null;       
-        Date termOfO = null;
+        String timeToDevelop = null;
+        String valueForImprov = null;       
+        String term = null;
         Date commencingDate = null;
         String landUse = null;
         String propLocation = null;
@@ -559,14 +559,15 @@ public class ReportManager {
         address =  appBean.getContactPerson().getAddress().getDescription();
         lodgingDate = appBean.getLodgingDatetime();
         commencingDate = appBaunit.getCommencingDate();
-        landUse = appBaunit.getLandUse();
-        propLocation = appBaunit.getPropLocation();
         size = appBaunit.getSize();
+        landUse = appBaunit.getLandUse();
+        propLocation = baUnitBean.getLocation();
         
-//        TO BE ADDED ON THE APPLICATION FORM 
-//        timeToDevelop = appBean.getTimeToDevelop();
-//        valueForImprov = appBean.getValueForImprov();       
-//        termOfO = appBean.getTermOfOccupancy();
+        if (baUnitBean.isIsDeveloped()) {
+          timeToDevelop = baUnitBean.getYearsForDev().toString();
+          valueForImprov = baUnitBean.getValueToImp().toString();      
+        }
+        term = baUnitBean.getTerm().toString();
         
 
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
@@ -580,7 +581,7 @@ public class ReportManager {
         inputParameters.put("COMMENCING_DATE", commencingDate);
         inputParameters.put("TIME_DEVELOP", timeToDevelop);
         inputParameters.put("VALUE_IMPROV", valueForImprov);
-        inputParameters.put("TERM_DATE", termOfO);
+        inputParameters.put("TERM", term);
         inputParameters.put("LAND_USE", landUse);
         inputParameters.put("PROP_LOCATION", propLocation);
         inputParameters.put("SIZE", size);

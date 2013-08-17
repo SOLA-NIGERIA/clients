@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="org.sola.clients.reports.locale.CofO">
-	<property name="ireport.zoom" value="1.1"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="876"/>
+	<property name="ireport.y" value="153"/>
 	<subDataset name="dataset1">
 		<parameter name="AREA" class="java.lang.Object">
 			<parameterDescription><![CDATA[]]></parameterDescription>
@@ -67,13 +67,14 @@
 	<parameter name="ADDRESS" class="java.lang.String"/>
 	<parameter name="LODGING_DATE" class="java.util.Date"/>
 	<parameter name="COMMENCING_DATE" class="java.util.Date"/>
-	<parameter name="TIME_DEVELOP" class="java.lang.Integer"/>
-	<parameter name="VALUE_IMPROV" class="java.lang.Integer"/>
-	<parameter name="TERM_DATE" class="java.util.Date"/>
+	<parameter name="TIME_DEVELOP" class="java.lang.String"/>
+	<parameter name="VALUE_IMPROV" class="java.lang.String"/>
+	<parameter name="TERM" class="java.lang.String"/>
 	<parameter name="APP_NR" class="java.lang.String"/>
 	<parameter name="LAND_USE" class="java.lang.String"/>
 	<parameter name="PROP_LOCATION" class="java.lang.String"/>
 	<parameter name="SIZE" class="java.math.BigDecimal"/>
+	<parameter name="GROUND_RENT" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -116,34 +117,29 @@
 	<detail>
 		<band height="802" splitType="Stretch">
 			<staticText>
-				<reportElement x="5" y="149" width="544" height="54"/>
+				<reportElement x="5" y="149" width="547" height="16"/>
 				<textElement/>
-				<text><![CDATA[(herein after called the holder/holders, which term shall include any person/persons in title), is hereby granted a right of occupancy in and over the land described overleaf for a term of ..... years commencing from thedate specified above according to the true intent and meaning of the Land Use Act No.202 of 1990 and subject to the provisions thereof and to the following special terms and conditions:]]></text>
+				<text><![CDATA[(herein after called the holder/holders, which term shall include any person/persons in title), is hereby granted a]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="7" y="203" width="548" height="15"/>
+				<reportElement x="8" y="223" width="542" height="31"/>
 				<textElement/>
-				<text><![CDATA[(1)  To pay in advance without demand to the Board of Internal Revenue or any other Officer appointed by the Governor;]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="25" y="218" width="529" height="16"/>
-				<textElement/>
-				<text><![CDATA[(a)   The annual ground rent of N........from the first day of January of each year, ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="24" y="234" width="529" height="77"/>
-				<textElement/>
-				<text><![CDATA[(b)   Revision period every..........................years of the term of these presents subject to any general revision of rents of similar lands granted under this law and/or to any other charges which the government may wish to impose by way of levy or levies for improvement which the government may wish to undertake at any time in the future and such revised rent and/or charges shall be payable by the holder either from the date of such revision or such other date thereafter as may be determined by government without prejudice to the original provisions herein contained with respect to the Revision period.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="25" y="311" width="529" height="20"/>
-				<textElement/>
-				<text><![CDATA[(c)   Such revised ground rent as the Governor may from time to time prescribe,
-(d)   Such penal rent as the Governor may from time to time impose.
+				<text><![CDATA[(1)To pay in advance without demand to the Governor of Kaduna State of Nigeria (hereinafter called the Governor) 
+or  other person appointed by him
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="5" y="331" width="544" height="321"/>
+				<reportElement x="26" y="269" width="529" height="76"/>
+				<textElement/>
+				<text><![CDATA[(b)   Revision periods shall be at the discretion of the grantor, subject to any general revision of rents of similar lands granted under this law and/or to any other charges which the government may wish to impose by way of levy or levies for improvement which the government may wish to undertake at any time in the future and such revised rent and/or charges shall be payable by the holder either from the date of such revision or such other date thereafter as may be determined by government without prejudice to the original provisions herein contained with respect to the Revision period.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="734" width="126" height="20"/>
+				<textElement/>
+				<text><![CDATA[Given under my hand on ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="364" width="544" height="320"/>
 				<textElement/>
 				<text><![CDATA[(2)   To pay and discharge all rates (including utilities), assessments and impositions, whatsoever which shall at any time be charged or imposed on the said land or any part thereof or any building thereon, or upon the occupier or occupiers thereof.
 (3)   To pay forthwith without demand to the Board of Internal Revenue or such other body or person appointed by the Governor (if not sooner paid) all survey fees, and other charges due in respect of the preparation, registration and issuance of this certificate.
@@ -156,83 +152,24 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="6" y="652" width="163" height="20"/>
-				<textElement/>
-				<text><![CDATA[(10)  To use the said land only for]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="166" y="652" width="88" height="20" forecolor="#000000" backcolor="#FFFFCC"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{LAND_USE}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="254" y="652" width="43" height="20"/>
-				<textElement/>
-				<text><![CDATA[purpose.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="6" y="672" width="543" height="30"/>
+				<reportElement x="5" y="704" width="543" height="30"/>
 				<textElement/>
 				<text><![CDATA[(11)   Not to contravene any of the provisions of the Land Use Act No. 6 of 1978, and to conform and comply with all rules and regulations laid down from time to time by relevant agencies of the State Government]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="141" y="704" width="126" height="20"/>
-				<textElement/>
-				<text><![CDATA[Given under my hand on ]]></text>
-			</staticText>
-			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="267" y="704" width="100" height="20"/>
-				<textElement>
-					<font isBold="true"/>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="170" y="684" width="144" height="20" forecolor="#FF0000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{LAND_USE}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="212" y="748" width="79" height="20"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[The Governor]]></text>
-			</staticText>
-			<line>
-				<reportElement x="144" y="747" width="226" height="1"/>
-			</line>
 			<staticText>
 				<reportElement x="139" y="41" width="223" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[The Land Use Act, Chapter 202 of 1990]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="104" y="62" width="319" height="20"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[CERTIFICATE OF STATUTORY RIGHT OF OCCUPANCY]]></text>
-			</staticText>
-			<image>
-				<reportElement x="4" y="4" width="101" height="79"/>
-				<imageExpression><![CDATA[$P{IMG_URL}]]></imageExpression>
-			</image>
-			<staticText>
-				<reportElement x="169" y="21" width="153" height="20"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[KADUNA STATE OF NIGERIA]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="4" y="104" width="100" height="20"/>
-				<textElement/>
-				<text><![CDATA[Whose address is:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="4" y="124" width="100" height="20"/>
-				<textElement/>
-				<text><![CDATA[Date:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="111" y="84" width="303" height="20"/>
@@ -241,18 +178,85 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{CLIENT_NAME}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="142" y="771" width="226" height="1"/>
+			</line>
 			<staticText>
-				<reportElement x="4" y="84" width="100" height="20"/>
-				<textElement/>
-				<text><![CDATA[This is to certify that:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="111" y="104" width="438" height="20"/>
+				<reportElement x="214" y="782" width="79" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{ADDRESS}]]></textFieldExpression>
+				<text><![CDATA[The Governor]]></text>
+			</staticText>
+			<image>
+				<reportElement x="4" y="4" width="101" height="79"/>
+				<imageExpression><![CDATA[$P{IMG_URL}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="7" y="165" width="344" height="20"/>
+				<textElement/>
+				<text><![CDATA[right of occupancy in and over the land described overleaf for a term of ]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="351" y="165" width="63" height="20" forecolor="#FF0000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TERM}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="4" y="124" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="169" y="21" width="153" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KADUNA STATE OF NIGERIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="185" width="541" height="38"/>
+				<textElement/>
+				<text><![CDATA[date specified above according to the true intent and meaning of the Land Use Act No.202 of 1990 and subject to the provisions thereof and to the following special terms and conditions:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="182" y="254" width="107" height="20" forecolor="#FF0000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{GROUND_RENT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="684" width="165" height="20"/>
+				<textElement/>
+				<text><![CDATA[(10)  To use the said land only for]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="104" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Whose address is:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="104" y="62" width="319" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CERTIFICATE OF STATUTORY RIGHT OF OCCUPANCY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="165" width="135" height="20"/>
+				<textElement/>
+				<text><![CDATA[years commencing from the]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="254" width="157" height="15"/>
+				<textElement/>
+				<text><![CDATA[(a)   The annual ground rent of N]]></text>
+			</staticText>
 			<textField pattern="dd MMMMM yyyy">
 				<reportElement x="111" y="124" width="128" height="20"/>
 				<textElement>
@@ -278,6 +282,42 @@
 					<textFieldExpression><![CDATA[$P{LAND_USE}]]></textFieldExpression>
 				</textField>
 			</frame>
+			<textField>
+				<reportElement x="111" y="104" width="438" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ADDRESS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="84" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[This is to certify that:]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="268" y="734" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="293" y="254" width="256" height="15"/>
+				<textElement/>
+				<text><![CDATA[per annum from the first day of January of each year, ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="345" width="529" height="19"/>
+				<textElement/>
+				<text><![CDATA[(c)   Such revised ground rent as the Governor may from time to time prescribe,
+(d)   Such penal rent as the Governor may from time to time impose.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="314" y="684" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[purpose]]></text>
+			</staticText>
 		</band>
 		<band height="802">
 			<frame>
@@ -320,10 +360,10 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{baUnitType}]]></textFieldExpression>
 				</textField>
-				<textField>
-					<reportElement x="257" y="168" width="244" height="33"/>
+				<textField isBlankWhenNull="true">
+					<reportElement x="257" y="280" width="244" height="105"/>
 					<textElement>
-						<font size="12" isBold="true"/>
+						<font size="11" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{PROP_LOCATION}]]></textFieldExpression>
 				</textField>
@@ -348,16 +388,16 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{nameFirstpart}]]></textFieldExpression>
 				</textField>
-				<textField pattern="" isBlankWhenNull="false">
-					<reportElement mode="Transparent" x="257" y="285" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement mode="Transparent" x="258" y="428" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{TIME_DEVELOP}]]></textFieldExpression>
 				</textField>
-				<textField pattern="" isBlankWhenNull="false">
-					<reportElement mode="Transparent" x="256" y="321" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement mode="Transparent" x="256" y="462" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -365,12 +405,12 @@
 					<textFieldExpression><![CDATA[$P{VALUE_IMPROV}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement mode="Transparent" x="256" y="359" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement mode="Transparent" x="259" y="179" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{TERM_DATE}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{TERM}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="137" y="247" width="100" height="20"/>
@@ -378,17 +418,21 @@
 					<textFieldExpression><![CDATA[$R{typeOfUse}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="137" y="285" width="100" height="20"/>
+					<reportElement x="137" y="428" width="100" height="20">
+						<printWhenExpression><![CDATA[!$P{VALUE_IMPROV}.equals( null )]]></printWhenExpression>
+					</reportElement>
 					<textElement/>
 					<textFieldExpression><![CDATA[$R{yearsToDevelop}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="137" y="321" width="100" height="20"/>
+					<reportElement x="137" y="462" width="100" height="20">
+						<printWhenExpression><![CDATA[!$P{VALUE_IMPROV}.equals( null )]]></printWhenExpression>
+					</reportElement>
 					<textElement/>
 					<textFieldExpression><![CDATA[$R{valueToImprove}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="137" y="359" width="100" height="20"/>
+					<reportElement x="138" y="179" width="100" height="20"/>
 					<textElement/>
 					<textFieldExpression><![CDATA[$R{term}]]></textFieldExpression>
 				</textField>
@@ -408,7 +452,7 @@
 					<textFieldExpression><![CDATA[$R{sizeArea}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="137" y="168" width="100" height="20"/>
+					<reportElement x="137" y="280" width="100" height="20"/>
 					<textElement/>
 					<textFieldExpression><![CDATA[$R{location}]]></textFieldExpression>
 				</textField>
@@ -417,6 +461,15 @@
 					<textElement/>
 					<textFieldExpression><![CDATA[$R{typeOf}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="138" y="395" width="219" height="20">
+						<printWhenExpression><![CDATA[!$P{VALUE_IMPROV}.equals( null )]]></printWhenExpression>
+					</reportElement>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[In case of undeveloped land]]></text>
+				</staticText>
 			</frame>
 			<staticText>
 				<reportElement x="7" y="649" width="162" height="20"/>

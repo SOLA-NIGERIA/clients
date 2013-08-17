@@ -261,11 +261,11 @@ public class BaUnitBean extends BaUnitSummaryBean {
         this.yearsForDev = yearsForDev;
         propertySupport.firePropertyChange(YEARS_FORDEVELOP_PROPERTY, old, this.yearsForDev);
      }
-    
+   
+       
     public boolean isIsDeveloped() {
         return isDeveloped;
     }
-
     public void setIsDeveloped(boolean isDeveloped) {
         boolean old = this.isDeveloped;
         this.isDeveloped = isDeveloped;
