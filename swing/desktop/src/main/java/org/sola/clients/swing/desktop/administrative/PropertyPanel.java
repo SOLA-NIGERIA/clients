@@ -128,7 +128,6 @@ public class PropertyPanel extends ContentPanel {
             
                 this.landUseType = this.applicationBean.getFilteredPropertyList().get(0).getLandUseType();
                 this.landUse = this.landUseType.getCode();
-//                this.txtLandUse.setText(this.landUseType.getDisplayValue());
                 if (landUse != null ) {
                     baUnitBean.setLandUse(landUse);
                     baUnitBean.setTerm(getTerm(landUse,this.applicationBean.getContactPerson().getNationality() ));
@@ -146,14 +145,16 @@ public class PropertyPanel extends ContentPanel {
     }
      
     private Integer getTerm(String landUse,String nationality ) {
-        Integer term=null;
+        Integer term=0;
         if (landUse.startsWith("res")&& nationality.contains("Nigeria")) {
             term=99;
         } 
-        if (landUse.startsWith("bus")&& nationality.contains("Nigeria")) {
+        else if (landUse.startsWith("bus")&& nationality.contains("Nigeria")) {
             term = 40;
         }
-        
+          else  {
+            term = null;
+        }
         return term;
     }
     
