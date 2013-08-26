@@ -223,7 +223,9 @@ or  other person appointed by him
 				<text><![CDATA[date specified above according to the true intent and meaning of the Land Use Act No.202 of 1990 and subject to the provisions thereof and to the following special terms and conditions:]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="182" y="254" width="107" height="20" forecolor="#FF0000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="182" y="254" width="107" height="20" forecolor="#FF0000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[!$P{GROUND_RENT}.equals( "0" )]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>

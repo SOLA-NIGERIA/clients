@@ -553,7 +553,7 @@ public class ReportManager {
         String landUse = null;
         String propLocation = null;
         BigDecimal size = null;
-        
+        String groundRent = null;
         appNr =    appBaunit.getNr();
         claimant = appBean.getContactPerson().getFullName();
         address =  appBean.getContactPerson().getAddress().getDescription();
@@ -568,7 +568,7 @@ public class ReportManager {
           valueForImprov = baUnitBean.getValueToImp().toString();      
         }
         term = baUnitBean.getTerm().toString();
-        
+        groundRent = appBaunit.getGroundRent().toString();
 
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
@@ -585,6 +585,7 @@ public class ReportManager {
         inputParameters.put("LAND_USE", landUse);
         inputParameters.put("PROP_LOCATION", propLocation);
         inputParameters.put("SIZE", size);
+        inputParameters.put("GROUND_RENT", groundRent);
         inputParameters.put("IMG_URL", ReportManager.class.getResourceAsStream(me));
 
 //        TOBEVERIFIED   
