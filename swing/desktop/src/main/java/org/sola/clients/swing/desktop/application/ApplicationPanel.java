@@ -49,6 +49,7 @@ import org.sola.clients.beans.application.ApplicationDocumentsHelperBean;
 import org.sola.clients.beans.application.ApplicationPropertyBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
 import org.sola.clients.beans.cache.CacheManager;
+import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.digitalarchive.DocumentBean;
 import org.sola.clients.beans.party.PartySummaryListBean;
@@ -70,6 +71,7 @@ import org.sola.clients.swing.desktop.administrative.DisputePanelForm;
 import org.sola.clients.swing.desktop.administrative.PropertyPanel;
 import org.sola.clients.swing.desktop.cadastre.CadastreTransactionMapPanel;
 import org.sola.clients.swing.desktop.cadastre.MapPanelForm;
+import org.sola.clients.swing.desktop.cadastre.SearchParcelDialog;
 import org.sola.clients.swing.desktop.reports.SysRegCertParamsForm;
 import org.sola.clients.swing.desktop.source.DocumentSearchDialog;
 import org.sola.clients.swing.desktop.source.DocumentSearchForm;
@@ -82,6 +84,7 @@ import org.sola.clients.swing.ui.MainContentPanel;
 import org.sola.clients.swing.ui.renderers.*;
 import org.sola.clients.swing.ui.validation.ValidationResultForm;
 import org.sola.common.RolesConstants;
+import org.sola.common.WindowUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
@@ -210,6 +213,7 @@ public class ApplicationPanel extends ContentPanel {
      * Runs post initialization actions to customize form elements.
      */
     private void postInit() {
+        this.btnSearchUpiWardParcel.setVisible(false);
         appBean.getSourceFilteredList().addObservableListListener(new ObservableListListener() {
 
             @Override
@@ -235,6 +239,11 @@ public class ApplicationPanel extends ContentPanel {
 
             @Override
             public void listElementsAdded(ObservableList ol, int i, int i1) {
+                System.out.println("PAOLA REQUEST TYPE CODE "+appBean.getServiceList().get(i).getRequestTypeCode());
+                if (appBean.getServiceList().get(i).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
+                    customizeSysReg();
+                }
+                
                 applicationDocumentsHelper.updateCheckList(appBean.getServiceList(), appBean.getSourceList());
             }
 
@@ -464,13 +473,25 @@ public class ApplicationPanel extends ContentPanel {
         }
         btnRemoveProperty.setEnabled(enable);
         btnVerifyProperty.setEnabled(enable); 
-        if (this.appBean.getPropertyList().size()==1) {
-          this.jPanel16.setVisible(false);  
-          this.jPanel17.setVisible(false);  
-          this.jPanel18.setVisible(false);  
-        } 
+        customizeSysReg();
     }
-
+     
+    /**
+     * Disables or enables buttons and fields related to the property list management for systematic registration needs.
+     */
+    private void customizeSysReg() {
+                    this.btnSearchUpiWardParcel.setVisible(true);
+                    this.txtFirstPart.setEditable(false);
+                    this.txtLastPart.setEditable(false);
+                    this.txtFirstPart.setEnabled(false);
+                    this.txtLastPart.setEnabled(false);
+                    if (this.appBean.getPropertyList().size()==1) {
+                        this.jPanel16.setVisible(false);  
+                        this.jPanel17.setVisible(false);  
+                        this.jPanel18.setVisible(false);  
+                    } 
+    }
+    
     /**
      * This method is used by the form designer to create the list of agents.
      */
@@ -1056,6 +1077,7 @@ public class ApplicationPanel extends ContentPanel {
         txtFirstPart = new javax.swing.JTextField();
         labArea = new javax.swing.JLabel();
         txtArea = new javax.swing.JTextField();
+        btnSearchUpiWardParcel = new javax.swing.JButton();
         jPanel17 = new javax.swing.JPanel();
         txtLastPart = new javax.swing.JTextField();
         labLastPart = new javax.swing.JLabel();
@@ -1991,7 +2013,7 @@ public class ApplicationPanel extends ContentPanel {
                 .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tabbedControlMain.addTab(bundle.getString("ApplicationPanel.contactPanel.TabConstraints.tabTitle"), contactPanel); // NOI18N
@@ -2170,7 +2192,7 @@ public class ApplicationPanel extends ContentPanel {
                 .addContainerGap()
                 .addComponent(tbServices, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollFeeDetails1, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+                .addComponent(scrollFeeDetails1, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2281,18 +2303,30 @@ public class ApplicationPanel extends ContentPanel {
         txtArea.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
         txtArea.setHorizontalAlignment(JTextField.LEADING);
 
+        btnSearchUpiWardParcel.setText(bundle.getString("ApplicationPanel.btnSearchUpiWardParcel.text")); // NOI18N
+        btnSearchUpiWardParcel.setName(bundle.getString("ApplicationPanel.btnSearchUpiWardParcel.name")); // NOI18N
+        btnSearchUpiWardParcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchUpiWardParcelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addComponent(labFirstPart)
-                .addContainerGap(119, Short.MAX_VALUE))
-            .addComponent(txtFirstPart, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addComponent(labArea)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(txtFirstPart)
             .addComponent(txtArea)
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addComponent(labFirstPart)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addComponent(labArea)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSearchUpiWardParcel)))
+                .addContainerGap())
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2300,11 +2334,13 @@ public class ApplicationPanel extends ContentPanel {
                 .addComponent(labFirstPart)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFirstPart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labArea)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labArea)
+                    .addComponent(btnSearchUpiWardParcel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         propertypartPanel.add(jPanel16);
@@ -2353,7 +2389,7 @@ public class ApplicationPanel extends ContentPanel {
                 .addComponent(labValue)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         propertypartPanel.add(jPanel17);
@@ -2399,7 +2435,7 @@ public class ApplicationPanel extends ContentPanel {
                 .addComponent(labLandUse)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxLandUse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(btnAddProperty)
                 .addContainerGap())
         );
@@ -2415,7 +2451,7 @@ public class ApplicationPanel extends ContentPanel {
                 .addGroup(propertyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollPropertyDetails)
                     .addComponent(tbPropertyDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(propertypartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(propertypartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE))
                 .addContainerGap())
         );
         propertyPanelLayout.setVerticalGroup(
@@ -2426,7 +2462,7 @@ public class ApplicationPanel extends ContentPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tbPropertyDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPropertyDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                .addComponent(scrollPropertyDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2503,7 +2539,7 @@ public class ApplicationPanel extends ContentPanel {
                         .addComponent(labDocRequired, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(scrollDocRequired, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(documentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
+                    .addComponent(documentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -2519,7 +2555,7 @@ public class ApplicationPanel extends ContentPanel {
         );
         mapPanelLayout.setVerticalGroup(
             mapPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 512, Short.MAX_VALUE)
+            .addGap(0, 475, Short.MAX_VALUE)
         );
 
         tabbedControlMain.addTab(bundle.getString("ApplicationPanel.mapPanel.TabConstraints.tabTitle"), mapPanel); // NOI18N
@@ -2731,7 +2767,7 @@ public class ApplicationPanel extends ContentPanel {
             feesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, feesPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollFeeDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+                .addComponent(scrollFeeDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -2790,7 +2826,7 @@ public class ApplicationPanel extends ContentPanel {
             validationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(validationPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(validationsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                .addComponent(validationsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2852,7 +2888,7 @@ public class ApplicationPanel extends ContentPanel {
             historyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(historyPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(actionLogPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                .addComponent(actionLogPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2876,7 +2912,7 @@ public class ApplicationPanel extends ContentPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tabbedControlMain, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+                .addComponent(tabbedControlMain, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -3139,6 +3175,10 @@ public class ApplicationPanel extends ContentPanel {
         showCalendar(txtDob);
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnSearchUpiWardParcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchUpiWardParcelActionPerformed
+        SearchUpiWardParcel();
+    }//GEN-LAST:event_btnSearchUpiWardParcelActionPerformed
 
     
     
@@ -3605,6 +3645,31 @@ public class ApplicationPanel extends ContentPanel {
         }
         return true;
     }
+    
+    
+     private void SearchUpiWardParcel() {
+        SearchParcelDialog form = new SearchParcelDialog(null, true);
+        WindowUtility.centerForm(form);
+        form.addPropertyChangeListener(new PropertyChangeListener() {
+        
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals(SearchParcelDialog.SELECTED_PARCEL)) {
+
+                    CadastreObjectBean cadastreObject = (CadastreObjectBean) evt.getNewValue();
+                    
+                    setUpiWardParcel(cadastreObject.getNameFirstpart(),cadastreObject.getNameLastpart());
+                         
+             }
+            }
+        });
+        form.setVisible(true);
+    }
+
+    private void setUpiWardParcel(String parcelNumber, String upiWardCode) {
+        this.txtFirstPart.setText(parcelNumber);
+        this.txtLastPart.setText(upiWardCode);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane actionLogPanel;
     public org.sola.clients.beans.application.ApplicationBean appBean;
@@ -3622,6 +3687,7 @@ public class ApplicationPanel extends ContentPanel {
     private javax.swing.JButton btnRemoveService;
     private javax.swing.JButton btnRevertService;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnSearchUpiWardParcel;
     private javax.swing.JButton btnStartService;
     private javax.swing.JButton btnUPService;
     private javax.swing.JButton btnValidate;
