@@ -27,9 +27,14 @@
  */
 package org.sola.clients.beans.party;
 
+import java.util.List;
 import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.controls.SolaObservableList;
+import org.sola.clients.beans.converters.TypeConverters;
+import org.sola.services.boundary.wsclients.WSManager;
+import org.sola.webservices.transferobjects.EntityAction;
+import org.sola.webservices.transferobjects.casemanagement.PartyTO;
 
 /**
  * Holds the list of {@link PartyBean} objects.
@@ -59,5 +64,23 @@ public class PartyListBean extends AbstractBindingBean {
         selectedParty = value;
         propertySupport.firePropertyChange(SELECTED_PARTY_PROPERTY, null, value);
     }
+    
+     /** 
+     * Fills {@link ObservableList}&lt;{@link PartySummaryBean}&gt; with the list of agents.
+     * @param createDummyAgent If true, creates empty {@link PartySummaryBean} agent 
+     * to display empty option in the list.
+     */
+    public void FillAgents(boolean createDummyAgent) {
+        List<PartyTO> lst = WSManager.getInstance().getCaseManagementService().getAgents();
+        partyListBean.clear();
+        TypeConverters.TransferObjectListToBeanList(lst, PartyBean.class, (List)partyListBean);
+        if(createDummyAgent){
+            PartyBean dummyAgent = new PartyBean();
+            dummyAgent.setName(" ");
+            dummyAgent.setEntityAction(EntityAction.DISASSOCIATE);
+            partyListBean.add(0, dummyAgent);
+        }
+    }
+
 
 }

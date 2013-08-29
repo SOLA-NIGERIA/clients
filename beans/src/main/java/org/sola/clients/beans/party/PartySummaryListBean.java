@@ -56,17 +56,17 @@ public class PartySummaryListBean extends AbstractBindingBean {
      * @param createDummyAgent If true, creates empty {@link PartySummaryBean} agent 
      * to display empty option in the list.
      */
-    public void FillAgents(boolean createDummyAgent) {
-        List<PartySummaryTO> lst = WSManager.getInstance().getCaseManagementService().getAgents();
-        partySummaryListBean.clear();
-        TypeConverters.TransferObjectListToBeanList(lst, PartySummaryBean.class, (List)partySummaryListBean);
-        if(createDummyAgent){
-            PartySummaryBean dummyAgent = new PartySummaryBean();
-            dummyAgent.setName(" ");
-            dummyAgent.setEntityAction(EntityAction.DISASSOCIATE);
-            partySummaryListBean.add(0, dummyAgent);
-        }
-    }
+//    public void FillAgents(boolean createDummyAgent) {
+//        List<PartySummaryTO> lst = WSManager.getInstance().getCaseManagementService().getAgents();
+//        partySummaryListBean.clear();
+//        TypeConverters.TransferObjectListToBeanList(lst, PartySummaryBean.class, (List)partySummaryListBean);
+//        if(createDummyAgent){
+//            PartySummaryBean dummyAgent = new PartySummaryBean();
+//            dummyAgent.setName(" ");
+//            dummyAgent.setEntityAction(EntityAction.DISASSOCIATE);
+//            partySummaryListBean.add(0, dummyAgent);
+//        }
+//    }
 
     public ObservableList<PartySummaryBean> getPartySummaryList() {
         return partySummaryListBean;

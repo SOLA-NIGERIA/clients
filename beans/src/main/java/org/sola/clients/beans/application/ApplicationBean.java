@@ -1,3 +1,4 @@
+
 /**
  * ******************************************************************************************
  * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO). All rights
@@ -50,6 +51,8 @@ import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.EntityAction;
 import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
 import org.sola.webservices.transferobjects.search.PropertyVerifierTO;
+import org.sola.webservices.transferobjects.casemanagement.PartyTO;
+
 
 /**
  * Represents full object of the application in the domain model. Could be populated from the {@link ApplicationTO}
@@ -93,9 +96,11 @@ public class ApplicationBean extends ApplicationSummaryBean {
     private transient ApplicationServiceBean selectedService;
     private transient ApplicationPropertyBean selectedProperty;
     private transient SourceBean selectedSource;
-    private PartySummaryBean agent;
+//    private PartySummaryBean agent;
+    private PartyBean agent;
     private String assigneeId;
     private ApplicationStatusTypeBean statusBean;
+    public boolean addedAgent = false;
 
     /**
      * Default constructor to create application bean. Initializes the following list of beans which
@@ -108,6 +113,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
         statusBean = new ApplicationStatusTypeBean();
         propertyList = new SolaList();
         contactPerson = new PartyBean();
+        agent = new PartyBean();
         serviceList = new SolaObservableList<ApplicationServiceBean>();
         sourceList = new SolaList();
         appLogList = new SolaObservableList<ApplicationLogBean>();
@@ -274,14 +280,13 @@ public class ApplicationBean extends ApplicationSummaryBean {
         return collection;
     }
 
-    public PartySummaryBean getAgent() {
-//        if(agent==null){
-//            agent = new PartySummaryBean();
-//        }
+    public PartyBean getAgent() {
+
         return agent;
     }
 
-    public void setAgent(PartySummaryBean value) {
+//    public void setAgent(PartySummaryBean value) {
+    public void setAgent(PartyBean value) {
         agent = value;
         propertySupport.firePropertyChange(AGENT_PROPERTY, null, value);
     }
@@ -596,7 +601,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
      * @param area The area of parcel.
      * @param value The value of parcel.
      */
-    public void addProperty(String firstPart, String lastPart, BigDecimal area, BigDecimal value, String landUse) {
+    public void addProperty(String firstPart, String lastPart, BigDecimal area, BigDecimal value) {
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/application/Bundle");
 
@@ -628,7 +633,6 @@ public class ApplicationBean extends ApplicationSummaryBean {
             newProperty.setNameFirstpart(firstPart);
             newProperty.setNameLastpart(lastPart);
             newProperty.setTotalValue(value);
-            newProperty.setLandUseCode(landUse);
             propertyList.addAsNew(newProperty);
             selectedProperty = newProperty;
         }
@@ -895,6 +899,26 @@ public class ApplicationBean extends ApplicationSummaryBean {
         return true;
     }
     
+     /**
+     * set the contact person's role to applicant
+     *
+     */
+    public boolean setAgentRole() {
+    if (agent!=null )
+    {
+       PartyRoleTypeBean partyRoleType = new PartyRoleTypeBean();
+       if (addedAgent) {
+            partyRoleType.setCode("lodgingAgent");
+            agent.addRole(partyRoleType);
+        PartyTO party = TypeConverters.BeanToTrasferObject(agent, PartyTO.class);
+        party = WSManager.getInstance().getCaseManagementService().saveParty(party);
+        TypeConverters.TransferObjectToBean(party, PartyBean.class, agent);
+       }
+    }
+        addedAgent=false;
+        return true;
+    }
+    
     /**
      * Creates new application in the database.
      *
@@ -902,6 +926,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
      */
     public boolean lodgeApplication() {
         setApplicantRole();
+        setAgentRole();
         ApplicationTO app = TypeConverters.BeanToTrasferObject(this, ApplicationTO.class);
         app = WSManager.getInstance().getCaseManagementService().createApplication(app);
         TypeConverters.TransferObjectToBean(app, ApplicationBean.class, this);
@@ -916,6 +941,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
      */
     public boolean saveApplication() {
         setApplicantRole();
+        setAgentRole();
         ApplicationTO app = TypeConverters.BeanToTrasferObject(this, ApplicationTO.class);
         app = WSManager.getInstance().getCaseManagementService().saveApplication(app);
         TypeConverters.TransferObjectToBean(app, ApplicationBean.class, this);

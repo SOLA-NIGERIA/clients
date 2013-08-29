@@ -41,6 +41,7 @@ import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.controls.SolaObservableList;
 import org.sola.clients.beans.converters.TypeConverters;
+import org.sola.clients.beans.referencedata.LandUseTypeBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.beans.referencedata.TypeActionBean;
 import org.sola.clients.beans.source.SourceBean;
@@ -184,6 +185,9 @@ public class BaUnitBean extends BaUnitSummaryBean {
     public static final String VALUE_TOIMPROVE_PROPERTY = "valueToImp";
     public static final String TERM_PROPERTY = "term";
     public static final String LOCATION_PROPERTY = "location";
+    public static final String LAND_USE_TYPE_PROPERTY = "landUseType";
+    public static final String LAND_USE_CODE_PROPERTY = "landUse";
+    
     
     private SolaList<RrrBean> rrrList;
     private SolaList<BaUnitNotationBean> baUnitNotationList;
@@ -211,17 +215,42 @@ public class BaUnitBean extends BaUnitSummaryBean {
     private Integer yearsForDev;
     private BigDecimal valueToImp;
     private Integer term;
+    private LandUseTypeBean landUseType;
     private String landUse;
     private String location;
 
-    public String getLandUse() {
-        return landUse;
+     public String getLandUse() {
+        if (landUseType != null) {
+            return landUseType.getCode();
+        } else {
+//            return null;
+          return this.landUse;  
+        }
     }
 
     public void setLandUse(String landUse) {
-        this.landUse = landUse;
+        String oldValue = null;
+        if (landUseType != null) {
+            oldValue = landUseType.getCode();
+        }  else  {
+            oldValue = this.landUse;
+        }
+        setLandUseType(CacheManager.getBeanByCode(
+                CacheManager.getLandUseTypes(), landUse));
+        propertySupport.firePropertyChange(LAND_USE_CODE_PROPERTY, oldValue, landUse);
+    }
+    
+    public LandUseTypeBean getLandUseType() {
+        return landUseType;
     }
 
+    public void setLandUseType(LandUseTypeBean landUseType) {
+        this.landUseType = landUseType;
+        propertySupport.firePropertyChange(LAND_USE_TYPE_PROPERTY, null, landUseType);
+    
+    }
+
+   
     public String getLocation() {
         return location;
     }

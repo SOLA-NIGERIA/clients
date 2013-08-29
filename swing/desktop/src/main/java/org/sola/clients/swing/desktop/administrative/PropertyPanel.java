@@ -104,6 +104,7 @@ public class PropertyPanel extends ContentPanel {
     private PropertyChangeListener newPropertyWizardListener;
     public BaUnitBean whichBaUnitSelected;
     private boolean isBtnNext = false;
+    private Integer term;
             
 
     /**
@@ -125,27 +126,26 @@ public class PropertyPanel extends ContentPanel {
                     baUnitBean.setNameFirstpart(nameFirstPart);
                     baUnitBean.setNameLastpart(nameLastPart);
                 }
-            
-                this.landUseType = this.applicationBean.getFilteredPropertyList().get(0).getLandUseType();
-                this.landUse = this.landUseType.getCode();
-                if (landUse != null ) {
-                    baUnitBean.setLandUse(landUse);
-                    baUnitBean.setTerm(getTerm(landUse,this.applicationBean.getContactPerson().getNationality() ));
-                }
-                
             }
             baUnitBean1 = baUnitBean;
-           
+            
             if (baUnitBean1.getStatusCode() != null && !baUnitBean1.getStatusCode().equals(StatusConstants.CURRENT)
                     && !baUnitBean1.getStatusCode().equals(StatusConstants.PENDING)) {
                 readOnly = true;
             }
         }
+           if (baUnitBean1.getTerm()!= null) {
+                this.term=baUnitBean1.getTerm();
+            }
         return baUnitBean1;
     }
-     
-    private Integer getTerm(String landUse,String nationality ) {
+
+    private void getTerm() {
         Integer term=0;
+        String textTerm;
+        this.landUse = this.baUnitBean1.getLandUseType().getCode();
+        String nationality = this.applicationBean.getContactPerson().getNationality().toString();
+                
         if (landUse.startsWith("res")&& nationality.contains("Nigeria")) {
             term=99;
         } 
@@ -153,9 +153,13 @@ public class PropertyPanel extends ContentPanel {
             term = 40;
         }
           else  {
-            term = null;
+            term = this.term;
         }
-        return term;
+         
+        if (this.landUse != null && term != null ) {
+                    textTerm =term.toString();
+                    this.txtTerm.setText(textTerm);
+       }
     }
     
     /**
@@ -267,20 +271,20 @@ public class PropertyPanel extends ContentPanel {
      */
     
 //     QUI TOGLIERE TODO  
-    public PropertyPanel(ApplicationBean applicationBean,
-            ApplicationServiceBean applicationService,
-            String nameFirstPart, String nameLastPart, boolean readOnly, LandUseTypeBean landUseType) {
-        this.readOnly = readOnly || !SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_BA_UNIT_SAVE);
-        this.applicationBean = applicationBean;
-        this.applicationService = applicationService;
-        this.nameFirstPart = nameFirstPart;
-        this.nameLastPart = nameLastPart;
-        this.landUse = landUseType.getCode();
-        this.txtLandUse.setText(landUseType.getDisplayValue());
-        resourceBundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
-        initComponents();
-        portInit();
-     }
+//    public PropertyPanel(ApplicationBean applicationBean,
+//            ApplicationServiceBean applicationService,
+//            String nameFirstPart, String nameLastPart, boolean readOnly, LandUseTypeBean landUseType) {
+//        this.readOnly = readOnly || !SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_BA_UNIT_SAVE);
+//        this.applicationBean = applicationBean;
+//        this.applicationService = applicationService;
+//        this.nameFirstPart = nameFirstPart;
+//        this.nameLastPart = nameLastPart;
+//        this.landUse = landUseType.getCode();
+//        this.txtLandUse.setText(landUseType.getDisplayValue());
+//        resourceBundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
+//        initComponents();
+//        portInit();
+//     }
     
     /**
      * Makes post initialization tasks.
@@ -318,6 +322,8 @@ public class PropertyPanel extends ContentPanel {
                     customizeChildPropertyButtons();
                 } else if (evt.getPropertyName().equals(BaUnitBean.IS_DEVELOPED_PROPERTY)) {
                     setIfItIsDeveloped();
+                } else if (evt.getPropertyName().equals(BaUnitBean.LAND_USE_TYPE_PROPERTY)) {
+                    getTerm();    
                 }
                 
             }
@@ -1289,6 +1295,7 @@ public class PropertyPanel extends ContentPanel {
         popupChildBaUnits = new javax.swing.JPopupMenu();
         menuOpenChildBaUnit = new javax.swing.JMenuItem();
         baUnitAreaBean1 = createBaUnitAreaBean();
+        landUseTypeListBean1 = new org.sola.clients.beans.referencedata.LandUseTypeListBean();
         jToolBar5 = new javax.swing.JToolBar();
         btnSave = new javax.swing.JButton();
         btnTerminate = new javax.swing.JButton();
@@ -1306,9 +1313,9 @@ public class PropertyPanel extends ContentPanel {
         txtValueToImprove = new javax.swing.JTextField();
         jPanel18 = new javax.swing.JPanel();
         lblLandUse = new javax.swing.JLabel();
-        txtLandUse = new javax.swing.JTextField();
         lblTerm = new javax.swing.JLabel();
         txtTerm = new javax.swing.JTextField();
+        cbxLandUse = new javax.swing.JComboBox();
         jScrollPane9 = new javax.swing.JScrollPane();
         txtLocation = new javax.swing.JTextArea();
         lblLocation = new javax.swing.JLabel();
@@ -1649,18 +1656,20 @@ public class PropertyPanel extends ContentPanel {
         lblLandUse.setText(bundle.getString("PropertyPanel.lblLandUse.text")); // NOI18N
         lblLandUse.setName(bundle.getString("PropertyPanel.lblLandUse.name")); // NOI18N
 
-        txtLandUse.setEnabled(false);
-        txtLandUse.setName(bundle.getString("PropertyPanel.txtLandUse.name")); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${landUse}"), txtLandUse, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
         lblTerm.setText(bundle.getString("PropertyPanel.lblTerm.text")); // NOI18N
         lblTerm.setName(bundle.getString("PropertyPanel.lblTerm.name")); // NOI18N
 
         txtTerm.setName(bundle.getString("PropertyPanel.txtTerm.name")); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${term}"), txtTerm, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        cbxLandUse.setName(bundle.getString("PropertyPanel.cbxLandUse.name")); // NOI18N
+
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${landUseTypeList}");
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, landUseTypeListBean1, eLProperty, cbxLandUse);
+        bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${landUseType}"), cbxLandUse, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
         org.jdesktop.layout.GroupLayout jPanel18Layout = new org.jdesktop.layout.GroupLayout(jPanel18);
@@ -1670,19 +1679,19 @@ public class PropertyPanel extends ContentPanel {
             .add(jPanel18Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel18Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(txtLandUse)
                     .add(lblTerm, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(lblLandUse, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                    .add(txtTerm))
+                    .add(txtTerm)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, cbxLandUse, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel18Layout.createSequentialGroup()
                 .add(lblLandUse, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(txtLandUse, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(4, 4, 4)
+                .add(cbxLandUse, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(18, 18, 18)
                 .add(lblTerm)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(txtTerm, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -1984,7 +1993,7 @@ public class PropertyPanel extends ContentPanel {
         tableParcels.setComponentPopupMenu(popupParcels);
         tableParcels.setName("tableParcels"); // NOI18N
 
-        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectFilteredList}");
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectFilteredList}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, eLProperty, tableParcels);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nameFirstpart}"));
         columnBinding.setColumnName("Name Firstpart");
@@ -2174,7 +2183,7 @@ public class PropertyPanel extends ContentPanel {
         cbxRightType.setRenderer(new SimpleComboBoxRenderer("getDisplayValue"));
 
         eLProperty = org.jdesktop.beansbinding.ELProperty.create("${rrrTypeBeanList}");
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrTypes, eLProperty, cbxRightType);
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrTypes, eLProperty, cbxRightType);
         bindingGroup.addBinding(jComboBoxBinding);
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrTypes, org.jdesktop.beansbinding.ELProperty.create("${selectedRrrType}"), cbxRightType, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
@@ -3073,6 +3082,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JButton btnViewHistoricRight;
     private javax.swing.JButton btnViewPaperTitle;
     private javax.swing.JButton btnViewRight;
+    private javax.swing.JComboBox cbxLandUse;
     private javax.swing.JComboBox cbxRightType;
     private javax.swing.JCheckBox chkIsDeveloped;
     private org.sola.clients.swing.ui.source.DocumentsPanel documentsPanel1;
@@ -3133,6 +3143,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JToolBar jToolBar7;
     private javax.swing.JToolBar jToolBar8;
     private javax.swing.JLabel labArea;
+    private org.sola.clients.beans.referencedata.LandUseTypeListBean landUseTypeListBean1;
     private javax.swing.JLabel lblLandUse;
     private javax.swing.JLabel lblLocation;
     private javax.swing.JLabel lblTerm;
@@ -3172,7 +3183,6 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JTextField txtBaUnitStatus;
     private javax.swing.JTextField txtEstateType;
     private javax.swing.JTextField txtFirstPart;
-    private javax.swing.JTextField txtLandUse;
     private javax.swing.JTextField txtLastPart;
     private javax.swing.JTextArea txtLocation;
     private javax.swing.JTextField txtName;
