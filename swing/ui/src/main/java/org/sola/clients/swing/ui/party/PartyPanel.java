@@ -31,6 +31,7 @@ import java.awt.ComponentOrientation;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Locale;
+import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import org.sola.clients.swing.ui.renderers.SimpleComboBoxRenderer;
 import org.sola.clients.beans.party.PartyBean;
@@ -40,6 +41,7 @@ import org.sola.clients.beans.referencedata.GenderTypeListBean;
 import org.sola.clients.beans.referencedata.IdTypeListBean;
 import org.sola.clients.beans.referencedata.PartyRoleTypeBean;
 import org.sola.clients.beans.referencedata.PartyRoleTypeListBean;
+import org.sola.clients.swing.common.controls.CalendarForm;
 import org.sola.clients.swing.common.utils.BindingTools;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
@@ -62,6 +64,8 @@ public class PartyPanel extends javax.swing.JPanel {
     public PartyPanel() {
         readOnly = false;
         initComponents();
+        this.txtNationality.setVisible(false);
+        
     }
 
     /** 
@@ -85,7 +89,8 @@ public class PartyPanel extends javax.swing.JPanel {
                 }
             }
         });
-
+        this.txtNationality.setVisible(false);
+        
         customizeAddRoleButton(null);
         customizeRoleButtons(null);
     }
@@ -303,6 +308,20 @@ public class PartyPanel extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         labLastName = new javax.swing.JLabel();
         txtLastName = new javax.swing.JTextField();
+        jPanel8 = new javax.swing.JPanel();
+        lblGender = new javax.swing.JLabel();
+        cbxGender = new javax.swing.JComboBox();
+        jPanel19 = new javax.swing.JPanel();
+        lbDob = new javax.swing.JLabel();
+        txtDob = new javax.swing.JFormattedTextField();
+        jButton1 = new javax.swing.JButton();
+        jPanel20 = new javax.swing.JPanel();
+        lbNationality = new javax.swing.JLabel();
+        cbxNationality = new javax.swing.JComboBox();
+        txtNationality = new javax.swing.JTextField();
+        jPanel21 = new javax.swing.JPanel();
+        txtState = new javax.swing.JTextField();
+        lbState = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         labAddress = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
@@ -312,9 +331,6 @@ public class PartyPanel extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         labIdref = new javax.swing.JLabel();
         txtIdref = new javax.swing.JTextField();
-        jPanel8 = new javax.swing.JPanel();
-        lblGender = new javax.swing.JLabel();
-        cbxGender = new javax.swing.JComboBox();
         groupPanel1 = new org.sola.clients.swing.ui.GroupPanel();
         fullPanel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -442,11 +458,11 @@ public class PartyPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(roleTableScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+                .addComponent(roleTableScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
         );
 
         jPanel10.setName("jPanel10"); // NOI18N
-        jPanel10.setLayout(new java.awt.GridLayout(2, 3, 15, 0));
+        jPanel10.setLayout(new java.awt.GridLayout(3, 3, 15, 0));
 
         jPanel4.setName("jPanel4"); // NOI18N
 
@@ -477,7 +493,7 @@ public class PartyPanel extends javax.swing.JPanel {
                 .addComponent(labName, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         jPanel10.add(jPanel4);
@@ -509,10 +525,179 @@ public class PartyPanel extends javax.swing.JPanel {
                 .addComponent(labLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         jPanel10.add(jPanel5);
+
+        jPanel8.setName("jPanel8"); // NOI18N
+
+        lblGender.setText(bundle.getString("PartyPanel.labGender.text")); // NOI18N
+        lblGender.setToolTipText(bundle.getString("PartyPanel.labGender.toolTipText")); // NOI18N
+        lblGender.setName("labGender"); // NOI18N
+
+        cbxGender.setBackground(new java.awt.Color(226, 244, 224));
+        cbxGender.setName("cbxGender"); // NOI18N
+        cbxGender.setRenderer(new SimpleComboBoxRenderer("getDisplayValue"));
+
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${genderTypeList}");
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, genderTypes, eLProperty, cbxGender);
+        bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${partyBean.genderType}"), cbxGender, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblGender, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+            .addComponent(cbxGender, 0, 148, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(lblGender, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(71, Short.MAX_VALUE))
+        );
+
+        jPanel10.add(jPanel8);
+
+        jPanel19.setName(bundle.getString("PartyPanel.jPanel19.name")); // NOI18N
+
+        lbDob.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
+        lbDob.setText(bundle.getString("PartyPanel.lbDob.text")); // NOI18N
+        lbDob.setName(bundle.getString("PartyPanel.lbDob.name")); // NOI18N
+
+        txtDob.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        txtDob.setText(bundle.getString("PartyPanel.txtDob.text")); // NOI18N
+        txtDob.setName(bundle.getString("PartyPanel.txtDob.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${partyBean.dob}"), txtDob, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        bindingGroup.addBinding(binding);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
+        jButton1.setText(bundle.getString("PartyPanel.jButton1.text")); // NOI18N
+        jButton1.setName(bundle.getString("PartyPanel.jButton1.name")); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel19Layout.createSequentialGroup()
+                        .addComponent(lbDob)
+                        .addGap(0, 63, Short.MAX_VALUE))
+                    .addGroup(jPanel19Layout.createSequentialGroup()
+                        .addComponent(txtDob)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
+                .addComponent(lbDob)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtDob)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
+        );
+
+        jPanel10.add(jPanel19);
+
+        jPanel20.setName(bundle.getString("PartyPanel.jPanel20.name")); // NOI18N
+
+        lbNationality.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
+        lbNationality.setText(bundle.getString("PartyPanel.lbNationality.text")); // NOI18N
+        lbNationality.setName(bundle.getString("PartyPanel.lbNationality.name")); // NOI18N
+
+        cbxNationality.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Afghanistan", "Åland Islands", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua And Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia And Herzegovina", "Botswana", "Bouvet Island", "Brazil", "British Indian Ocean Territory", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Congo", "The Democratic Republic Of The", "Cook Islands", "Costa Rica", "Cote D'ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands (Malvinas)", "Faroe Islands", "Fiji", "Finland", "France", "French Guiana", "French Polynesia", "French Southern Territories", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam", "Guatemala", "Guernsey", "Guinea", "Guinea-bissau", "Guyana", "Haiti", "Heard Island And Mcdonald Islands", "Holy See (Vatican City State)", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Islamic Republic Of", "Iraq", "Ireland", "Isle Of Man", "Israel", "Italy", "Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea", "Democratic People's Republic Of", "Korea", "Republic Of", "Kuwait", "Kyrgyzstan", "Lao People's Democratic Republic", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libyan Arab Jamahiriya", "Liechtenstein", "Lithuania", "Luxembourg", "Macao", "Macedonia", "The Former Yugoslav Republic Of", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "Mexico", "Micronesia", "Federated States Of", "Moldova", "Republic Of", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfolk Island", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau", "Palestinian Territory", "Occupied", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russian Federation", "Rwanda", "Saint Helena", "Saint Kitts And Nevis", "Saint Lucia", "Saint Pierre And Miquelon", "Saint Vincent And The Grenadines", "Samoa", "San Marino", "Sao Tome And Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Georgia And The South Sandwich Islands", "Spain", "Sri Lanka", "Sudan", "Suriname", "Svalbard And Jan Mayen", "Swaziland", "Sweden", "Switzerland", "Syrian Arab Republic", "Taiwan", "Province Of China", "Tajikistan", "Tanzania", "United Republic Of", "Thailand", "Timor-leste", "Togo", "Tokelau", "Tonga", "Trinidad And Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks And Caicos Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "United States Minor Outlying Islands", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Viet Nam", "Virgin Islands", "British", "Virgin Islands", "U.S.", "Wallis And Futuna", "Western Sahara", "Yemen", "Zambia", "Zimbabwe" }));
+        cbxNationality.setName(bundle.getString("PartyPanel.cbxNationality.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${partyBean.nationality}"), cbxNationality, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
+        cbxNationality.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxNationalityActionPerformed(evt);
+            }
+        });
+
+        txtNationality.setName(bundle.getString("PartyPanel.txtNationality.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${partyBean.nationality}"), txtNationality, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        txtNationality.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNationalityActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbxNationality, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel20Layout.createSequentialGroup()
+                        .addComponent(lbNationality)
+                        .addGap(0, 73, Short.MAX_VALUE))
+                    .addComponent(txtNationality, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap())
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
+                .addComponent(lbNationality)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxNationality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNationality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(52, Short.MAX_VALUE))
+        );
+
+        jPanel10.add(jPanel20);
+
+        jPanel21.setName(bundle.getString("PartyPanel.jPanel21.name")); // NOI18N
+
+        txtState.setName(bundle.getString("PartyPanel.txtState.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${partyBean.nationality}"), txtState, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        lbState.setText(bundle.getString("PartyPanel.lbState.text")); // NOI18N
+        lbState.setName(bundle.getString("PartyPanel.lbState.name")); // NOI18N
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txtState, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addComponent(lbState)
+                .addGap(0, 122, Short.MAX_VALUE))
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addComponent(lbState)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(78, Short.MAX_VALUE))
+        );
+
+        jPanel10.add(jPanel21);
 
         jPanel9.setName("jPanel9"); // NOI18N
 
@@ -540,7 +725,7 @@ public class PartyPanel extends javax.swing.JPanel {
                 .addComponent(labAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         jPanel10.add(jPanel9);
@@ -573,7 +758,7 @@ public class PartyPanel extends javax.swing.JPanel {
                 .addComponent(labIdType, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxIdType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         jPanel10.add(jPanel6);
@@ -601,44 +786,10 @@ public class PartyPanel extends javax.swing.JPanel {
                 .addComponent(labIdref, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtIdref, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         jPanel10.add(jPanel7);
-
-        jPanel8.setName("jPanel8"); // NOI18N
-
-        lblGender.setText(bundle.getString("PartyPanel.labGender.text")); // NOI18N
-        lblGender.setToolTipText(bundle.getString("PartyPanel.labGender.toolTipText")); // NOI18N
-        lblGender.setName("labGender"); // NOI18N
-
-        cbxGender.setBackground(new java.awt.Color(226, 244, 224));
-        cbxGender.setName("cbxGender"); // NOI18N
-        cbxGender.setRenderer(new SimpleComboBoxRenderer("getDisplayValue"));
-
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${genderTypeList}");
-        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, genderTypes, eLProperty, cbxGender);
-        bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${partyBean.genderType}"), cbxGender, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblGender, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-            .addComponent(cbxGender, 0, 148, Short.MAX_VALUE)
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(lblGender, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-
-        jPanel10.add(jPanel8);
 
         groupPanel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         groupPanel1.setName("groupPanel1"); // NOI18N
@@ -960,7 +1111,7 @@ public class PartyPanel extends javax.swing.JPanel {
                 .addComponent(groupPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(278, Short.MAX_VALUE))
         );
 
         detailsPanel.addTab(bundle.getString("PartyPanel.fullPanel.TabConstraints.tabTitle"), fullPanel); // NOI18N
@@ -1032,6 +1183,27 @@ public class PartyPanel extends javax.swing.JPanel {
     private void menuRemoveRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRemoveRoleActionPerformed
         removeRole();
     }//GEN-LAST:event_menuRemoveRoleActionPerformed
+    
+      private void showCalendar(JFormattedTextField dateField) {
+        CalendarForm calendar = new CalendarForm(null, true, dateField);
+        calendar.setVisible(true);
+    }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        showCalendar(txtDob);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cbxNationalityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxNationalityActionPerformed
+      if (this.cbxNationality.getSelectedIndex()>= 0) {
+        this.txtNationality.setText(this.cbxNationality.getSelectedItem().toString());
+      }  
+    }//GEN-LAST:event_cbxNationalityActionPerformed
+
+    private void txtNationalityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNationalityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNationalityActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel basicPanel;
@@ -1041,6 +1213,7 @@ public class PartyPanel extends javax.swing.JPanel {
     public javax.swing.JComboBox cbxCommunicationWay;
     public javax.swing.JComboBox cbxGender;
     public javax.swing.JComboBox cbxIdType;
+    private javax.swing.JComboBox cbxNationality;
     private javax.swing.JComboBox cbxPartyRoleTypes;
     private org.sola.clients.beans.referencedata.CommunicationTypeListBean communicationTypes;
     private javax.swing.JTabbedPane detailsPanel;
@@ -1052,6 +1225,7 @@ public class PartyPanel extends javax.swing.JPanel {
     private org.sola.clients.swing.ui.GroupPanel groupPanel2;
     private org.sola.clients.beans.referencedata.IdTypeListBean idTypes;
     private javax.swing.JRadioButton individualButton;
+    private javax.swing.JButton jButton1;
     public javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1062,7 +1236,10 @@ public class PartyPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1084,6 +1261,9 @@ public class PartyPanel extends javax.swing.JPanel {
     private javax.swing.JLabel labName;
     private javax.swing.JLabel labPhone;
     private javax.swing.JLabel labPreferredWay;
+    private javax.swing.JLabel lbDob;
+    private javax.swing.JLabel lbNationality;
+    private javax.swing.JLabel lbState;
     private javax.swing.JLabel lblGender;
     private javax.swing.JMenuItem menuRemoveRole;
     private org.sola.clients.beans.referencedata.PartyRoleTypeListBean partyRoleTypes;
@@ -1092,6 +1272,7 @@ public class PartyPanel extends javax.swing.JPanel {
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tablePartyRole;
     public javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtAlias;
+    private javax.swing.JFormattedTextField txtDob;
     public javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFatherFirstName;
     private javax.swing.JTextField txtFatherLastName;
@@ -1100,7 +1281,9 @@ public class PartyPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtIdref;
     public javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtMobile;
+    private javax.swing.JTextField txtNationality;
     public javax.swing.JTextField txtPhone;
+    private javax.swing.JTextField txtState;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
