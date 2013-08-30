@@ -3209,7 +3209,9 @@ public class ApplicationPanel extends ContentPanel {
     }//GEN-LAST:event_cbxAgentsActionPerformed
 
     private void cbxNationalityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxNationalityActionPerformed
+      if (this.cbxNationality.getSelectedIndex()>= 0) {
        this.txtNationality.setText(this.cbxNationality.getSelectedItem().toString());
+      }
     }//GEN-LAST:event_cbxNationalityActionPerformed
 
     
