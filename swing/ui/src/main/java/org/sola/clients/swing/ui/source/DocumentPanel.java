@@ -36,6 +36,7 @@ import java.beans.PropertyChangeListener;
 import java.util.Locale;
 import javax.swing.JTextField;
 import org.sola.clients.beans.digitalarchive.DocumentBean;
+import org.sola.clients.beans.party.PartyListBean;
 import org.sola.clients.beans.referencedata.SourceTypeListBean;
 import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.swing.common.controls.BrowseControlListener;
@@ -63,6 +64,18 @@ public class DocumentPanel extends javax.swing.JPanel {
         }
         return sourceTypeListBean;
     }
+      /**
+     * This method is used by the form designer to create the list of agents.
+     */
+//    private PartySummaryListBean createPartySummaryList() {
+//        PartySummaryListBean agentsList = new PartySummaryListBean();
+    private PartyListBean createPartyList() {
+        PartyListBean recOfficersList = new PartyListBean();
+        recOfficersList.FillRecOfficers(true);
+        return recOfficersList;
+    }
+    
+   
     
     public DocumentPanel(SourceBean document, boolean allowEditing) {
         this.document = document;
@@ -211,6 +224,7 @@ public class DocumentPanel extends javax.swing.JPanel {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         sourceTypeListBean = createSourceTypeList();
+        partyListBean = createPartyList();
         jPanel8 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -227,6 +241,7 @@ public class DocumentPanel extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtOwnerName = new javax.swing.JTextField();
+        cbxRecOff = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         browseAttachment = new org.sola.clients.swing.common.controls.BrowseControl();
@@ -276,6 +291,11 @@ public class DocumentPanel extends javax.swing.JPanel {
         bindingGroup.addBinding(binding);
 
         cbxDocType.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
+        cbxDocType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxDocTypeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -405,6 +425,23 @@ public class DocumentPanel extends javax.swing.JPanel {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${document.ownerName}"), txtOwnerName, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        cbxRecOff.setName(bundle.getString("DocumentPanel.cbxRecOff.name")); // NOI18N
+        cbxRecOff.setRenderer(new SimpleComboBoxRenderer("getFullName"));
+        cbxRecOff.setRequestFocusEnabled(false);
+
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${partyBeanList}");
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, partyListBean, eLProperty, cbxRecOff);
+        bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${document.recOfficer}"), cbxRecOff, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
+        cbxRecOff.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
+        cbxRecOff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxRecOffActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -413,6 +450,8 @@ public class DocumentPanel extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel5)
                 .addGap(0, 73, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(cbxRecOff, 0, 145, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,6 +459,10 @@ public class DocumentPanel extends javax.swing.JPanel {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtOwnerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                    .addGap(0, 23, Short.MAX_VALUE)
+                    .addComponent(cbxRecOff, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel8.add(jPanel4);
@@ -700,9 +743,37 @@ public class DocumentPanel extends javax.swing.JPanel {
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cbxDocTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDocTypeActionPerformed
+        
+        if (this.cbxDocType.getSelectedIndex()>=0) {
+            if (this.cbxDocType.getSelectedItem().toString().contains("FORM LTR-F2")) {
+                this.jLabel5.setText("Recording Officer");
+                this.jLabel3.setText("Date Form Recorded");
+                this.txtOwnerName.setVisible(false);
+                this.cbxRecOff.setVisible(true);
+                
+            } else {
+                this.jLabel5.setText("Source Agency");
+                this.jLabel3.setText("Date");
+                this.txtOwnerName.setVisible(true);
+                this.cbxRecOff.setVisible(false);
+            }
+        }
+    }//GEN-LAST:event_cbxDocTypeActionPerformed
+     
+    private void cbxRecOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxRecOffActionPerformed
+        if (evt.paramString().contains("Button1")) {
+           if (this.cbxRecOff.getSelectedIndex()>=0) {
+             this.txtOwnerName.setText(this.cbxRecOff.getSelectedItem().toString());  
+           }
+         
+        }
+    }//GEN-LAST:event_cbxRecOffActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public org.sola.clients.swing.common.controls.BrowseControl browseAttachment;
     public javax.swing.JComboBox cbxDocType;
+    private javax.swing.JComboBox cbxRecOff;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -730,6 +801,7 @@ public class DocumentPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private org.sola.clients.beans.party.PartyListBean partyListBean;
     private org.sola.clients.beans.referencedata.SourceTypeListBean sourceTypeListBean;
     public javax.swing.JTextField txtDescription;
     public javax.swing.JFormattedTextField txtDocAcceptanceDate;

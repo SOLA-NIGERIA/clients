@@ -32,6 +32,7 @@ import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import org.sola.clients.beans.AbstractTransactionedBean;
 import org.sola.clients.beans.cache.CacheManager;
+import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.referencedata.SourceTypeBean;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
@@ -77,7 +78,8 @@ public class SourceSummaryBean extends AbstractTransactionedBean {
     private String description;
     private String transactionId;
     private Date signingDate;
-    
+    private PartyBean recOfficer;
+
     public SourceSummaryBean() {
         super();
     }

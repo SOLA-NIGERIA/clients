@@ -7,6 +7,11 @@
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="createSourceTypeList()"/>
       </AuxValues>
     </Component>
+    <Component class="org.sola.clients.beans.party.PartyListBean" name="partyListBean">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="createPartyList()"/>
+      </AuxValues>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
@@ -107,6 +112,9 @@
                 <BindingProperty name="elements" source="sourceTypeListBean" sourcePath="${sourceTypeList}" target="cbxDocType" targetPath="elements" updateStrategy="0" immediately="false"/>
                 <BindingProperty name="selectedItem" source="Form" sourcePath="${document.sourceType}" target="cbxDocType" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
               </BindingProperties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxDocTypeActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="cbxDocType.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));"/>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -292,6 +300,9 @@
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="73" max="32767" attributes="0"/>
                   </Group>
+                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                      <Component id="cbxRecOff" alignment="0" pref="145" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -300,6 +311,12 @@
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtOwnerName" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="23" max="32767" attributes="0"/>
+                          <Component id="cbxRecOff" min="-2" pref="20" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -329,6 +346,27 @@
                   <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
                 </BindingProperty>
               </BindingProperties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cbxRecOff">
+              <Properties>
+                <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="org/sola/clients/swing/ui/source/Bundle.properties" key="DocumentPanel.cbxRecOff.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new SimpleComboBoxRenderer(&quot;getFullName&quot;)" type="code"/>
+                </Property>
+                <Property name="requestFocusEnabled" type="boolean" value="false"/>
+              </Properties>
+              <BindingProperties>
+                <BindingProperty name="elements" source="partyListBean" sourcePath="${partyBeanList}" target="cbxRecOff" targetPath="elements" updateStrategy="0" immediately="false"/>
+                <BindingProperty name="selectedItem" source="Form" sourcePath="${document.recOfficer}" target="cbxRecOff" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+              </BindingProperties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxRecOffActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="cbxRecOff.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

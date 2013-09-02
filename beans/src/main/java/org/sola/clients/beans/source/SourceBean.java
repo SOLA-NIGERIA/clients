@@ -31,6 +31,7 @@ package org.sola.clients.beans.source;
 
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.digitalarchive.DocumentBean;
+import org.sola.clients.beans.party.PartyBean;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.EntityAction;
 import org.sola.webservices.transferobjects.casemanagement.SourceTO;
@@ -50,12 +51,23 @@ public class SourceBean extends SourceSummaryBean {
     private String availabilityStatusCode;
     private String content;
     private DocumentBean archiveDocument;
+    private PartyBean recOfficer;
+
 
     public SourceBean() {
         super();
     }
 
+    public PartyBean getRecOfficer() {
+        return recOfficer;
+    }
+
+    public void setRecOfficer(PartyBean recOfficer) {
+        this.recOfficer = recOfficer;
+    }
+
     // Properties
+    
     public String getAvailabilityStatusCode() {
         return availabilityStatusCode;
     }
