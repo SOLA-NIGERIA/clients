@@ -32,10 +32,13 @@ import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import org.sola.clients.beans.AbstractTransactionedBean;
 import org.sola.clients.beans.cache.CacheManager;
+import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.referencedata.SourceTypeBean;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
+import org.sola.services.boundary.wsclients.WSManager;
+import org.sola.webservices.transferobjects.casemanagement.PartyTO;
 import org.sola.webservices.transferobjects.casemanagement.SourceSummaryTO;
 
 /** 
@@ -241,6 +244,20 @@ public class SourceSummaryBean extends AbstractTransactionedBean {
         String oldValue = this.ownerName;
         this.ownerName = ownerName;
         propertySupport.firePropertyChange(OWNER_NAME_PROPERTY, oldValue, this.ownerName);
+    }
+    
+       public PartyBean getRecOfficer() {
+        if(this.ownerName == null || this.ownerName.length()<1){
+            return null;
+        }
+        PartyTO partyTO = WSManager.getInstance().getCaseManagementService().getPartyByFullName(this.ownerName);
+        recOfficer = TypeConverters.TransferObjectToBean(partyTO, PartyBean.class, null);
+        return recOfficer;
+        
+    }
+
+    public void setRecOfficer(PartyBean recOfficer) {
+        this.recOfficer = recOfficer;
     }
 
     public String getVersion() {

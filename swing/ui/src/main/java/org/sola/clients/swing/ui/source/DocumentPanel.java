@@ -65,10 +65,8 @@ public class DocumentPanel extends javax.swing.JPanel {
         return sourceTypeListBean;
     }
       /**
-     * This method is used by the form designer to create the list of agents.
+     * This method is used by the form designer to create the list of recording officers.
      */
-//    private PartySummaryListBean createPartySummaryList() {
-//        PartySummaryListBean agentsList = new PartySummaryListBean();
     private PartyListBean createPartyList() {
         PartyListBean recOfficersList = new PartyListBean();
         recOfficersList.FillRecOfficers(true);
@@ -135,6 +133,15 @@ public class DocumentPanel extends javax.swing.JPanel {
      * sets text of OK button.
      */
     private void postInit() {
+//        System.out.println("QUI ORA  "+document.getRecOfficer().getName());
+//        if(this.txtOwnerName.getText()!=null){
+//           for (int i = 0, n = this.cbxRecOff.getItemCount(); i < n; i++) {
+//            if (this.cbxRecOff.getItemAt(i).toString().contains(this.txtOwnerName.getText())) {
+//                this.cbxRecOff.setSelectedIndex(i);
+//                break;
+//            }
+//           }
+//        }
         cbxDocType.setSelectedIndex(-1);
         // Init browse attachment
         browseAttachment.addBrowseControlEventListener(new BrowseControlListener() {
@@ -746,7 +753,7 @@ public class DocumentPanel extends javax.swing.JPanel {
     private void cbxDocTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDocTypeActionPerformed
         
         if (this.cbxDocType.getSelectedIndex()>=0) {
-            if (this.cbxDocType.getSelectedItem().toString().contains("FORM LTR-F2")) {
+            if (this.cbxDocType.getSelectedItem().toString().contains(this.document.SYSTEMATIC_CLAIM_FORM)) {
                 this.jLabel5.setText("Recording Officer");
                 this.jLabel3.setText("Date Form Recorded");
                 this.txtOwnerName.setVisible(false);

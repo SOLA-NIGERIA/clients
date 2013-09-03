@@ -47,23 +47,15 @@ public class SourceBean extends SourceSummaryBean {
     public static final String MAIN_TYPE_PROPERTY = "mainType";
     public static final String AVAILABILITY_STATUS_CODE_PROPERTY = "availabilityStatusCode";
     public static final String CONTENT_PROPERTY = "content";
+    public static final String SYSTEMATIC_CLAIM_FORM = "Claims Form";
     private String mainType;
     private String availabilityStatusCode;
     private String content;
     private DocumentBean archiveDocument;
-    private PartyBean recOfficer;
-
+ 
 
     public SourceBean() {
         super();
-    }
-
-    public PartyBean getRecOfficer() {
-        return recOfficer;
-    }
-
-    public void setRecOfficer(PartyBean recOfficer) {
-        this.recOfficer = recOfficer;
     }
 
     // Properties
