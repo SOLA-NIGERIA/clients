@@ -187,6 +187,7 @@ public class BaUnitBean extends BaUnitSummaryBean {
     public static final String LOCATION_PROPERTY = "location";
     public static final String LAND_USE_TYPE_PROPERTY = "landUseType";
     public static final String LAND_USE_CODE_PROPERTY = "landUse";
+    public static final String FLOORS_PROPERTY = "floorsNumber";
     
     
     private SolaList<RrrBean> rrrList;
@@ -218,6 +219,19 @@ public class BaUnitBean extends BaUnitSummaryBean {
     private LandUseTypeBean landUseType;
     private String landUse;
     private String location;
+    private Integer floorsNumber;
+
+    
+    public Integer getFloorsNumber() {
+        return floorsNumber;
+    }
+
+    public void setFloorsNumber(Integer floorsNumber) {
+        Integer old = this.floorsNumber;
+        this.floorsNumber = floorsNumber;
+        propertySupport.firePropertyChange(FLOORS_PROPERTY, old, this.floorsNumber);
+    
+    }
 
      public String getLandUse() {
         if (landUseType != null) {

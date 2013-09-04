@@ -224,6 +224,7 @@ public class PropertyPanel extends ContentPanel {
         resourceBundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
         initComponents();
         portInit();
+       
         
     }
 
@@ -255,36 +256,6 @@ public class PropertyPanel extends ContentPanel {
         
         
     }
-    
-    
-    
-    /**
-     * Form constructor.
-     *
-     * @param applicationBean {@link ApplicationBean} instance, used to get data
-     * on BaUnit and provide list of documents.
-     * @param applicationService {@link ApplicationServiceBean} instance, used
-     * to determine what actions should be taken on this form.
-     * @param nameFirstPart First part of the property code.
-     * @param nameLastPart Last part of the property code.
-     * @param readOnly If true, opens form in read only mode.
-     */
-    
-//     QUI TOGLIERE TODO  
-//    public PropertyPanel(ApplicationBean applicationBean,
-//            ApplicationServiceBean applicationService,
-//            String nameFirstPart, String nameLastPart, boolean readOnly, LandUseTypeBean landUseType) {
-//        this.readOnly = readOnly || !SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_BA_UNIT_SAVE);
-//        this.applicationBean = applicationBean;
-//        this.applicationService = applicationService;
-//        this.nameFirstPart = nameFirstPart;
-//        this.nameLastPart = nameLastPart;
-//        this.landUse = landUseType.getCode();
-//        this.txtLandUse.setText(landUseType.getDisplayValue());
-//        resourceBundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
-//        initComponents();
-//        portInit();
-//     }
     
     /**
      * Makes post initialization tasks.
@@ -417,6 +388,11 @@ public class PropertyPanel extends ContentPanel {
                     headerPanel.getTitleText(),
                     String.format(resourceBundle.getString("PropertyPanel.applicationInfo.Text"),
                     applicationService.getRequestType().getDisplayValue(), applicationBean.getNr())));
+        
+         if(applicationService.getRequestType().getCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
+            this.btnAddParcel.setVisible(false);
+        }
+
         }
         
         btnSave.setEnabled(!readOnly);
@@ -434,13 +410,9 @@ public class PropertyPanel extends ContentPanel {
         
         isBtnNext = false;
 
-//        TO BE REMOVED btnNext after well tested and before pushing the code
         btnNext.setVisible(false);        
         btnNext.setEnabled(false);
         
-        if(applicationService.getRequestType().getCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
-            this.btnAddParcel.setVisible(false);
-        }
         
     }
 
@@ -1316,6 +1288,8 @@ public class PropertyPanel extends ContentPanel {
         lblTerm = new javax.swing.JLabel();
         txtTerm = new javax.swing.JTextField();
         cbxLandUse = new javax.swing.JComboBox();
+        txtFloorNumber = new javax.swing.JTextField();
+        lblFloorNumber = new javax.swing.JLabel();
         jScrollPane9 = new javax.swing.JScrollPane();
         txtLocation = new javax.swing.JTextArea();
         lblLocation = new javax.swing.JLabel();
@@ -1631,22 +1605,24 @@ public class PropertyPanel extends ContentPanel {
         pnlToDevLayout.setHorizontalGroup(
             pnlToDevLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(pnlToDevLayout.createSequentialGroup()
+                .add(0, 0, Short.MAX_VALUE)
                 .add(pnlToDevLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(lblYearsToDev, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(txtYearsToDev, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(lblValueToImprove, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(txtValueToImprove, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, lblValueToImprove, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, txtYearsToDev, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, lblYearsToDev, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, txtValueToImprove, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         pnlToDevLayout.setVerticalGroup(
             pnlToDevLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(pnlToDevLayout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
                 .add(lblYearsToDev)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(txtYearsToDev, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(lblValueToImprove)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(txtValueToImprove, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1672,6 +1648,14 @@ public class PropertyPanel extends ContentPanel {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${landUseType}"), cbxLandUse, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
+        txtFloorNumber.setName(bundle.getString("PropertyPanel.txtFloorNumber.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${floorsNumber}"), txtFloorNumber, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        lblFloorNumber.setText(bundle.getString("PropertyPanel.lblFloorNumber.text")); // NOI18N
+        lblFloorNumber.setName(bundle.getString("PropertyPanel.lblFloorNumber.name")); // NOI18N
+
         org.jdesktop.layout.GroupLayout jPanel18Layout = new org.jdesktop.layout.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
@@ -1679,10 +1663,15 @@ public class PropertyPanel extends ContentPanel {
             .add(jPanel18Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel18Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(lblTerm, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(lblLandUse, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
                     .add(txtTerm)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, cbxLandUse, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, cbxLandUse, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(lblTerm, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel18Layout.createSequentialGroup()
+                        .add(jPanel18Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(lblFloorNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(txtFloorNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 84, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel18Layout.setVerticalGroup(
@@ -1691,11 +1680,15 @@ public class PropertyPanel extends ContentPanel {
                 .add(lblLandUse, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(4, 4, 4)
                 .add(cbxLandUse, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
-                .add(lblTerm)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(lblFloorNumber)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(txtFloorNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(lblTerm)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(txtTerm, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jScrollPane9.setName(bundle.getString("PropertyPanel.jScrollPane9.name")); // NOI18N
@@ -1719,31 +1712,36 @@ public class PropertyPanel extends ContentPanel {
             .add(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(chkIsDeveloped, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(pnlToDev, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                    .add(pnlToDev, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, chkIsDeveloped, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(18, 18, 18)
                 .add(jPanel18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jScrollPane9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(lblLocation, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 166, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel12Layout.createSequentialGroup()
-                .add(jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                .add(6, 6, 6)
+                .add(jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel12Layout.createSequentialGroup()
                         .add(lblLocation)
                         .add(8, 8, 8)
-                        .add(jScrollPane9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                        .add(jPanel18, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jPanel12Layout.createSequentialGroup()
-                            .add(chkIsDeveloped)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(pnlToDev, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                        .add(jScrollPane9)
+                        .addContainerGap())
+                    .add(jPanel12Layout.createSequentialGroup()
+                        .add(41, 41, 41)
+                        .add(pnlToDev, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .add(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel12Layout.createSequentialGroup()
+                        .add(chkIsDeveloped)
+                        .add(0, 0, Short.MAX_VALUE))
+                    .add(jPanel18, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)))
         );
 
         jToolBar4.setFloatable(false);
@@ -1974,7 +1972,7 @@ public class PropertyPanel extends ContentPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel5)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(txtName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .add(txtName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(groupPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(4, 4, 4)
@@ -3144,6 +3142,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JToolBar jToolBar8;
     private javax.swing.JLabel labArea;
     private org.sola.clients.beans.referencedata.LandUseTypeListBean landUseTypeListBean1;
+    private javax.swing.JLabel lblFloorNumber;
     private javax.swing.JLabel lblLandUse;
     private javax.swing.JLabel lblLocation;
     private javax.swing.JLabel lblTerm;
@@ -3183,6 +3182,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JTextField txtBaUnitStatus;
     private javax.swing.JTextField txtEstateType;
     private javax.swing.JTextField txtFirstPart;
+    private javax.swing.JTextField txtFloorNumber;
     private javax.swing.JTextField txtLastPart;
     private javax.swing.JTextArea txtLocation;
     private javax.swing.JTextField txtName;

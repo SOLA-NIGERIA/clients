@@ -916,11 +916,10 @@ public class ApplicationPanel extends ContentPanel {
 
             @Override
             public void taskDone() {
-//                MessageUtility.displayMessage(ClientMessage.APPLICATION_SUCCESSFULLY_SAVED);
                 customizeApplicationForm();
                 saveAppState();
 
-                if (applicationID == null || applicationID.equals("")) {
+                if ((applicationID == null || applicationID.equals(""))) {
                     showReport(ReportManager.getLodgementNoticeReport(appBean));
                     applicationID = appBean.getId();
                 }
