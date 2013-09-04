@@ -33,6 +33,7 @@ import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.digitalarchive.DocumentBean;
+import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.systematicregistration.SysRegCertificatesBean;
 import org.sola.clients.beans.systematicregistration.SysRegCertificatesListBean;
 import org.sola.clients.reports.ReportManager;
@@ -62,6 +63,8 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     private String reportdate;
     private String reportTogenerate;
     private Date currentDate;
+    private SourceBean document;
+
 
     /**
      * Creates new form SysRegCertParamsForm
@@ -78,6 +81,8 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             this.title = this.title + location;
         }
         this.setTitle(this.title);
+        this.document = new SourceBean();
+
     }
 
     /**
@@ -87,6 +92,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setTitle(this.title);
+        this.document = new SourceBean();
     }
 
     /**
@@ -132,27 +138,22 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     private void saveDocument(String fileName, Date recDate, String subDate) throws Exception {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         String reportdate = formatter.format(recDate);
-        documentPanel.browseAttachment.setText(fileName);
         
         
-        for (int i = 0, n = documentPanel.cbxDocType.getItemCount(); i < n; i++) {
-            if (documentPanel.cbxDocType.getItemAt(i).toString().contains("Certificate")) {
-                documentPanel.cbxDocType.setSelectedIndex(i);
-                break;
-            }
-        }
-
-        documentPanel.txtDocRefNumber.setText(this.location);  
-        documentPanel.txtDocRecordDate.setText(reportdate);
-        documentPanel.txtDocRecordDate.setValue(this.currentDate);
-        documentPanel.txtDescription.setText(this.reportTogenerate);
-        DocumentBean document = new DocumentBean();
+        this.document.setTypeCode("title");
+        this.document.setReferenceNr(this.location);
+        this.document.setRecordation(this.currentDate);
+        this.document.setDescription(this.reportTogenerate);
+        
+      
+        DocumentBean document1 = new DocumentBean();
         File file = new File(cachePath + fileName);
-        document = DocumentBean.createDocumentFromLocalFile(file);
-        documentPanel.archiveDocument = document;
-        documentPanel.saveDocument();
+        document1 = DocumentBean.createDocumentFromLocalFile(file);
         
-        documentPanel.getDocument().clean2();
+        document.setArchiveDocument(document1);
+        document.save();
+        document.clean2();
+        
     }
 
     private void showDocMessage(String fileName) {

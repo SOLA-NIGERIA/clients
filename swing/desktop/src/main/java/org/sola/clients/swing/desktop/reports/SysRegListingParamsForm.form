@@ -12,8 +12,6 @@
     </Component>
     <Component class="org.sola.clients.beans.source.SourceBean" name="sourceBean">
     </Component>
-    <Component class="org.sola.clients.swing.ui.source.DocumentPanel" name="documentPanel">
-    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>

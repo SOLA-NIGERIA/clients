@@ -45,6 +45,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import org.sola.clients.beans.digitalarchive.DocumentBean;
+import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.validation.ValidationResultBean;
 import org.sola.clients.reports.ReportManager;
 import org.sola.clients.swing.common.controls.CalendarForm;
@@ -67,6 +68,7 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
     private static String cachePath = System.getProperty("user.home") + "/sola/cache/documents/";
     private String reportdate;
     private String reportTogenerate;
+    private SourceBean document;
 
     /**
      * Creates new form SysRegListingParamsForm
@@ -78,6 +80,8 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
         this.setTitle("Report " + report);
         this.txtToDate.setVisible(false);
         this.labNotificationTo.setVisible(false);
+        this.document = new SourceBean();
+
     }
 
     /**
@@ -105,7 +109,7 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
         String location = this.tmpLocation.replace(" ", "_");
         this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
         this.reportTogenerate = this.reportTogenerate.replace("/", "_");
-        
+
         JRPdfExporter exporterPdf = new JRPdfExporter();
 
         exporterPdf.setParameter(JRXlsExporterParameter.JASPER_PRINT, populatedReport);
@@ -126,28 +130,20 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         String reportdate = formatter.format(recDate);
         String expiration = formatter.format(expDate);
-        documentPanel.browseAttachment.setText(fileName);
 
-        for (int i = 0, n = documentPanel.cbxDocType.getItemCount(); i < n; i++) {
-            if (documentPanel.cbxDocType.getItemAt(i).toString().contains("Public Notification for Systematic Registration")) {
-                documentPanel.cbxDocType.setSelectedIndex(i);
-                break;
-            }
-        }
-
-        documentPanel.txtDocRefNumber.setText(tmpLocation);
-        documentPanel.txtDocRecordDate.setText(reportdate);
-        documentPanel.txtDocRecordDate.setValue(txtFromDate.getValue());
-        documentPanel.txtExpiration.setText(expiration);
-        documentPanel.txtExpiration.setValue(txtToDate.getValue());
-        documentPanel.txtDescription.setText(this.reportTogenerate);
-        DocumentBean document = new DocumentBean();
-        File file = new File(cachePath + fileName);
-        document = DocumentBean.createDocumentFromLocalFile(file);
+        this.document.setTypeCode("publicNotification");
+        this.document.setReferenceNr(tmpLocation);
+        this.document.setRecordation(recDate);
+        this.document.setExpirationDate(expDate);
+        this.document.setDescription(this.reportTogenerate);
         
-        documentPanel.archiveDocument = document;
-        documentPanel.saveDocument();
-
+      
+        DocumentBean document1 = new DocumentBean();
+        File file = new File(cachePath + fileName);
+        document1 = DocumentBean.createDocumentFromLocalFile(file);
+        
+        document.setArchiveDocument(document1);
+        document.save();
     }
 
     private void showDocMessage(String fileName) {
@@ -311,8 +307,8 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
         if (cadastreObjectSearch.getSelectedElement() != null) {
             this.location = cadastreObjectSearch.getSelectedElement().toString();
 //            tmpLocation = (this.location.substring(this.location.indexOf("/") + 1).trim());
-              tmpLocation = (this.location);
-       
+            tmpLocation = (this.location);
+
         } else {
             MessageUtility.displayMessage(ClientMessage.CHECK_SELECT_LOCATION);
             return;
@@ -335,7 +331,7 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
             this.reportTogenerate = this.report + "_" + tmpLocation + "_" + this.reportdate + ".pdf";
             this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
             this.reportTogenerate = this.reportTogenerate.replace("/", "_");
-        
+
             showDocMessage(this.reportTogenerate);
 
             if (this.report.contentEquals("Owners")) {
@@ -452,7 +448,6 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
     private void txtFromDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtFromDatePropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFromDatePropertyChange
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnShowCalendarFrom;
     private org.sola.clients.beans.cadastre.CadastreObjectBean cadastreObjectBean;

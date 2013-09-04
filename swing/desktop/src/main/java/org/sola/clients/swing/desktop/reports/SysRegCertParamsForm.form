@@ -8,8 +8,6 @@
     </Component>
     <Component class="org.sola.clients.beans.systematicregistration.SysRegCertificatesListBean" name="sysRegCertificatesListBean">
     </Component>
-    <Component class="org.sola.clients.swing.ui.source.DocumentPanel" name="documentPanel">
-    </Component>
   </NonVisualComponents>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
