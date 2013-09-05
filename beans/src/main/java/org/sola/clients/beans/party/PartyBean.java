@@ -40,9 +40,11 @@ import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.party.validation.PartyAddressCheck;
 import org.sola.clients.beans.party.validation.PartyIdTypeCheck;
 import org.sola.clients.beans.referencedata.*;
+import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.services.boundary.wsclients.WSManager;
+//import org.sola.services.common.EntityAction;
 import org.sola.webservices.transferobjects.EntityAction;
 import org.sola.webservices.transferobjects.casemanagement.PartyTO;
 
@@ -97,6 +99,9 @@ public class PartyBean extends PartySummaryBean {
     private Date dob;
     private String state;
     private String nationality;
+    
+    private SolaList<SourceBean> sourceList;
+    
 
     public Date getDob() {
         return dob;
@@ -133,6 +138,10 @@ public class PartyBean extends PartySummaryBean {
     public PartyBean() {
         super();
         roleList = new SolaList();
+        sourceList = new SolaList();
+//        sourceList.setExcludedStatuses(new String[]{StatusConstants.HISTORIC});
+//        sourceList.setIncludedStatuses(new String[]{StatusConstants.CURRENT});
+        
     }
 
     public void clean() {
@@ -406,4 +415,27 @@ public class PartyBean extends PartySummaryBean {
         partyTO.setEntityAction(EntityAction.DELETE);
         WSManager.getInstance().getCaseManagementService().saveParty(partyTO);
     }
+    
+     public void createPaperTitle(SourceBean source) {
+        if (source != null) {
+            for (SourceBean sourceBean : sourceList) {
+                sourceBean.setEntityAction(EntityAction.DISASSOCIATE);
+            }
+            sourceList.addAsNew(source);
+            sourceList.filter();
+        }
+    }
+    public SolaList<SourceBean> getSourceList() {
+        return sourceList;
+    }
+
+    public void setSourceList(SolaList<SourceBean> sourceList) {
+        this.sourceList = sourceList;
+    }
+
+    public ObservableList<SourceBean> getFilteredSourceList() {
+        return sourceList.getFilteredList();
+    }
+    
+    
 }

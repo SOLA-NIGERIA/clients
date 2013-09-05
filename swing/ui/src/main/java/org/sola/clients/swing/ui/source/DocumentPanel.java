@@ -133,15 +133,6 @@ public class DocumentPanel extends javax.swing.JPanel {
      * sets text of OK button.
      */
     private void postInit() {
-//        System.out.println("QUI ORA  "+document.getRecOfficer().getName());
-//        if(this.txtOwnerName.getText()!=null){
-//           for (int i = 0, n = this.cbxRecOff.getItemCount(); i < n; i++) {
-//            if (this.cbxRecOff.getItemAt(i).toString().contains(this.txtOwnerName.getText())) {
-//                this.cbxRecOff.setSelectedIndex(i);
-//                break;
-//            }
-//           }
-//        }
         cbxDocType.setSelectedIndex(-1);
         // Init browse attachment
         browseAttachment.addBrowseControlEventListener(new BrowseControlListener() {
