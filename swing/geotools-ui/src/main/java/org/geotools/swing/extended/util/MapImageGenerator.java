@@ -55,6 +55,8 @@ public class MapImageGenerator {
 
     private final static String TEMPORARY_IMAGE_FILE_LOCATION =
             System.getProperty("user.home") + File.separator + "sola";
+    private static String DOCUMENT_CACHE_PATH = System.getProperty("user.home") + "/sola/cache/documents";
+    
     private final static String TEMPORARY_IMAGE_FILE = "map";
     private MapContent mapContent;
     private Color textColor = Color.RED;
@@ -207,6 +209,29 @@ public class MapImageGenerator {
                 + TEMPORARY_IMAGE_FILE + "." + imageFormat;
         File outputFile = new File(pathToResult);
         BufferedImage bufferedImage = this.getImage(imageWidth, imageHeight, scale, dpi);
+        ImageIO.write(bufferedImage, imageFormat, outputFile);
+        return pathToResult;
+    }
+    
+      /**
+     * Generates an image using the specified extent and saves the image to an image file.
+     *
+     * @param imageWidth The width of the image in pixels
+     * @param extent The extent of the map window to use for the image
+     * @param imageFormat The format of the image. Potential values can be jpg, png, bmp
+     * @return The path and file name of the image file
+     * @throws IOException
+     */
+    public String getImageAsFileLocation(int imageWidth, ReferencedEnvelope extent,
+            String imageFormat, String label) throws IOException {
+        File location = new File(TEMPORARY_IMAGE_FILE_LOCATION);
+        if (!location.exists()) {
+            location.mkdirs();
+        }
+        String pathToResult = DOCUMENT_CACHE_PATH + File.separator
+                + label + "." + imageFormat;
+        File outputFile = new File(pathToResult);
+        BufferedImage bufferedImage = this.getImage(imageWidth, extent);
         ImageIO.write(bufferedImage, imageFormat, outputFile);
         return pathToResult;
     }

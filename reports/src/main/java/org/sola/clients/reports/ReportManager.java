@@ -539,7 +539,7 @@ public class ReportManager {
      * report.
      *
      */
-    public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit) {
+    public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName) {
         HashMap inputParameters = new HashMap();
         String me ="/images/sola/Picture1.png";       
         String appNr = null;
@@ -587,7 +587,8 @@ public class ReportManager {
         inputParameters.put("SIZE", size);
         inputParameters.put("GROUND_RENT", groundRent);
         inputParameters.put("IMG_URL", ReportManager.class.getResourceAsStream(me));
-
+        inputParameters.put("MAP_IMAGE", featureImageFileName);
+          
 //        TOBEVERIFIED   
 //        inputParameters.put("QR_URL", ReportManager.class.getResourceAsStream(xxx));
 //        inputParameters.put("MAP_URL", ReportManager.class.getResourceAsStream(xxx));

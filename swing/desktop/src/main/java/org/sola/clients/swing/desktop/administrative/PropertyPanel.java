@@ -37,6 +37,7 @@ import java.math.BigDecimal;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import net.sf.jasperreports.engine.JasperPrint;
+import org.geotools.swing.extended.exception.InitializeMapException;
 import org.sola.clients.beans.administrative.*;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
@@ -55,6 +56,7 @@ import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.MainForm;
 import org.sola.clients.swing.desktop.ReportViewerForm;
 import org.sola.clients.swing.desktop.cadastre.SearchParcelDialog;
+import org.sola.clients.swing.gis.ui.control.MapFeatureImageGenerator;
 import org.sola.clients.swing.gis.ui.controlsbundle.ControlsBundleForBaUnit;
 import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.clients.swing.ui.MainContentPanel;
@@ -62,6 +64,7 @@ import org.sola.clients.swing.ui.renderers.*;
 import org.sola.clients.swing.ui.source.AddDocumentForm;
 import org.sola.clients.swing.ui.source.DocumentsPanel;
 import org.sola.common.RolesConstants;
+import org.sola.common.logging.LogUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
@@ -105,6 +108,8 @@ public class PropertyPanel extends ContentPanel {
     public BaUnitBean whichBaUnitSelected;
     private boolean isBtnNext = false;
     private Integer term;
+    int srId= 32632;
+
             
 
     /**
@@ -1113,7 +1118,31 @@ public class PropertyPanel extends ContentPanel {
                     if (txtArea.getText().indexOf('.') != -1) {
                         formatSize(txtArea.getText());
                     }
-                }                
+                }  
+                
+                    String featureImageFileName = null;
+                    try {
+                        MapFeatureImageGenerator generator;
+                        if (mapControl != null) {
+                            // Use the map on the Property form as the basis for the snapshot.
+                            // This allows a user to setup the map before the snapshot is taken.
+                            generator = new MapFeatureImageGenerator(mapControl.getMap());
+                        } else {
+                            // Create a new map to render the parcel geometry only.
+                            generator = new MapFeatureImageGenerator(srId);
+                        }
+
+                        String parcelLabel = baUnitBean1.getCadastreObjectList().get(0).getNameLastpart().toString()+'/'+baUnitBean1.getCadastreObjectList().get(0).getNameFirstpart().toString();
+                        
+                        
+                        featureImageFileName = generator.getFeatureImage(
+                                baUnitBean1.getCadastreObjectList().get(0).getGeomPolygon(),
+                                parcelLabel, null,
+                                MapFeatureImageGenerator.IMAGE_FORMAT_PNG);
+                    } catch (InitializeMapException mapEx) {
+                        LogUtility.log("Unable to initialize MapFeaureImageGenerator", mapEx);
+                    }
+                
                 return null;
             }
             

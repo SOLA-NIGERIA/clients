@@ -60,6 +60,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     private String nr;
     private String tmpLocation = "";
     private static String cachePath = System.getProperty("user.home") + "/sola/cache/documents/";
+//    private static String mapPath = System.getProperty("user.home") + "/sola/";
     private String reportdate;
     private String reportTogenerate;
     private Date currentDate;
@@ -281,8 +282,13 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             BaUnitBean baUnit = getBaUnit(baUnitId);
             ApplicationBean applicationBean = getApplication(appId); 
              
+                        String parcelLabel = baUnit.getCadastreObjectList().get(0).getNameLastpart().toString()+'/'+baUnit.getCadastreObjectList().get(0).getNameFirstpart().toString();
+                        parcelLabel = parcelLabel.replace('/','-');
+                        String featureImageFileName = this.cachePath+parcelLabel+".png";
+                    showReport(ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName));
+         
 //            showReport(ReportManager.getBaUnitReport(getBaUnit(baUnitId)));
-            showReport(ReportManager.getSysRegCertificatesReport(baUnit,tmpLocation, applicationBean, appBaunit));
+//            showReport(ReportManager.getSysRegCertificatesReport(baUnit,tmpLocation, applicationBean, appBaunit));
             i = i + 1;
         }
         if (i==0) {
