@@ -66,7 +66,6 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     private Date currentDate;
     private SourceBean document;
 
-
     /**
      * Creates new form SysRegCertParamsForm
      */
@@ -139,27 +138,27 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     private void saveDocument(String fileName, Date recDate, String subDate) throws Exception {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         String reportdate = formatter.format(recDate);
-        
-        
+
+
         this.document.setTypeCode("title");
         this.document.setReferenceNr(this.location);
         this.document.setRecordation(this.currentDate);
         this.document.setDescription(this.reportTogenerate);
-        
-      
+
+
         DocumentBean document1 = new DocumentBean();
         File file = new File(cachePath + fileName);
         document1 = DocumentBean.createDocumentFromLocalFile(file);
-        
+
         document.setArchiveDocument(document1);
         document.save();
         document.clean2();
-        
+
     }
 
     private void showDocMessage(String fileName) {
 
-        String params = this.title+":  "+fileName;
+        String params = this.title + ":  " + fileName;
         MessageUtility.displayMessage(ClientMessage.SOURCE_SYS_REP_GENERATED, new Object[]{params});
 
     }
@@ -237,14 +236,14 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
      */
     private BaUnitBean getBaUnit(String id) {
         BaUnitTO baUnitTO = WSManager.getInstance().getAdministrative().getBaUnitById(id);
-       return TypeConverters.TransferObjectToBean(baUnitTO, BaUnitBean.class, null);
-    }   
-    
+        return TypeConverters.TransferObjectToBean(baUnitTO, BaUnitBean.class, null);
+    }
+
     private ApplicationBean getApplication(String id) {
         ApplicationTO applicationTO = WSManager.getInstance().getCaseManagementService().getApplication(id);
-       return TypeConverters.TransferObjectToBean(applicationTO, ApplicationBean.class, null);
+        return TypeConverters.TransferObjectToBean(applicationTO, ApplicationBean.class, null);
     }
-    
+
     private void btnGenCertificateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenCertificateActionPerformed
         if (cadastreObjectSearch.getSelectedElement() != null) {
             this.location = cadastreObjectSearch.getSelectedElement().toString();
@@ -270,31 +269,35 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         String nrTmp = null;
         String appId = null;
         int i = 0;
-       
+
         for (Iterator<SysRegCertificatesBean> it = sysRegCertificatesListBean.getSysRegCertificates().iterator(); it.hasNext();) {
             SysRegCertificatesBean appBaunit = it.next();
-             baUnitId = appBaunit.getBaUnitId();
-             appId =  appBaunit.getAppId();
-             
+            baUnitId = appBaunit.getBaUnitId();
+            appId = appBaunit.getAppId();
+
             this.reportTogenerate = baUnitId + "_" + tmpLocation + "_" + this.reportdate + ".pdf";
             this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
             this.reportTogenerate = this.reportTogenerate.replace("/", "_");
             BaUnitBean baUnit = getBaUnit(baUnitId);
-            ApplicationBean applicationBean = getApplication(appId); 
-             
-                        String parcelLabel = baUnit.getCadastreObjectList().get(0).getNameLastpart().toString()+'/'+baUnit.getCadastreObjectList().get(0).getNameFirstpart().toString();
-                        parcelLabel = parcelLabel.replace('/','-');
-                        String featureImageFileName = this.cachePath+parcelLabel+".png";
-                    showReport(ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName));
-         
+            ApplicationBean applicationBean = getApplication(appId);
+
+            String parcelLabel = baUnit.getCadastreObjectList().get(0).getNameLastpart().toString() + '/' + baUnit.getCadastreObjectList().get(0).getNameFirstpart().toString();
+            parcelLabel = parcelLabel.replace('/', '-');
+            String featureImageFileName = this.cachePath + parcelLabel + ".png";
+
+            showReport(ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName));
+
 //            showReport(ReportManager.getBaUnitReport(getBaUnit(baUnitId)));
 //            showReport(ReportManager.getSysRegCertificatesReport(baUnit,tmpLocation, applicationBean, appBaunit));
+
+            FileUtility.deleteFileFromCache(parcelLabel + ".png");
+
             i = i + 1;
         }
-        if (i==0) {
-         MessageUtility.displayMessage(ClientMessage.NO_CERTIFICATE_GENERATION);
+        if (i == 0) {
+            MessageUtility.displayMessage(ClientMessage.NO_CERTIFICATE_GENERATION);
         } else {
-         showDocMessage(this.tmpLocation);   
+            showDocMessage(this.tmpLocation);
         }
         this.dispose();
 
