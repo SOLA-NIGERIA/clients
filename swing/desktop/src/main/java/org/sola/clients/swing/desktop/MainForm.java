@@ -69,6 +69,8 @@ import org.sola.clients.swing.desktop.reports.SysRegManagementParamsForm;
 import org.sola.clients.swing.desktop.source.DocumentSearchForm;
 import org.sola.clients.swing.desktop.source.PowerOfAttorneyViewForm;
 import org.sola.clients.swing.ui.MainContentPanel;
+import org.sola.clients.swing.bulkoperations.*;
+import org.sola.clients.swing.bulkoperations.sources.LoadSourcesPanel;
 import org.sola.common.RolesConstants;
 import org.sola.common.help.HelpUtility;
 import org.sola.common.logging.LogUtility;
@@ -284,7 +286,21 @@ public class MainForm extends javax.swing.JFrame {
         TaskManager.getInstance().runTask(t);
     }
     
-    
+    private void loadSourcesPanel() {
+        SolaTask t = new SolaTask<Void, Void>() {
+
+            @Override
+            public Void doTask() {
+                setMessage(MessageUtility.getLocalizedMessageText(
+                        ClientMessage.PROGRESS_MSG_SOURCE_LOAD_STARTING));
+                LoadSourcesPanel panel = new LoadSourcesPanel();
+                pnlContent.addPanel(panel, panel.getName(), true);
+                return null;
+            }
+        };
+        TaskManager.getInstance().runTask(t);
+
+    }
     
 
     private void openDisputeSearch() {
@@ -654,6 +670,7 @@ public class MainForm extends javax.swing.JFrame {
         btnManageParties = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnOpenMap = new javax.swing.JButton();
+        btnLoadSources = new javax.swing.JButton();
         btnSetPassword = new javax.swing.JButton();
         statusPanel = new javax.swing.JPanel();
         labStatus = new javax.swing.JLabel();
@@ -806,6 +823,18 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         applicationsMain.add(btnOpenMap);
+
+        btnLoadSources.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/document-task.png"))); // NOI18N
+        btnLoadSources.setText(bundle.getString("MainForm.btnLoadSources.text")); // NOI18N
+        btnLoadSources.setFocusable(false);
+        btnLoadSources.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        btnLoadSources.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnLoadSources.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadSourcesActionPerformed(evt);
+            }
+        });
+        applicationsMain.add(btnLoadSources);
 
         btnSetPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/lock--pencil.png"))); // NOI18N
         btnSetPassword.setText(bundle.getString("MainForm.btnSetPassword.text")); // NOI18N
@@ -1276,6 +1305,10 @@ public class MainForm extends javax.swing.JFrame {
         openDisputeSearch();
     }//GEN-LAST:event_btnSearch1ActionPerformed
 
+    private void btnLoadSourcesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadSourcesActionPerformed
+        loadSourcesPanel();
+    }//GEN-LAST:event_btnLoadSourcesActionPerformed
+
     private void editPassword() {
         showPasswordPanel();
     }
@@ -1302,6 +1335,7 @@ public class MainForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToolBar applicationsMain;
     private javax.swing.JButton btnDocumentSearch;
+    private javax.swing.JButton btnLoadSources;
     private javax.swing.JButton btnManageParties;
     private javax.swing.JButton btnNewApplication;
     private javax.swing.JButton btnOpenBaUnitSearch;
