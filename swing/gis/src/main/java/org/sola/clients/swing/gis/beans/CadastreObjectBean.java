@@ -98,10 +98,15 @@ public class CadastreObjectBean extends SpatialBean {
      */
     public void setNameFirstpart(String nameFirstpart) {
         String oldValue = this.nameFirstpart;
-        this.nameFirstpart = nameFirstpart;
         if (this.nameLastpart.contains(separator)) {
-         getCO(nameFirstpart, this.nameLastpart);
+           if (getCO(nameFirstpart, this.nameLastpart)) {
+            this.nameFirstpart = nameFirstpart;
+           }
         }
+        else {
+             this.nameFirstpart = nameFirstpart;
+        }
+        
          propertySupport.firePropertyChange(NAME_FIRST_PART_PROPERTY, oldValue, nameFirstpart);
     }
     
