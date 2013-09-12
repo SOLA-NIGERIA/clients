@@ -31,10 +31,15 @@ package org.sola.clients.swing.gis.beans;
 import com.vividsolutions.jts.geom.Geometry;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 import org.geotools.swing.extended.util.GeometryUtility;
-
+import org.sola.clients.beans.converters.TypeConverters;
+import org.sola.common.messaging.GisMessage;
+import org.sola.services.boundary.wsclients.WSManager;
+import org.sola.webservices.transferobjects.cadastre.CadastreObjectTO;
+import org.sola.common.messaging.MessageUtility;
 /**
  * Defines a cadastre object bean.
  * 
@@ -47,6 +52,7 @@ public class CadastreObjectBean extends SpatialBean {
     private String id;
     private String nameFirstpart = "";
     private String nameLastpart = "";
+    private String separator = "/";
     private String typeCode = "parcel";
     private byte[] geomPolygon;
     private List<SpatialValueAreaBean> spatialValueAreaList = new ArrayList<SpatialValueAreaBean>();
@@ -93,9 +99,29 @@ public class CadastreObjectBean extends SpatialBean {
     public void setNameFirstpart(String nameFirstpart) {
         String oldValue = this.nameFirstpart;
         this.nameFirstpart = nameFirstpart;
-        propertySupport.firePropertyChange(NAME_FIRST_PART_PROPERTY, oldValue, nameFirstpart);
+        if (this.nameLastpart.contains(separator)) {
+         getCO(nameFirstpart, this.nameLastpart);
+        }
+         propertySupport.firePropertyChange(NAME_FIRST_PART_PROPERTY, oldValue, nameFirstpart);
     }
+    
+    private Boolean getCO(String nameFirstpart, String nameLastpart) {
+        final List<org.sola.clients.beans.cadastre.CadastreObjectBean> searchResult = new LinkedList<org.sola.clients.beans.cadastre.CadastreObjectBean>();
+           TypeConverters.TransferObjectListToBeanList(
+                        WSManager.getInstance().getCadastreService().getCadastreObjectByParts(nameFirstpart+' '+nameLastpart),
+                        org.sola.clients.beans.cadastre.CadastreObjectBean.class, (List) searchResult);
+           if (searchResult.size() > 0) {
+                String co = searchResult.get(0).getNameLastpart()+' '+searchResult.get(0).getNameFirstpart();
+                MessageUtility.displayMessage(GisMessage.PARCEL_EXISTS);
+                return false;
+           }
+         return true;
+    }
+         
+  
 
+    
+    
     public String getNameLastpart() {
         return nameLastpart;
     }
