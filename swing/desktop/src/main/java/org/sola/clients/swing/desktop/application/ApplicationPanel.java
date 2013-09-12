@@ -221,6 +221,7 @@ public class ApplicationPanel extends ContentPanel {
      */
     private void postInit() {
         this.btnSearchUpiWardParcel.setVisible(false);
+        this.btnCalculateFee.setVisible(false);
         this.txtNationality.setVisible(false);
         appBean.getSourceFilteredList().addObservableListListener(new ObservableListListener() {
 
@@ -921,8 +922,12 @@ public class ApplicationPanel extends ContentPanel {
                 saveAppState();
 
                 if ((applicationID == null || applicationID.equals(""))) {
-                    showReport(ReportManager.getLodgementNoticeReport(appBean));
-                    applicationID = appBean.getId();
+                    if (!appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)
+                        && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_CADASTRE_CHANGE))
+                    {
+                     showReport(ReportManager.getLodgementNoticeReport(appBean));
+                     applicationID = appBean.getId();
+                    }
                 }
                 firePropertyChange(APPLICATION_SAVED_PROPERTY, false, true);
 

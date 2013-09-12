@@ -660,6 +660,7 @@ public class MainForm extends javax.swing.JFrame {
         applicationsMain = new javax.swing.JToolBar();
         btnShowDashboard = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
+        btnLoadSources = new javax.swing.JButton();
         btnNewApplication = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
         btnSearchApplications = new javax.swing.JButton();
@@ -670,7 +671,6 @@ public class MainForm extends javax.swing.JFrame {
         btnManageParties = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnOpenMap = new javax.swing.JButton();
-        btnLoadSources = new javax.swing.JButton();
         btnSetPassword = new javax.swing.JButton();
         statusPanel = new javax.swing.JPanel();
         labStatus = new javax.swing.JLabel();
@@ -701,6 +701,7 @@ public class MainForm extends javax.swing.JFrame {
         menuReportsDesktop = new javax.swing.JMenu();
         menuLodgementReport = new javax.swing.JMenuItem();
         menuSystematic = new javax.swing.JMenu();
+        menuLoadScannedDoc = new javax.swing.JMenuItem();
         menuPublicDisplay = new javax.swing.JMenu();
         menuPublicNotification = new javax.swing.JMenuItem();
         menuOwnerName = new javax.swing.JMenuItem();
@@ -739,6 +740,18 @@ public class MainForm extends javax.swing.JFrame {
         });
         applicationsMain.add(btnShowDashboard);
         applicationsMain.add(jSeparator2);
+
+        btnLoadSources.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/document-task.png"))); // NOI18N
+        btnLoadSources.setText(bundle.getString("MainForm.btnLoadSources.text")); // NOI18N
+        btnLoadSources.setFocusable(false);
+        btnLoadSources.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        btnLoadSources.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnLoadSources.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadSourcesActionPerformed(evt);
+            }
+        });
+        applicationsMain.add(btnLoadSources);
 
         btnNewApplication.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/new.png"))); // NOI18N
         btnNewApplication.setText(bundle.getString("MainForm.btnNewApplication.text")); // NOI18N
@@ -823,18 +836,6 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         applicationsMain.add(btnOpenMap);
-
-        btnLoadSources.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/document-task.png"))); // NOI18N
-        btnLoadSources.setText(bundle.getString("MainForm.btnLoadSources.text")); // NOI18N
-        btnLoadSources.setFocusable(false);
-        btnLoadSources.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        btnLoadSources.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnLoadSources.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoadSourcesActionPerformed(evt);
-            }
-        });
-        applicationsMain.add(btnLoadSources);
 
         btnSetPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/lock--pencil.png"))); // NOI18N
         btnSetPassword.setText(bundle.getString("MainForm.btnSetPassword.text")); // NOI18N
@@ -1035,6 +1036,14 @@ public class MainForm extends javax.swing.JFrame {
         menuBar.add(menuReportsDesktop);
 
         menuSystematic.setText(bundle.getString("MainForm.menuSystematic.text")); // NOI18N
+
+        menuLoadScannedDoc.setText(bundle.getString("MainForm.menuLoadScannedDoc.text")); // NOI18N
+        menuLoadScannedDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLoadScannedDocActionPerformed(evt);
+            }
+        });
+        menuSystematic.add(menuLoadScannedDoc);
 
         menuPublicDisplay.setText(bundle.getString("MainForm.menuPublicDisplay.text")); // NOI18N
 
@@ -1309,6 +1318,10 @@ public class MainForm extends javax.swing.JFrame {
         loadSourcesPanel();
     }//GEN-LAST:event_btnLoadSourcesActionPerformed
 
+    private void menuLoadScannedDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLoadScannedDocActionPerformed
+         loadSourcesPanel();
+    }//GEN-LAST:event_menuLoadScannedDocActionPerformed
+
     private void editPassword() {
         showPasswordPanel();
     }
@@ -1363,6 +1376,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuLangEN;
     private javax.swing.JMenuItem menuLangIT;
     private javax.swing.JMenu menuLanguage;
+    private javax.swing.JMenuItem menuLoadScannedDoc;
     private javax.swing.JMenuItem menuLodgementReport;
     private javax.swing.JMenu menuLogLevel;
     private javax.swing.JMenu menuMap;
