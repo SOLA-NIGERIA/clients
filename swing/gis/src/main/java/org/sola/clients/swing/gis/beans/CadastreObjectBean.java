@@ -108,7 +108,7 @@ public class CadastreObjectBean extends SpatialBean {
     private Boolean getCO(String nameFirstpart, String nameLastpart) {
         final List<org.sola.clients.beans.cadastre.CadastreObjectBean> searchResult = new LinkedList<org.sola.clients.beans.cadastre.CadastreObjectBean>();
            TypeConverters.TransferObjectListToBeanList(
-                        WSManager.getInstance().getCadastreService().getCadastreObjectByParts(nameFirstpart+' '+nameLastpart),
+                        WSManager.getInstance().getCadastreService().getCadastreObjectByAllParts(nameFirstpart+' '+nameLastpart),
                         org.sola.clients.beans.cadastre.CadastreObjectBean.class, (List) searchResult);
            if (searchResult.size() > 0) {
                 String co = searchResult.get(0).getNameLastpart()+' '+searchResult.get(0).getNameFirstpart();
