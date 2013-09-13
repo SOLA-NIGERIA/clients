@@ -111,14 +111,19 @@ public class CadastreObjectBean extends SpatialBean {
     }
     
     private Boolean getCO(String nameFirstpart, String nameLastpart) {
+//        checks if a parcel number is duplicated
         final List<org.sola.clients.beans.cadastre.CadastreObjectBean> searchResult = new LinkedList<org.sola.clients.beans.cadastre.CadastreObjectBean>();
            TypeConverters.TransferObjectListToBeanList(
                         WSManager.getInstance().getCadastreService().getCadastreObjectByAllParts(nameFirstpart+' '+nameLastpart),
                         org.sola.clients.beans.cadastre.CadastreObjectBean.class, (List) searchResult);
            if (searchResult.size() > 0) {
                 String co = searchResult.get(0).getNameLastpart()+' '+searchResult.get(0).getNameFirstpart();
-                MessageUtility.displayMessage(GisMessage.PARCEL_EXISTS);
-                return false;
+                String id = searchResult.get(0).getId();
+                if (!id.contentEquals(this.id)
+                     && co.contentEquals(nameLastpart+' '+nameFirstpart)) {
+                     MessageUtility.displayMessage(GisMessage.PARCEL_EXISTS);
+                 return false;
+                }
            }
          return true;
     }
