@@ -47,6 +47,9 @@ import org.sola.clients.swing.gis.tool.CadastreChangeNewCadastreObjectTool;
 import org.sola.clients.swing.gis.tool.CadastreChangeNodeTool;
 import org.sola.clients.swing.gis.tool.CadastreChangeSelectCadastreObjectTool;
 import org.sola.webservices.transferobjects.cadastre.CadastreObjectTO;
+import org.geotools.map.extended.layer.ExtendedFeatureLayer;
+import org.geotools.map.extended.layer.ExtendedLayer;
+import org.sola.clients.swing.gis.layer.PojoLayer;
 
 /**
  * A control bundle that is used for cadastre change process. The necessary tools and layers are
@@ -55,7 +58,8 @@ import org.sola.webservices.transferobjects.cadastre.CadastreObjectTO;
  * @author Elton Manoku
  */
 public final class ControlsBundleForCadastreChange extends ControlsBundleForTransaction {
-
+    
+    private static final String PARCEL_LAYER_NAME = "parcels";
     private TransactionCadastreChangeBean transactionBean;
     private CadastreChangeTargetCadastreObjectLayer targetParcelsLayer = null;
     private CadastreChangeNewCadastreObjectLayer newCadastreObjectLayer = null;
@@ -223,6 +227,13 @@ public final class ControlsBundleForCadastreChange extends ControlsBundleForTran
 
         CadastreChangeNodeTool nodelinkingTool = new CadastreChangeNodeTool(newPointsLayer);
         nodelinkingTool.getTargetSnappingLayers().add(this.targetParcelsLayer);
+        if (this.getMap().getSolaLayers().containsKey(PARCEL_LAYER_NAME)) {
+            ExtendedLayer snappingTargetLayer = 
+                    this.getMap().getSolaLayers().get(PARCEL_LAYER_NAME);
+            if (snappingTargetLayer.getClass() == PojoLayer.class) {
+                nodelinkingTool.getTargetSnappingLayers().add((ExtendedFeatureLayer) snappingTargetLayer);
+            }
+        }
         this.getMap().addTool(nodelinkingTool, this.getToolbar(), true);
 
         this.newCadastreObjectTool =
