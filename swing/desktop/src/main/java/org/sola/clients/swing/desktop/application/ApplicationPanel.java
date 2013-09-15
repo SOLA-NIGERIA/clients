@@ -221,8 +221,13 @@ public class ApplicationPanel extends ContentPanel {
      */
     private void postInit() {
         this.btnSearchUpiWardParcel.setVisible(false);
+
+//        disabled for systematic registration in nigeria
+//    ----------------------------
         this.btnCalculateFee.setVisible(false);
         this.txtNationality.setVisible(false);
+        tabbedControlMain.removeTabAt(tabbedControlMain.indexOfComponent(feesPanel));
+//    --------------------            
         appBean.getSourceFilteredList().addObservableListListener(new ObservableListListener() {
 
             @Override
