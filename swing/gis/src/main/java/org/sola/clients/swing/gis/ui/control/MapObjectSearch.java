@@ -67,7 +67,7 @@ public class MapObjectSearch extends FreeTextSearch {
         super();
         this.setHideListIfNotNeeded(false);
         this.setMinimalSearchStringLength(3);
-        this.setRefreshTextInSelection(false);
+        this.setRefreshTextInSelection(true);
     }
 
     /**
