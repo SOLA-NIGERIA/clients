@@ -44,7 +44,6 @@ import org.sola.clients.swing.desktop.cadastre.SearchParcelDialog;
 import org.sola.clients.beans.application.ApplicationServiceBean;
 import org.sola.clients.beans.referencedata.DisputeCategoryListBean;
 import org.sola.clients.beans.referencedata.DisputeTypeListBean;
-import org.sola.clients.beans.referencedata.DisputeActionListBean;
 import org.sola.clients.beans.referencedata.OtherAuthoritiesListBean;
 import org.sola.clients.beans.digitalarchive.DocumentBean;
 import org.sola.clients.beans.party.PartyBean;
@@ -58,6 +57,7 @@ import org.sola.common.messaging.MessageUtility;
 import org.sola.common.WindowUtility;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.JFormattedTextField;
 import org.sola.clients.beans.administrative.*;
 import org.sola.clients.swing.common.LafManager;
 import org.sola.clients.swing.desktop.party.PartyPanelForm;
@@ -76,6 +76,7 @@ import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.reports.ReportManager;
 import org.sola.clients.swing.common.controls.BrowseControlListener;
+import org.sola.clients.swing.common.controls.CalendarForm;
 import org.sola.clients.swing.common.utils.BindingTools;
 import org.sola.clients.swing.desktop.party.DispPartyForm;
 import org.sola.clients.swing.desktop.party.PartySearchPanelForm;
@@ -86,6 +87,7 @@ import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.administrative.DisputeCommentsTO;
 import org.sola.webservices.transferobjects.administrative.DisputeTO;
 import org.sola.webservices.transferobjects.administrative.DisputePartyTO;
+import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
 
 public class DisputePanelForm extends ContentPanel {
 
@@ -128,12 +130,13 @@ public class DisputePanelForm extends ContentPanel {
     
     public DisputePanelForm() {
         initComponents();
+        switchModeRole(true);
         clearForm();
     }
 
     public DisputePanelForm(ApplicationBean appBean, ApplicationServiceBean appService) {
 
-
+        this.applicationBean = appBean;
         this.applicationID = appBean.getId();
         this.serviceID = appService.getId();
         this.disputeBean1 = this.getDispute(this.serviceID);
@@ -162,38 +165,33 @@ public class DisputePanelForm extends ContentPanel {
                 appBean.getNr())));
 
 
-        if (this.disputesCommentsBean1.getDisputeActionCode() == null) {
-            dbxdisputeAction1.setSelectedIndex(-1);
-            dbxotherAuthorities1.setSelectedIndex(-1);
-        }
-
         if (this.disputeBean1.getNr() == null) {
             this.dbxdisputeType.setSelectedIndex(-1);
-            this.dbxdisputeCategory.setSelectedIndex(-1);
         }
 
         if (this.disputeBean1.getCaseType() != null) {
-            if (this.disputeBean1.getCaseType().contains(disputeString)) {
                 switchModeRole(true);
                 this.txtdisputeNumber.setText(this.disputeBean1.getNr());
-            } else {
-                switchModeRole(false);
-            }
+           
         }
         LoadCommentsList();
 
             }
 public DisputePanelForm(String disputeNr) {
-
-
+            
+        
         this.disputeBean1 = this.getDisputeByNr(disputeNr);
         if (this.disputeBean1 != null) {
             this.disputeID = this.disputeBean1.getNr();
         
         } else {
             this.disputeBean1 = new DisputeBean();
-            }
-
+        }
+        this.applicationID=this.disputeBean1.getApplicationId();
+        this.serviceID = this.disputeBean1.getServiceId();
+        ApplicationTO appTO = WSManager.getInstance().getCaseManagementService().getApplication(this.applicationID);
+        this.applicationBean = TypeConverters.TransferObjectToBean(appTO, ApplicationBean.class, null);
+       
         initComponents();
         this.btnsearchDispute.setVisible(false);
         this.btnnewDispute.setVisible(false);
@@ -201,26 +199,18 @@ public DisputePanelForm(String disputeNr) {
         this.btnAddComment1.setVisible(false);
         this.btnRemoveDisputeComment.setVisible(false);
         this.btnComplete.setVisible(false);
-
-       
-
-        if (this.disputesCommentsBean1.getDisputeActionCode() == null) {
-            dbxdisputeAction1.setSelectedIndex(-1);
-            dbxotherAuthorities1.setSelectedIndex(-1);
-        }
+         this.pnlHeader.setTitleText(String.format("%s",
+                String.format(resourceBundle.getString("PropertyPanel.applicationInfo.Text"),
+                "Dispute",
+                this.applicationBean.getNr())));
 
         if (this.disputeBean1.getNr() == null) {
             this.dbxdisputeType.setSelectedIndex(-1);
-            this.dbxdisputeCategory.setSelectedIndex(-1);
         }
 
         if (this.disputeBean1.getCaseType() != null) {
-            if (this.disputeBean1.getCaseType().contains(disputeString)) {
                 switchModeRole(true);
                 this.txtdisputeNumber.setText(this.disputeBean1.getNr());
-            } else {
-                switchModeRole(false);
-            }
         }
         LoadCommentsList();
 
@@ -232,15 +222,12 @@ public DisputePanelForm(String disputeNr) {
         initComponents();
         setupDisputeBean(disputeBean);
         this.btnsearchDispute.setVisible(false);
-        this.dropDownButtonReports.setVisible(false);
         this.btnnewDispute.setVisible(false);
         this.btnnewDisputeComment.setVisible(false);
         this.btnAddComment1.setVisible(false);
         this.btnRemoveDisputeComment.setVisible(false);
         this.btnComplete.setVisible(false);
-
-
-//      TODO  tobechanged
+        switchModeRole(true);
     }
 
     
@@ -279,52 +266,34 @@ public DisputePanelForm(String disputeNr) {
     }
 
     private void switchModeRole(boolean isDispute) {
-        typeofCase = null;
-        if (isDispute) {
             typeofCase = disputeString;
-            btnDisputeMode.setSelected(true);
-            btnCourtProcess.setSelected(false);
-            jLabel1.setText("Dispute Number");
             this.txtdisputeNumber.setText(this.disputeID);
             txtdisputeNumber.setEditable(false);
             txtdisputeNumber.setEnabled(false);
             disputeBean1.setCaseType(typeofCase);
             tabContainer.setSelectedIndex(0);
-
-        } else {
-            typeofCase = courtProcessString;
-            btnCourtProcess.setSelected(true);
-            btnDisputeMode.setSelected(false);
-            jLabel1.setText("Case Number");
-            jLabel1.setEnabled(true);
-            this.txtdisputeNumber.setText(this.disputeID);
-            txtdisputeNumber.setEditable(true);
-            txtdisputeNumber.setEnabled(true);
-            disputeBean1.setCaseType(typeofCase);
-            tabContainer.setSelectedIndex(3);
-        }
-    }
-
-    private void RefreshScreen() {
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
-        disputeID = disputeBean1.getNr();
-        if (disputeID != null) {
-            pnlHeader.setTitleText(bundle.getString("DisputePanelForm.pnlHeader.titleText") + " #" + disputeID);
-            disputesCommentsBean1.setDisputeNr(disputeID);
-            LoadCommentsList();
-
-            disputeBean1.getDisputeCommentsList();
-
-            setupDisputeBean(disputeBean1);
+            this.dbxdisputeCategory.setSelectedIndex(0);
+            this.dbxdisputeCategory.setEnabled(false);
            
-//            dbxdisputeCategory.setSelectedIndex(-1);
-        }
     }
+
+//    private void RefreshScreen() {
+//        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
+//        disputeID = disputeBean1.getNr();
+//        if (disputeID != null) {
+//            pnlHeader.setTitleText(bundle.getString("DisputePanelForm.pnlHeader.titleText") + " #" + disputeID);
+//            disputesCommentsBean1.setDisputeNr(disputeID);
+//            LoadCommentsList();
+//
+//            disputeBean1.getDisputeCommentsList();
+//
+//            setupDisputeBean(disputeBean1);
+//        }
+//    }
 
     private void NewComments() {
         disputesCommentsBean1 = new DisputesCommentsBean();
         txtDisputeComments.setText("");
-        dbxdisputeAction1.setSelectedIndex(-1);
         dbxotherAuthorities1.setSelectedIndex(-1);
         saveDisputeCommentsState();
     }
@@ -366,7 +335,7 @@ public DisputePanelForm(String disputeNr) {
 
     private void CustomizeDisputeScreen() {
         if (disputeBean1 != null && !disputeBean1.isNew()) {
-           RefreshScreen();
+//           RefreshScreen();
         }
 
     }
@@ -393,11 +362,7 @@ public DisputePanelForm(String disputeNr) {
         if (disputeBean1.validate(true).size() > 0) {
             return;
         }
-        if (btnCourtProcess.isSelected() && (disputeBean1.getNr() == null || disputeBean1.getNr().equals(""))) {
-            MessageUtility.displayMessage(ClientMessage.DISPUTE_CAPTURE_COURT_CASE_NUMBER);
-            return;
-        }
-
+       
         SolaTask<Void, Void> t = new SolaTask<Void, Void>() {
 
             @Override
@@ -428,7 +393,7 @@ public DisputePanelForm(String disputeNr) {
                 
                 SaveComments(false);
 
-                if (toPrintConfirmation&&btnDisputeMode.isSelected()) {
+                if (toPrintConfirmation) {
                     printConfirmation();
                 }
 
@@ -468,7 +433,6 @@ public DisputePanelForm(String disputeNr) {
                 if (disputeID != null && !disputeID.equals("")) {
                     disputesCommentsBean1.setDisputeNr(disputeID);
                     disputesCommentsBean1.setComments(txtDisputeComments.getText());
-                    disputesCommentsBean1.setDisputeActionCode(dbxdisputeAction1.getSelectedItem().toString());
                     disputesCommentsBean1.saveDisputeComments();
                     disputeBean1.addDisputeComment(disputesCommentsBean1);
                 }
@@ -570,9 +534,8 @@ public DisputePanelForm(String disputeNr) {
     
 
     private void clearForm() {
-        dbxdisputeCategory.setSelectedIndex(-1);
+        dbxdisputeCategory.setSelectedIndex(0);
         dbxdisputeType.setSelectedIndex(-1);
-        dbxdisputeAction1.setSelectedIndex(-1);
         dbxotherAuthorities1.setSelectedIndex(-1);
     }
 
@@ -613,7 +576,7 @@ public DisputePanelForm(String disputeNr) {
         disputeSearchDialog.addPropertyChangeListener(DisputeSearchResultListBean.SELECTED_DISPUTE_SEARCH_RESULT_PROPERTY, listener);
         disputeSearchDialog.setVisible(true);
         disputeSearchDialog.removePropertyChangeListener(DisputeSearchResultListBean.SELECTED_DISPUTE_SEARCH_RESULT_PROPERTY, listener);
-        RefreshScreen();
+//        RefreshScreen();
     }
 
     private DisputeCategoryListBean createDisputeCategory() {
@@ -640,18 +603,7 @@ public DisputePanelForm(String disputeNr) {
         return disputeType;
     }
 
-    private DisputeActionListBean createDisputeAction() {
-        if (disputeAction == null) {
-            String actionCode = null;
-            if (disputesCommentsBean1 != null && disputesCommentsBean1.getDisputeActionCode() != null) {
-                actionCode = disputesCommentsBean1.getDisputeActionCode();
-            }
-            disputeAction = new DisputeActionListBean();
-        }
-
-        return disputeAction;
-    }
-
+ 
     private OtherAuthoritiesListBean createOtherAuthorities() {
         if (otherAuthorities == null) {
             String authoritiesCode = null;
@@ -660,7 +612,7 @@ public DisputePanelForm(String disputeNr) {
             }
             otherAuthorities = new OtherAuthoritiesListBean();
         }
-
+        otherAuthorities.loadList(true);   
         return otherAuthorities;
     }
 
@@ -740,7 +692,7 @@ public DisputePanelForm(String disputeNr) {
 
     private void printConfirmation() {
         if (disputeID != null && !disputeID.equals("")) {
-            showReport(ReportManager.getDisputeConfirmationReport(disputeBean1));
+            showReport(ReportManager.getDisputeConfirmationReport(disputeBean1, this.disputesCommentsBean1.getComments()));
         }
     }
     /**
@@ -754,7 +706,6 @@ public DisputePanelForm(String disputeNr) {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         disputeBean1 = createDisputeBean();
-        disputeAction = createDisputeAction();
         disputeCategory = createDisputeCategory();
         disputeStatus = new org.sola.clients.beans.referencedata.DisputeStatusListBean();
         disputeType = createDisputeType();
@@ -783,10 +734,8 @@ public DisputePanelForm(String disputeNr) {
         jSeparator3 = new javax.swing.JToolBar.Separator();
         btnsearchDispute = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
-        dropDownDisputeAction = new org.sola.clients.swing.common.controls.DropDownButton();
         btnComplete = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JToolBar.Separator();
-        dropDownButtonReports = new org.sola.clients.swing.common.controls.DropDownButton();
         jPanel1 = new javax.swing.JPanel();
         tabContainer = new javax.swing.JTabbedPane();
         tabGeneralInfo = new javax.swing.JPanel();
@@ -799,9 +748,7 @@ public DisputePanelForm(String disputeNr) {
         jPanel7 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtupdateDate = new javax.swing.JFormattedTextField();
-        jPanel21 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        dbxdisputeAction1 = new javax.swing.JComboBox();
+        btnDate = new javax.swing.JButton();
         jPanel22 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         dbxotherAuthorities1 = new javax.swing.JComboBox();
@@ -815,17 +762,14 @@ public DisputePanelForm(String disputeNr) {
         lblPlotNumber = new javax.swing.JLabel();
         txtcadastreId = new javax.swing.JTextField();
         btnSearchPlot = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        lblPlotLocation = new javax.swing.JLabel();
-        txtplotLocation = new javax.swing.JTextField();
         jPanel39 = new javax.swing.JPanel();
+        jPanel42 = new javax.swing.JPanel();
         jPanel40 = new javax.swing.JPanel();
         dbxdisputeCategory = new javax.swing.JComboBox();
         lblLeaseCategory1 = new javax.swing.JLabel();
         jPanel41 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         dbxdisputeType = new javax.swing.JComboBox();
-        jPanel42 = new javax.swing.JPanel();
         tabParty = new javax.swing.JPanel();
         cbxPartyRole = new javax.swing.JComboBox();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -836,19 +780,9 @@ public DisputePanelForm(String disputeNr) {
         txtPartyName = new javax.swing.JLabel();
         txtPartyRole = new javax.swing.JLabel();
         btnAddOwner = new javax.swing.JButton();
-        jPanel9 = new javax.swing.JPanel();
+        tabDoc = new javax.swing.JPanel();
         documentsManagementPanel = createDocumentsPanel();
-        jPanel13 = new javax.swing.JPanel();
-        jPanel18 = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        txtActionRequired = new javax.swing.JTextArea();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel25 = new javax.swing.JPanel();
-        cbxLAPrimary1 = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        btnDisputeMode = new javax.swing.JRadioButton();
-        btnCourtProcess = new javax.swing.JRadioButton();
         jPanel19 = new javax.swing.JPanel();
         txtdisputeNumber = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -957,13 +891,6 @@ public DisputePanelForm(String disputeNr) {
         jSeparator4.setName(bundle.getString("DisputePanelForm.jSeparator4.name")); // NOI18N
         jToolBar1.add(jSeparator4);
 
-        dropDownDisputeAction.setText(bundle.getString("DisputePanelForm.dropDownDisputeAction.text")); // NOI18N
-        dropDownDisputeAction.setComponentPopupMenu(popUpDisputeResolution);
-        dropDownDisputeAction.setFocusable(false);
-        dropDownDisputeAction.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        dropDownDisputeAction.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(dropDownDisputeAction);
-
         btnComplete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/lock.png"))); // NOI18N
         btnComplete.setText(bundle.getString("DisputePanelForm.btnComplete.text")); // NOI18N
         btnComplete.setFocusable(false);
@@ -977,13 +904,6 @@ public DisputePanelForm(String disputeNr) {
 
         jSeparator5.setName(bundle.getString("DisputePanelForm.jSeparator5.name")); // NOI18N
         jToolBar1.add(jSeparator5);
-
-        dropDownButtonReports.setText(bundle.getString("DisputePanelForm.dropDownButtonReports.text")); // NOI18N
-        dropDownButtonReports.setComponentPopupMenu(popUpReport);
-        dropDownButtonReports.setFocusable(false);
-        dropDownButtonReports.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        dropDownButtonReports.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(dropDownButtonReports);
 
         jPanel1.setName(bundle.getString("DisputePanelForm.jPanel1.name")); // NOI18N
 
@@ -1033,15 +953,22 @@ public DisputePanelForm(String disputeNr) {
         jToolBar3.add(btnRemoveDisputeComment);
 
         jPanel6.setName(bundle.getString("DisputePanelForm.jPanel6.name")); // NOI18N
-        jPanel6.setLayout(new java.awt.GridLayout(1, 3, 10, 5));
 
         jLabel4.setText(bundle.getString("DisputePanelForm.jLabel4.text")); // NOI18N
 
-        txtupdateDate.setEditable(false);
+        txtupdateDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         txtupdateDate.setText(bundle.getString("DisputePanelForm.txtupdateDate.text")); // NOI18N
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputesCommentsBean1, org.jdesktop.beansbinding.ELProperty.create("${updateDate}"), txtupdateDate, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
+
+        btnDate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
+        btnDate.setText(bundle.getString("DisputePanelForm.btnDate.text_1")); // NOI18N
+        btnDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -1050,11 +977,14 @@ public DisputePanelForm(String disputeNr) {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(0, 385, Short.MAX_VALUE))
-                    .addComponent(txtupdateDate))
-                .addContainerGap())
+                    .addComponent(jLabel4)
+                    .addComponent(txtupdateDate, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(186, Short.MAX_VALUE))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGap(151, 151, 151)
+                    .addComponent(btnDate, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(151, Short.MAX_VALUE)))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1063,52 +993,20 @@ public DisputePanelForm(String disputeNr) {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtupdateDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 15, Short.MAX_VALUE))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGap(17, 17, 17)
+                    .addComponent(btnDate, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGap(18, 18, 18)))
         );
-
-        jPanel6.add(jPanel7);
-
-        jLabel7.setText(bundle.getString("DisputePanelForm.jLabel7.text")); // NOI18N
-        jLabel7.setName(bundle.getString("DisputePanelForm.jLabel7.name")); // NOI18N
-
-        dbxdisputeAction1.setName(bundle.getString("DisputePanelForm.dbxdisputeAction1.name")); // NOI18N
-
-        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${disputeActionListBean}");
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeAction, eLProperty, dbxdisputeAction1);
-        bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputesCommentsBean1, org.jdesktop.beansbinding.ELProperty.create("${disputeAction}"), dbxdisputeAction1, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
-
-        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
-        jPanel21.setLayout(jPanel21Layout);
-        jPanel21Layout.setHorizontalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel21Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(0, 330, Short.MAX_VALUE))
-                    .addComponent(dbxdisputeAction1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel21Layout.setVerticalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dbxdisputeAction1)
-                .addContainerGap())
-        );
-
-        jPanel6.add(jPanel21);
 
         jLabel6.setText(bundle.getString("DisputePanelForm.jLabel6.text")); // NOI18N
         jLabel6.setName(bundle.getString("DisputePanelForm.jLabel6.name")); // NOI18N
 
         dbxotherAuthorities1.setName(bundle.getString("DisputePanelForm.dbxotherAuthorities1.name")); // NOI18N
 
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${otherAuthoritiesListBean}");
-        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, otherAuthorities, eLProperty, dbxotherAuthorities1);
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${otherAuthoritiesListBean}");
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, otherAuthorities, eLProperty, dbxotherAuthorities1);
         bindingGroup.addBinding(jComboBoxBinding);
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputesCommentsBean1, org.jdesktop.beansbinding.ELProperty.create("${otherAuthorities}"), dbxotherAuthorities1, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
@@ -1120,8 +1018,10 @@ public DisputePanelForm(String disputeNr) {
             .addGroup(jPanel22Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
-                    .addComponent(dbxotherAuthorities1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel22Layout.createSequentialGroup()
+                        .addComponent(dbxotherAuthorities1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 96, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel22Layout.setVerticalGroup(
@@ -1130,12 +1030,24 @@ public DisputePanelForm(String disputeNr) {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dbxotherAuthorities1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel6.add(jPanel22);
-
-        jPanel26.setLayout(new java.awt.GridLayout(2, 1, 5, 10));
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62)
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         jLabel8.setText(bundle.getString("DisputePanelForm.jLabel8.text")); // NOI18N
         jLabel8.setName(bundle.getString("DisputePanelForm.jLabel8.name")); // NOI18N
@@ -1152,10 +1064,10 @@ public DisputePanelForm(String disputeNr) {
             .addGroup(jPanel37Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel37Layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addComponent(jScrollPane3)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 16, Short.MAX_VALUE))))
         );
         jPanel37Layout.setVerticalGroup(
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1163,13 +1075,24 @@ public DisputePanelForm(String disputeNr) {
                 .addContainerGap()
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        jPanel26.add(jPanel37);
-
-        jPanel8.setLayout(new java.awt.GridLayout(2, 2, 10, 5));
+        javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
+        jPanel26.setLayout(jPanel26Layout);
+        jPanel26Layout.setHorizontalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addComponent(jPanel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel26Layout.setVerticalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
+        );
 
         lblPlotNumber.setText(bundle.getString("DisputePanelForm.lblPlotNumber.text")); // NOI18N
         lblPlotNumber.setName(bundle.getString("DisputePanelForm.lblPlotNumber.name")); // NOI18N
@@ -1199,10 +1122,10 @@ public DisputePanelForm(String disputeNr) {
             .addGroup(jPanel23Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblPlotNumber)
-                .addContainerGap(542, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addComponent(txtcadastreId, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
+                .addComponent(txtcadastreId, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSearchPlot))
         );
@@ -1215,43 +1138,8 @@ public DisputePanelForm(String disputeNr) {
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearchPlot)
                     .addComponent(txtcadastreId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
-
-        jPanel8.add(jPanel23);
-
-        lblPlotLocation.setText(bundle.getString("DisputePanelForm.lblPlotLocation.text")); // NOI18N
-        lblPlotLocation.setName(bundle.getString("DisputePanelForm.lblPlotLocation.name")); // NOI18N
-
-        txtplotLocation.setName(bundle.getString("DisputePanelForm.txtplotLocation.name")); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeBean1, org.jdesktop.beansbinding.ELProperty.create("${plotLocation}"), txtplotLocation, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(lblPlotLocation)
-                        .addGap(0, 555, Short.MAX_VALUE))
-                    .addComponent(txtplotLocation))
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(lblPlotLocation)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtplotLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-
-        jPanel8.add(jPanel3);
 
         jPanel39.setLayout(new java.awt.GridLayout(1, 2, 5, 5));
 
@@ -1272,8 +1160,8 @@ public DisputePanelForm(String disputeNr) {
             .addGroup(jPanel40Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dbxdisputeCategory, 0, 288, Short.MAX_VALUE)
-                    .addComponent(lblLeaseCategory1, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))
+                    .addComponent(dbxdisputeCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblLeaseCategory1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel40Layout.setVerticalGroup(
@@ -1282,10 +1170,8 @@ public DisputePanelForm(String disputeNr) {
                 .addComponent(lblLeaseCategory1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dbxdisputeCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 28, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
-
-        jPanel39.add(jPanel40);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         jLabel3.setText(bundle.getString("DisputePanelForm.jLabel3.text")); // NOI18N
@@ -1303,8 +1189,8 @@ public DisputePanelForm(String disputeNr) {
             .addGroup(jPanel41Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dbxdisputeType, 0, 288, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))
+                    .addComponent(dbxdisputeType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel41Layout.setVerticalGroup(
@@ -1313,43 +1199,74 @@ public DisputePanelForm(String disputeNr) {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dbxdisputeType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 28, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
-
-        jPanel39.add(jPanel41);
-
-        jPanel8.add(jPanel39);
 
         javax.swing.GroupLayout jPanel42Layout = new javax.swing.GroupLayout(jPanel42);
         jPanel42.setLayout(jPanel42Layout);
         jPanel42Layout.setHorizontalGroup(
             jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 665, Short.MAX_VALUE)
+            .addGroup(jPanel42Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(jPanel41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(76, Short.MAX_VALUE))
         );
         jPanel42Layout.setVerticalGroup(
             jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
+            .addGroup(jPanel42Layout.createSequentialGroup()
+                .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 35, Short.MAX_VALUE))
         );
 
-        jPanel8.add(jPanel42);
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(339, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addComponent(jPanel42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         javax.swing.GroupLayout tabGeneralInfoLayout = new javax.swing.GroupLayout(tabGeneralInfo);
         tabGeneralInfo.setLayout(tabGeneralInfoLayout);
         tabGeneralInfoLayout.setHorizontalGroup(
             tabGeneralInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(groupPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(tabGeneralInfoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel26, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(tabGeneralInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(groupPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(tabGeneralInfoLayout.createSequentialGroup()
+                .addGroup(tabGeneralInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, tabGeneralInfoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         tabGeneralInfoLayout.setVerticalGroup(
             tabGeneralInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabGeneralInfoLayout.createSequentialGroup()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(groupPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1357,11 +1274,13 @@ public DisputePanelForm(String disputeNr) {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tabContainer.addTab(bundle.getString("DisputePanelForm.tabGeneralInfo.TabConstraints.tabTitle"), tabGeneralInfo); // NOI18N
+
+        cbxPartyRole.setEnabled(false);
 
         eLProperty = org.jdesktop.beansbinding.ELProperty.create("${disputeRoleTypeListBean}");
         jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeRoleType, eLProperty, cbxPartyRole);
@@ -1428,7 +1347,7 @@ public DisputePanelForm(String disputeNr) {
                                 .addComponent(btnAddDisputeParty, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnRemoveNotation, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(72, 72, 72)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAddOwner))
                             .addGroup(tabPartyLayout.createSequentialGroup()
                                 .addGroup(tabPartyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1465,144 +1384,28 @@ public DisputePanelForm(String disputeNr) {
                     .addComponent(btnAddOwner, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         tabContainer.addTab(bundle.getString("DisputePanelForm.tabParty.TabConstraints.tabTitle"), tabParty); // NOI18N
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(documentsManagementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1341, Short.MAX_VALUE)
+        javax.swing.GroupLayout tabDocLayout = new javax.swing.GroupLayout(tabDoc);
+        tabDoc.setLayout(tabDocLayout);
+        tabDocLayout.setHorizontalGroup(
+            tabDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(documentsManagementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE)
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(documentsManagementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
-        );
-
-        tabContainer.addTab(bundle.getString("DisputePanelForm.jPanel9.TabConstraints.tabTitle_1"), jPanel9); // NOI18N
-
-        txtActionRequired.setColumns(20);
-        txtActionRequired.setRows(5);
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeBean1, org.jdesktop.beansbinding.ELProperty.create("${actionRequired}"), txtActionRequired, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        jScrollPane5.setViewportView(txtActionRequired);
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
-        jLabel2.setText(bundle.getString("DisputePanelForm.jLabel2.text")); // NOI18N
-
-        cbxLAPrimary1.setText(bundle.getString("DisputePanelForm.cbxLAPrimary1.text")); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeBean1, org.jdesktop.beansbinding.ELProperty.create("${primaryRespondent}"), cbxLAPrimary1, org.jdesktop.beansbinding.BeanProperty.create("selected"));
-        bindingGroup.addBinding(binding);
-
-        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
-        jPanel25.setLayout(jPanel25Layout);
-        jPanel25Layout.setHorizontalGroup(
-            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel25Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cbxLAPrimary1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel25Layout.setVerticalGroup(
-            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel25Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cbxLAPrimary1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                .addGap(15, 15, 15))
+        tabDocLayout.setVerticalGroup(
+            tabDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(documentsManagementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
-        jPanel18.setLayout(jPanel18Layout);
-        jPanel18Layout.setHorizontalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1213, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1036, Short.MAX_VALUE))
-        );
-        jPanel18Layout.setVerticalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(197, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(117, Short.MAX_VALUE))
-        );
-
-        tabContainer.addTab(bundle.getString("DisputePanelForm.jPanel13.TabConstraints.tabTitle"), jPanel13); // NOI18N
+        tabContainer.addTab(bundle.getString("DisputePanelForm.tabDoc.TabConstraints.tabTitle_1"), tabDoc); // NOI18N
 
         jPanel2.setName(bundle.getString("DisputePanelForm.jPanel2.name")); // NOI18N
-        jPanel2.setLayout(new java.awt.GridLayout(1, 4, 10, 5));
 
-        btnDisputeMode.setText(bundle.getString("DisputePanelForm.btnDisputeMode.text")); // NOI18N
-        btnDisputeMode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDisputeModeActionPerformed(evt);
-            }
-        });
-
-        btnCourtProcess.setText(bundle.getString("DisputePanelForm.btnCourtProcess.text")); // NOI18N
-        btnCourtProcess.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCourtProcessActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnDisputeMode)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCourtProcess)
-                .addContainerGap(145, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDisputeMode)
-                    .addComponent(btnCourtProcess))
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-
-        jPanel2.add(jPanel4);
-
+        txtdisputeNumber.setEditable(false);
+        txtdisputeNumber.setEnabled(false);
         txtdisputeNumber.setName(bundle.getString("DisputePanelForm.txtdisputeNumber.name")); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeBean1, org.jdesktop.beansbinding.ELProperty.create("${nr}"), txtdisputeNumber, org.jdesktop.beansbinding.BeanProperty.create("text"), "disputeNr");
@@ -1618,22 +1421,18 @@ public DisputePanelForm(String disputeNr) {
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel19Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 214, Short.MAX_VALUE))
-                    .addComponent(txtdisputeNumber, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
+                    .addComponent(jLabel1)
+                    .addComponent(txtdisputeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(txtdisputeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
-        jPanel2.add(jPanel19);
 
         txtlodgementDate.setEditable(false);
         txtlodgementDate.setEnabled(false);
@@ -1652,22 +1451,18 @@ public DisputePanelForm(String disputeNr) {
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel20Layout.createSequentialGroup()
-                        .addComponent(lblLodgementDate)
-                        .addGap(0, 212, Short.MAX_VALUE))
-                    .addComponent(txtlodgementDate))
-                .addContainerGap())
+                    .addComponent(lblLodgementDate)
+                    .addComponent(txtlodgementDate, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
                 .addComponent(lblLodgementDate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(txtlodgementDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
-        jPanel2.add(jPanel20);
 
         jLabel10.setText(bundle.getString("DisputePanelForm.jLabel10.text")); // NOI18N
         jLabel10.setName(bundle.getString("DisputePanelForm.jLabel10.name")); // NOI18N
@@ -1686,29 +1481,47 @@ public DisputePanelForm(String disputeNr) {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 231, Short.MAX_VALUE))
-                    .addComponent(txtstatus))
-                .addContainerGap())
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(txtstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jPanel2.add(jPanel12);
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(1, 1, 1)
+                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                .addComponent(tabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 1011, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1731,11 +1544,11 @@ public DisputePanelForm(String disputeNr) {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(23, 23, 23))))
+                        .addGap(23, 23, 23))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1819,14 +1632,6 @@ public DisputePanelForm(String disputeNr) {
         removeComment();
     }//GEN-LAST:event_btnRemoveDisputeCommentActionPerformed
 
-    private void btnDisputeModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisputeModeActionPerformed
-        switchModeRole(true);
-    }//GEN-LAST:event_btnDisputeModeActionPerformed
-
-    private void btnCourtProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCourtProcessActionPerformed
-        switchModeRole(false);
-    }//GEN-LAST:event_btnCourtProcessActionPerformed
-
     private void btnCompleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompleteActionPerformed
 //        completeDispute();
     }//GEN-LAST:event_btnCompleteActionPerformed
@@ -1875,13 +1680,21 @@ public DisputePanelForm(String disputeNr) {
         printConfirmation();
     }//GEN-LAST:event_menuPrintConfirmationActionPerformed
 
+    private void btnDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDateActionPerformed
+        // TODO add your handling code here:
+        showCalendar(txtupdateDate);
+
+    }//GEN-LAST:event_btnDateActionPerformed
+    private void showCalendar(JFormattedTextField dateField) {
+        CalendarForm calendar = new CalendarForm(null, true, dateField);
+        calendar.setVisible(true);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddComment1;
     private javax.swing.JButton btnAddDisputeParty;
     private javax.swing.JButton btnAddOwner;
     private javax.swing.JButton btnComplete;
-    private javax.swing.JRadioButton btnCourtProcess;
-    private javax.swing.JRadioButton btnDisputeMode;
+    private javax.swing.JButton btnDate;
     private javax.swing.JButton btnRemoveDisputeComment;
     private javax.swing.JButton btnRemoveNotation;
     private javax.swing.JButton btnSaveDispute;
@@ -1891,14 +1704,11 @@ public DisputePanelForm(String disputeNr) {
     private javax.swing.JButton btnsearchDispute;
     private org.sola.clients.beans.cadastre.CadastreObjectBean cadastreObjectBean1;
     private org.sola.clients.beans.cadastre.CadastreObjectSearchResultListBean cadastreObjectSearch;
-    private javax.swing.JCheckBox cbxLAPrimary1;
     private javax.swing.JComboBox cbxPartyRole;
     private org.sola.clients.beans.referencedata.CommunicationTypeListBean communicationTypes;
-    private javax.swing.JComboBox dbxdisputeAction1;
     public javax.swing.JComboBox dbxdisputeCategory;
     public javax.swing.JComboBox dbxdisputeType;
     private javax.swing.JComboBox dbxotherAuthorities1;
-    private org.sola.clients.beans.referencedata.DisputeActionListBean disputeAction;
     private org.sola.clients.beans.administrative.DisputeBean disputeBean1;
     private org.sola.clients.beans.referencedata.DisputeCategoryListBean disputeCategory;
     private org.sola.clients.beans.referencedata.DisputeRoleTypeListBean disputeRoleType;
@@ -1906,45 +1716,33 @@ public DisputePanelForm(String disputeNr) {
     private org.sola.clients.beans.referencedata.DisputeTypeListBean disputeType;
     private org.sola.clients.beans.administrative.DisputesCommentsBean disputesCommentsBean1;
     private org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel documentsManagementPanel;
-    private org.sola.clients.swing.common.controls.DropDownButton dropDownButtonReports;
-    private org.sola.clients.swing.common.controls.DropDownButton dropDownDisputeAction;
     private org.sola.clients.beans.referencedata.GenderTypeListBean genderTypes;
     private org.sola.clients.swing.ui.GroupPanel groupPanel1;
     private org.sola.clients.beans.referencedata.IdTypeListBean idType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
-    private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel37;
     private javax.swing.JPanel jPanel39;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel40;
     private javax.swing.JPanel jPanel41;
     private javax.swing.JPanel jPanel42;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
@@ -1953,7 +1751,6 @@ public DisputePanelForm(String disputeNr) {
     private javax.swing.JToolBar jToolBar3;
     private javax.swing.JLabel lblLeaseCategory1;
     private javax.swing.JLabel lblLodgementDate;
-    private javax.swing.JLabel lblPlotLocation;
     private javax.swing.JLabel lblPlotNumber;
     private javax.swing.JMenuItem menuPrintConfirmation;
     private javax.swing.JMenuItem menuRejected;
@@ -1969,17 +1766,16 @@ public DisputePanelForm(String disputeNr) {
     private javax.swing.JPopupMenu popUpDisputeResolution;
     private javax.swing.JPopupMenu popUpReport;
     private javax.swing.JTabbedPane tabContainer;
+    private javax.swing.JPanel tabDoc;
     private javax.swing.JPanel tabGeneralInfo;
     private javax.swing.JPanel tabParty;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tblDisputeParty;
-    private javax.swing.JTextArea txtActionRequired;
     private javax.swing.JEditorPane txtDisputeComments;
     private javax.swing.JLabel txtPartyName;
     private javax.swing.JLabel txtPartyRole;
     private javax.swing.JTextField txtcadastreId;
     private javax.swing.JTextField txtdisputeNumber;
     private javax.swing.JFormattedTextField txtlodgementDate;
-    private javax.swing.JTextField txtplotLocation;
     private javax.swing.JTextField txtstatus;
     private javax.swing.JFormattedTextField txtupdateDate;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;

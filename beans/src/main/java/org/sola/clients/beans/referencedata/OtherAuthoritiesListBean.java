@@ -57,6 +57,10 @@ public class OtherAuthoritiesListBean extends AbstractBindingListBean {
     } 
     
     public final void loadList(boolean createDummy) {
+            OtherAuthoritiesBean dummyAuth = new OtherAuthoritiesBean();
+            dummyAuth.setDisplayValue(" ");
+            otherAuthoritiesListBean.add(0, dummyAuth);
+        
         loadCodeList(OtherAuthoritiesBean.class, otherAuthoritiesListBean, 
                 CacheManager.getOtherAuthorities(), createDummy);
     }

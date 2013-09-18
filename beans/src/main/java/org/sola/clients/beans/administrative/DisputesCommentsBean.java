@@ -39,7 +39,6 @@ import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.administrative.DisputeCommentsTO;
-import org.sola.clients.beans.referencedata.DisputeActionBean;
 import org.sola.clients.beans.referencedata.OtherAuthoritiesBean;
 
 public class DisputesCommentsBean extends DisputeBean {
@@ -55,7 +54,6 @@ public class DisputesCommentsBean extends DisputeBean {
     
     private String disputeNr;
     private Date updateDate;
-    private DisputeActionBean disputeActionCode;
     private OtherAuthoritiesBean otherAuthoritiesCode;
     private String comments;
     private String updatedBy;
@@ -63,13 +61,11 @@ public class DisputesCommentsBean extends DisputeBean {
 
     public DisputesCommentsBean() {
         super();
-        disputeActionCode = new DisputeActionBean();
     }
 
     public void clean() {
         this.setDisputeNr(null);
         this.setUpdateDate(null);
-        this.setDisputeActionCode(null);
         this.setOtherAuthoritiesCode(null);
         this.setComments(null);
         this.setUpdatedBy(null);
@@ -97,42 +93,6 @@ public class DisputesCommentsBean extends DisputeBean {
        
     }
 
-    public String getDisputeActionCode() {
-        if (disputeActionCode != null) {
-            return disputeActionCode.getCode();
-        } else {
-            return null;
-        }
-    }
-
-    public void setDisputeActionCode(String disputeActionCode) {
-        String oldValue = null;
-        if (disputeActionCode != null && this.disputeActionCode.getCode()!= null) {
-            oldValue = this.disputeActionCode.getCode();
-
-            return;
-
-        }
-        setDisputeAction(CacheManager.getBeanByCode(
-                CacheManager.getDisputeAction(), disputeActionCode));
-
-        propertySupport.firePropertyChange(DISPUTE_ACTION_PROPERTY,
-                oldValue, disputeActionCode);
-    }
-
-    public DisputeActionBean getDisputeAction() {
-        if (this.disputeActionCode == null) {
-            this.disputeActionCode = new DisputeActionBean();
-        }
-        return disputeActionCode;
-    }
-
-    public void setDisputeAction(DisputeActionBean disputeAction) {
-        if (this.disputeActionCode == null) {
-            this.disputeActionCode = new DisputeActionBean();
-        }
-        this.setJointRefDataBean(this.disputeActionCode, disputeAction, DISPUTE_ACTION_PROPERTY);
-    }
 
     public String getOtherAuthoritiesCode() {
         if (otherAuthoritiesCode != null) {

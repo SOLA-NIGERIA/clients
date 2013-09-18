@@ -202,11 +202,7 @@ public final class CacheManager {
      /*
      * DISPUTE
      */
-    /**
-     * Cache key of the {@link DisputeActionBean} collection.
-     */
-    public static final String DISPUTE_ACTION_CODES_KEY = DisputeActionBean.class.getName() + LIST_POSTFIX;
-    /**
+     /**
      * Cache key of the {@link DisputeCategoryBean} collection.
      */
     public static final String DISPUTE_CATEGORY_CODES_KEY = DisputeCategoryBean.class.getName() + LIST_POSTFIX;
@@ -256,7 +252,6 @@ public final class CacheManager {
     private static final String GET_BA_UNIT_REL_TYPES = "getBaUnitRelTypes";
     private static final String GET_LAND_USE_TYPES = "getLandUseTypes";
     private static final String GET_LEASE_CONDITIONS = "getLeaseConditions";
-    private static final String GET_DISPUTE_ACTION = "getDisputeAction";
     private static final String GET_DISPUTE_CATEGORY = "getDisputeCategory";
     private static final String GET_DISPUTE_STATUS = "getDisputeStatus";
     private static final String GET_DISPUTE_TYPE = "getDisputeType";
@@ -624,11 +619,7 @@ public final class CacheManager {
      /*
      * DISPUTE
      */
-    public static List<DisputeActionBean> getDisputeAction() {
-        return getCachedBeanList(DisputeActionBean.class,
-                WSManager.getInstance().getReferenceDataService(),
-                GET_DISPUTE_ACTION, DISPUTE_ACTION_CODES_KEY);
-    }
+  
 
     public static List<DisputeCategoryBean> getDisputeCategory() {
         return getCachedBeanList(DisputeCategoryBean.class,

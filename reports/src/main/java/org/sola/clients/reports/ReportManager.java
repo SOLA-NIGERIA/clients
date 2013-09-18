@@ -705,10 +705,12 @@ public class ReportManager {
      *
      * @param appBean Application bean containing data for the report.
      */
-    public static JasperPrint getDisputeConfirmationReport(DisputeBean dispBean) {
+    public static JasperPrint getDisputeConfirmationReport(DisputeBean dispBean, String comments) {
         HashMap inputParameters = new HashMap();
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("LODGEMENTDATE",dispBean.getLodgementDate());
+        inputParameters.put("COMMENTS",comments);
+        inputParameters.put("PARTY",dispBean.getFilteredDisputePartyList());
         DisputeBean[] beans = new DisputeBean[1];
         beans[0] = dispBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
