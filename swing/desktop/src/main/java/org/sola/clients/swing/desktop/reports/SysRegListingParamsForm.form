@@ -4,8 +4,6 @@
   <NonVisualComponents>
     <Component class="org.sola.clients.beans.systematicregistration.ParcelNumberListingListBean" name="parcelNumberListingListBean">
     </Component>
-    <Component class="org.sola.clients.beans.cadastre.CadastreObjectBean" name="cadastreObjectBean">
-    </Component>
     <Component class="org.sola.clients.beans.systematicregistration.OwnerNameListingListBean" name="ownerNameListingListBean">
     </Component>
     <Component class="org.sola.clients.beans.systematicregistration.StateLandListingListBean" name="stateLandListingListBean">

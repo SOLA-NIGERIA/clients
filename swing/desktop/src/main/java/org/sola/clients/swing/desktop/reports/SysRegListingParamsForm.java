@@ -69,6 +69,8 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
     private String reportdate;
     private String reportTogenerate;
     private SourceBean document;
+    public final static String SELECTED_PARCEL = "selectedParcel";
+   
 
     /**
      * Creates new form SysRegListingParamsForm
@@ -168,11 +170,9 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
     private void initComponents() {
 
         parcelNumberListingListBean = new org.sola.clients.beans.systematicregistration.ParcelNumberListingListBean();
-        cadastreObjectBean = new org.sola.clients.beans.cadastre.CadastreObjectBean();
         ownerNameListingListBean = new org.sola.clients.beans.systematicregistration.OwnerNameListingListBean();
         stateLandListingListBean = new org.sola.clients.beans.systematicregistration.StateLandListingListBean();
         sourceBean = new org.sola.clients.beans.source.SourceBean();
-        documentPanel = new org.sola.clients.swing.ui.source.DocumentPanel();
         labHeader = new javax.swing.JLabel();
         labNotificationFrom = new javax.swing.JLabel();
         txtFromDate = new javax.swing.JFormattedTextField();
@@ -304,7 +304,11 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
         Date tmpFrom;
         Date tmpTo = (Date) txtFromDate.getValue();
         String reportRequested = "subTitlePN";
+        
+        
         if (cadastreObjectSearch.getSelectedElement() != null) {
+            this.firePropertyChange(SELECTED_PARCEL, null, 
+                   cadastreObjectSearch.getSelectedElement());
             this.location = cadastreObjectSearch.getSelectedElement().toString();
 //            tmpLocation = (this.location.substring(this.location.indexOf("/") + 1).trim());
             tmpLocation = (this.location);
@@ -450,9 +454,7 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
     }//GEN-LAST:event_txtFromDatePropertyChange
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnShowCalendarFrom;
-    private org.sola.clients.beans.cadastre.CadastreObjectBean cadastreObjectBean;
     private org.sola.clients.swing.ui.cadastre.LocationSearch cadastreObjectSearch;
-    private org.sola.clients.swing.ui.source.DocumentPanel documentPanel;
     private javax.swing.JLabel labHeader;
     private javax.swing.JLabel labLocation;
     private javax.swing.JLabel labNotificationFrom;
