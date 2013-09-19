@@ -42,6 +42,8 @@ import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.swing.common.controls.BrowseControlListener;
 import org.sola.clients.swing.ui.renderers.FormattersFactory;
 import org.sola.clients.swing.ui.renderers.SimpleComboBoxRenderer;
+import org.sola.common.messaging.ClientMessage;
+import org.sola.common.messaging.MessageUtility;
 
 /**
  * Document panel, used to create or update document. {@link SourceBean} is used
@@ -54,9 +56,9 @@ public class DocumentPanel extends javax.swing.JPanel {
     private SourceBean document;
     public DocumentBean archiveDocument;
 
-    private SourceTypeListBean createSourceTypeList(){
-        if(sourceTypeListBean==null){
-            if(document!=null && document.getSourceType()!=null && document.getSourceType().getCode()!=null){
+    private SourceTypeListBean createSourceTypeList() {
+        if (sourceTypeListBean == null) {
+            if (document != null && document.getSourceType() != null && document.getSourceType().getCode() != null) {
                 sourceTypeListBean = new SourceTypeListBean(false, document.getSourceType().getCode());
             } else {
                 sourceTypeListBean = new SourceTypeListBean(false);
@@ -64,17 +66,17 @@ public class DocumentPanel extends javax.swing.JPanel {
         }
         return sourceTypeListBean;
     }
-      /**
-     * This method is used by the form designer to create the list of recording officers.
+
+    /**
+     * This method is used by the form designer to create the list of recording
+     * officers.
      */
     private PartyListBean createPartyList() {
         PartyListBean recOfficersList = new PartyListBean();
         recOfficersList.FillRecOfficers(true);
         return recOfficersList;
     }
-    
-   
-    
+
     public DocumentPanel(SourceBean document, boolean allowEditing) {
         this.document = document;
         this.allowEditing = allowEditing;
@@ -197,17 +199,27 @@ public class DocumentPanel extends javax.swing.JPanel {
         firePropertyChange(UPDATED_SOURCE, null, updatedSource);
     }
 
-    public boolean validateDocument(boolean showMessage){
-        return getDocument().validate(showMessage).size() < 1;
+    public boolean validateDocument(boolean showMessage) {
+
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/ui/source/Bundle"); // NOI18N
+
+        if (this.cbxDocType.getSelectedItem().toString().contains(this.document.SYSTEMATIC_CLAIM_FORM) && this.cbxRecOff.getSelectedIndex()==-1) {
+            MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_FIELDS,
+                    new Object[]{this.lblOwnerName.getText().toString()});
+            return false;
+        } else {
+
+            return getDocument().validate(showMessage).size() < 1;
+        }
     }
-    
+
     public boolean saveDocument() {
         if (validateDocument(true)) {
-           if (!(this.archiveDocument==null)){ 
-            if (!this.archiveDocument.getId().equals("")) {
-                getDocument().setArchiveDocument(this.archiveDocument);
+            if (!(this.archiveDocument == null)) {
+                if (!this.archiveDocument.getId().equals("")) {
+                    getDocument().setArchiveDocument(this.archiveDocument);
+                }
             }
-           } 
             getDocument().save();
             fireDocumentChangeEvent();
             return true;
@@ -237,7 +249,7 @@ public class DocumentPanel extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         txtLaNumber = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        lblOwnerName = new javax.swing.JLabel();
         txtOwnerName = new javax.swing.JTextField();
         cbxRecOff = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
@@ -414,8 +426,8 @@ public class DocumentPanel extends javax.swing.JPanel {
 
         jPanel4.setName(bundle.getString("DocumentPanel.jPanel4.name")); // NOI18N
 
-        jLabel5.setText(bundle.getString("DocumentPanel.jLabel5.text")); // NOI18N
-        jLabel5.setName(bundle.getString("DocumentPanel.jLabel5.name")); // NOI18N
+        lblOwnerName.setText(bundle.getString("DocumentPanel.lblOwnerName.text")); // NOI18N
+        lblOwnerName.setName(bundle.getString("DocumentPanel.lblOwnerName.name")); // NOI18N
 
         txtOwnerName.setName(bundle.getString("DocumentPanel.txtOwnerName.name")); // NOI18N
         txtOwnerName.setNextFocusableComponent(browseAttachment);
@@ -446,7 +458,7 @@ public class DocumentPanel extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(txtOwnerName)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jLabel5)
+                .addComponent(lblOwnerName)
                 .addGap(0, 73, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(cbxRecOff, 0, 145, Short.MAX_VALUE))
@@ -454,7 +466,7 @@ public class DocumentPanel extends javax.swing.JPanel {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jLabel5)
+                .addComponent(lblOwnerName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtOwnerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -742,32 +754,31 @@ public class DocumentPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbxDocTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDocTypeActionPerformed
-        
-        if (this.cbxDocType.getSelectedIndex()>=0) {
+
+        if (this.cbxDocType.getSelectedIndex() >= 0) {
             if (this.cbxDocType.getSelectedItem().toString().contains(this.document.SYSTEMATIC_CLAIM_FORM)) {
-                this.jLabel5.setText("Recording Officer");
+                this.lblOwnerName.setText("Recording Officer");
                 this.jLabel3.setText("Date Form Recorded");
                 this.txtOwnerName.setVisible(false);
                 this.cbxRecOff.setVisible(true);
-                
+
             } else {
-                this.jLabel5.setText("Source Agency");
+                this.lblOwnerName.setText("Source Agency");
                 this.jLabel3.setText("Date");
                 this.txtOwnerName.setVisible(true);
                 this.cbxRecOff.setVisible(false);
             }
         }
     }//GEN-LAST:event_cbxDocTypeActionPerformed
-     
+
     private void cbxRecOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxRecOffActionPerformed
         if (evt.paramString().contains("Button1")) {
-           if (this.cbxRecOff.getSelectedIndex()>=0) {
-             this.txtOwnerName.setText(this.cbxRecOff.getSelectedItem().toString());  
-           }
-         
+            if (this.cbxRecOff.getSelectedIndex() >= 0) {
+                this.txtOwnerName.setText(this.cbxRecOff.getSelectedItem().toString());
+            }
+
         }
     }//GEN-LAST:event_cbxRecOffActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public org.sola.clients.swing.common.controls.BrowseControl browseAttachment;
     public javax.swing.JComboBox cbxDocType;
@@ -780,7 +791,6 @@ public class DocumentPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -799,6 +809,7 @@ public class DocumentPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel lblOwnerName;
     private org.sola.clients.beans.party.PartyListBean partyListBean;
     private org.sola.clients.beans.referencedata.SourceTypeListBean sourceTypeListBean;
     public javax.swing.JTextField txtDescription;
