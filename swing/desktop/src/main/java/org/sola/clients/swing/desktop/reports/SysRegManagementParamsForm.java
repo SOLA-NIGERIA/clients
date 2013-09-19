@@ -37,7 +37,10 @@ import javax.swing.JTextField;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.sola.clients.beans.systematicregistration.*;
 import org.sola.clients.reports.ReportManager;
+import org.sola.clients.swing.common.LafManager;
 import org.sola.clients.swing.common.controls.CalendarForm;
+import org.sola.clients.swing.common.tasks.SolaTask;
+import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.ReportViewerForm;
 import org.sola.clients.swing.ui.renderers.FormattersFactory;
 import org.sola.common.messaging.ClientMessage;
@@ -49,9 +52,10 @@ import org.sola.common.messaging.MessageUtility;
  */
 public class SysRegManagementParamsForm extends javax.swing.JDialog {
 
-    private String location;
+    private String location = "";
     private String tmpLocation = "";
-    private String whichReport;
+    private String whichReport = "";
+
     /**
      * Creates new form SysRegManagementParamsForm
      */
@@ -60,10 +64,18 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
         initComponents();
         this.labSearchArea.setVisible(true);
         this.cadastreObjectSearch.setVisible(true);
-        this.whichReport=whichReport;
+        this.whichReport = whichReport;
+        if (this.whichReport.contentEquals("sysRegStatusBean")) {
+            this.labFromDate.setVisible(false);
+            this.labToDate.setVisible(false);
+            this.txtFromDate.setVisible(false);
+            this.txtToDate.setVisible(false);
+            this.btnShowCalendarFrom.setVisible(false);
+            this.btnShowCalendarTo.setVisible(false);
+        }
     }
-    
-      /**
+
+    /**
      * Creates new form SysRegManagementParamsForm
      */
     public SysRegManagementParamsForm(java.awt.Frame parent, boolean modal) {
@@ -71,8 +83,9 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
         initComponents();
         this.labSearchArea.setVisible(true);
         this.cadastreObjectSearch.setVisible(true);
-        this.whichReport=whichReport;
+        this.whichReport = whichReport;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,6 +110,8 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
         cadastreObjectSearch = new org.sola.clients.swing.ui.cadastre.LocationSearch();
         labSearchArea = new javax.swing.JLabel();
         viewReport = new javax.swing.JButton();
+        statusPanel = new javax.swing.JPanel();
+        taskPanel1 = new org.sola.clients.swing.common.tasks.TaskPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -157,6 +172,22 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
             }
         });
 
+        statusPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        statusPanel.setPreferredSize(new java.awt.Dimension(1024, 24));
+
+        javax.swing.GroupLayout statusPanelLayout = new javax.swing.GroupLayout(statusPanel);
+        statusPanel.setLayout(statusPanelLayout);
+        statusPanelLayout.setHorizontalGroup(
+            statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(statusPanelLayout.createSequentialGroup()
+                .addGap(248, 248, 248)
+                .addComponent(taskPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+        );
+        statusPanelLayout.setVerticalGroup(
+            statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(taskPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout reportViewerPanelLayout = new javax.swing.GroupLayout(reportViewerPanel);
         reportViewerPanel.setLayout(reportViewerPanelLayout);
         reportViewerPanelLayout.setHorizontalGroup(
@@ -183,6 +214,7 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(viewReport)))
                 .addContainerGap())
+            .addComponent(statusPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
         );
         reportViewerPanelLayout.setVerticalGroup(
             reportViewerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,7 +239,8 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
                 .addGroup(reportViewerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(viewReport))
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                .addComponent(statusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -244,82 +277,87 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
      * Opens {@link ReportViewerForm} to display report.
      */
     private void showReport(JasperPrint report) {
+
         ReportViewerForm form = new ReportViewerForm(report);
         form.setVisible(true);
         form.setAlwaysOnTop(true);
+
     }
-    
-     private SysRegManagementBean createSysRegManagementBean() {
-    if (sysRegManagementBean == null) {
+
+    private SysRegManagementBean createSysRegManagementBean() {
+        if (sysRegManagementBean == null) {
             sysRegManagementBean = new SysRegManagementBean();
         }
         return sysRegManagementBean;
-     }
-     
-     private SysRegStatusBean createSysRegStatusBean() {
-    if (sysRegStatusBean == null) {
+    }
+
+    private SysRegStatusBean createSysRegStatusBean() {
+        if (sysRegStatusBean == null) {
             sysRegStatusBean = new SysRegStatusBean();
         }
         return sysRegStatusBean;
-     }
-     
-      private SysRegProgressBean createSysRegProgressBean() {
-    if (sysRegProgressBean == null) {
+    }
+
+    private SysRegProgressBean createSysRegProgressBean() {
+        if (sysRegProgressBean == null) {
             sysRegProgressBean = new SysRegProgressBean();
         }
         return sysRegProgressBean;
-     }
-    
+    }
+
     private void viewReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewReportActionPerformed
-        boolean dateFilled = false;
-        Date tmpFrom;
+        
+        Date tmpFrom = (Date) txtFromDate.getValue();
         Date tmpTo = (Date) txtFromDate.getValue();
 
 
         if (txtFromDate.getValue() == null) {
-            MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_DATEFROM);
-            dateFilled = false;
-            return;
         } else {
             tmpFrom = (Date) txtFromDate.getValue();
-            dateFilled = true;
             searchParams.setFromDate(tmpFrom);
         }
         if (txtToDate.getValue() == null) {
-            MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_DATETO);
-            dateFilled = true;
-            return;
         } else {
             tmpTo = (Date) txtToDate.getValue();
             searchParams.setToDate(tmpTo);
         }
 // added for base reports on sections        
-         if (cadastreObjectSearch.getSelectedElement() != null) {
+        if (cadastreObjectSearch.getSelectedElement() != null) {
             this.location = cadastreObjectSearch.getSelectedElement().toString();
-              tmpLocation = (this.location);
-              searchParams.setNameLastpart(tmpLocation);
-       
+            tmpLocation = (this.location);
+            searchParams.setNameLastpart(tmpLocation);
+
         }
-//         else {
-//            MessageUtility.displayMessage(ClientMessage.CHECK_SELECT_LOCATION);
-//            return;
-//        }
-        
-        if (dateFilled) {
-            if (this.whichReport.contentEquals("sysRegManagementBean") ) {
-              sysRegManagementBean.passParameter(searchParams);
-              showReport(ReportManager.getSysRegManagementReport(sysRegManagementBean, tmpFrom, tmpTo, tmpLocation));
+
+        final String finalReport = this.whichReport;
+        final Date finalFrom = tmpFrom;
+        final Date finalTo = tmpTo;
+
+        SolaTask t = new SolaTask<Void, Void>() {
+
+            @Override
+            public Void doTask() {
+                setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_REPORT));
+
+                if (finalReport.contentEquals("sysRegManagementBean")) {
+                    sysRegManagementBean.passParameter(searchParams);
+                    showReport(ReportManager.getSysRegManagementReport(sysRegManagementBean, finalFrom, finalTo, tmpLocation));
+                }
+
+                if (finalReport.contentEquals("sysRegStatusBean")) {
+                    sysRegStatusBean.passParameter(searchParams);
+                    showReport(ReportManager.getSysRegStatusReport(sysRegStatusBean, finalFrom, finalTo, tmpLocation));
+                }
+
+                if (finalReport.contentEquals("sysRegProgressBean")) {
+                    sysRegProgressBean.passParameter(searchParams);
+                    showReport(ReportManager.getSysRegProgressReport(sysRegProgressBean, finalFrom, finalTo, tmpLocation));
+                }
+
+                return null;
             }
-            if (this.whichReport.contentEquals("sysRegStatusBean")) {
-              sysRegStatusBean.passParameter(searchParams);
-              showReport(ReportManager.getSysRegStatusReport(sysRegStatusBean, tmpFrom, tmpTo, tmpLocation));
-            }
-            if (this.whichReport == "sysRegProgressBean") {
-              sysRegProgressBean.passParameter(searchParams);
-              showReport(ReportManager.getSysRegProgressReport(sysRegProgressBean, tmpFrom, tmpTo, tmpLocation));
-            }
-            this.dispose();
-        }
+        };
+        TaskManager.getInstance().runTask(t);
 
         this.dispose();
     }//GEN-LAST:event_viewReportActionPerformed
@@ -333,9 +371,11 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
     private javax.swing.JLabel labToDate;
     private org.sola.clients.swing.ui.reports.ReportViewerPanel reportViewerPanel;
     private org.sola.clients.beans.systematicregistration.SysRegManagementParamsBean searchParams;
+    private javax.swing.JPanel statusPanel;
     private org.sola.clients.beans.systematicregistration.SysRegManagementBean sysRegManagementBean;
     private org.sola.clients.beans.systematicregistration.SysRegProgressBean sysRegProgressBean;
     private org.sola.clients.beans.systematicregistration.SysRegStatusBean sysRegStatusBean;
+    private org.sola.clients.swing.common.tasks.TaskPanel taskPanel1;
     private javax.swing.JFormattedTextField txtFromDate;
     private javax.swing.JFormattedTextField txtToDate;
     private javax.swing.JButton viewReport;

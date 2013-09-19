@@ -49,6 +49,8 @@ import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.validation.ValidationResultBean;
 import org.sola.clients.reports.ReportManager;
 import org.sola.clients.swing.common.controls.CalendarForm;
+import org.sola.clients.swing.common.tasks.SolaTask;
+import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.ReportViewerForm;
 import org.sola.clients.swing.ui.renderers.FormattersFactory;
 import org.sola.clients.swing.ui.validation.ValidationResultForm;
@@ -70,7 +72,6 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
     private String reportTogenerate;
     private SourceBean document;
     public final static String SELECTED_PARCEL = "selectedParcel";
-   
 
     /**
      * Creates new form SysRegListingParamsForm
@@ -138,12 +139,12 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
         this.document.setRecordation(recDate);
         this.document.setExpirationDate(expDate);
         this.document.setDescription(this.reportTogenerate);
-        
-      
+
+
         DocumentBean document1 = new DocumentBean();
         File file = new File(cachePath + fileName);
         document1 = DocumentBean.createDocumentFromLocalFile(file);
-        
+
         document.setArchiveDocument(document1);
         document.save();
     }
@@ -304,11 +305,11 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
         Date tmpFrom;
         Date tmpTo = (Date) txtFromDate.getValue();
         String reportRequested = "subTitlePN";
-        
-        
+
+
         if (cadastreObjectSearch.getSelectedElement() != null) {
-            this.firePropertyChange(SELECTED_PARCEL, null, 
-                   cadastreObjectSearch.getSelectedElement());
+            this.firePropertyChange(SELECTED_PARCEL, null,
+                    cadastreObjectSearch.getSelectedElement());
             this.location = cadastreObjectSearch.getSelectedElement().toString();
 //            tmpLocation = (this.location.substring(this.location.indexOf("/") + 1).trim());
             tmpLocation = (this.location);
@@ -359,7 +360,20 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
                     }
                     txtToDate.setText(tmpTo.toString());
                     txtToDate.setValue(tmpTo);
-                    showReport(ReportManager.getSysRegPubDisOwnerNameReport(ownerNameListingListBean, tmpFrom, tmpTo, tmpLocation, reportRequested));
+                    final Date finalFrom = tmpFrom;
+                    final Date finalTo = tmpTo;
+                    final String finalRequested = reportRequested;
+                    SolaTask t = new SolaTask<Void, Void>() {
+
+                        @Override
+                        public Void doTask() {
+                            setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_REPORT));
+
+                            showReport(ReportManager.getSysRegPubDisOwnerNameReport(ownerNameListingListBean, finalFrom, finalTo, tmpLocation, finalRequested));
+                            return null;
+                        }
+                    };
+                    TaskManager.getInstance().runTask(t);
                 }
             }
             if (this.report.contentEquals("StateLand")) {
@@ -383,7 +397,21 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
                     }
                     txtToDate.setText(tmpTo.toString());
                     txtToDate.setValue(tmpTo);
-                    showReport(ReportManager.getSysRegPubDisStateLandReport(stateLandListingListBean, tmpFrom, tmpTo, tmpLocation, reportRequested));
+                    final Date finalFrom = tmpFrom;
+                    final Date finalTo = tmpTo;
+                    final String finalRequested = reportRequested;
+                    SolaTask t = new SolaTask<Void, Void>() {
+
+                        @Override
+                        public Void doTask() {
+                            setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_REPORT));
+
+
+                            showReport(ReportManager.getSysRegPubDisStateLandReport(stateLandListingListBean, finalFrom, finalTo, tmpLocation, finalRequested));
+                            return null;
+                        }
+                    };
+                    TaskManager.getInstance().runTask(t);
                 }
             }
             if (this.report.contentEquals("ParcelNumber")) {
@@ -409,7 +437,22 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
                     }
                     txtToDate.setText(tmpTo.toString());
                     txtToDate.setValue(tmpTo);
-                    showReport(ReportManager.getSysRegPubDisParcelNameReport(parcelNumberListingListBean, tmpFrom, tmpTo, tmpLocation, reportRequested));
+                    final Date finalFrom = tmpFrom;
+                    final Date finalTo = tmpTo;
+                    final String finalRequested = reportRequested;
+                    SolaTask t = new SolaTask<Void, Void>() {
+
+                        @Override
+                        public Void doTask() {
+                            setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_REPORT));
+
+
+
+                            showReport(ReportManager.getSysRegPubDisParcelNameReport(parcelNumberListingListBean, finalFrom, finalTo, tmpLocation, finalRequested));
+                            return null;
+                        }
+                    };
+                    TaskManager.getInstance().runTask(t);
                 }
             }
 

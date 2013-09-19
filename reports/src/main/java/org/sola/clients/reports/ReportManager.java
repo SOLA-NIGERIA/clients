@@ -588,16 +588,11 @@ public class ReportManager {
         inputParameters.put("GROUND_RENT", groundRent);
         inputParameters.put("IMG_URL", ReportManager.class.getResourceAsStream(me));
         inputParameters.put("MAP_IMAGE", featureImageFileName);
-          
-//        TOBEVERIFIED   
-//        inputParameters.put("QR_URL", ReportManager.class.getResourceAsStream(xxx));
-//        inputParameters.put("MAP_URL", ReportManager.class.getResourceAsStream(xxx));
         BaUnitBean[] beans = new BaUnitBean[1];
         beans[0] = baUnitBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
         try {
             return JasperFillManager.fillReport(
-//                    ReportManager.class.getResourceAsStream("/reports/SysRegCertificates.jasper"),
                     ReportManager.class.getResourceAsStream("/reports/CofO.jasper"),
                     inputParameters, jds);
         } catch (JRException ex) {

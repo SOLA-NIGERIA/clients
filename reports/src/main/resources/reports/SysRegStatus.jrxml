@@ -137,7 +137,7 @@
 				<text><![CDATA[On:]]></text>
 			</staticText>
 			<textField>
-				<reportElement stretchType="RelativeToBandHeight" x="250" y="0" width="371" height="50" forecolor="#006666"/>
+				<reportElement stretchType="RelativeToBandHeight" x="180" y="0" width="441" height="50" forecolor="#006666"/>
 				<textElement textAlignment="Center">
 					<font size="28" isBold="true" isStrikeThrough="false"/>
 				</textElement>
@@ -159,11 +159,15 @@
 				</textElement>
 				<textFieldExpression><![CDATA["(" + $P{USER} + ")"]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="713" y="0" width="82" height="59"/>
+				<imageExpression><![CDATA["C:\\Users\\rizzom\\Desktop\\SOLA-KADUNA\\sola\\code\\clients\\reports\\src\\main\\resources\\images\\sola\\logo_orange.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="35" splitType="Stretch">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="705" y="10" width="90" height="20"/>
 				<textElement>
 					<font size="12"/>
@@ -171,21 +175,27 @@
 				<textFieldExpression><![CDATA[$P{TODATE}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="675" y="10" width="30" height="20"/>
+				<reportElement x="675" y="10" width="30" height="20">
+					<printWhenExpression><![CDATA[!$P{TODATE}.equals( null )]]></printWhenExpression>
+				</reportElement>
 				<textElement>
 					<font fontName="Tahoma" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[To:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="537" y="10" width="100" height="20"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="537" y="10" width="100" height="20">
+					<printWhenExpression><![CDATA[!$P{FROMDATE}.equals( null )]]></printWhenExpression>
+				</reportElement>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{FROMDATE}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="495" y="10" width="42" height="20"/>
+				<reportElement x="495" y="10" width="42" height="20">
+					<printWhenExpression><![CDATA[!$P{FROMDATE}.equals( null )]]></printWhenExpression>
+				</reportElement>
 				<textElement>
 					<font fontName="Tahoma" size="12" isBold="true"/>
 				</textElement>

@@ -63,7 +63,6 @@
 	<parameter name="CLIENT_NAME" class="java.lang.String"/>
 	<parameter name="MAP_IMAGE" class="java.lang.String"/>
 	<parameter name="IMG_URL" class="java.io.InputStream"/>
-	<parameter name="QR_URL" class="java.io.InputStream"/>
 	<parameter name="ADDRESS" class="java.lang.String"/>
 	<parameter name="LODGING_DATE" class="java.util.Date"/>
 	<parameter name="COMMENCING_DATE" class="java.util.Date"/>
