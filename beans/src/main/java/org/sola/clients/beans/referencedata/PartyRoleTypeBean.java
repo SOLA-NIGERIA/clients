@@ -38,6 +38,12 @@ import org.sola.webservices.transferobjects.referencedata.PartyTypeTO;
  * <br />This bean is used as a part of {@link PartyBean}.
  */
 public class PartyRoleTypeBean extends AbstractCodeBean {
+    public static final String CODE_AUTH_REP = "lodgingAgent";
+    public static final String DISP_AUTH_REP = "Authorized Representative";
+    public static final String CODE_RECORDING_OFF = "recOfficer";
+    
+    
+
 
     public PartyRoleTypeBean() {
         super();

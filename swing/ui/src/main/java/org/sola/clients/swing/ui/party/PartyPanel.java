@@ -190,16 +190,6 @@ public class PartyPanel extends javax.swing.JPanel {
                 }
             }
         });
-//         documentsPanel1.getSourceListBean().addPropertyChangeListener(new PropertyChangeListener() {
-//            
-//            @Override
-//            public void propertyChange(PropertyChangeEvent evt) {
-//                if (evt.getPropertyName().equals(SourceListBean.SELECTED_SOURCE_PROPERTY)) {
-//                    customizePaperTitleButtons((SourceBean) evt.getNewValue());
-//                }
-//            }
-//        });
-
         customizePanel();
         firePropertyChange("partyBean", null, this.partyBean);
         BindingTools.refreshBinding(bindingGroup, "rolesGroup");
@@ -238,6 +228,8 @@ public class PartyPanel extends javax.swing.JPanel {
                 labName.setText(individualLabel);
                 enableIndividualFields(true);
             }
+            this.roleTableScrollPanel.setVisible(true);
+            this.tablePartyRole.setVisible(true);
         }
 
         if (readOnly) {
@@ -289,6 +281,7 @@ public class PartyPanel extends javax.swing.JPanel {
     }
 
     private void enableIndividualFields(boolean enable) {
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/ui/party/Bundle"); // NOI18N
         txtLastName.setEnabled(enable);
         txtFatherFirstName.setEnabled(enable);
         txtFatherLastName.setEnabled(enable);
@@ -296,6 +289,13 @@ public class PartyPanel extends javax.swing.JPanel {
         cbxGender.setEnabled(enable);
         cbxIdType.setEnabled(enable);
         txtIdref.setEnabled(enable);
+        txtDob.setEnabled(enable);
+        lbDob.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif")));
+        lbNationality.setText(bundle.getString("PartyPanel.lbNationality.text")); // NOI18N
+        if (enable==false) {
+          lbDob.setIcon(null);
+          lbNationality.setText(bundle.getString("PartyPanel.lbNationality_Entity.text")); // NOI18N
+        }
     }
     
     public boolean validateParty(boolean showMessage){
@@ -519,7 +519,9 @@ public class PartyPanel extends javax.swing.JPanel {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(roleTableScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(roleTableScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel10.setName("jPanel10"); // NOI18N
@@ -939,8 +941,7 @@ public class PartyPanel extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, basicPanelLayout.createSequentialGroup()
                                 .addComponent(cbxPartyRoleTypes, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jToolBar4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(groupPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(groupPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1261,7 +1262,7 @@ public class PartyPanel extends javax.swing.JPanel {
                 .addComponent(groupPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(357, Short.MAX_VALUE))
+                .addContainerGap(385, Short.MAX_VALUE))
         );
 
         detailsPanel.addTab(bundle.getString("PartyPanel.fullPanel.TabConstraints.tabTitle"), fullPanel); // NOI18N
@@ -1374,7 +1375,7 @@ public class PartyPanel extends javax.swing.JPanel {
     public javax.swing.JComboBox cbxGender;
     public javax.swing.JComboBox cbxIdType;
     private javax.swing.JComboBox cbxNationality;
-    private javax.swing.JComboBox cbxPartyRoleTypes;
+    public javax.swing.JComboBox cbxPartyRoleTypes;
     private org.sola.clients.beans.referencedata.CommunicationTypeListBean communicationTypes;
     private javax.swing.JTabbedPane detailsPanel;
     private javax.swing.JScrollPane docTableScrollPanel;
@@ -1410,7 +1411,7 @@ public class PartyPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JToolBar jToolBar1;
+    public javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar4;
     private javax.swing.JLabel labAddress;
     private javax.swing.JLabel labAlias;
@@ -1430,7 +1431,7 @@ public class PartyPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lbState;
     private javax.swing.JLabel lblGender;
     private javax.swing.JMenuItem menuRemoveRole;
-    private org.sola.clients.beans.referencedata.PartyRoleTypeListBean partyRoleTypes;
+    public org.sola.clients.beans.referencedata.PartyRoleTypeListBean partyRoleTypes;
     private javax.swing.JPopupMenu popupRoles;
     private javax.swing.JScrollPane roleTableScrollPanel;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tablePartyRole;
@@ -1451,7 +1452,7 @@ public class PartyPanel extends javax.swing.JPanel {
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
-    private void addRole() {
+    public void addRole() {
         if (partyRoleTypes.getSelectedPartyRoleType() == null) {
             MessageUtility.displayMessage(ClientMessage.PARTY_SELECT_ROLE);
             return;

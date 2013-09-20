@@ -32,6 +32,7 @@ package org.sola.clients.swing.desktop.party;
 import java.util.ResourceBundle;
 import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.party.PartySummaryBean;
+import org.sola.clients.beans.referencedata.PartyRoleTypeBean;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
@@ -98,7 +99,48 @@ public class PartyPanelForm extends ContentPanel {
         customizePanel();
         savePartyState();
     }
+    
+    /**
+     * Form constructor.
+     *
+     * @param savePartyOnAction If
+     * <code>true</code>, party will be saved into database. If
+     * <code>false</code>, party will be validated and validation result
+     * returned as a value of
+     * {@link PartyPanel.PARTY_SAVED} property change event.
+     * @param partyBean The party bean instance to show on the panel.
+     * @param readOnly Indicates whether to display provided {@link PartyBean}
+     * in read only mode or not.
+     * @param closeOnSave Indicates whether to close the form upon save action
+     * takes place.
+     */
+    public PartyPanelForm(boolean savePartyOnAction, PartyBean partyBean, boolean readOnly, boolean closeOnSave, String partyRole) {
+        this.readOnly = readOnly;
+        this.partyBean = partyBean;
+        this.savePartyOnAction = savePartyOnAction;
+        this.closeOnSave = closeOnSave;
+        resourceBundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/party/Bundle");
 
+        initComponents();
+        customizePanel();
+                
+            partyPanel.jToolBar1.setVisible(false);
+            partyPanel.jPanel1.setVisible(false);
+            partyPanel.groupPanel1.setVisible(false);
+            
+            for (int i = 0, n = partyPanel.cbxPartyRoleTypes.getItemCount(); i < n; i++) {
+              if (partyPanel.cbxPartyRoleTypes.getItemAt(i).toString().contains(partyRole)) {
+                partyPanel.cbxPartyRoleTypes.setSelectedIndex(i);
+                break;
+              }
+            } 
+             partyPanel.addRole();
+             partyPanel.cbxPartyRoleTypes.setVisible(false);
+            
+        savePartyState();
+    }
+    
+    
     /**
      * Form constructor.
      *
@@ -181,10 +223,10 @@ public class PartyPanelForm extends ContentPanel {
             btnSave.setText(MessageUtility.getLocalizedMessage(
                     ClientMessage.GENERAL_LABELS_SAVE_AND_CLOSE).getMessage());
             
-           if (partyBean == null) { 
-            partyPanel.jPanel1.setVisible(false);
-            partyPanel.groupPanel1.setVisible(false);
-           } 
+//           if (partyBean == null) { 
+//            partyPanel.jPanel1.setVisible(false);
+//            partyPanel.groupPanel1.setVisible(false);
+//           } 
         } else {
             btnSave.setText(MessageUtility.getLocalizedMessage(
                     ClientMessage.GENERAL_LABELS_SAVE).getMessage());

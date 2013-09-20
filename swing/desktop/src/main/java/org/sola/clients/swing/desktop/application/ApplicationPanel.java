@@ -3238,7 +3238,7 @@ public class ApplicationPanel extends ContentPanel {
                 if (partySummaryBean != null) {
                     partyForm = new PartyPanelForm(true, partySummaryBean, isReadOnly, true);
                 } else {
-                    partyForm = new PartyPanelForm(true, null, isReadOnly, true);
+                    partyForm = new PartyPanelForm(true, null, isReadOnly, true, PartyRoleTypeBean.DISP_AUTH_REP);
                 }
                 partyForm.addPropertyChangeListener(listener);
                 getMainContentPanel().addPanel(partyForm, MainContentPanel.CARD_PERSON, true);

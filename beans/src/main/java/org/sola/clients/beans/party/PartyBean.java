@@ -43,6 +43,7 @@ import org.sola.clients.beans.referencedata.*;
 import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
+import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
 //import org.sola.services.common.EntityAction;
 import org.sola.webservices.transferobjects.EntityAction;
@@ -390,6 +391,10 @@ public class PartyBean extends PartySummaryBean {
         } else if (getAddress() != null && !getAddress().isNew() && (getAddress().getDescription() == null
                 || getAddress().getDescription().length() < 1)) {
             party.getAddress().setEntityAction(EntityAction.DISASSOCIATE);
+        }
+        if (getTypeCode().contains(PartyTypeBean.CODE_INDIVIDUAL)&&(getLastName() == null||getLastName() == "")){
+           MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_LASTNAME);
+            return false; 
         }
         
         party = WSManager.getInstance().getCaseManagementService().saveParty(party);

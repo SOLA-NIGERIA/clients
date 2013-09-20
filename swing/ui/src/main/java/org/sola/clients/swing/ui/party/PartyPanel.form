@@ -15,6 +15,7 @@
     <Component class="org.sola.clients.beans.referencedata.PartyRoleTypeListBean" name="partyRoleTypes">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="createPartyRolesList()"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
@@ -134,8 +135,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="cbxPartyRoleTypes" min="-2" pref="294" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jToolBar1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="jToolBar1" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="jToolBar4" alignment="1" max="32767" attributes="0"/>
                               </Group>
@@ -190,7 +190,10 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="roleTableScrollPanel" alignment="0" pref="72" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="roleTableScrollPanel" min="-2" pref="100" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -1118,6 +1121,9 @@
                 <BindingProperty name="elements" source="partyRoleTypes" sourcePath="${partyRoleTypeList}" target="cbxPartyRoleTypes" targetPath="elements" updateStrategy="0" immediately="false"/>
                 <BindingProperty name="selectedItem" source="partyRoleTypes" sourcePath="${selectedPartyRoleType}" target="cbxPartyRoleTypes" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
               </BindingProperties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
             </Component>
             <Container class="javax.swing.JToolBar" name="jToolBar1">
               <Properties>
@@ -1125,6 +1131,9 @@
                 <Property name="rollover" type="boolean" value="true"/>
                 <Property name="name" type="java.lang.String" value="jToolBar1" noResource="true"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
               <SubComponents>
@@ -1238,7 +1247,7 @@
                       <Component id="groupPanel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jPanel18" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="357" max="32767" attributes="0"/>
+                      <EmptySpace pref="385" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

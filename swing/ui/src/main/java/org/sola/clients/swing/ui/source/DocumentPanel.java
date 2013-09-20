@@ -74,6 +74,9 @@ public class DocumentPanel extends javax.swing.JPanel {
     private PartyListBean createPartyList() {
         PartyListBean recOfficersList = new PartyListBean();
         recOfficersList.FillRecOfficers(true);
+        if (recOfficersList.getPartyBeanList().size()<2){
+          MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_RECOFF);  
+        }
         return recOfficersList;
     }
 
@@ -754,17 +757,18 @@ public class DocumentPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbxDocTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDocTypeActionPerformed
-
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/ui/source/Bundle"); // NOI18N
+        
         if (this.cbxDocType.getSelectedIndex() >= 0) {
             if (this.cbxDocType.getSelectedItem().toString().contains(this.document.SYSTEMATIC_CLAIM_FORM)) {
-                this.lblOwnerName.setText("Recording Officer");
-                this.jLabel3.setText("Date Form Recorded");
+                lblOwnerName.setText(bundle.getString("DocumentPanel.lblOwnerName_RecOff.text")); // NOI18N
+                jLabel3.setText(bundle.getString("DocumentPanel.jLabel3_RecOffDate.text")); // NOI18N
                 this.txtOwnerName.setVisible(false);
                 this.cbxRecOff.setVisible(true);
 
             } else {
-                this.lblOwnerName.setText("Source Agency");
-                this.jLabel3.setText("Date");
+                lblOwnerName.setText(bundle.getString("DocumentPanel.lblOwnerName.text")); // NOI18N
+                jLabel3.setText(bundle.getString("DocumentPanel.jLabel3.text")); // NOI18N
                 this.txtOwnerName.setVisible(true);
                 this.cbxRecOff.setVisible(false);
             }
@@ -779,6 +783,7 @@ public class DocumentPanel extends javax.swing.JPanel {
 
         }
     }//GEN-LAST:event_cbxRecOffActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public org.sola.clients.swing.common.controls.BrowseControl browseAttachment;
     public javax.swing.JComboBox cbxDocType;

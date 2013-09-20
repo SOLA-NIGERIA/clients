@@ -38,7 +38,9 @@ import org.sola.webservices.transferobjects.referencedata.PartyTypeTO;
  * <br />This bean is used as a part of {@link PartyBean}.
  */
 public class PartyTypeBean extends AbstractCodeBean {
-
+    
+   public static final String CODE_INDIVIDUAL = "naturalPerson";
+    
     public PartyTypeBean() {
         super();
     }
