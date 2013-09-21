@@ -122,9 +122,17 @@ public class MortgagePanel extends ContentPanel {
         }
 
         if (rrrAction != RrrBean.RRR_ACTION.EDIT && rrrAction != RrrBean.RRR_ACTION.VIEW
-                && appService != null) {
+                && appService != null ) {
+           
+            java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle"); // NOI18N
+            if (rrrBean.getTypeCode().contains("recordLien")){
+                txtNotationText.setText(bundle.getString("MortgagePanel.txtNotationText_lien.text")); // NOI18N
+            } else {
+               txtNotationText.setText(bundle.getString("MortgagePanel.txtNotationText.text")); // NOI18N
+            }
             // Set default noation text from the selected application service
-            txtNotationText.setText(appService.getRequestType().getNotationTemplate());
+//            txtNotationText.setText(appService.getRequestType().getNotationTemplate());
+            
         }
 
         if (rrrAction == RrrBean.RRR_ACTION.VIEW) {
@@ -163,12 +171,12 @@ public class MortgagePanel extends ContentPanel {
 
     private void openLenderForm() {
         QuickSearchPartyForm searchForm = new QuickSearchPartyForm(this, true);
-        if (this.appService.getRequestType().getRrrTypeCode().equals(RrrBean.CODE_LIEN)) {
-            searchForm.getSearchParams().setRoleTypeCode("moneyProvider");
-        }
-        else {
+//        if (this.appService.getRequestType().getRrrTypeCode().equals(RrrBean.CODE_LIEN)) {
+//            searchForm.getSearchParams().setRoleTypeCode("moneyProvider");
+//        }
+//        else {
             searchForm.getSearchParams().setRoleTypeCode("bank");
-        }
+//        }
         searchForm.setLocationRelativeTo(this);
 
         PropertyChangeListener listener = new PropertyChangeListener() {
@@ -335,7 +343,6 @@ public class MortgagePanel extends ContentPanel {
 
         jPanel5.setName("jPanel5"); // NOI18N
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         jLabel3.setText(bundle.getString("MortgagePanel.jLabel3.text")); // NOI18N
         jLabel3.setName("jLabel3"); // NOI18N
 
@@ -351,7 +358,7 @@ public class MortgagePanel extends ContentPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel3)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(179, Short.MAX_VALUE))
             .addComponent(txtExpiryDate, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
@@ -367,7 +374,6 @@ public class MortgagePanel extends ContentPanel {
 
         jPanel1.setName("jPanel1"); // NOI18N
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         jLabel2.setText(bundle.getString("MortgagePanel.jLabel2.text")); // NOI18N
         jLabel2.setName("jLabel2"); // NOI18N
 
@@ -386,7 +392,7 @@ public class MortgagePanel extends ContentPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel2)
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addContainerGap(228, Short.MAX_VALUE))
             .addComponent(cbxType, 0, 214, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -422,7 +428,7 @@ public class MortgagePanel extends ContentPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel6)
                 .addContainerGap(163, Short.MAX_VALUE))
-            .addComponent(browseLender, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+            .addComponent(browseLender, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -437,7 +443,6 @@ public class MortgagePanel extends ContentPanel {
 
         jPanel6.setName("jPanel6"); // NOI18N
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         jLabel4.setText(bundle.getString("MortgagePanel.jLabel4.text")); // NOI18N
         jLabel4.setName("jLabel4"); // NOI18N
 
@@ -454,7 +459,7 @@ public class MortgagePanel extends ContentPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jLabel4)
                 .addContainerGap())
-            .addComponent(txtAmount, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+            .addComponent(txtAmount, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -487,7 +492,7 @@ public class MortgagePanel extends ContentPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
             .addComponent(txtRanking, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
@@ -518,7 +523,7 @@ public class MortgagePanel extends ContentPanel {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jLabel5)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
             .addComponent(txtInterestRate, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(

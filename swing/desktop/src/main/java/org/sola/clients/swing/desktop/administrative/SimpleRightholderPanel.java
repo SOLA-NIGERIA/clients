@@ -104,6 +104,11 @@ public class SimpleRightholderPanel extends ContentPanel {
 
     private void customizeForm() {
         headerPanel.setTitleText(rrrBean.getRrrType().getDisplayValue());
+        if (rrrBean.getTypeCode().contains("usufruct")) {
+                this.jLabel2.setVisible(false);
+                this.txtRegDatetime.setVisible(false);
+                this.cbxIsPrimary.setVisible(false);
+        }       
         if (rrrAction == RrrBean.RRR_ACTION.NEW) {
             btnSave.setText(MessageUtility.getLocalizedMessage(
                             ClientMessage.GENERAL_LABELS_CREATE_AND_CLOSE).getMessage());
@@ -115,8 +120,18 @@ public class SimpleRightholderPanel extends ContentPanel {
 
         if (rrrAction != RrrBean.RRR_ACTION.EDIT && rrrAction != RrrBean.RRR_ACTION.VIEW
                 && appService != null) {
+            
+            
             // Set default noation text from the selected application service
             txtNotationText.setText(appService.getRequestType().getNotationTemplate());
+            java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle"); // NOI18N
+            
+             if (rrrBean.getTypeCode().contains("usufruct")) {
+                this.jLabel2.setVisible(false);
+                this.txtRegDatetime.setVisible(false);
+                this.cbxIsPrimary.setVisible(false);
+                txtNotationText.setText(bundle.getString("SimpleRightPanel.txtNotationText_usufruct.text")); // NOI18N
+            }
         }
 
         if (rrrAction == RrrBean.RRR_ACTION.VIEW) {

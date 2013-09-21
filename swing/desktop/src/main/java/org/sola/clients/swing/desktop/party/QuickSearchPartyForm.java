@@ -113,11 +113,10 @@ public class QuickSearchPartyForm extends javax.swing.JDialog {
         if (partyQuickSearchControl.getSelectedElement() != null) {
             this.firePropertyChange(SELECTED_PARTY, null,
                     (PartySearchResultBean) partyQuickSearchControl.getSelectedElement());
-            if (this.getSearchParams().getRoleTypeCode().contains("bank")){
-                java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle"); // NOI18N
-                String notationText = bundle.getString("MortgagePanel.notationText.text")+" "+partyQuickSearchControl.getSelectedElement();
+//            if (this.getSearchParams().getRoleTypeCode().contains("bank")){
+                String notationText = this.panelForm.txtNotationText.getText().replace("<lender>", partyQuickSearchControl.getSelectedElement().toString());
                 this.panelForm.txtNotationText.setText(notationText);
-            }
+//            }
             this.dispose();
         } else {
             MessageUtility.displayMessage(ClientMessage.PARTY_SELECT_PARTY);

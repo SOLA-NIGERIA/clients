@@ -53,6 +53,7 @@ public class PartyQuickSearch extends FreeTextSearch {
     public PartyQuickSearch() {
         super();
         this.setMinimalSearchStringLength(1);
+        setRefreshTextInSelection(true);
         searchParams = new PartySearchParamsBean();
     }
     

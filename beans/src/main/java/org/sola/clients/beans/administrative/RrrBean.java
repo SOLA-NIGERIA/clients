@@ -113,15 +113,15 @@ public class RrrBean extends AbstractTransactionedBean {
     @Past(message = ClientMessage.CHECK_REGISTRATION_DATE, payload = Localized.class)
     private Date registrationDate;
     private String transactionId;
-    @NotNull(message = ClientMessage.CHECK_NOTNULL_EXPIRATION, payload = Localized.class, 
-            groups = {MortgageValidationGroup.class, LeaseValidationGroup.class})
+//    @NotNull(message = ClientMessage.CHECK_NOTNULL_EXPIRATION, payload = Localized.class, 
+//            groups = {MortgageValidationGroup.class, LeaseValidationGroup.class})
     @Future(message = ClientMessage.CHECK_FUTURE_EXPIRATION, payload = Localized.class,
             groups = {MortgageValidationGroup.class})
     private Date expirationDate;
-    @NotNull(message = ClientMessage.CHECK_NOTNULL_MORTGAGEAMOUNT, payload = Localized.class, groups = {MortgageValidationGroup.class})
+//    @NotNull(message = ClientMessage.CHECK_NOTNULL_MORTGAGEAMOUNT, payload = Localized.class, groups = {MortgageValidationGroup.class})
     private BigDecimal amount;
     private Date dueDate;
-    @NotNull(message = ClientMessage.CHECK_NOTNULL_MORTAGAETYPE, payload = Localized.class, groups = {MortgageValidationGroup.class})
+//    @NotNull(message = ClientMessage.CHECK_NOTNULL_MORTAGAETYPE, payload = Localized.class, groups = {MortgageValidationGroup.class})
     private MortgageTypeBean mortgageType;
     private BigDecimal mortgageInterestRate;
     private Integer mortgageRanking;
@@ -418,8 +418,8 @@ public class RrrBean extends AbstractTransactionedBean {
         return leaseConditionList;
     }
 
-    @Size(min = 1, groups = {SimpleOwnershipValidationGroup.class, LeaseValidationGroup.class}, 
-            message = ClientMessage.CHECK_SIZE_LEASE_CONDITIONS_LIST, payload = Localized.class)
+//    @Size(min = 1, groups = {SimpleOwnershipValidationGroup.class, LeaseValidationGroup.class}, 
+//            message = ClientMessage.CHECK_SIZE_LEASE_CONDITIONS_LIST, payload = Localized.class)
     public ObservableList<LeaseConditionForRrrBean> getLeaseConditionFilteredList() {
         return leaseConditionList.getFilteredList();
     }
