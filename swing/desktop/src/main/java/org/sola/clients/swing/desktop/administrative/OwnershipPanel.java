@@ -195,7 +195,7 @@ public class OwnershipPanel extends ContentPanel {
 
     private void openShareForm(RrrShareBean shareBean, RrrBean.RRR_ACTION rrrAction) {
          if (appService.getRequestType().getCode().contentEquals(SYS_REG)){
-          SharePanel shareForm = new SharePanel(shareBean, rrrAction, appService);
+          SharePanel shareForm = new SharePanel(shareBean, rrrAction, appService, applicationBean, rrrBean);
           ShareFormListener listener = new ShareFormListener();
           shareForm.addPropertyChangeListener(SharePanel.UPDATED_RRR_SHARE, listener);
           getMainContentPanel().addPanel(shareForm, MainContentPanel.CARD_OWNERSHIP_SHARE, true);

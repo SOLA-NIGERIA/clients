@@ -33,7 +33,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.administrative.RrrShareBean;
+import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
+import org.sola.clients.beans.converters.TypeConverters;
+import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.swing.common.LafManager;
 import org.sola.clients.swing.common.tasks.SolaTask;
@@ -46,6 +49,9 @@ import org.sola.clients.swing.ui.MainContentPanel;
 import org.sola.clients.swing.ui.renderers.FormattersFactory;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
+import org.sola.services.boundary.wsclients.WSManager;
+import org.sola.webservices.transferobjects.cadastre.PartySummaryTO;
+import org.sola.webservices.transferobjects.casemanagement.PartyTO;
 
 /**
  * Form for managing ownership shares
@@ -75,7 +81,7 @@ public class SharePanel extends ContentPanel {
         customizeOwnersButtons(null);
         saveRrrShareState();
     }
-    
+
     public SharePanel(RrrShareBean rrrShareBean, RrrBean.RRR_ACTION rrrAction, ApplicationServiceBean applicationService) {
         this.rrrAction = rrrAction;
         prepareRrrShareBean(rrrShareBean);
@@ -84,12 +90,41 @@ public class SharePanel extends ContentPanel {
 
         customizeForm(rrrAction);
         this.groupPanel1.setTitleText(MessageUtility.getLocalizedMessage(
-                            ClientMessage.SYSTEMATIC_REGISTRATION_CLAIMANTS).getMessage());
-        
+                ClientMessage.SYSTEMATIC_REGISTRATION_CLAIMANTS).getMessage());
+
         customizeOwnersButtons(null);
         saveRrrShareState();
+
     }
-    
+
+    public SharePanel(RrrShareBean rrrShareBean, RrrBean.RRR_ACTION rrrAction, ApplicationServiceBean applicationService, ApplicationBean applicationBean, RrrBean rrrBean) {
+        this.rrrAction = rrrAction;
+        prepareRrrShareBean(rrrShareBean);
+
+        initComponents();
+
+        customizeForm(rrrAction);
+        this.groupPanel1.setTitleText(MessageUtility.getLocalizedMessage(
+                ClientMessage.SYSTEMATIC_REGISTRATION_CLAIMANTS).getMessage());
+
+        customizeOwnersButtons(null);
+        String pId = applicationBean.getContactPersonId();
+        PartyTO partyTO = WSManager.getInstance().getCaseManagementService().getParty(pId);
+        PartySummaryBean partySummary = TypeConverters.TransferObjectToBean(partyTO, PartyBean.class, null);
+        if (rrrBean.getRightHolderList().size() == 0) {
+            Short labeldef = 1;
+            this.txtDenominator.setValue(labeldef);
+            this.txtNominator.setValue(labeldef);
+            this.txtNominator.setText("1");
+            this.txtDenominator.setText("1");
+            this.rrrShareBean.getFilteredRightHolderList().add(partySummary);
+        }
+
+
+
+        saveRrrShareState();
+    }
+
     private RrrShareBean CreateRrrShareBean() {
         if (rrrShareBean == null) {
             rrrShareBean = new RrrShareBean();
@@ -324,12 +359,14 @@ public class SharePanel extends ContentPanel {
         jLabel2.setName("jLabel2"); // NOI18N
 
         txtDenominator.setFormatterFactory(FormattersFactory.getInstance().getShortFormatterFactory());
+        txtDenominator.setText(bundle.getString("SharePanel.txtDenominator.text")); // NOI18N
         txtDenominator.setName("txtDenominator"); // NOI18N
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrShareBean, org.jdesktop.beansbinding.ELProperty.create("${denominator}"), txtDenominator, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
 
         txtNominator.setFormatterFactory(FormattersFactory.getInstance().getShortFormatterFactory());
+        txtNominator.setText(bundle.getString("SharePanel.txtNominator.text")); // NOI18N
         txtNominator.setName("txtNominator"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrShareBean, org.jdesktop.beansbinding.ELProperty.create("${nominator}"), txtNominator, org.jdesktop.beansbinding.BeanProperty.create("value"));
