@@ -109,7 +109,7 @@
 			</staticText>
 			<image>
 				<reportElement x="473" y="0" width="82" height="59"/>
-				<imageExpression><![CDATA["C:\\Users\\rizzom\\Desktop\\SOLA-KADUNA\\sola\\code\\clients\\reports\\src\\main\\resources\\images\\sola\\logo_orange.png"]]></imageExpression>
+				<imageExpression><![CDATA["images/sola/logo_orange.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
