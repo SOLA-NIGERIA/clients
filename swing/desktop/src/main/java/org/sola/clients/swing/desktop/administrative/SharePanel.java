@@ -111,7 +111,8 @@ public class SharePanel extends ContentPanel {
         String pId = applicationBean.getContactPersonId();
         PartyTO partyTO = WSManager.getInstance().getCaseManagementService().getParty(pId);
         PartySummaryBean partySummary = TypeConverters.TransferObjectToBean(partyTO, PartyBean.class, null);
-        if (rrrBean.getRightHolderList().size() == 0) {
+        
+        if (rrrBean.getFilteredRrrShareList().size() == 0) {
             Short labeldef = 1;
             this.txtDenominator.setValue(labeldef);
             this.txtNominator.setValue(labeldef);
