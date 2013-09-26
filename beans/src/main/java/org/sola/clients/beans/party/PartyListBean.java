@@ -99,5 +99,22 @@ public class PartyListBean extends AbstractBindingBean {
             partyListBean.add(0, dummyRecOff);
         }
     }
+    
+       /** 
+     * Fills {@link ObservableList}&lt;{@link PartySummaryBean}&gt; with the list of recording officers.
+     * @param createDummyAgent If true, creates empty {@link PartySummaryBean} agent 
+     * to display empty option in the list.
+     */
+    public void FillDemOfficers(boolean createDummyDemOff) {
+        List<PartyTO> lst = WSManager.getInstance().getCaseManagementService().getDemOfficers();
+        partyListBean.clear();
+        TypeConverters.TransferObjectListToBeanList(lst, PartyBean.class, (List)partyListBean);
+        if(createDummyDemOff){
+            PartyBean dummyDemOff = new PartyBean();
+            dummyDemOff.setName(" ");
+            dummyDemOff.setEntityAction(EntityAction.DISASSOCIATE);
+            partyListBean.add(0, dummyDemOff);
+        }
+    }
 
 }

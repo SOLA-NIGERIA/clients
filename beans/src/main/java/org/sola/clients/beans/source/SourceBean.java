@@ -48,6 +48,7 @@ public class SourceBean extends SourceSummaryBean {
     public static final String AVAILABILITY_STATUS_CODE_PROPERTY = "availabilityStatusCode";
     public static final String CONTENT_PROPERTY = "content";
     public static final String SYSTEMATIC_CLAIM_FORM = "Claims Form";
+    public static final String SKETCH_FORM = "Sketch Map";
     private String mainType;
     private String availabilityStatusCode;
     private String content;

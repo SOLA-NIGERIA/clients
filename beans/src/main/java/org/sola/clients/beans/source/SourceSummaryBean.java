@@ -83,7 +83,7 @@ public class SourceSummaryBean extends AbstractTransactionedBean {
     private String transactionId;
     private Date signingDate;
     private PartyBean recOfficer;
-
+    private PartyBean demOfficer;
     public SourceSummaryBean() {
         super();
     }
@@ -259,9 +259,25 @@ public class SourceSummaryBean extends AbstractTransactionedBean {
         return recOfficer;
 
     }
-
+    
     public void setRecOfficer(PartyBean recOfficer) {
         this.recOfficer = recOfficer;
+    }
+
+     public PartyBean getDemOfficer() {
+        if (this.ownerName == null || this.ownerName.length() < 1) {
+            return null;
+
+        }
+
+        PartyTO partyTO = WSManager.getInstance().getCaseManagementService().getPartyByFullName(this.ownerName);
+        demOfficer = TypeConverters.TransferObjectToBean(partyTO, PartyBean.class, null);
+        return demOfficer;
+
+    }
+
+    public void setDemOfficer(PartyBean demOfficer) {
+        this.demOfficer = demOfficer;
     }
 
     public String getVersion() {

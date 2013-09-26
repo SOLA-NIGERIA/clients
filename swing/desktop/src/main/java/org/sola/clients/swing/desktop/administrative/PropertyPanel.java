@@ -1327,12 +1327,12 @@ public class PropertyPanel extends ContentPanel {
         btnLinkPaperTitle = new javax.swing.JButton();
         documentsPanel1 = createDocumentsPanel();
         jPanel13 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        txtFirstPart = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtLastPart = new javax.swing.JTextField();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtFirstPart = new javax.swing.JTextField();
         jPanel11 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtEstateType = new javax.swing.JTextField();
@@ -1693,13 +1693,13 @@ public class PropertyPanel extends ContentPanel {
                 .addContainerGap()
                 .add(jPanel18Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(lblLandUse, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                    .add(txtTerm)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, cbxLandUse, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(lblTerm, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jPanel18Layout.createSequentialGroup()
                         .add(jPanel18Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(lblFloorNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(txtFloorNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 84, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(txtFloorNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 84, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(txtTerm, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 84, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -1802,37 +1802,6 @@ public class PropertyPanel extends ContentPanel {
         jPanel13.setName("jPanel13"); // NOI18N
         jPanel13.setLayout(new java.awt.GridLayout(1, 5, 12, 0));
 
-        jPanel10.setName("jPanel10"); // NOI18N
-
-        jLabel1.setText(bundle.getString("PropertyPanel.jLabel1.text")); // NOI18N
-        jLabel1.setName("jLabel1"); // NOI18N
-
-        txtFirstPart.setEditable(false);
-        txtFirstPart.setName("txtFirstPart"); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${nameFirstpart}"), txtFirstPart, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        org.jdesktop.layout.GroupLayout jPanel10Layout = new org.jdesktop.layout.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel10Layout.createSequentialGroup()
-                .add(jLabel1)
-                .add(78, 78, Short.MAX_VALUE))
-            .add(txtFirstPart)
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel10Layout.createSequentialGroup()
-                .add(jLabel1)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(txtFirstPart, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
-
-        jPanel13.add(jPanel10);
-
         jPanel9.setName("jPanel9"); // NOI18N
 
         jLabel2.setText(bundle.getString("PropertyPanel.jLabel2.text")); // NOI18N
@@ -1863,6 +1832,37 @@ public class PropertyPanel extends ContentPanel {
         );
 
         jPanel13.add(jPanel9);
+
+        jPanel10.setName("jPanel10"); // NOI18N
+
+        jLabel1.setText(bundle.getString("PropertyPanel.jLabel1.text")); // NOI18N
+        jLabel1.setName("jLabel1"); // NOI18N
+
+        txtFirstPart.setEditable(false);
+        txtFirstPart.setName("txtFirstPart"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${nameFirstpart}"), txtFirstPart, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        org.jdesktop.layout.GroupLayout jPanel10Layout = new org.jdesktop.layout.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel10Layout.createSequentialGroup()
+                .add(jLabel1)
+                .add(78, 78, Short.MAX_VALUE))
+            .add(txtFirstPart)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel10Layout.createSequentialGroup()
+                .add(jLabel1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(txtFirstPart, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+
+        jPanel13.add(jPanel10);
 
         jPanel11.setName("jPanel11"); // NOI18N
 

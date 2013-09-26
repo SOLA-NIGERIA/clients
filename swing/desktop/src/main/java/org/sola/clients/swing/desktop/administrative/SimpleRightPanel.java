@@ -136,7 +136,11 @@ public class SimpleRightPanel extends ContentPanel {
         if (rrrBean.getTypeCode().contains("servitude")) {
             this.jPanel1.setVisible(false);
         }
-
+        
+        if (rrrBean.getTypeCode().contains("ownership")) {
+            cbxIsPrimary.setEnabled(true);
+        }
+        
         if (rrrAction != RrrBean.RRR_ACTION.EDIT && rrrAction != RrrBean.RRR_ACTION.VIEW
                 && appService != null) {
             // Set default noation text from the selected application service

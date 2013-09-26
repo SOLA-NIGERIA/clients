@@ -124,9 +124,7 @@ public class SaveSpatialUnitGroup extends ExtendedAction {
         if (spatialUnitGroupLayers == null){
             spatialUnitGroupLayers = new ArrayList<PojoBaseLayer>();
             for(String layerName:this.getMapControl().getSolaLayers().keySet()){
-                
-                System.out.println("LAYER NAME "+layerName);
-                if (layerName.startsWith(SPATIAL_UNIT_GROUP_LAYER_PREFIX)){
+                 if (layerName.startsWith(SPATIAL_UNIT_GROUP_LAYER_PREFIX)){
                     spatialUnitGroupLayers.add( (PojoBaseLayer)
                             this.getMapControl().getSolaLayers().get(layerName));
                 }
