@@ -563,7 +563,7 @@ public class ReportManager {
         landUse = appBaunit.getLandUse();
         propLocation = baUnitBean.getLocation();
         
-        if (baUnitBean.isIsDeveloped()) {
+        if (! baUnitBean.isIsDeveloped()) {
           timeToDevelop = baUnitBean.getYearsForDev().toString();
           valueForImprov = baUnitBean.getValueToImp().toString();      
         }

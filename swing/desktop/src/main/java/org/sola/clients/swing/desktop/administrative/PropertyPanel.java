@@ -326,7 +326,7 @@ public class PropertyPanel extends ContentPanel {
     
     
     private void setIfItIsDeveloped() {
-       if (!this.chkIsDeveloped.isSelected()){ 
+       if (this.chkIsDeveloped.isSelected()){ 
        this.txtYearsToDev.setEditable(false);
        this.txtValueToImprove.setEditable(false);
        this.txtYearsToDev.setEnabled(false);

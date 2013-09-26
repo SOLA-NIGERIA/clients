@@ -485,15 +485,16 @@ public class ApplicationBean extends ApplicationSummaryBean {
 //             bug #122 (The same service can be added multiple times)is not a bug,  
 //             it was restricted before to duplicate services,
 //             but later we found that sometimes it is needed to have duplications (it could be more than 1service with the same name).
-//               for (Iterator<ApplicationServiceBean> it = serviceList.iterator(); it.hasNext();) {
-//                    ApplicationServiceBean appService = it.next();
-//                    System.out.println("appService.getRequestTypeCode() " + appService.getRequestTypeCode());
-//
-//                    if (requestTypeBean.getCode().equals(appService.getRequestTypeCode())) {
-//                        MessageUtility.displayMessage(ClientMessage.APPLICATION_ALREADYSELECTED_SERVICE);
-//                        return;
-//                    }
-//                }
+//               IN CASE OF SYSTEMATIC REGISTRATION CLAIM IT IS REQUIRED AGAIN
+               for (Iterator<ApplicationServiceBean> it = serviceList.iterator(); it.hasNext();) {
+                    ApplicationServiceBean appService = it.next();
+                    System.out.println("appService.getRequestTypeCode() " + appService.getRequestTypeCode());
+
+                    if (requestTypeBean.getCode().equals(appService.getRequestTypeCode())&& requestTypeBean.getCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
+                        MessageUtility.displayMessage(ClientMessage.APPLICATION_ALREADYSELECTED_SERVICE);
+                        return;
+                    }
+                }
 
             if (this.isFeePaid()) {
                 MessageUtility.displayMessage(ClientMessage.APPLICATION_WARNING_ADDEDSERVICE);
