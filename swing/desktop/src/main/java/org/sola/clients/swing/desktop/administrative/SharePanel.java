@@ -70,7 +70,7 @@ public class SharePanel extends ContentPanel {
     }
     private RrrBean.RRR_ACTION rrrAction;
     public static final String UPDATED_RRR_SHARE = "updatedRrrShare";
-
+    public String address = "";
     public SharePanel(RrrShareBean rrrShareBean, RrrBean.RRR_ACTION rrrAction) {
         this.rrrAction = rrrAction;
         prepareRrrShareBean(rrrShareBean);
@@ -100,7 +100,7 @@ public class SharePanel extends ContentPanel {
     public SharePanel(RrrShareBean rrrShareBean, RrrBean.RRR_ACTION rrrAction, ApplicationServiceBean applicationService, ApplicationBean applicationBean, RrrBean rrrBean) {
         this.rrrAction = rrrAction;
         prepareRrrShareBean(rrrShareBean);
-
+        this.address = applicationBean.getContactPerson().getAddress().getDescription().toString();
         initComponents();
 
         customizeForm(rrrAction);
@@ -209,7 +209,7 @@ public class SharePanel extends ContentPanel {
 
     private void openRightHolderForm(final PartySummaryBean partySummaryBean, final boolean isReadOnly) {
         final RightHolderFormListener listener = new RightHolderFormListener();
-
+        final String address = this.address;
         SolaTask t = new SolaTask<Void, Void>() {
 
             @Override
@@ -220,7 +220,7 @@ public class SharePanel extends ContentPanel {
                 if (partySummaryBean != null) {
                     partyForm = new PartyPanelForm(true, partySummaryBean, isReadOnly, true);
                 } else {
-                    partyForm = new PartyPanelForm(true, null, isReadOnly, true);
+                    partyForm = new PartyPanelForm(true, null, isReadOnly, true, true, address);
                 }
                 partyForm.addPropertyChangeListener(listener);
                 getMainContentPanel().addPanel(partyForm, MainContentPanel.CARD_PERSON, true);

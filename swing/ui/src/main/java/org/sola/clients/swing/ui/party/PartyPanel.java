@@ -291,9 +291,11 @@ public class PartyPanel extends javax.swing.JPanel {
         txtIdref.setEnabled(enable);
         txtDob.setEnabled(enable);
         lbDob.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif")));
+        labLastName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif")));
         lbNationality.setText(bundle.getString("PartyPanel.lbNationality.text")); // NOI18N
         if (enable==false) {
           lbDob.setIcon(null);
+          labLastName.setIcon(null);
           lbNationality.setText(bundle.getString("PartyPanel.lbNationality_Entity.text")); // NOI18N
         }
     }

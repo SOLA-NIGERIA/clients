@@ -154,6 +154,7 @@ public class OwnershipPanel extends ContentPanel {
         menuRemoveShare.setEnabled(btnRemoveShare.isEnabled());
         menuChangeShare.setEnabled(btnChangeShare.isEnabled());
         menuViewShare.setEnabled(btnViewShare.isEnabled());
+        cbxIsPrimary.setSelected(true);
     }
 
     private void customizeForm() {
@@ -183,7 +184,8 @@ public class OwnershipPanel extends ContentPanel {
             // Set default noation text from the selected application service
             txtNotationText.setText(appService.getRequestType().getNotationTemplate());
         }
-
+        cbxIsPrimary.setSelected(true);
+       
         if (rrrAction == RrrBean.RRR_ACTION.VIEW) {
             btnSave.setEnabled(false);
             txtNotationText.setEnabled(false);

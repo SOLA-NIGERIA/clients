@@ -53,6 +53,7 @@ public class PartyPanelForm extends ContentPanel {
     private boolean closeOnSave;
     private PartyBean partyBean;
     private ResourceBundle resourceBundle;
+    private String address="";
 
     /**
      * Default form constructor.
@@ -170,7 +171,42 @@ public class PartyPanelForm extends ContentPanel {
         customizePanel();
         savePartyState();
     }
+    
+    /**
+     * Form constructor.
+     *
+     * @param savePartyOnAction If
+     * <code>true</code>, party will be saved into database. If
+     * <code>false</code>, party will be validated and validation result
+     * returned as a value of
+     * {@link PartyPanel.PARTY_SAVED} property change event.
+     * @param partySummaryBean The party summary bean instance to retrieve
+     * actual {@link PartyBean} to show on the panel.
+     * @param readOnly Indicates whether to display provided {@link PartyBean}
+     * in read only mode or not.
+     * @param closeOnSave Indicates whether to close the form upon save action
+     * takes place.
+     */
+    public PartyPanelForm(boolean savePartyOnAction, PartySummaryBean partySummaryBean,
+            boolean readOnly, boolean closeOnSave, boolean importAddress, String address) {
+        this.savePartyOnAction = savePartyOnAction;
+        this.closeOnSave = closeOnSave;
+        this.readOnly = readOnly;
+        resourceBundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/party/Bundle");
+        if (partySummaryBean != null) {
+            this.partyBean = partySummaryBean.getPartyBean();
+        }
 
+        initComponents();
+        customizePanel();
+        savePartyState();
+        if (address!="") {
+            this.cbxImportAddress.setVisible(importAddress);
+            this.address=address;
+        }
+    }
+
+    
     public boolean isCloseOnSave() {
         return closeOnSave;
     }
@@ -206,6 +242,8 @@ public class PartyPanelForm extends ContentPanel {
     }
 
     private void customizePanel() {
+        
+        this.cbxImportAddress.setVisible(false);
         if (!readOnly) {
             this.readOnly = !SecurityBean.isInRole(RolesConstants.PARTY_SAVE);
         }
@@ -289,6 +327,7 @@ public class PartyPanelForm extends ContentPanel {
         headerPanel = new org.sola.clients.swing.ui.HeaderPanel();
         jToolBar1 = new javax.swing.JToolBar();
         btnSave = new javax.swing.JButton();
+        cbxImportAddress = new javax.swing.JCheckBox();
         partyPanel = createPartyPanel();
 
         setHeaderPanel(headerPanel);
@@ -315,6 +354,17 @@ public class PartyPanelForm extends ContentPanel {
             }
         });
         jToolBar1.add(btnSave);
+
+        cbxImportAddress.setText(bundle.getString("PartyPanelForm.cbxImportAddress.text")); // NOI18N
+        cbxImportAddress.setFocusable(false);
+        cbxImportAddress.setName(bundle.getString("PartyPanelForm.cbxImportAddress.name")); // NOI18N
+        cbxImportAddress.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        cbxImportAddress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxImportAddressActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(cbxImportAddress);
 
         partyPanel.setName("partyPanel"); // NOI18N
 
@@ -344,8 +394,16 @@ public class PartyPanelForm extends ContentPanel {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         saveParty(false);
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void cbxImportAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxImportAddressActionPerformed
+        if (this.cbxImportAddress.isSelected()) {
+            this.partyPanel.txtAddress.setText(address);
+        }
+    }//GEN-LAST:event_cbxImportAddressActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave;
+    private javax.swing.JCheckBox cbxImportAddress;
     private org.sola.clients.swing.ui.HeaderPanel headerPanel;
     private javax.swing.JToolBar jToolBar1;
     private org.sola.clients.swing.ui.party.PartyPanel partyPanel;
