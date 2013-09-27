@@ -30,6 +30,7 @@
 package org.sola.clients.swing.desktop.reports;
 
 import java.awt.ComponentOrientation;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import javax.swing.JFormattedTextField;
@@ -73,6 +74,16 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
             this.btnShowCalendarFrom.setVisible(false);
             this.btnShowCalendarTo.setVisible(false);
         }
+        if (this.whichReport.contentEquals("sysRegProductionBean")) {
+            this.labFromDate.setVisible(true);
+            this.labToDate.setVisible(false);
+            this.txtFromDate.setVisible(true);
+            this.txtToDate.setVisible(false);
+            this.btnShowCalendarFrom.setVisible(true);
+            this.btnShowCalendarTo.setVisible(false);
+            this.labSearchArea.setVisible(false);
+            this.cadastreObjectSearch.setVisible(false);
+        }
     }
 
     /**
@@ -99,6 +110,8 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
         sysRegManagementBean = new org.sola.clients.beans.systematicregistration.SysRegManagementBean();
         sysRegStatusBean = new org.sola.clients.beans.systematicregistration.SysRegStatusBean();
         sysRegProgressBean = new org.sola.clients.beans.systematicregistration.SysRegProgressBean();
+        sysRegProductionBean = new org.sola.clients.beans.systematicregistration.SysRegProductionBean();
+        searchParams1 = new org.sola.clients.beans.application.LodgementViewParamsBean();
         reportViewerPanel = new org.sola.clients.swing.ui.reports.ReportViewerPanel();
         labHeader = new javax.swing.JLabel();
         txtFromDate = new javax.swing.JFormattedTextField();
@@ -305,8 +318,20 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
         return sysRegProgressBean;
     }
 
+    private boolean checkMonday(Date finalFrom) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(finalFrom);
+        System.out.println("GIORNO SETTIMANA  "+cal.get(Calendar.DAY_OF_WEEK));
+        boolean monday = cal.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY;
+        if (monday==false) {
+            MessageUtility.displayMessage(ClientMessage.DATE_MONDAY);
+            return monday;
+        }
+        return monday;
+    }
+
     private void viewReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewReportActionPerformed
-        
+
         Date tmpFrom = (Date) txtFromDate.getValue();
         Date tmpTo = (Date) txtFromDate.getValue();
 
@@ -315,11 +340,13 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
         } else {
             tmpFrom = (Date) txtFromDate.getValue();
             searchParams.setFromDate(tmpFrom);
+            searchParams1.setFromDate(tmpFrom);
         }
         if (txtToDate.getValue() == null) {
         } else {
             tmpTo = (Date) txtToDate.getValue();
             searchParams.setToDate(tmpTo);
+            searchParams1.setToDate(tmpTo);
         }
 // added for base reports on sections        
         if (cadastreObjectSearch.getSelectedElement() != null) {
@@ -354,6 +381,13 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
                     showReport(ReportManager.getSysRegProgressReport(sysRegProgressBean, finalFrom, finalTo, tmpLocation));
                 }
 
+                if (finalReport.contentEquals("sysRegProductionBean")) {
+                    if (checkMonday(finalFrom)){
+                     sysRegProductionBean.passParameter(searchParams1);
+                     showReport(ReportManager.getSysRegProductionReport(sysRegProductionBean, finalFrom, finalTo));
+                    }
+                }
+
                 return null;
             }
         };
@@ -371,8 +405,10 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
     private javax.swing.JLabel labToDate;
     private org.sola.clients.swing.ui.reports.ReportViewerPanel reportViewerPanel;
     private org.sola.clients.beans.systematicregistration.SysRegManagementParamsBean searchParams;
+    private org.sola.clients.beans.application.LodgementViewParamsBean searchParams1;
     private javax.swing.JPanel statusPanel;
     private org.sola.clients.beans.systematicregistration.SysRegManagementBean sysRegManagementBean;
+    private org.sola.clients.beans.systematicregistration.SysRegProductionBean sysRegProductionBean;
     private org.sola.clients.beans.systematicregistration.SysRegProgressBean sysRegProgressBean;
     private org.sola.clients.beans.systematicregistration.SysRegStatusBean sysRegStatusBean;
     private org.sola.clients.swing.common.tasks.TaskPanel taskPanel1;

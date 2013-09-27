@@ -709,6 +709,7 @@ public class MainForm extends javax.swing.JFrame {
         menuItemMapPublicDisplay = new javax.swing.JMenuItem();
         menuCertificates = new javax.swing.JMenuItem();
         menuReports = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         menuStatus = new javax.swing.JMenuItem();
         menuProgress = new javax.swing.JMenuItem();
         menuSpatialUnitGroup = new javax.swing.JMenuItem();
@@ -1091,6 +1092,14 @@ public class MainForm extends javax.swing.JFrame {
 
         menuReports.setText(bundle.getString("MainForm.menuReports.text")); // NOI18N
 
+        jMenuItem1.setText(bundle.getString("MainForm.jMenuItem1.text")); // NOI18N
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuReports.add(jMenuItem1);
+
         menuStatus.setText(bundle.getString("MainForm.menuStatus.text")); // NOI18N
         menuStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1322,6 +1331,10 @@ public class MainForm extends javax.swing.JFrame {
          loadSourcesPanel();
     }//GEN-LAST:event_menuLoadScannedDocActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+          openSysRegManagementParamsForm("sysRegProductionBean");
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     private void editPassword() {
         showPasswordPanel();
     }
@@ -1358,6 +1371,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton btnSetPassword;
     private javax.swing.JButton btnShowDashboard;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;

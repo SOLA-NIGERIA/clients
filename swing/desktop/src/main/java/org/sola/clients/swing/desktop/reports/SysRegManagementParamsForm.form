@@ -10,6 +10,10 @@
     </Component>
     <Component class="org.sola.clients.beans.systematicregistration.SysRegProgressBean" name="sysRegProgressBean">
     </Component>
+    <Component class="org.sola.clients.beans.systematicregistration.SysRegProductionBean" name="sysRegProductionBean">
+    </Component>
+    <Component class="org.sola.clients.beans.application.LodgementViewParamsBean" name="searchParams1">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>

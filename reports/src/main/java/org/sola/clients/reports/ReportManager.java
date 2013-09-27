@@ -722,4 +722,37 @@ public class ReportManager {
             return null;
         }
     }
+    
+        //      /**
+//     * Generates and displays <b>Sys Reg Production</b> report.
+//     *
+//     * @param appBean Application bean containing data for the report.
+//     */
+    public static JasperPrint getSysRegProductionReport(SysRegProductionBean productionBean, Date dateFrom, Date dateTo) {
+        
+        HashMap inputParameters = new HashMap();
+        Date currentdate = new Date(System.currentTimeMillis());
+        inputParameters.put("REPORT_LOCALE", Locale.getDefault());
+
+        inputParameters.put("CURRENT_DATE", currentdate);
+
+        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
+        inputParameters.put("STATE", "Kaduna");
+        inputParameters.put("LGA", "");
+        inputParameters.put("FROMDATE", dateFrom);
+        inputParameters.put("TODATE", dateTo);
+        SysRegProductionBean[] beans = new SysRegProductionBean[1];
+        beans[0] = productionBean;
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+        try {
+            return JasperFillManager.fillReport(
+                    ReportManager.class.getResourceAsStream("/reports/SysRegProduction.jasper"),
+                    inputParameters, jds);
+        } catch (JRException ex) {
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        }
+    }
+    
 }
