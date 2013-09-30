@@ -42,7 +42,16 @@ public class SysRegCertificatesBean extends AbstractIdBean {
     private String propLocation;
     private BigDecimal size;
     private BigDecimal groundRent;
+    private String owners;
 
+    public String getOwners() {
+        return owners;
+    }
+
+    public void setOwners(String owners) {
+        this.owners = owners;
+    }
+    
     public BigDecimal getGroundRent() {
         return groundRent;
     }

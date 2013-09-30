@@ -1062,7 +1062,8 @@ public class PropertyPanel extends ContentPanel {
             return;            
         }
         
-        if (applicationService.getRequestTypeCode().contains("systematicRegn")) {            
+        if (applicationService.getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)||
+              applicationService.getRequestTypeCode().contains(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)  ) {            
            calculateAreaSysreg();
                
             for (int i = 0, n = this.baUnitBean1.getCadastreObjectFilteredList().size(); i < n; i++) {

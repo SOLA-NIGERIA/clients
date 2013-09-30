@@ -221,7 +221,8 @@ public class ApplicationPanel extends ContentPanel {
      */
     private void postInit() {
         this.btnSearchUpiWardParcel.setVisible(false);
-
+        this.btnCertificate.setEnabled(false);
+        
 //        disabled for systematic registration in nigeria
 //    ----------------------------
         this.btnCalculateFee.setVisible(false);
@@ -382,8 +383,10 @@ public class ApplicationPanel extends ContentPanel {
             documentsPanel.setAllowEdit(editAllowed);
             btnAddAgent.setEnabled(editAllowed);
             btnSearchUpiWardParcel.setEnabled(editAllowed);
-            if (appBean.getStatusCode().equals("approved")) {
+            if (appBean.getStatusCode().equals(StatusConstants.APPROVED)&&appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
                 btnCertificate.setEnabled(true);
+            } else {
+                btnCertificate.setVisible(false);
             }
         } else {
             if (!SecurityBean.isInRole(RolesConstants.APPLICATION_CREATE_APPS)) {
@@ -717,22 +720,22 @@ public class ApplicationPanel extends ContentPanel {
                 TaskManager.getInstance().runTask(t);
             } // Cadastre change services
             else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_CADASTRE_CHANGE)
+                    ||requestType.equalsIgnoreCase(RequestTypeBean.CODE_MAP_EXISTINGPARCEL)
                     || requestType.equalsIgnoreCase(RequestTypeBean.CODE_CADASTRE_REDEFINITION)) {
 
                 if (appBean.getPropertyList().getFilteredList().size() == 1) {
-                    SolaTask t = new SolaTask<Void, Void>() {
+                        SolaTask t = new SolaTask<Void, Void>() {
 
-                        @Override
-                        public Void doTask() {
-                            setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_CADASTRE_CHANGE));
-                            CadastreTransactionMapPanel form = new CadastreTransactionMapPanel(
-                                    appBean, service, appBean.getPropertyList().getFilteredList().get(0));
-                            getMainContentPanel().addPanel(form, MainContentPanel.CARD_CADASTRECHANGE, true);
-                            return null;
-                        }
-                    };
-                    TaskManager.getInstance().runTask(t);
-
+                            @Override
+                            public Void doTask() {
+                                setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_CADASTRE_CHANGE));
+                                CadastreTransactionMapPanel form = new CadastreTransactionMapPanel(
+                                        appBean, service, appBean.getPropertyList().getFilteredList().get(0));
+                                getMainContentPanel().addPanel(form, MainContentPanel.CARD_CADASTRECHANGE, true);
+                                return null;
+                            }
+                        };
+                        TaskManager.getInstance().runTask(t);
                 } else if (appBean.getPropertyList().getFilteredList().size() > 1) {
                     PropertiesList propertyListForm = new PropertiesList(appBean.getPropertyList());
                     propertyListForm.setLocationRelativeTo(this);
@@ -892,11 +895,11 @@ public class ApplicationPanel extends ContentPanel {
 
         String[] params = {"" + nrPropRequired};
         if (appBean.getPropertyList().size() < nrPropRequired) {
-           if (!appBean.getServiceList().get(0).getRequestTypeCode().contains("cadastreChange")){ 
+//           if (!appBean.getServiceList().get(0).getRequestTypeCode().contains("cadastreChange")){ 
             if (MessageUtility.displayMessage(ClientMessage.APPLICATION_ATLEAST_PROPERTY_REQUIRED, params) == MessageUtility.BUTTON_TWO) {
                 return false;
             }
-           }
+//           }
         }
         
         
@@ -929,6 +932,7 @@ public class ApplicationPanel extends ContentPanel {
                 if ((applicationID == null || applicationID.equals(""))) {
                     if (!appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)
                         && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_CADASTRE_CHANGE)
+                            && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_MAP_EXISTINGPARCEL)
                             && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_DISPUTE))
                     {
                      showReport(ReportManager.getLodgementNoticeReport(appBean));
@@ -1017,9 +1021,9 @@ public class ApplicationPanel extends ContentPanel {
         btnPrintFee = new javax.swing.JButton();
         btnPrintStatusReport = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JToolBar.Separator();
-        btnCertificate = new javax.swing.JButton();
-        jSeparator7 = new javax.swing.JToolBar.Separator();
         dropDownButton1 = new org.sola.clients.swing.common.controls.DropDownButton();
+        jSeparator7 = new javax.swing.JToolBar.Separator();
+        btnCertificate = new javax.swing.JButton();
         tabbedControlMain = new javax.swing.JTabbedPane();
         contactPanel = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
@@ -1400,6 +1404,17 @@ public class ApplicationPanel extends ContentPanel {
         jSeparator5.setName("jSeparator5"); // NOI18N
         jToolBar3.add(jSeparator5);
 
+        dropDownButton1.setText(bundle.getString("ApplicationPanel.dropDownButton1.text")); // NOI18N
+        dropDownButton1.setComponentPopupMenu(popupApplicationActions);
+        dropDownButton1.setFocusable(false);
+        dropDownButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        dropDownButton1.setName("dropDownButton1"); // NOI18N
+        dropDownButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar3.add(dropDownButton1);
+
+        jSeparator7.setName(bundle.getString("ApplicationPanel.jSeparator7.name")); // NOI18N
+        jToolBar3.add(jSeparator7);
+
         btnCertificate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/approve1.png"))); // NOI18N
         btnCertificate.setText(bundle.getString("ApplicationPanel.btnCertificate.text")); // NOI18N
         btnCertificate.setFocusable(false);
@@ -1412,17 +1427,6 @@ public class ApplicationPanel extends ContentPanel {
             }
         });
         jToolBar3.add(btnCertificate);
-
-        jSeparator7.setName(bundle.getString("ApplicationPanel.jSeparator7.name")); // NOI18N
-        jToolBar3.add(jSeparator7);
-
-        dropDownButton1.setText(bundle.getString("ApplicationPanel.dropDownButton1.text")); // NOI18N
-        dropDownButton1.setComponentPopupMenu(popupApplicationActions);
-        dropDownButton1.setFocusable(false);
-        dropDownButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        dropDownButton1.setName("dropDownButton1"); // NOI18N
-        dropDownButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar3.add(dropDownButton1);
 
         tabbedControlMain.setName("tabbedControlMain"); // NOI18N
         tabbedControlMain.setPreferredSize(new java.awt.Dimension(440, 370));

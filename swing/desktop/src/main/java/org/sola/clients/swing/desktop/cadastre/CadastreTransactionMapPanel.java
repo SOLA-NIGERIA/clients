@@ -94,6 +94,7 @@ public class CadastreTransactionMapPanel extends ContentPanel {
         this.mapControl = ControlsBundleForTransaction.getInstance(
                 applicationService.getRequestType().getCode(), this.applicationBean, 
                 this.applicationService.getId(), this.getBaUnitId(), getTargetCadastreObjectType());
+        
         this.mapControl.setReadOnly(!this.applicationService.isManagementAllowed());
     }
     

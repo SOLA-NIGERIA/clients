@@ -488,8 +488,6 @@ public class ApplicationBean extends ApplicationSummaryBean {
 //               IN CASE OF SYSTEMATIC REGISTRATION CLAIM IT IS REQUIRED AGAIN
                for (Iterator<ApplicationServiceBean> it = serviceList.iterator(); it.hasNext();) {
                     ApplicationServiceBean appService = it.next();
-                    System.out.println("appService.getRequestTypeCode() " + appService.getRequestTypeCode());
-
                     if (requestTypeBean.getCode().equals(appService.getRequestTypeCode())&& requestTypeBean.getCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
                         MessageUtility.displayMessage(ClientMessage.APPLICATION_ALREADYSELECTED_SERVICE);
                         return;

@@ -65,6 +65,8 @@ public class RequestTypeBean extends AbstractCodeBean {
     public static final String CODES_FOR_SYSREG = "ownership stateOwnership mortgage lease caveat regnDeeds regnPowerOfAttorney";
     public static final String CODE_DISPUTE = "dispute";
     public static final String CODE_DISPUTE_VIEW = "DisputeView";
+    public static final String CODE_MAP_EXISTINGPARCEL = "mapExistingParcel";
+
     
     public static final String NR_DAYS_TO_COMPLETE_PROPERTY = "nrDaysToComplete";
     public static final String NR_PROPERTIES_REQUIRED_PROPERTY = "nrPropertiesRequired";

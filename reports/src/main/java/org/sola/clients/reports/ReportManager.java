@@ -544,6 +544,7 @@ public class ReportManager {
         String me ="/images/sola/Picture1.png";       
         String appNr = null;
         String claimant = null;
+        String owners = null;
         String address = null;
         Date lodgingDate = null;
         String timeToDevelop = null;
@@ -557,25 +558,25 @@ public class ReportManager {
         appNr =    appBaunit.getNr();
         claimant = appBean.getContactPerson().getFullName();
         address =  appBean.getContactPerson().getAddress().getDescription();
+        owners = appBaunit.getOwners();
         lodgingDate = appBean.getLodgingDatetime();
         commencingDate = appBaunit.getCommencingDate();
         size = appBaunit.getSize();
         landUse = appBaunit.getLandUse();
         propLocation = baUnitBean.getLocation();
-        
         if (! baUnitBean.isIsDeveloped()) {
           timeToDevelop = baUnitBean.getYearsForDev().toString();
           valueForImprov = baUnitBean.getValueToImp().toString();      
         }
         term = baUnitBean.getTerm().toString();
         groundRent = appBaunit.getGroundRent().toString();
-
+        
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("LOCATION", location);
         inputParameters.put("AREA", location);
         inputParameters.put("APP_NR", appNr);
-        inputParameters.put("CLIENT_NAME", claimant);
+        inputParameters.put("CLIENT_NAME", owners);
         inputParameters.put("ADDRESS", address);
         inputParameters.put("LODGING_DATE", lodgingDate);
         inputParameters.put("COMMENCING_DATE", commencingDate);
