@@ -30,11 +30,13 @@ package org.sola.clients.swing.desktop.administrative;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.validation.groups.Default;
+import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.administrative.RrrShareBean;
 import org.sola.clients.beans.administrative.validation.OwnershipValidationGroup;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
+import org.sola.clients.beans.referencedata.RequestTypeBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.swing.common.LafManager;
 import org.sola.clients.swing.desktop.MainForm;
@@ -65,11 +67,11 @@ public class OwnershipPanel extends ContentPanel {
         }
     }
     
+    private BaUnitBean baunitBean;
     private ApplicationBean applicationBean;
     private ApplicationServiceBean appService;
     private RrrBean.RRR_ACTION rrrAction;
     public static final String UPDATED_RRR = "updatedRRR";
-    public static final String SYS_REG = "systematicRegn";
     
     private DocumentsManagementExtPanel createDocumentsPanel() {
         if (rrrBean == null) {
@@ -100,6 +102,24 @@ public class OwnershipPanel extends ContentPanel {
             ApplicationServiceBean applicationService, RrrBean.RRR_ACTION rrrAction) {
 
         this.applicationBean = applicationBean;
+        this.appService = applicationService;
+        this.rrrAction = rrrAction;
+        prepareRrrBean(rrrBean, rrrAction);
+    
+        initComponents();
+
+        customizeForm();
+        
+        
+        customizeSharesButtons(null);
+        saveRrrState();
+    }
+    
+     public OwnershipPanel(RrrBean rrrBean, ApplicationBean applicationBean, 
+            ApplicationServiceBean applicationService, RrrBean.RRR_ACTION rrrAction, BaUnitBean baunitBean) {
+
+        this.applicationBean = applicationBean;
+        this.baunitBean = baunitBean;
         this.appService = applicationService;
         this.rrrAction = rrrAction;
         prepareRrrBean(rrrBean, rrrAction);
@@ -159,7 +179,7 @@ public class OwnershipPanel extends ContentPanel {
 
     private void customizeForm() {
         String stringTitle = rrrBean.getRrrType().getDisplayValue();
-        if (appService.getRequestType().getCode().contentEquals(SYS_REG)){
+        if (appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){
            stringTitle = stringTitle+" "+ MessageUtility.getLocalizedMessage(
                             ClientMessage.SYSTEMATIC_REGISTRATION_CLAIM).getMessage(); 
            this.groupPanel1.setTitleText(this.groupPanel1.getTitleText()+" "+MessageUtility.getLocalizedMessage(
@@ -167,6 +187,10 @@ public class OwnershipPanel extends ContentPanel {
            this.tableShares.getColumnModel().getColumn(0).setHeaderValue(MessageUtility.getLocalizedMessage(
                             ClientMessage.SYSTEMATIC_REGISTRATION_CLAIMANT).getMessage());
 
+        }
+         if (appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)){
+           this.txtRegDatetime.setValue(null);
+           this.rrrBean.setExpirationDate(this.baunitBean.getExpirationDate());
         }
            
         headerPanel.setTitleText(stringTitle);
@@ -196,7 +220,7 @@ public class OwnershipPanel extends ContentPanel {
     }
 
     private void openShareForm(RrrShareBean shareBean, RrrBean.RRR_ACTION rrrAction) {
-         if (appService.getRequestType().getCode().contentEquals(SYS_REG)){
+         if (appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){
           SharePanel shareForm = new SharePanel(shareBean, rrrAction, appService, applicationBean, rrrBean);
           ShareFormListener listener = new ShareFormListener();
           shareForm.addPropertyChangeListener(SharePanel.UPDATED_RRR_SHARE, listener);

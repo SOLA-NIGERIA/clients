@@ -499,6 +499,7 @@ public class ApplicationPanel extends ContentPanel {
      * Disables or enables buttons and fields related to the property list management for systematic registration needs.
      */
     private void customizeSysReg() {
+        if (appBean.getServiceList().size()>0&&appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){
                     this.btnSearchUpiWardParcel.setVisible(true);
                     this.txtFirstPart.setEditable(false);
                     this.txtLastPart.setEditable(false);
@@ -509,6 +510,7 @@ public class ApplicationPanel extends ContentPanel {
                         this.jPanel17.setVisible(false);  
                         this.jPanel18.setVisible(false);  
                     } 
+        }
     }
     
     /**

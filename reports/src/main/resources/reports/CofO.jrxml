@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="org.sola.clients.reports.locale.CofO">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="104"/>
-	<property name="ireport.y" value="110"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<subDataset name="dataset1">
 		<parameter name="AREA" class="java.lang.Object">
 			<parameterDescription><![CDATA[]]></parameterDescription>
@@ -74,6 +74,7 @@
 	<parameter name="PROP_LOCATION" class="java.lang.String"/>
 	<parameter name="SIZE" class="java.math.BigDecimal"/>
 	<parameter name="GROUND_RENT" class="java.lang.String"/>
+	<parameter name="REFNR" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -242,7 +243,7 @@ or  other person appointed by him
 				<text><![CDATA[Whose address is:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="104" y="62" width="319" height="20"/>
+				<reportElement x="104" y="62" width="327" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -319,6 +320,14 @@ or  other person appointed by him
 				<textElement/>
 				<text><![CDATA[purpose]]></text>
 			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="431" y="61" width="114" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Book Antiqua" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["No "+$P{REFNR}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="802">
 			<frame>

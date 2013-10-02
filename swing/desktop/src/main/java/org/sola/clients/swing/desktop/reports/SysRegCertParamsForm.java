@@ -34,6 +34,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,6 +51,7 @@ import org.sola.clients.beans.digitalarchive.DocumentBean;
 import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.systematicregistration.SysRegCertificatesBean;
 import org.sola.clients.beans.systematicregistration.SysRegCertificatesListBean;
+import org.sola.clients.beans.validation.ValidationResultBean;
 import org.sola.clients.reports.ReportManager;
 import org.sola.clients.swing.common.controls.CalendarForm;
 import org.sola.clients.swing.desktop.MainForm;
@@ -298,15 +300,18 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             String parcelLabel = baUnit.getCadastreObjectList().get(0).getNameLastpart().toString() + '/' + baUnit.getCadastreObjectList().get(0).getNameFirstpart().toString();
             parcelLabel = parcelLabel.replace('/', '-');
             String featureImageFileName = this.cachePath + parcelLabel + ".png";
-
-            showReport(ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName));
-
-//            showReport(ReportManager.getBaUnitReport(getBaUnit(baUnitId)));
-//            showReport(ReportManager.getSysRegCertificatesReport(baUnit,tmpLocation, applicationBean, appBaunit));
-
-            FileUtility.deleteFileFromCache(parcelLabel + ".png");
-
-            i = i + 1;
+            
+            File file = new File(featureImageFileName);
+            
+            if (file.exists()) {
+//                MessageUtility.displayMessage(ClientMessage.TITLE_ALREADY_GENERATED,
+//                new Object[]{parcelLabel});
+//              
+//            } else {
+                showReport(ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName));
+                FileUtility.deleteFileFromCache(parcelLabel + ".png");
+                i = i + 1;
+            }
         }
         if (i == 0) {
             MessageUtility.displayMessage(ClientMessage.NO_CERTIFICATE_GENERATION);

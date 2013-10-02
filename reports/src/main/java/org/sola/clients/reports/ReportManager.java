@@ -545,6 +545,7 @@ public class ReportManager {
         String appNr = null;
         String claimant = null;
         String owners = null;
+        String title = null;
         String address = null;
         Date lodgingDate = null;
         String timeToDevelop = null;
@@ -559,16 +560,23 @@ public class ReportManager {
         claimant = appBean.getContactPerson().getFullName();
         address =  appBean.getContactPerson().getAddress().getDescription();
         owners = appBaunit.getOwners();
+        title  =  appBaunit.getTitle();
         lodgingDate = appBean.getLodgingDatetime();
         commencingDate = appBaunit.getCommencingDate();
         size = appBaunit.getSize();
         landUse = appBaunit.getLandUse();
         propLocation = baUnitBean.getLocation();
         if (! baUnitBean.isIsDeveloped()) {
-          timeToDevelop = baUnitBean.getYearsForDev().toString();
-          valueForImprov = baUnitBean.getValueToImp().toString();      
+          if (baUnitBean.getYearsForDev()!=null) {
+           timeToDevelop = baUnitBean.getYearsForDev().toString();
+          }
+          if (baUnitBean.getValueToImp()!=null) {
+           valueForImprov = baUnitBean.getValueToImp().toString();
+          } 
         }
-        term = baUnitBean.getTerm().toString();
+        if (baUnitBean.getTerm()!=null) {
+           term = baUnitBean.getTerm().toString();
+        }
         groundRent = appBaunit.getGroundRent().toString();
         
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
@@ -586,6 +594,7 @@ public class ReportManager {
         inputParameters.put("LAND_USE", landUse);
         inputParameters.put("PROP_LOCATION", propLocation);
         inputParameters.put("SIZE", size);
+        inputParameters.put("REFNR", title);
         inputParameters.put("GROUND_RENT", groundRent);
         inputParameters.put("IMG_URL", ReportManager.class.getResourceAsStream(me));
         inputParameters.put("MAP_IMAGE", featureImageFileName);

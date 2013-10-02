@@ -660,7 +660,6 @@ public class MainForm extends javax.swing.JFrame {
         applicationsMain = new javax.swing.JToolBar();
         btnShowDashboard = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
-        btnLoadSources = new javax.swing.JButton();
         btnNewApplication = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
         btnSearchApplications = new javax.swing.JButton();
@@ -671,6 +670,7 @@ public class MainForm extends javax.swing.JFrame {
         btnManageParties = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnOpenMap = new javax.swing.JButton();
+        btnLoadSources = new javax.swing.JButton();
         btnSetPassword = new javax.swing.JButton();
         statusPanel = new javax.swing.JPanel();
         labStatus = new javax.swing.JLabel();
@@ -741,18 +741,6 @@ public class MainForm extends javax.swing.JFrame {
         });
         applicationsMain.add(btnShowDashboard);
         applicationsMain.add(jSeparator2);
-
-        btnLoadSources.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/document-task.png"))); // NOI18N
-        btnLoadSources.setText(bundle.getString("MainForm.btnLoadSources.text")); // NOI18N
-        btnLoadSources.setFocusable(false);
-        btnLoadSources.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        btnLoadSources.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnLoadSources.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoadSourcesActionPerformed(evt);
-            }
-        });
-        applicationsMain.add(btnLoadSources);
 
         btnNewApplication.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/new.png"))); // NOI18N
         btnNewApplication.setText(bundle.getString("MainForm.btnNewApplication.text")); // NOI18N
@@ -837,6 +825,18 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         applicationsMain.add(btnOpenMap);
+
+        btnLoadSources.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/document-task.png"))); // NOI18N
+        btnLoadSources.setText(bundle.getString("MainForm.btnLoadSources.text")); // NOI18N
+        btnLoadSources.setFocusable(false);
+        btnLoadSources.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        btnLoadSources.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnLoadSources.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadSourcesActionPerformed(evt);
+            }
+        });
+        applicationsMain.add(btnLoadSources);
 
         btnSetPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/lock--pencil.png"))); // NOI18N
         btnSetPassword.setText(bundle.getString("MainForm.btnSetPassword.text")); // NOI18N

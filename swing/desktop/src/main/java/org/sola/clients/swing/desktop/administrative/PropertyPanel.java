@@ -36,6 +36,7 @@ import java.beans.PropertyChangeListener;
 import java.math.BigDecimal;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.geotools.swing.extended.exception.InitializeMapException;
 import org.sola.clients.beans.administrative.*;
@@ -51,6 +52,7 @@ import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.source.SourceListBean;
 import org.sola.clients.reports.ReportManager;
 import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.controls.CalendarForm;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.MainForm;
@@ -107,7 +109,7 @@ public class PropertyPanel extends ContentPanel {
     private PropertyChangeListener newPropertyWizardListener;
     public BaUnitBean whichBaUnitSelected;
     private boolean isBtnNext = false;
-    private Integer term;
+    private Integer term=0;
     int srId= 32632;
 
             
@@ -148,23 +150,28 @@ public class PropertyPanel extends ContentPanel {
     private void getTerm() {
         Integer term=0;
         String textTerm;
-        this.landUse = this.baUnitBean1.getLandUseType().getCode();
-        String nationality = this.applicationBean.getContactPerson().getNationality().toString();
-                
-        if (landUse.startsWith("res")&& nationality.contains("Nigeria")) {
-            term=99;
+        if (applicationService.getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){    
+           
+            this.landUse = this.baUnitBean1.getLandUseType().getCode();
+            String nationality = this.applicationBean.getContactPerson().getNationality().toString();
+
+            if (landUse.startsWith("res")&& nationality.contains("Nigeria")) {
+                term=99;
+            } 
+            else if (landUse.startsWith("bus")&& nationality.contains("Nigeria")) {
+                term = 40;
+            }
+            else  {
+                term = this.term;
+            }
+
+            if (this.landUse != null && term != null ) {
+                        textTerm =term.toString();
+                        this.txtTerm.setText(textTerm);
+            }
         } 
-        else if (landUse.startsWith("bus")&& nationality.contains("Nigeria")) {
-            term = 40;
-        }
-          else  {
-            term = this.term;
-        }
-         
-        if (this.landUse != null && term != null ) {
-                    textTerm =term.toString();
-                    this.txtTerm.setText(textTerm);
-       }
+        
+        
     }
     
     /**
@@ -314,6 +321,10 @@ public class PropertyPanel extends ContentPanel {
                 }
             }
         });
+        
+        if (!(applicationService==null)&& (!applicationService.getRequestTypeCode().contains(RequestTypeBean.CODE_NEW_DIGITAL_TITLE))){    
+          this.pnlRecordExisting.setVisible(false);
+        }
         
         saveBaUnitState();
         
@@ -1014,10 +1025,10 @@ public class PropertyPanel extends ContentPanel {
         } else if (rrrCode.equalsIgnoreCase(RrrBean.CODE_OWNERSHIP)
                 || rrrCode.equalsIgnoreCase(RrrBean.CODE_STATE_OWNERSHIP)
                 || rrrCode.equalsIgnoreCase(RrrBean.CODE_APARTMENT)) {
-            panel = new OwnershipPanel(rrrBean, applicationBean, applicationService, action);
+            panel = new OwnershipPanel(rrrBean, applicationBean, applicationService, action, baUnitBean1);
             cardName = MainContentPanel.CARD_OWNERSHIP;
         } else {
-            panel = new SimpleRightPanel(rrrBean, applicationBean, applicationService, action);
+            panel = new SimpleRightPanel(rrrBean, applicationBean, applicationService, action, baUnitBean1);
         }
         
         panel.addPropertyChangeListener(SimpleRightPanel.UPDATED_RRR, rightFormListener);
@@ -1065,15 +1076,23 @@ public class PropertyPanel extends ContentPanel {
         if (applicationService.getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)||
               applicationService.getRequestTypeCode().contains(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)  ) {            
            calculateAreaSysreg();
-               
+        }
+        
+        
+        if (applicationService.getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){    
             for (int i = 0, n = this.baUnitBean1.getCadastreObjectFilteredList().size(); i < n; i++) {
-              if (!this.baUnitBean1.getCadastreObjectFilteredList().get(i).getNameLastpart().equals(nameLastPart)||!this.baUnitBean1.getCadastreObjectFilteredList().get(i).getNameFirstpart().equals(nameFirstPart)) {
+             if (!this.baUnitBean1.getCadastreObjectFilteredList().get(i).getNameLastpart().equals(nameLastPart)||!this.baUnitBean1.getCadastreObjectFilteredList().get(i).getNameFirstpart().equals(nameFirstPart)) {
                 MessageUtility.displayMessage(ClientMessage.CHECK_UPIWARDCODE_PROPERTY_SELECTED);
                 return;
               }
             } 
-           
-        }        
+            if (this.txtTerm.getText()==null||this.txtTerm.getText()==""||this.txtTerm.getText().isEmpty()){
+                java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
+                MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_FIELDS,
+                            new Object[]{bundle.getString("PropertyPanel.lblTerm.text")});
+                return;  
+            }
+         }
         
         if (txtArea.isEditable() || isBtnNext) {
             
@@ -1346,6 +1365,15 @@ public class PropertyPanel extends ContentPanel {
         txtName = new javax.swing.JTextField();
         groupPanel1 = new org.sola.clients.swing.ui.GroupPanel();
         jLabel5 = new javax.swing.JLabel();
+        pnlRecordExisting = new javax.swing.JPanel();
+        txtTitle = new javax.swing.JTextField();
+        lblCommencing = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
+        lblExpiring = new javax.swing.JLabel();
+        txtCommencing = new javax.swing.JFormattedTextField();
+        txtExpiring = new javax.swing.JFormattedTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableParcels = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
@@ -1750,7 +1778,7 @@ public class PropertyPanel extends ContentPanel {
                 .add(jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jScrollPane9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(lblLocation, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 166, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -1801,7 +1829,6 @@ public class PropertyPanel extends ContentPanel {
         documentsPanel1.setName("documentsPanel1"); // NOI18N
 
         jPanel13.setName("jPanel13"); // NOI18N
-        jPanel13.setLayout(new java.awt.GridLayout(1, 5, 12, 0));
 
         jPanel9.setName("jPanel9"); // NOI18N
 
@@ -1829,10 +1856,8 @@ public class PropertyPanel extends ContentPanel {
                 .add(jLabel2)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(txtLastPart, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
-
-        jPanel13.add(jPanel9);
 
         jPanel10.setName("jPanel10"); // NOI18N
 
@@ -1851,7 +1876,7 @@ public class PropertyPanel extends ContentPanel {
             jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel10Layout.createSequentialGroup()
                 .add(jLabel1)
-                .add(78, 78, Short.MAX_VALUE))
+                .add(53, 53, Short.MAX_VALUE))
             .add(txtFirstPart)
         );
         jPanel10Layout.setVerticalGroup(
@@ -1860,10 +1885,8 @@ public class PropertyPanel extends ContentPanel {
                 .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(txtFirstPart, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
-
-        jPanel13.add(jPanel10);
 
         jPanel11.setName("jPanel11"); // NOI18N
 
@@ -1891,10 +1914,8 @@ public class PropertyPanel extends ContentPanel {
                 .add(jLabel4)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(txtEstateType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
-
-        jPanel13.add(jPanel11);
 
         jPanel6.setName("jPanel6"); // NOI18N
 
@@ -1922,10 +1943,8 @@ public class PropertyPanel extends ContentPanel {
                 .add(jLabel7)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(txtBaUnitStatus, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
-
-        jPanel13.add(jPanel6);
 
         areaPanel.setName(bundle.getString("PropertyPanel.areaPanel.name_1")); // NOI18N
 
@@ -1946,11 +1965,11 @@ public class PropertyPanel extends ContentPanel {
         areaPanel.setLayout(areaPanelLayout);
         areaPanelLayout.setHorizontalGroup(
             areaPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(txtArea, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+            .add(txtArea)
             .add(areaPanelLayout.createSequentialGroup()
                 .add(1, 1, 1)
                 .add(labArea)
-                .addContainerGap())
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         areaPanelLayout.setVerticalGroup(
             areaPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -1958,10 +1977,32 @@ public class PropertyPanel extends ContentPanel {
                 .add(labArea)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(txtArea, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
-        jPanel13.add(areaPanel);
+        org.jdesktop.layout.GroupLayout jPanel13Layout = new org.jdesktop.layout.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel13Layout.createSequentialGroup()
+                .add(jPanel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(12, 12, 12)
+                .add(jPanel10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(12, 12, 12)
+                .add(jPanel11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(12, 12, 12)
+                .add(jPanel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(12, 12, 12)
+                .add(areaPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(jPanel11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(jPanel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(areaPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(jPanel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        );
 
         txtName.setName("txtName"); // NOI18N
 
@@ -1974,6 +2015,109 @@ public class PropertyPanel extends ContentPanel {
         jLabel5.setText(bundle.getString("PropertyPanel.jLabel5.text")); // NOI18N
         jLabel5.setName("jLabel5"); // NOI18N
 
+        pnlRecordExisting.setName(bundle.getString("PropertyPanel.pnlRecordExisting.name")); // NOI18N
+
+        txtTitle.setName(bundle.getString("PropertyPanel.txtTitle.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${name}"), txtTitle, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        lblCommencing.setText(bundle.getString("PropertyPanel.lblCommencing.text")); // NOI18N
+        lblCommencing.setName(bundle.getString("PropertyPanel.lblCommencing.name")); // NOI18N
+
+        lblTitle.setText(bundle.getString("PropertyPanel.lblTitle.text")); // NOI18N
+        lblTitle.setName(bundle.getString("PropertyPanel.lblTitle.name")); // NOI18N
+
+        lblExpiring.setText(bundle.getString("PropertyPanel.lblExpiring.text")); // NOI18N
+        lblExpiring.setName(bundle.getString("PropertyPanel.lblExpiring.name")); // NOI18N
+
+        txtCommencing.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        txtCommencing.setText(bundle.getString("PropertyPanel.txtCommencing.text")); // NOI18N
+        txtCommencing.setName(bundle.getString("PropertyPanel.txtCommencing.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${creationDate}"), txtCommencing, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        bindingGroup.addBinding(binding);
+
+        txtExpiring.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        txtExpiring.setText(bundle.getString("PropertyPanel.txtExpiring.text")); // NOI18N
+        txtExpiring.setName(bundle.getString("PropertyPanel.txtExpiring.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${expirationDate}"), txtExpiring, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        bindingGroup.addBinding(binding);
+
+        txtExpiring.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtExpiringActionPerformed(evt);
+            }
+        });
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
+        jButton1.setText(bundle.getString("PropertyPanel.jButton1.text_1")); // NOI18N
+        jButton1.setName(bundle.getString("PropertyPanel.jButton1.name_1")); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
+        jButton2.setText(bundle.getString("PropertyPanel.jButton2.text")); // NOI18N
+        jButton2.setName(bundle.getString("PropertyPanel.jButton2.name")); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout pnlRecordExistingLayout = new org.jdesktop.layout.GroupLayout(pnlRecordExisting);
+        pnlRecordExisting.setLayout(pnlRecordExistingLayout);
+        pnlRecordExistingLayout.setHorizontalGroup(
+            pnlRecordExistingLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(pnlRecordExistingLayout.createSequentialGroup()
+                .add(pnlRecordExistingLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblTitle)
+                    .add(txtTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 175, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(pnlRecordExistingLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblCommencing, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 116, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(pnlRecordExistingLayout.createSequentialGroup()
+                        .add(txtCommencing, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 137, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 26, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(pnlRecordExistingLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(pnlRecordExistingLayout.createSequentialGroup()
+                        .add(txtExpiring, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 26, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(lblExpiring, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlRecordExistingLayout.setVerticalGroup(
+            pnlRecordExistingLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, pnlRecordExistingLayout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(pnlRecordExistingLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jButton1)
+                    .add(jButton2)
+                    .add(pnlRecordExistingLayout.createSequentialGroup()
+                        .add(pnlRecordExistingLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, pnlRecordExistingLayout.createSequentialGroup()
+                                .add(pnlRecordExistingLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                    .add(lblCommencing)
+                                    .add(lblExpiring))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, pnlRecordExistingLayout.createSequentialGroup()
+                                .add(lblTitle)
+                                .add(11, 11, 11)))
+                        .add(pnlRecordExistingLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(pnlRecordExistingLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                .add(txtCommencing, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(txtTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(txtExpiring, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                .add(16, 16, 16))
+        );
+
         org.jdesktop.layout.GroupLayout jPanel7Layout = new org.jdesktop.layout.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -1981,28 +2125,31 @@ public class PropertyPanel extends ContentPanel {
             .add(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .add(jPanel13, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(documentsPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .add(jToolBar4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(txtName)
+                    .add(jPanel12, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(groupPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jPanel7Layout.createSequentialGroup()
                         .add(jLabel5)
                         .add(0, 0, Short.MAX_VALUE))
-                    .add(jPanel12, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(groupPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(pnlRecordExisting, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(1, 1, 1)
+                .add(pnlRecordExisting, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 62, Short.MAX_VALUE)
+                .add(28, 28, 28)
                 .add(jPanel12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel5)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(txtName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                .add(txtName)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(groupPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(4, 4, 4)
@@ -3083,6 +3230,26 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
         addParcel(false);
     }//GEN-LAST:event_btnSearchParcelActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        showCalendar(this.txtCommencing);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        showCalendar(this.txtExpiring);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtExpiringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtExpiringActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtExpiringActionPerformed
+    
+    private void showCalendar(JFormattedTextField dateField) {
+        CalendarForm calendar = new CalendarForm(null, true, dateField);
+        calendar.setVisible(true);
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel areaPanel;
     private org.sola.clients.beans.administrative.BaUnitAreaBean baUnitAreaBean1;
@@ -3119,6 +3286,8 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.Box.Filler filler4;
     private org.sola.clients.swing.ui.GroupPanel groupPanel1;
     private org.sola.clients.swing.ui.HeaderPanel headerPanel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -3172,10 +3341,13 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JToolBar jToolBar8;
     private javax.swing.JLabel labArea;
     private org.sola.clients.beans.referencedata.LandUseTypeListBean landUseTypeListBean1;
+    private javax.swing.JLabel lblCommencing;
+    private javax.swing.JLabel lblExpiring;
     private javax.swing.JLabel lblFloorNumber;
     private javax.swing.JLabel lblLandUse;
     private javax.swing.JLabel lblLocation;
     private javax.swing.JLabel lblTerm;
+    private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblValueToImprove;
     private javax.swing.JLabel lblYearsToDev;
     private javax.swing.JPanel mapPanel;
@@ -3193,6 +3365,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JMenuItem menuViewRight;
     private javax.swing.JPanel pnlNextButton;
     private javax.swing.JPanel pnlPriorProperties;
+    private javax.swing.JPanel pnlRecordExisting;
     private javax.swing.JPanel pnlToDev;
     private javax.swing.JPopupMenu popupChildBaUnits;
     private javax.swing.JPopupMenu popupNotations;
@@ -3210,7 +3383,9 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JTabbedPane tabsMain;
     private javax.swing.JTextField txtArea;
     private javax.swing.JTextField txtBaUnitStatus;
+    private javax.swing.JFormattedTextField txtCommencing;
     private javax.swing.JTextField txtEstateType;
+    private javax.swing.JFormattedTextField txtExpiring;
     private javax.swing.JTextField txtFirstPart;
     private javax.swing.JTextField txtFloorNumber;
     private javax.swing.JTextField txtLastPart;
@@ -3218,6 +3393,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtNotationText;
     private javax.swing.JTextField txtTerm;
+    private javax.swing.JTextField txtTitle;
     private javax.swing.JTextField txtValueToImprove;
     private javax.swing.JTextField txtYearsToDev;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;

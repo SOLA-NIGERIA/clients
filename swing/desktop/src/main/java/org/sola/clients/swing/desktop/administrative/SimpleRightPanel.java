@@ -29,9 +29,11 @@
  */
 package org.sola.clients.swing.desktop.administrative;
 
+import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
+import org.sola.clients.beans.referencedata.RequestTypeBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.swing.common.LafManager;
 import org.sola.clients.swing.desktop.MainForm;
@@ -47,6 +49,7 @@ import org.sola.clients.swing.ui.source.DocumentsManagementPanel;
 public class SimpleRightPanel extends ContentPanel {
 
     private ApplicationBean appBean;
+    private BaUnitBean baunitBean;
     private ApplicationServiceBean appService;
     private RrrBean.RRR_ACTION rrrAction;
     public static final String UPDATED_RRR = "updatedRRR";
@@ -108,7 +111,36 @@ public class SimpleRightPanel extends ContentPanel {
 
         saveRrrState();
     }
+    
+     /**
+     * Form constructor.
+     *
+     * @param parent Parent form.
+     * @param modal Indicates form modality.
+     * @param rrrBean {@RrrBean} instance to bind on the form.
+     * @param applicationBean {@link ApplicationBean} instance, used to get list
+     * of application documents.
+     * @param rrrAction {@link RrrBean#RRR_ACTION} type, used to customize form
+     * view.
+     */
+    public SimpleRightPanel(RrrBean rrrBean, ApplicationBean applicationBean,
+            ApplicationServiceBean applicationService, RrrBean.RRR_ACTION rrrAction, BaUnitBean baunitBean) {
+        
+        this.baunitBean = baunitBean;
+        this.appBean = applicationBean;
+        this.appService = applicationService;
+        this.rrrAction = rrrAction;
+        prepareRrrBean(rrrBean, rrrAction);
 
+        initComponents();
+
+        headerPanel.setTitleText(rrrBean.getRrrType().getDisplayValue());
+        customizeForm(rrrAction);
+
+        saveRrrState();
+    }
+
+    
     /**
      * Checks provided {@link RrrBean} and makes a copy if needed.
      */
@@ -146,6 +178,10 @@ public class SimpleRightPanel extends ContentPanel {
                 txtNotationText.setText(bundle.getString("SimpleRightPanel.txtNotationText_servitude.text")); // NOI18N
                 this.jPanel1.setVisible(false);
             }
+          if (appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)){
+           this.txtRegDatetime.setValue(null);
+           this.rrrBean.setExpirationDate(this.baunitBean.getExpirationDate());
+          }
         }
 
         if (rrrAction == RrrBean.RRR_ACTION.VIEW) {

@@ -29,10 +29,7 @@ package org.sola.clients.beans.administrative;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import org.jdesktop.observablecollections.ObservableListListener;
@@ -188,6 +185,8 @@ public class BaUnitBean extends BaUnitSummaryBean {
     public static final String LAND_USE_TYPE_PROPERTY = "landUseType";
     public static final String LAND_USE_CODE_PROPERTY = "landUse";
     public static final String FLOORS_PROPERTY = "floorsNumber";
+    public static final String EXPIRATION_DATE_PROPERTY = "expirationDate";
+    public static final String COMMENCING_DATE_PROPERTY = "creationDate";
     
     
     private SolaList<RrrBean> rrrList;
@@ -220,7 +219,25 @@ public class BaUnitBean extends BaUnitSummaryBean {
     private String landUse;
     private String location;
     private Integer floorsNumber;
+    private Date expirationDate;
+    private Date creationDate;
 
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+    
     
     public Integer getFloorsNumber() {
         return floorsNumber;
@@ -838,5 +855,12 @@ public class BaUnitBean extends BaUnitSummaryBean {
         BaUnitBean bean = new BaUnitBean();
         collection.add(bean);
         return collection;
+    }
+    
+     @Override
+    public String toString() {
+        String result = "";
+        result += this.getNameFirstpart()+" "+this.getNameLastpart(); 
+        return result;
     }
 }
