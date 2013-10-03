@@ -136,7 +136,7 @@ public class MapDocumentsPanel extends javax.swing.JPanel {
             //No attachement
             return;
         }
-        if (!documentBean.getExtension().equals(this.recognizedExtensionForImportFile)) {
+        if (!documentBean.getExtension().equalsIgnoreCase(this.recognizedExtensionForImportFile)) {
             //Attachement must be of recognized extension
             return;
         }
