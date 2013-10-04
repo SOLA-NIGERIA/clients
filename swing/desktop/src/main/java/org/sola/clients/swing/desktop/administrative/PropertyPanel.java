@@ -109,8 +109,8 @@ public class PropertyPanel extends ContentPanel {
     private PropertyChangeListener newPropertyWizardListener;
     public BaUnitBean whichBaUnitSelected;
     private boolean isBtnNext = false;
-    private Integer term=0;
-    int srId= 32632;
+    private Integer term;
+    int srId= 32631;
 
             
 
@@ -359,7 +359,8 @@ public class PropertyPanel extends ContentPanel {
      * the {@link BaUnitBean} and other components.
      */
     private void customizeForm() {
-        
+        this.jLabel5.setVisible(false);
+        this.txtName.setVisible(false);
         if (nameFirstPart != null && nameLastPart != null) {
             headerPanel.setTitleText(String.format(
                     resourceBundle.getString("PropertyPanel.existingProperty.Text"),
@@ -1048,6 +1049,8 @@ public class PropertyPanel extends ContentPanel {
         }
         
         SpatialValueAreaBean spatialValueAreaBean = getSpatialValueArea(cadastreObj);
+        
+       if (spatialValueAreaBean != null) { 
         if (spatialValueAreaBean.getCalculatedAreaSize() != null) {            
             if (!spatialValueAreaBean.getCalculatedAreaSize().equals(new BigDecimal(0))) {
                 if (MessageUtility.displayMessage(ClientMessage.BAUNIT_CONFIRM_AREA,
@@ -1055,8 +1058,8 @@ public class PropertyPanel extends ContentPanel {
                     baUnitAreaBean1.setSize(spatialValueAreaBean.getCalculatedAreaSize());
                 }
             }
-        }
-        
+         }
+       }
         tabsMain.setEnabled(true);        
         tabsMain.setSelectedIndex(tabsMain.indexOfComponent(jPanel7));
         txtArea.requestFocus(true);
@@ -1152,6 +1155,10 @@ public class PropertyPanel extends ContentPanel {
                             generator = new MapFeatureImageGenerator(srId);
                         }
 
+                     
+                        
+                        
+                       if (baUnitBean1.getCadastreObjectList().size()>0) { 
                         String parcelLabel = baUnitBean1.getCadastreObjectList().get(0).getNameLastpart().toString()+'/'+baUnitBean1.getCadastreObjectList().get(0).getNameFirstpart().toString();
                         
                         
@@ -1159,6 +1166,7 @@ public class PropertyPanel extends ContentPanel {
                                 baUnitBean1.getCadastreObjectList().get(0).getGeomPolygon(),
                                 parcelLabel, null,
                                 MapFeatureImageGenerator.IMAGE_FORMAT_PNG);
+                       }
                     } catch (InitializeMapException mapEx) {
                         LogUtility.log("Unable to initialize MapFeaureImageGenerator", mapEx);
                     }
@@ -2075,8 +2083,8 @@ public class PropertyPanel extends ContentPanel {
             pnlRecordExistingLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(pnlRecordExistingLayout.createSequentialGroup()
                 .add(pnlRecordExistingLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(lblTitle)
-                    .add(txtTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 175, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(txtTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 175, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lblTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 80, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(pnlRecordExistingLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(lblCommencing, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 116, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)

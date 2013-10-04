@@ -41,6 +41,8 @@ public class DocumentSearchForm extends ContentPanel {
      */
     public DocumentSearchForm() {
         initComponents();
+        this.jTabbedPane1.removeTabAt(jTabbedPane1.indexOfComponent(this.jPanel2));
+        
     }
 
     public org.sola.clients.swing.desktop.source.DocumentSearchPanel getDocumentSearchPanel() {
