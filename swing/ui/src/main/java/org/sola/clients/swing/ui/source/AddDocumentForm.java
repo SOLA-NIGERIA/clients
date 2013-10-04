@@ -84,7 +84,7 @@ public class AddDocumentForm extends javax.swing.JDialog {
         } else{
             tabs.removeTabAt(tabs.indexOfComponent(panelApplicationDocs));
         }
-
+          tabs.removeTabAt(tabs.indexOfComponent(jPanel3));
         documentPanel.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
