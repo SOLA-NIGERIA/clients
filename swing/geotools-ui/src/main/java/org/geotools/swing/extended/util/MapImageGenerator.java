@@ -61,6 +61,8 @@ public class MapImageGenerator {
     private MapContent mapContent;
     private Color textColor = Color.RED;
     private Font textFont = new Font(Font.SANS_SERIF, Font.BOLD, 10);
+	private String textInTheMapCenter = null;
+
 
     /**
      * Constructor of the generator.
@@ -106,6 +108,16 @@ public class MapImageGenerator {
     public void setTextFont(Font textFont) {
         this.textFont = textFont;
     }
+	
+	
+    public String getTextInTheMapCenter() {
+        return textInTheMapCenter;
+    }
+
+    public void setTextInTheMapCenter(String textInTheMapCenter) {
+        this.textInTheMapCenter = textInTheMapCenter;
+    }
+
 
     /**
      * It generates the image.
@@ -182,7 +194,9 @@ public class MapImageGenerator {
         this.drawText(graphics, String.format("%s E", (int) extent.getMaxX()),
                 imageWidth - 100, imageHeight / 2, false);
         graphics.setTransform(originalTransform);
-        
+         if (this.textInTheMapCenter != null){
+            this.drawText(graphics, textInTheMapCenter, imageWidth / 2, imageHeight / 2, true);
+        }
         return bi;
     }
 

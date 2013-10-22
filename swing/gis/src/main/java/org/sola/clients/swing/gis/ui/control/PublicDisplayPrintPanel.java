@@ -4,11 +4,13 @@
  */
 package org.sola.clients.swing.gis.ui.control;
 
+import com.vividsolutions.jts.geom.Point;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import org.geotools.geometry.jts.ReferencedEnvelope;
+import org.geotools.swing.extended.util.GeometryUtility;
 import org.geotools.swing.extended.util.MapImageGenerator;
 import org.geotools.swing.extended.util.Messaging;
 import org.geotools.swing.extended.util.ScalebarGenerator;
@@ -20,6 +22,7 @@ import org.sola.clients.swing.gis.data.PojoDataAccess;
 import org.sola.clients.swing.gis.data.PojoPublicDisplayFeatureSource;
 import org.sola.clients.swing.gis.layer.PojoForPublicDisplayLayer;
 import org.sola.clients.swing.gis.ui.controlsbundle.ControlsBundleForPublicDisplay;
+import org.sola.clients.swing.ui.reports.ReportViewerForm;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.GisMessage;
 import org.sola.common.messaging.MessageUtility;
@@ -122,6 +125,7 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
         String imageFormat = "png";
         MapImageGenerator mapImageGenerator = new MapImageGenerator(
                 this.mapBundle.getMap().getMapContent());
+		mapImageGenerator.setTextInTheMapCenter(this.txtMapCenterLabel.getText());
         //This gives back the absolute location of the map image. 
         String mapImageLocation = mapImageGenerator.getImageAsFileLocation(
                 mapImageWidth, mapImageHeight, scale, dpi, imageFormat);
@@ -212,6 +216,15 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
         }
         envelope.expandBy(10);
         this.mapBundle.getMap().setDisplayArea(envelope);        
+        // Set the label that will be displayed in the middle of the map in the report.
+        
+        Point mapCenterPoint = GeometryUtility.getGeometryFactory().createPoint(
+                this.mapBundle.getMap().getDisplayArea().centre());
+        mapCenterPoint.setSRID(this.mapBundle.getMap().getSrid());
+        this.txtMapCenterLabel.setText(
+                PojoDataAccess.getInstance().getSearchService().getMapCenterLabel(
+                GeometryUtility.getWkbFromGeometry(mapCenterPoint)));
+        
     }
 
     /**
@@ -271,7 +284,9 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
         txtScale = new javax.swing.JTextField();
         cmdCenterMap = new javax.swing.JButton();
         cadastreObjectSearch = new org.sola.clients.swing.ui.cadastre.LocationSearch();
-
+        jLabel4 = new javax.swing.JLabel();
+        txtMapCenterLabel = new javax.swing.JTextField();
+        
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/gis/ui/control/Bundle"); // NOI18N
         jLabel2.setText(bundle.getString("PublicDisplayPrintForm.jLabel2.text")); // NOI18N
 
@@ -307,7 +322,9 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel4.setText(bundle.getString("PublicDisplayPrintPanel.jLabel4.text")); // NOI18N
         cadastreObjectSearch.setText(bundle.getString("PublicDisplayPrintPanel.cadastreObjectSearch.text")); // NOI18N
+        txtMapCenterLabel.setText(bundle.getString("PublicDisplayPrintPanel.txtMapCenterLabel.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -316,8 +333,9 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(txtMapCenterLabel)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(cmdCenterMap)
@@ -325,6 +343,10 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
                                 .addComponent(cmdPrint))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel3)
+                                .addComponent(txtScale, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel2)
                                 .addComponent(labNotificationFrom)
                                 .addComponent(jLabel1)
@@ -332,18 +354,20 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
                                 .addComponent(txtArea)
                                 .addComponent(txtNotificationPeriod)
                                 .addComponent(txtNameLastPart)
-                                .addComponent(cmbLayoutList, 0, 179, Short.MAX_VALUE)
-                                .addComponent(txtScale, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cmbLayoutList, 0, 179, Short.MAX_VALUE))
+                            .addComponent(jLabel4)
+                            .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(labLocation)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNameLastPart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
@@ -357,6 +381,10 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbLayoutList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtMapCenterLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addGap(3, 3, 3)
@@ -400,9 +428,11 @@ public class PublicDisplayPrintPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel labLocation;
     private javax.swing.JLabel labNotificationFrom;
     private javax.swing.JTextField txtArea;
+    private javax.swing.JTextField txtMapCenterLabel;
     private javax.swing.JTextField txtNameLastPart;
     private javax.swing.JTextField txtNotificationPeriod;
     private javax.swing.JTextField txtScale;
