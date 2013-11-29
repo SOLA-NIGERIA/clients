@@ -747,7 +747,7 @@ public class ReportManager {
         inputParameters.put("CURRENT_DATE", currentdate);
 
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
-        inputParameters.put("STATE", "Kaduna");
+        inputParameters.put("STATE", "Kogi");
         inputParameters.put("LGA", "");
         inputParameters.put("FROMDATE", dateFrom);
         inputParameters.put("TODATE", dateTo);
