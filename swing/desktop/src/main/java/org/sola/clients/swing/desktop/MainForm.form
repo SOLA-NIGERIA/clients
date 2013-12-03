@@ -270,6 +270,16 @@
             </Property>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="menuSpatialUnitGroup">
+              <Properties>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="org/sola/clients/swing/desktop/Bundle.properties" key="MainForm.menuSpatialUnitGroup.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuSpatialUnitGroupActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuLoadScannedDoc">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
@@ -280,55 +290,64 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuLoadScannedDocActionPerformed"/>
               </Events>
             </MenuItem>
-            <Menu class="javax.swing.JMenu" name="menuPublicDisplay">
+            <Menu class="javax.swing.JMenu" name="menuPubDispRep">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/sola/clients/swing/desktop/Bundle.properties" key="MainForm.menuPublicDisplay.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/sola/clients/swing/desktop/Bundle.properties" key="MainForm.menuPubDispRep.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="menuPublicNotification">
+                <Menu class="javax.swing.JMenu" name="menuPublicDisplay">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/sola/clients/swing/desktop/Bundle.properties" key="MainForm.menuPublicNotification.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/sola/clients/swing/desktop/Bundle.properties" key="MainForm.menuPublicDisplay.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                  <SubComponents>
+                    <MenuItem class="javax.swing.JMenuItem" name="menuPublicNotification">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                          <ResourceString bundle="org/sola/clients/swing/desktop/Bundle.properties" key="MainForm.menuPublicNotification.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuPublicNotificationActionPerformed"/>
+                      </Events>
+                    </MenuItem>
+                    <MenuItem class="javax.swing.JMenuItem" name="menuOwnerName">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                          <ResourceString bundle="org/sola/clients/swing/desktop/Bundle.properties" key="MainForm.menuOwnerName.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuOwnerNameActionPerformed"/>
+                      </Events>
+                    </MenuItem>
+                    <MenuItem class="javax.swing.JMenuItem" name="menuStateLand">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                          <ResourceString bundle="org/sola/clients/swing/desktop/Bundle.properties" key="MainForm.menuStateLand.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuStateLandActionPerformed"/>
+                      </Events>
+                    </MenuItem>
+                  </SubComponents>
+                </Menu>
+                <MenuItem class="javax.swing.JMenuItem" name="menuItemMapPublicDisplay">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="org/sola/clients/swing/desktop/Bundle.properties" key="MainForm.menuItemMapPublicDisplay.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuPublicNotificationActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="menuOwnerName">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/sola/clients/swing/desktop/Bundle.properties" key="MainForm.menuOwnerName.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuOwnerNameActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="menuStateLand">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/sola/clients/swing/desktop/Bundle.properties" key="MainForm.menuStateLand.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuStateLandActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemMapPublicDisplayActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItemMapPublicDisplay">
-              <Properties>
-                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/sola/clients/swing/desktop/Bundle.properties" key="MainForm.menuItemMapPublicDisplay.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemMapPublicDisplayActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCertificates">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
@@ -378,16 +397,6 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <MenuItem class="javax.swing.JMenuItem" name="menuSpatialUnitGroup">
-              <Properties>
-                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/sola/clients/swing/desktop/Bundle.properties" key="MainForm.menuSpatialUnitGroup.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuSpatialUnitGroupActionPerformed"/>
-              </Events>
-            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="helpMenu">
