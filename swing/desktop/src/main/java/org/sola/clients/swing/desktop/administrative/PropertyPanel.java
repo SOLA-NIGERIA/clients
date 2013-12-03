@@ -110,7 +110,7 @@ public class PropertyPanel extends ContentPanel {
     public BaUnitBean whichBaUnitSelected;
     private boolean isBtnNext = false;
     private Integer term;
-    int srId= 32631;
+    int srId= 32632;
 
             
 
@@ -1153,6 +1153,8 @@ public class PropertyPanel extends ContentPanel {
                         } else {
                             // Create a new map to render the parcel geometry only.
                             generator = new MapFeatureImageGenerator(srId);
+//                              generator = new MapFeatureImageGenerator(mapControl.getMap().getSrid());
+                        
                         }
 
                      
