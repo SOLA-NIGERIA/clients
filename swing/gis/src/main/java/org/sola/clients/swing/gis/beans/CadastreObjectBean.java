@@ -253,6 +253,7 @@ public class CadastreObjectBean extends SpatialBean {
     
     @Override
     public String toString() {
-        return String.format("%s / %s",this.nameFirstpart, this.nameLastpart);
+        //return String.format("%s / %s",this.nameFirstpart, this.nameLastpart);
+        return String.format("%s  ",this.nameFirstpart );
     }    
 }
