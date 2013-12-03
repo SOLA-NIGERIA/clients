@@ -440,14 +440,14 @@ public class ReportManager {
     public static JasperPrint getSysRegPubDisParcelNameReport(ParcelNumberListingListBean parcelnumberList,
             Date dateFrom, Date dateTo, String location, String subReport) {
         HashMap inputParameters = new HashMap();
-//	Date currentdate = new Date(System.currentTimeMillis());
+ //	Date currentdate = new Date(System.currentTimeMillis());
 //        inputParameters.put("CURRENT_DATE", currentdate);
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("FROM_DATE", dateFrom);
         inputParameters.put("TO_DATE", dateTo);
         inputParameters.put("LOCATION", location);
-        inputParameters.put("SUB_REPORT", subReport);
+         inputParameters.put("SUB_REPORT", subReport);
         ParcelNumberListingListBean[] beans = new ParcelNumberListingListBean[1];
         beans[0] = parcelnumberList;
         JRDataSource jds = new JRBeanArrayDataSource(beans);

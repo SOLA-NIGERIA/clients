@@ -34,6 +34,7 @@ public class ParcelNumberListingBean extends AbstractIdBean {
     public static final String PUBLIC_NOTIFICATION_DURATION_PROPERTY = "publicNotificationDuration";
     public static final String NAME_PROPERTY = "name";
     public static final String OBJECTIONS_PROPERTY = "objections";
+    public static final String PROPERTY_LOCATION_PROPERTY = "propertyLocation";
     
     private String nameFirstpart;
     private String nameLastpart;
@@ -44,6 +45,15 @@ public class ParcelNumberListingBean extends AbstractIdBean {
     private String publicNotificationDuration;
     private String name;
     private String objections;
+    private String propertyLocation;
+
+    public String getPropertyLocation() {
+        return propertyLocation;
+    }
+
+    public void setPropertyLocation(String propertyLocation) {
+        this.propertyLocation = propertyLocation;
+    }
     
 
     public String getPublicNotificationDuration() {

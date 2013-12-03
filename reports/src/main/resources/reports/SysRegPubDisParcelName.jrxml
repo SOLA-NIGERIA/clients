@@ -114,6 +114,9 @@
 		<field name="objections" class="java.lang.String">
 			<fieldDescription><![CDATA[objections]]></fieldDescription>
 		</field>
+		<field name="propertyLocation" class="java.lang.String">
+			<fieldDescription><![CDATA[propertyLocation]]></fieldDescription>
+		</field>
 	</subDataset>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="CURRENT_DATE" class="java.util.Date"/>
@@ -176,11 +179,11 @@
 					<datasetRun subDataset="ParcelListingPN">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{parcelNumberListing}.toArray())]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column uuid="5fb40218-7a98-4cc2-9c45-ead3313e86e1" width="104">
+					<jr:column width="104">
 						<jr:tableHeader style="table 3_TH" height="30" rowSpan="1"/>
 						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="15"/>
+								<reportElement x="0" y="0" width="104" height="30"/>
 								<textElement/>
 								<text><![CDATA[]]></text>
 							</staticText>
@@ -193,18 +196,41 @@
 								<textFieldExpression><![CDATA["Parcel"]]></textFieldExpression>
 							</textField>
 						</jr:columnHeader>
-						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 3_TD" height="30" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-								<reportElement mode="Transparent" x="0" y="0" width="104" height="20" forecolor="#CC0000" backcolor="#FFFFFF"/>
-								<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+								<reportElement mode="Transparent" x="0" y="0" width="104" height="30" forecolor="#CC0000" backcolor="#FFFFFF"/>
+								<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="Calibri" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{nameFirstpart}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column uuid="d4176d54-f680-456e-912d-1783332e024b" width="291">
+					<jr:column width="115">
+						<jr:tableHeader style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="115" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+								<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+									<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<text><![CDATA[Address]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="30" rowSpan="1">
+							<textField pattern="" isBlankWhenNull="false">
+								<reportElement mode="Transparent" x="0" y="0" width="115" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+								<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+									<font fontName="Calibri" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{propertyLocation}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="332">
 						<jr:tableHeader style="table 3_TH" height="30" rowSpan="1"/>
 						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
@@ -221,9 +247,9 @@
 								<textFieldExpression><![CDATA["Owner"]]></textFieldExpression>
 							</textField>
 						</jr:columnHeader>
-						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 3_TD" height="30" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-								<reportElement mode="Transparent" x="0" y="0" width="281" height="20" backcolor="#FFFFFF"/>
+								<reportElement mode="Transparent" x="0" y="0" width="332" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="Calibri" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
@@ -232,7 +258,7 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column uuid="9a028702-7db0-4a2b-8dbd-5d02c8bd8f56" width="64">
+					<jr:column width="78">
 						<jr:tableHeader style="table 3_TH" height="30" rowSpan="1"/>
 						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
@@ -241,7 +267,7 @@
 								<text><![CDATA[]]></text>
 							</staticText>
 							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-								<reportElement mode="Transparent" x="0" y="0" width="64" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+								<reportElement mode="Transparent" x="0" y="0" width="78" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
@@ -249,35 +275,16 @@
 								<textFieldExpression><![CDATA["Size"]]></textFieldExpression>
 							</textField>
 						</jr:columnHeader>
-						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-								<reportElement mode="Transparent" x="0" y="0" width="64" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+						<jr:detailCell style="table 3_TD" height="30" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+								<reportElement mode="Transparent" x="0" y="0" width="78" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-									<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<font fontName="Calibri" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{size}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
-					</jr:column>
-					<jr:column uuid="8831dec7-c63f-4129-b67c-e9c1c3d80929" width="123">
-						<jr:tableHeader style="table 3_TH" height="30" rowSpan="1"/>
-						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="90" height="15"/>
-								<textElement/>
-								<text><![CDATA[]]></text>
-							</staticText>
-							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-								<reportElement mode="Transparent" x="0" y="0" width="63" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
-								<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
-									<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
-								</textElement>
-								<textFieldExpression><![CDATA["Objections"]]></textFieldExpression>
-							</textField>
-						</jr:columnHeader>
-						<jr:detailCell style="table 3_TD" height="20" rowSpan="1"/>
 					</jr:column>
 				</jr:table>
 			</componentElement>
