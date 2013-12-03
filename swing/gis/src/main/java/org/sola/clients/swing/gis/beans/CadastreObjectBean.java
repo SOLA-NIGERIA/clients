@@ -102,6 +102,10 @@ public class CadastreObjectBean extends SpatialBean {
            if (getCO(nameFirstpart, this.nameLastpart)) {
             this.nameFirstpart = nameFirstpart;
            }
+           else {
+               nameFirstpart = oldValue;
+           }
+               
         }
         else {
              this.nameFirstpart = nameFirstpart;
@@ -122,6 +126,7 @@ public class CadastreObjectBean extends SpatialBean {
                 if (!id.contentEquals(this.id)
                      && co.contentEquals(nameLastpart+' '+nameFirstpart)) {
                      MessageUtility.displayMessage(GisMessage.PARCEL_EXISTS);
+                     
                  return false;
                 }
            }
