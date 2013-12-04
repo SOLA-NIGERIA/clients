@@ -44,6 +44,7 @@ public class ApplicationSearchResultBean extends ApplicationSummaryBean {
     private String agent;
     private String serviceList; 
     private boolean checked;
+    private String serviceStatusList;
     
     public ApplicationSearchResultBean(){
         super();
@@ -106,4 +107,14 @@ public class ApplicationSearchResultBean extends ApplicationSummaryBean {
         this.checked = checked;
         propertySupport.firePropertyChange(CHECKED_PROPERTY, oldValue, this.checked);
     }
+
+    public String getServiceStatusList() {
+        return serviceStatusList;
+    }
+
+    public void setServiceStatusList(String serviceStatusList) {
+        this.serviceStatusList = serviceStatusList;
+    }
+    
+    
 }
