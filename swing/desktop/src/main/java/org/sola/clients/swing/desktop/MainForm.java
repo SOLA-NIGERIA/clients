@@ -704,10 +704,7 @@ public class MainForm extends javax.swing.JFrame {
         menuSpatialUnitGroup = new javax.swing.JMenuItem();
         menuLoadScannedDoc = new javax.swing.JMenuItem();
         menuPubDispRep = new javax.swing.JMenu();
-        menuPublicDisplay = new javax.swing.JMenu();
         menuPublicNotification = new javax.swing.JMenuItem();
-        menuOwnerName = new javax.swing.JMenuItem();
-        menuStateLand = new javax.swing.JMenuItem();
         menuItemMapPublicDisplay = new javax.swing.JMenuItem();
         menuCertificates = new javax.swing.JMenuItem();
         menuReports = new javax.swing.JMenu();
@@ -1057,33 +1054,13 @@ public class MainForm extends javax.swing.JFrame {
 
         menuPubDispRep.setText(bundle.getString("MainForm.menuPubDispRep.text")); // NOI18N
 
-        menuPublicDisplay.setText(bundle.getString("MainForm.menuPublicDisplay.text")); // NOI18N
-
         menuPublicNotification.setText(bundle.getString("MainForm.menuPublicNotification.text")); // NOI18N
         menuPublicNotification.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuPublicNotificationActionPerformed(evt);
             }
         });
-        menuPublicDisplay.add(menuPublicNotification);
-
-        menuOwnerName.setText(bundle.getString("MainForm.menuOwnerName.text")); // NOI18N
-        menuOwnerName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuOwnerNameActionPerformed(evt);
-            }
-        });
-        menuPublicDisplay.add(menuOwnerName);
-
-        menuStateLand.setText(bundle.getString("MainForm.menuStateLand.text")); // NOI18N
-        menuStateLand.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuStateLandActionPerformed(evt);
-            }
-        });
-        menuPublicDisplay.add(menuStateLand);
-
-        menuPubDispRep.add(menuPublicDisplay);
+        menuPubDispRep.add(menuPublicNotification);
 
         menuItemMapPublicDisplay.setText(bundle.getString("MainForm.menuItemMapPublicDisplay.text")); // NOI18N
         menuItemMapPublicDisplay.addActionListener(new java.awt.event.ActionListener() {
@@ -1292,14 +1269,6 @@ public class MainForm extends javax.swing.JFrame {
         openSysRegListingParamsForm("ParcelNumber");
     }//GEN-LAST:event_menuPublicNotificationActionPerformed
 
-    private void menuOwnerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOwnerNameActionPerformed
-        openSysRegListingParamsForm("Owners");
-    }//GEN-LAST:event_menuOwnerNameActionPerformed
-
-    private void menuStateLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuStateLandActionPerformed
-        openSysRegListingParamsForm("StateLand");
-    }//GEN-LAST:event_menuStateLandActionPerformed
-
     private void menuCertificatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCertificatesActionPerformed
         openSysRegCertificatesParamsForm();
     }//GEN-LAST:event_menuCertificatesActionPerformed
@@ -1401,11 +1370,9 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenu menuMap;
     private javax.swing.JMenuItem menuNewApplication;
     private javax.swing.JMenuItem menuOffLogLevel;
-    private javax.swing.JMenuItem menuOwnerName;
     private javax.swing.JMenuItem menuPersons;
     private javax.swing.JMenuItem menuProgress;
     private javax.swing.JMenu menuPubDispRep;
-    private javax.swing.JMenu menuPublicDisplay;
     private javax.swing.JMenuItem menuPublicNotification;
     private javax.swing.JMenu menuReports;
     private javax.swing.JMenu menuReportsDesktop;
@@ -1413,7 +1380,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuSearchApplication;
     private javax.swing.JMenuItem menuShowMap;
     private javax.swing.JMenuItem menuSpatialUnitGroup;
-    private javax.swing.JMenuItem menuStateLand;
     private javax.swing.JMenuItem menuStatus;
     private javax.swing.JMenu menuSystematic;
     private javax.swing.JMenu menuView;

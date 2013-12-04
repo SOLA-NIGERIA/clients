@@ -442,12 +442,21 @@ public class ReportManager {
         HashMap inputParameters = new HashMap();
  //	Date currentdate = new Date(System.currentTimeMillis());
 //        inputParameters.put("CURRENT_DATE", currentdate);
+        
+              // SVG Logo for Ministry
+        String ministryLogo = "/images/sola/ministry_of_lands_kaduna_logo.svg";
+        
+        
+        //String reportsDirPath = context.getRealPath("/reports/");
+       // inputParameters.put("reportsDirPath", reportsDirPath);
+        
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("FROM_DATE", dateFrom);
         inputParameters.put("TO_DATE", dateTo);
         inputParameters.put("LOCATION", location);
          inputParameters.put("SUB_REPORT", subReport);
+         inputParameters.put("MINISTRY_LOGO", ReportManager.class.getResourceAsStream(ministryLogo));
         ParcelNumberListingListBean[] beans = new ParcelNumberListingListBean[1];
         beans[0] = parcelnumberList;
         JRDataSource jds = new JRBeanArrayDataSource(beans);

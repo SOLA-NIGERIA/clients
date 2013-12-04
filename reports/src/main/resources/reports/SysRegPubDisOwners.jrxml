@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Owners Listing" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="51"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -118,7 +118,7 @@
 				<textElement textAlignment="Center">
 					<font size="28" isBold="true" isStrikeThrough="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{title}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Public Display Map Listings"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 				<reportElement stretchType="RelativeToBandHeight" mode="Transparent" x="0" y="46" width="555" height="25" forecolor="#006D64" backcolor="#FFFFFF"/>
@@ -126,7 +126,7 @@
 					<font fontName="Calibri" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{dateFrom}+": "+$P{FROM_DATE}+" - "+$R{dateTo}+": "+$P{TO_DATE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["From: " + new SimpleDateFormat("MM/dd/yyyy").format($P{FROM_DATE}) + " - " + "To: "+ new SimpleDateFormat("MM/dd/yyyy").format($P{TO_DATE})]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -138,14 +138,14 @@
 					<font fontName="SansSerif" size="18" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{subTitleON}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[" "]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="38" width="555" height="33" forecolor="#006666"/>
 				<textElement>
 					<font size="20"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{location}+" "+$P{LOCATION}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Section: " +$P{LOCATION}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -157,20 +157,20 @@
 					<datasetRun subDataset="Owners">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{ownerNameListing}.toArray())]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="132">
+					<jr:column uuid="862e5b95-c4e9-4ce5-a08b-77f1ec251751" width="222">
 						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
 						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="132" height="30"/>
+								<reportElement x="13" y="0" width="195" height="30"/>
 								<textElement>
 									<font size="12" isBold="true"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$R{owner}]]></textFieldExpression>
+								<textFieldExpression><![CDATA["Owner"]]></textFieldExpression>
 							</textField>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
 							<textField pattern="" isBlankWhenNull="false">
-								<reportElement mode="Transparent" x="0" y="0" width="132" height="20" backcolor="#FFFFFF"/>
+								<reportElement mode="Transparent" x="13" y="0" width="195" height="20" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="Calibri" size="13" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
@@ -179,21 +179,21 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90">
+					<jr:column uuid="233b9ff9-9a98-4970-b62a-9a22f7579803" width="125">
 						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
 						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<textField pattern="" isBlankWhenNull="false">
-								<reportElement mode="Transparent" x="0" y="0" width="90" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+								<reportElement mode="Transparent" x="13" y="0" width="93" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$R{parcel}]]></textFieldExpression>
+								<textFieldExpression><![CDATA["Parcel"]]></textFieldExpression>
 							</textField>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="90" height="20" forecolor="#CC0000"/>
+								<reportElement x="13" y="0" width="93" height="20" forecolor="#CC0000"/>
 								<textElement>
 									<font fontName="Calibri" size="12" isBold="true"/>
 								</textElement>
@@ -201,65 +201,19 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90">
+					<jr:column uuid="0f5eb7f1-4cf3-4720-956f-bdbbeedcf6d5" width="199">
 						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
 						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<textField pattern="" isBlankWhenNull="false">
-								<reportElement mode="Transparent" x="0" y="0" width="90" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+								<reportElement mode="Transparent" x="13" y="0" width="157" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$R{landUse}]]></textFieldExpression>
+								<textFieldExpression><![CDATA["Address"]]></textFieldExpression>
 							</textField>
 						</jr:columnHeader>
-						<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="90" height="20"/>
-								<textElement textAlignment="Left"/>
-								<textFieldExpression><![CDATA[$F{landUsecode}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="60">
-						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
-							<textField pattern="" isBlankWhenNull="false">
-								<reportElement mode="Transparent" x="0" y="0" width="60" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
-								<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-									<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$R{areaSize}]]></textFieldExpression>
-							</textField>
-						</jr:columnHeader>
-						<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="60" height="20"/>
-								<textElement textAlignment="Left"/>
-								<textFieldExpression><![CDATA[$F{size}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="107">
-						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
-							<textField pattern="" isBlankWhenNull="false">
-								<reportElement mode="Transparent" x="0" y="0" width="107" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
-								<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-									<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$R{objections}]]></textFieldExpression>
-							</textField>
-						</jr:columnHeader>
-						<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="107" height="20"/>
-								<textElement textAlignment="Left"/>
-								<textFieldExpression><![CDATA[$F{objections}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
+						<jr:detailCell style="table 1_TD" height="30" rowSpan="1"/>
 					</jr:column>
 				</jr:table>
 			</componentElement>
@@ -288,7 +242,7 @@
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{user}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["User"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement positionType="FixRelativeToBottom" mode="Transparent" x="231" y="0" width="324" height="60" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -296,12 +250,12 @@
 					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{page} + " " + $V{PAGE_NUMBER} + " " + $R{of} + " " + $V{PAGE_COUNT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Page" + " " + $V{PAGE_NUMBER} + " " + "of" + " " + $V{PAGE_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="30" width="67" height="30"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$R{date}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Date Generated"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
