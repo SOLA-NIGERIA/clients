@@ -591,8 +591,8 @@ public class DashBoardPanel extends ContentPanel {
         columnBinding.setColumnName("Expected Completion Date");
         columnBinding.setColumnClass(java.util.Date.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${serviceList}"));
-        columnBinding.setColumnName("Service List");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${serviceStatusList}"));
+        columnBinding.setColumnName("Service Status List");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${contactPerson}"));

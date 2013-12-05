@@ -199,7 +199,7 @@
 									<font fontName="Calibri" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{nameFirstpart}+"/"+$F{nameLastpart}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{nameFirstpart}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

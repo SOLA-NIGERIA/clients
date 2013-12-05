@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Application status report" pageWidth="595" pageHeight="842" columnWidth="548" leftMargin="27" rightMargin="20" topMargin="24" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="16"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#006633"/>
@@ -158,7 +158,7 @@
 				<imageExpression><![CDATA["D:\\SOLA-KADUNA\\sola\\code\\clients\\reports\\src\\main\\resources\\images\\sola\\gems2.jpg"]]></imageExpression>
 			</image>
 			<image hAlign="Center" vAlign="Middle">
-				<reportElement x="2" y="0" width="216" height="37"/>
+				<reportElement x="132" y="0" width="216" height="37"/>
 				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstance(new java.io.File("D:\\SOLA-KADUNA\\sola\\code\\clients\\reports\\src\\main\\resources\\images\\sola\\ministry_of_lands_kaduna_logo.svg"))]]></imageExpression>
 			</image>
 		</band>

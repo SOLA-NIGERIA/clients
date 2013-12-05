@@ -1153,7 +1153,7 @@ public class PropertyPanel extends ContentPanel {
                         } else {
                             // Create a new map to render the parcel geometry only.
                             generator = new MapFeatureImageGenerator(srId);
-//                            generator = new MapFeatureImageGenerator(mapControl.getMap().getSrid());
+//                              generator = new MapFeatureImageGenerator(mapControl.getMap().getSrid());
                         
                         }
 
