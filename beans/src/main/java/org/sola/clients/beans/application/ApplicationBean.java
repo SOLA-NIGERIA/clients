@@ -905,14 +905,14 @@ public class ApplicationBean extends ApplicationSummaryBean {
     public boolean setAgentRole() {
     if (agent!=null )
     {
-       PartyRoleTypeBean partyRoleType = new PartyRoleTypeBean();
-       if (addedAgent) {
-            partyRoleType.setCode("lodgingAgent");
-            agent.addRole(partyRoleType);
-        PartyTO party = TypeConverters.BeanToTrasferObject(agent, PartyTO.class);
-        party = WSManager.getInstance().getCaseManagementService().saveParty(party);
-        TypeConverters.TransferObjectToBean(party, PartyBean.class, agent);
-       }
+//       PartyRoleTypeBean partyRoleType = new PartyRoleTypeBean();
+//       if (addedAgent) {
+//            partyRoleType.setCode("lodgingAgent");
+//            agent.addRole(partyRoleType);
+//        PartyTO party = TypeConverters.BeanToTrasferObject(agent, PartyTO.class);
+//        party = WSManager.getInstance().getCaseManagementService().saveParty(party);
+//        TypeConverters.TransferObjectToBean(party, PartyBean.class, agent);
+//       }
     }
         addedAgent=false;
         return true;
