@@ -42,6 +42,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import org.sola.clients.beans.administrative.BaUnitBean;
@@ -137,12 +138,11 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         String location = this.tmpLocation.replace(" ", "_");
 
         JRPdfExporter exporterPdf = new JRPdfExporter();
-
         exporterPdf.setParameter(JRXlsExporterParameter.JASPER_PRINT, populatedReport);
         exporterPdf.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
         exporterPdf.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_COLUMNS, Boolean.TRUE);
         exporterPdf.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME, cachePath + this.reportTogenerate);
-
+        exporterPdf.setParameter(JRPdfExporterParameter.FORCE_SVG_SHAPES,Boolean.TRUE);
         exporterPdf.exportReport();
         FileUtility.saveFileFromStream(null, this.reportTogenerate);
 
@@ -300,6 +300,13 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             String parcelLabel = baUnit.getCadastreObjectList().get(0).getNameLastpart().toString() + '/' + baUnit.getCadastreObjectList().get(0).getNameFirstpart().toString();
             parcelLabel = parcelLabel.replace('/', '-');
             String featureImageFileName = this.cachePath + parcelLabel + ".png";
+//            String featureFront = this.cachePath +  "front.png";
+            String featureFront = this.cachePath +  "front.svg";
+//          
+//            String featureFront = this.cachePath +  "Flag.svg";
+           
+//            String featureBack = this.cachePath + "back.png";
+            String featureBack = this.cachePath + "back.svg";
             
             File file = new File(featureImageFileName);
             
@@ -308,8 +315,9 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 //                new Object[]{parcelLabel});
 //              
 //            } else {
-                showReport(ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName));
-                FileUtility.deleteFileFromCache(parcelLabel + ".png");
+                showReport(ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureFront, featureBack));
+//              TODO VERIFTY THIS::::
+//                FileUtility.deleteFileFromCache(parcelLabel + ".png");
                 i = i + 1;
             }
         }

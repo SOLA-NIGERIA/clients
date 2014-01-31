@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1038"/>
+	<property name="ireport.y" value="905"/>
 	<subDataset name="dataset1">
 		<parameter name="AREA" class="java.lang.Object">
 			<parameterDescription><![CDATA[]]></parameterDescription>
@@ -75,6 +75,8 @@
 	<parameter name="SIZE" class="java.math.BigDecimal"/>
 	<parameter name="GROUND_RENT" class="java.lang.String"/>
 	<parameter name="REFNR" class="java.lang.String"/>
+	<parameter name="FRONT_IMAGE" class="java.lang.String"/>
+	<parameter name="BACK_IMAGE" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -117,8 +119,8 @@
 	<detail>
 		<band height="802" splitType="Stretch">
 			<image hAlign="Center" vAlign="Middle">
-				<reportElement x="-20" y="0" width="595" height="798"/>
-				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstance(new java.io.File("D:\\SOLA-KADUNA\\sola\\code\\clients\\reports\\src\\main\\resources\\images\\sola\\cofo_3_outline_FRONT_sola-01.svg"))]]></imageExpression>
+				<reportElement x="0" y="0" width="555" height="802"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation($P{FRONT_IMAGE})]]></imageExpression>
 			</image>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="656" y="719" width="144" height="20" forecolor="#FF0000" backcolor="#FFFFFF"/>
@@ -175,7 +177,7 @@
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Transparent" x="441" y="104" width="114" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="389" y="103" width="166" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Book Antiqua" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -185,88 +187,81 @@
 		</band>
 		<band height="802">
 			<staticText>
-				<reportElement x="7" y="649" width="162" height="20"/>
+				<reportElement x="603" y="494" width="162" height="20"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[This Instrument is registered on:]]></text>
 			</staticText>
 			<textField pattern="dd MMMMM yyyy">
-				<reportElement x="169" y="649" width="100" height="20"/>
+				<reportElement x="765" y="494" width="100" height="20"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{LODGING_DATE}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="8" y="669" width="162" height="20"/>
+				<reportElement x="604" y="514" width="162" height="20"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[with Application Number:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="170" y="669" width="100" height="20"/>
+				<reportElement x="766" y="514" width="100" height="20"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{APP_NR}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="269" y="649" width="276" height="20"/>
+				<reportElement x="865" y="494" width="276" height="20"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[This instrument was delivered to me for registration by]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="268" y="669" width="263" height="20"/>
+				<reportElement x="864" y="514" width="263" height="20"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{CLIENT_NAME}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="268" y="689" width="21" height="20"/>
+				<reportElement x="864" y="534" width="21" height="20"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[On:]]></text>
 			</staticText>
 			<textField pattern="EEE, d MMM yyyy HH:mm:ss">
-				<reportElement x="289" y="689" width="241" height="20"/>
+				<reportElement x="885" y="534" width="241" height="20"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="12" y="744" width="227" height="1"/>
+				<reportElement x="587" y="652" width="227" height="1"/>
 			</line>
 			<line>
-				<reportElement x="290" y="743" width="240" height="1"/>
+				<reportElement x="589" y="694" width="240" height="1"/>
 			</line>
 			<staticText>
-				<reportElement x="57" y="757" width="143" height="20"/>
+				<reportElement x="587" y="725" width="143" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Chief Registrar of Deeds]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="309" y="757" width="200" height="20"/>
+				<reportElement x="587" y="756" width="200" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Assistant Chief Registrar of Deeds]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="749" y="137" width="100" height="20"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{SIZE}]]></textFieldExpression>
-			</textField>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="748" y="463" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
@@ -274,28 +269,6 @@
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{VALUE_IMPROV}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="749" y="97" width="100" height="20"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{nameLastpart}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="749" y="281" width="244" height="105"/>
-				<textElement>
-					<font size="11" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{PROP_LOCATION}]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="751" y="180" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{TERM}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="629" y="463" width="100" height="20">
@@ -327,25 +300,24 @@
 				<textFieldExpression><![CDATA[$R{typeOfUse}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="749" y="248" width="100" height="20"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{LAND_USE}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="629" y="213" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$R{typeOf}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="629" y="281" width="100" height="20"/>
-				<textElement/>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="629" y="281" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$R{location}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="629" y="137" width="100" height="20"/>
-				<textElement/>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="629" y="137" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$R{sizeArea}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
@@ -365,9 +337,12 @@
 				</textElement>
 				<text><![CDATA[In case of undeveloped land]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="629" y="97" width="100" height="20"/>
-				<textElement/>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="629" y="97" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$R{upi}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -377,17 +352,66 @@
 				<textElement/>
 				<textFieldExpression><![CDATA[$R{yearsToDevelop}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="748" y="57" width="100" height="20"/>
-				<textElement>
-					<font size="12" isBold="true"/>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="0" width="555" height="802"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation($P{BACK_IMAGE})]]></imageExpression>
+			</image>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="122" y="438" width="100" height="20" forecolor="#CC3300" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{LAND_USE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="241" y="555" width="100" height="15" forecolor="#009933" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SIZE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="748" y="57" width="72" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nameFirstpart}]]></textFieldExpression>
 			</textField>
-			<image hAlign="Center" vAlign="Middle">
-				<reportElement x="7" y="23" width="548" height="604"/>
-				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstance(new java.io.File("D:\\SOLA-KADUNA\\sola\\code\\clients\\reports\\src\\main\\resources\\images\\sola\\cofo_3_outline_BACK_sola.svg"))]]></imageExpression>
-			</image>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="241" y="575" width="100" height="15" forecolor="#009966" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{LAND_USE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="241" y="540" width="165" height="15" forecolor="#009966" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nameLastpart}+"/"+ $F{nameFirstpart}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="241" y="570" width="100" height="15" forecolor="#009933" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TERM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="241" y="590" width="244" height="42" forecolor="#009966" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PROP_LOCATION}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>

@@ -155,11 +155,11 @@
 			</line>
 			<image>
 				<reportElement x="417" y="0" width="119" height="37"/>
-				<imageExpression><![CDATA["D:\\SOLA-KADUNA\\sola\\code\\clients\\reports\\src\\main\\resources\\images\\sola\\gems2.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["images/sola/gems2.jpg"]]></imageExpression>
 			</image>
 			<image hAlign="Center" vAlign="Middle">
-				<reportElement x="132" y="0" width="216" height="37"/>
-				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstance(new java.io.File("D:\\SOLA-KADUNA\\sola\\code\\clients\\reports\\src\\main\\resources\\images\\sola\\ministry_of_lands_kaduna_logo.svg"))]]></imageExpression>
+				<reportElement x="132" y="0" width="216" height="37"/>                                                                                                           
+				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstance(new java.io.File("images/sola/ministry_of_lands_kaduna_logo.svg"))]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -470,7 +470,7 @@
 					<datasetRun subDataset="ApplicationLog">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{appLogList}.toArray())]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column uuid="c2a75fb0-86c5-4184-a317-07697b174746" width="108">
+					<jr:column  width="108">
 						<jr:columnHeader style="table_CH" height="20" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="108" height="20"/>
@@ -492,7 +492,7 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column uuid="ddd93224-9f8d-4dcb-aeb2-2557794cfa1e" width="113">
+					<jr:column  width="113">
 						<jr:columnHeader style="table_CH" height="20" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="113" height="20"/>
@@ -514,7 +514,7 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column uuid="3fd6a6cf-0f0a-40e9-9941-70ab9537ced1" width="135">
+					<jr:column  width="135">
 						<jr:columnHeader style="table_CH" height="20" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="135" height="20"/>
@@ -536,7 +536,7 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column uuid="b250ff36-a799-4071-81a0-cea02ef13e62" width="191">
+					<jr:column  width="191">
 						<jr:columnHeader style="table_CH" height="20" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="191" height="20"/>

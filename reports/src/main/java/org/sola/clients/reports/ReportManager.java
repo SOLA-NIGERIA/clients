@@ -440,23 +440,14 @@ public class ReportManager {
     public static JasperPrint getSysRegPubDisParcelNameReport(ParcelNumberListingListBean parcelnumberList,
             Date dateFrom, Date dateTo, String location, String subReport) {
         HashMap inputParameters = new HashMap();
- //	Date currentdate = new Date(System.currentTimeMillis());
+//	Date currentdate = new Date(System.currentTimeMillis());
 //        inputParameters.put("CURRENT_DATE", currentdate);
-        
-              // SVG Logo for Ministry
-        String ministryLogo = "/images/sola/ministry_of_lands_kaduna_logo.svg";
-        
-        
-        //String reportsDirPath = context.getRealPath("/reports/");
-       // inputParameters.put("reportsDirPath", reportsDirPath);
-        
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("FROM_DATE", dateFrom);
         inputParameters.put("TO_DATE", dateTo);
         inputParameters.put("LOCATION", location);
-         inputParameters.put("SUB_REPORT", subReport);
-         inputParameters.put("MINISTRY_LOGO", ReportManager.class.getResourceAsStream(ministryLogo));
+        inputParameters.put("SUB_REPORT", subReport);
         ParcelNumberListingListBean[] beans = new ParcelNumberListingListBean[1];
         beans[0] = parcelnumberList;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
@@ -548,9 +539,10 @@ public class ReportManager {
      * report.
      *
      */
-    public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName) {
+    public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
+        String  featureFront,String featureBack) {
         HashMap inputParameters = new HashMap();
-        String me ="/images/sola/Picture1.png";       
+        String me ="/images/sola/Picture1.png";  
         String appNr = null;
         String claimant = null;
         String owners = null;
@@ -607,13 +599,21 @@ public class ReportManager {
         inputParameters.put("GROUND_RENT", groundRent);
         inputParameters.put("IMG_URL", ReportManager.class.getResourceAsStream(me));
         inputParameters.put("MAP_IMAGE", featureImageFileName);
+        inputParameters.put("FRONT_IMAGE", featureFront);
+        inputParameters.put("BACK_IMAGE", featureBack);
         BaUnitBean[] beans = new BaUnitBean[1];
         beans[0] = baUnitBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
         try {
+//            return JasperFillManager.fillReport(
+//                    ReportManager.class.getResourceAsStream("/reports/CofO.jasper"),
+//                    inputParameters, jds);
+            
             return JasperFillManager.fillReport(
-                    ReportManager.class.getResourceAsStream("/reports/CofO.jasper"),
+                    ReportManager.class.getClassLoader().getResourceAsStream("reports/CofO.jasper"),
                     inputParameters, jds);
+
+            
         } catch (JRException ex) {
             MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
                     new Object[]{ex.getLocalizedMessage()});

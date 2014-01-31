@@ -259,7 +259,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="56" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{TotalApplications}]]></textFieldExpression>
 							</textField>
@@ -267,7 +267,9 @@
 						<jr:detailCell style="table_TD" height="30" rowSpan="1">
 							<textField isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="56" height="30"/>
-								<textElement textAlignment="Right"/>
+								<textElement textAlignment="Right">
+									<paragraph leftIndent="5" rightIndent="5"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{totApp}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -289,7 +291,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="48" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{TotalappLodSP}]]></textFieldExpression>
 							</textField>
@@ -299,7 +301,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="48" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5" rightIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{appLodgedSP}]]></textFieldExpression>
 							</textField>
@@ -322,7 +324,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="55" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{ToTappLodgNOSP}]]></textFieldExpression>
 							</textField>
@@ -332,7 +334,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="55" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5" rightIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{totApp}.subtract( $F{appLodgedSP} )]]></textFieldExpression>
 							</textField>
@@ -355,7 +357,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="61" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{TotalSurvParc}]]></textFieldExpression>
 							</textField>
@@ -365,7 +367,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="61" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5" rightIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{totSurvPar}]]></textFieldExpression>
 							</textField>
@@ -388,7 +390,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="57" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{TotalSPnoApp}]]></textFieldExpression>
 							</textField>
@@ -398,7 +400,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="57" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5" rightIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{SPnoApp}]]></textFieldExpression>
 							</textField>
@@ -421,7 +423,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="56" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{TotalAppPendObj}]]></textFieldExpression>
 							</textField>
@@ -431,7 +433,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="56" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5" rightIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{appPendObj}]]></textFieldExpression>
 							</textField>
@@ -454,7 +456,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="60" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{TotalAppPDisp}]]></textFieldExpression>
 							</textField>
@@ -464,7 +466,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="60" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5" rightIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{appPDisp}]]></textFieldExpression>
 							</textField>
@@ -487,7 +489,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="59" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{TotalAppIncDoc}]]></textFieldExpression>
 							</textField>
@@ -497,7 +499,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="59" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5" rightIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{appIncDoc}]]></textFieldExpression>
 							</textField>
@@ -520,7 +522,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="52" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{TotalAppPrLand}]]></textFieldExpression>
 							</textField>
@@ -530,7 +532,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="52" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5" rightIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{appPrLand}]]></textFieldExpression>
 							</textField>
@@ -553,7 +555,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="57" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{TotalAppPubLand}]]></textFieldExpression>
 							</textField>
@@ -563,7 +565,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="57" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5" rightIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{appPubLand}]]></textFieldExpression>
 							</textField>
@@ -586,7 +588,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="61" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5" rightIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{TotalAppCompPDNC}]]></textFieldExpression>
 							</textField>
@@ -596,7 +598,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="61" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5" rightIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{appCompPDispNoCert}]]></textFieldExpression>
 							</textField>
@@ -619,7 +621,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="57" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{TotalAppCert}]]></textFieldExpression>
 							</textField>
@@ -629,7 +631,7 @@
 								<reportElement mode="Transparent" x="0" y="0" width="57" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-									<paragraph lineSpacing="Single"/>
+									<paragraph lineSpacing="Single" leftIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{appCertificate}]]></textFieldExpression>
 							</textField>
