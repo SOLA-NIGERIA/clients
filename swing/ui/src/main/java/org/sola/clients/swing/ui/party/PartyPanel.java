@@ -597,6 +597,7 @@ public class PartyPanel extends javax.swing.JPanel {
 
         jPanel8.setName("jPanel8"); // NOI18N
 
+        lblGender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         lblGender.setText(bundle.getString("PartyPanel.labGender.text")); // NOI18N
         lblGender.setToolTipText(bundle.getString("PartyPanel.labGender.toolTipText")); // NOI18N
         lblGender.setName("labGender"); // NOI18N

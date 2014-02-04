@@ -710,7 +710,6 @@ public class MainForm extends javax.swing.JFrame {
         menuReports = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         menuStatus = new javax.swing.JMenuItem();
-        menuProgress = new javax.swing.JMenuItem();
         javax.swing.JMenu helpMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
         jmiContextHelp = new javax.swing.JMenuItem();
@@ -1098,14 +1097,6 @@ public class MainForm extends javax.swing.JFrame {
         });
         menuReports.add(menuStatus);
 
-        menuProgress.setText(bundle.getString("MainForm.menuProgress.text")); // NOI18N
-        menuProgress.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuProgressActionPerformed(evt);
-            }
-        });
-        menuReports.add(menuProgress);
-
         menuSystematic.add(menuReports);
 
         menuBar.add(menuSystematic);
@@ -1285,10 +1276,6 @@ public class MainForm extends javax.swing.JFrame {
         showRightsExportPanel();
     }//GEN-LAST:event_menuExportRightsActionPerformed
 
-    private void menuProgressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuProgressActionPerformed
-        openSysRegManagementParamsForm("sysRegProgressBean");
-    }//GEN-LAST:event_menuProgressActionPerformed
-
     private void menuSpatialUnitGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSpatialUnitGroupActionPerformed
         openMapSpatialUnitGroupEditor();
     }//GEN-LAST:event_menuSpatialUnitGroupActionPerformed
@@ -1371,7 +1358,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuNewApplication;
     private javax.swing.JMenuItem menuOffLogLevel;
     private javax.swing.JMenuItem menuPersons;
-    private javax.swing.JMenuItem menuProgress;
     private javax.swing.JMenu menuPubDispRep;
     private javax.swing.JMenuItem menuPublicNotification;
     private javax.swing.JMenu menuReports;

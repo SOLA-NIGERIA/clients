@@ -45,6 +45,7 @@ import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
+import org.hibernate.validator.constraints.NotEmpty;
 //import org.sola.services.common.EntityAction;
 import org.sola.webservices.transferobjects.EntityAction;
 import org.sola.webservices.transferobjects.casemanagement.PartyTO;
@@ -384,7 +385,10 @@ public class PartyBean extends PartySummaryBean {
      */
     public boolean saveParty() {
         PartyTO party = TypeConverters.BeanToTrasferObject(this, PartyTO.class);
-
+         if (getGenderCode()==null && getTypeCode().contentEquals("naturalPerson")){
+            MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_GENDER);
+            return false;
+          }
         if (getAddress() != null && getAddress().isNew() && (getAddress().getDescription() == null
                 || getAddress().getDescription().length() < 1)) {
             party.setAddress(null);

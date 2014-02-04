@@ -185,7 +185,14 @@ public class ApplicationPanel extends ContentPanel {
         initComponents();
         postInit();
     }
-
+    
+    
+    private GenderTypeListBean createGenderTypes() {
+        if (genderTypes == null) {
+            genderTypes = new GenderTypeListBean(true);
+        }
+        return genderTypes;
+    }
     /**
      * This constructor is used to open existing application for editing.
      *
@@ -862,6 +869,7 @@ public class ApplicationPanel extends ContentPanel {
                             new Object[]{bundle.getString("ApplicationPanel.lbDob.text_1")});
                 return false;  
         }
+        
         if (this.txtNationality.getText() == null || this.txtNationality.getText().equals("") ) {
             MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_FIELDS,
                             new Object[]{bundle.getString("ApplicationPanel.lbNationality.text")});
@@ -1014,6 +1022,7 @@ public class ApplicationPanel extends ContentPanel {
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         landUseTypeListBean1 = new org.sola.clients.beans.referencedata.LandUseTypeListBean();
         partyListBean1 = createPartyList();
+        genderTypes = createGenderTypes();
         pnlHeader = new org.sola.clients.swing.ui.HeaderPanel();
         jToolBar3 = new javax.swing.JToolBar();
         btnSave = new javax.swing.JButton();
@@ -1051,6 +1060,9 @@ public class ApplicationPanel extends ContentPanel {
         jPanel7 = new javax.swing.JPanel();
         txtState = new javax.swing.JTextField();
         lbState = new javax.swing.JLabel();
+        jPanel20 = new javax.swing.JPanel();
+        lblGender = new javax.swing.JLabel();
+        cbxGender = new javax.swing.JComboBox();
         jPanel10 = new javax.swing.JPanel();
         labPreferredWay = new javax.swing.JLabel();
         cbxCommunicationWay = new javax.swing.JComboBox();
@@ -1446,7 +1458,6 @@ public class ApplicationPanel extends ContentPanel {
         jPanel12.setName("jPanel12"); // NOI18N
 
         jPanel6.setName("jPanel6"); // NOI18N
-        jPanel6.setLayout(new java.awt.GridLayout(1, 2, 15, 0));
 
         jPanel3.setName("jPanel3"); // NOI18N
 
@@ -1471,7 +1482,7 @@ public class ApplicationPanel extends ContentPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(labName, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(91, Short.MAX_VALUE))
-            .addComponent(txtFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+            .addComponent(txtFirstName)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1481,8 +1492,6 @@ public class ApplicationPanel extends ContentPanel {
                 .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanel6.add(jPanel3);
 
         jPanel4.setName("jPanel4"); // NOI18N
 
@@ -1507,7 +1516,7 @@ public class ApplicationPanel extends ContentPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(labLastName)
                 .addContainerGap(142, Short.MAX_VALUE))
-            .addComponent(txtLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+            .addComponent(txtLastName)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1517,8 +1526,6 @@ public class ApplicationPanel extends ContentPanel {
                 .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanel6.add(jPanel4);
 
         jPanel5.setName("jPanel5"); // NOI18N
 
@@ -1554,10 +1561,25 @@ public class ApplicationPanel extends ContentPanel {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        jPanel6.add(jPanel5);
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         jPanel11.setName("jPanel11"); // NOI18N
-        jPanel11.setLayout(new java.awt.GridLayout(2, 3, 15, 5));
 
         jPanel19.setName(bundle.getString("ApplicationPanel.jPanel19.name")); // NOI18N
 
@@ -1602,10 +1624,8 @@ public class ApplicationPanel extends ContentPanel {
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtDob)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanel11.add(jPanel19);
 
         jPanel1.setName(bundle.getString("ApplicationPanel.jPanel1.name")); // NOI18N
 
@@ -1656,11 +1676,10 @@ public class ApplicationPanel extends ContentPanel {
                 .addComponent(cbxNationality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNationality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel11.add(jPanel1);
-
+        jPanel7.setMaximumSize(new java.awt.Dimension(26, 51));
         jPanel7.setName("jPanel7"); // NOI18N
 
         txtState.setName(bundle.getString("ApplicationPanel.txtState.name")); // NOI18N
@@ -1675,10 +1694,12 @@ public class ApplicationPanel extends ContentPanel {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtState, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(lbState)
-                .addGap(0, 176, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(txtState)
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1686,10 +1707,41 @@ public class ApplicationPanel extends ContentPanel {
                 .addComponent(lbState)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel11.add(jPanel7);
+        jPanel20.setName(bundle.getString("ApplicationPanel.jPanel20.name_1")); // NOI18N
+
+        lblGender.setText(bundle.getString("ApplicationPanel.lblGender.text")); // NOI18N
+        lblGender.setName(bundle.getString("ApplicationPanel.lblGender.name")); // NOI18N
+
+        cbxGender.setBackground(new java.awt.Color(226, 244, 224));
+        cbxGender.setName(bundle.getString("ApplicationPanel.cbxGender.name")); // NOI18N
+        cbxGender.setRenderer(new SimpleComboBoxRenderer("getDisplayValue"));
+
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${genderTypeList}");
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, genderTypes, eLProperty, cbxGender);
+        bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appBean, org.jdesktop.beansbinding.ELProperty.create("${contactPerson.genderType}"), cbxGender, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addComponent(lblGender, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 163, Short.MAX_VALUE))
+            .addComponent(cbxGender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
+                .addComponent(lblGender)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
 
         jPanel10.setName("jPanel10"); // NOI18N
 
@@ -1702,8 +1754,8 @@ public class ApplicationPanel extends ContentPanel {
         cbxCommunicationWay.setName("cbxCommunicationWay"); // NOI18N
         cbxCommunicationWay.setRenderer(new SimpleComboBoxRenderer("getDisplayValue"));
 
-        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${communicationTypeList}");
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, communicationTypes, eLProperty, cbxCommunicationWay);
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${communicationTypeList}");
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, communicationTypes, eLProperty, cbxCommunicationWay);
         bindingGroup.addBinding(jComboBoxBinding);
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appBean, org.jdesktop.beansbinding.ELProperty.create("${contactPerson.preferredCommunication}"), cbxCommunicationWay, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
@@ -1753,8 +1805,6 @@ public class ApplicationPanel extends ContentPanel {
                 .addContainerGap())
         );
 
-        jPanel11.add(jPanel10);
-
         jPanel8.setName("jPanel8"); // NOI18N
 
         LafManager.getInstance().setLabProperties(labFax);
@@ -1792,8 +1842,6 @@ public class ApplicationPanel extends ContentPanel {
                 .addComponent(txtFax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
-        jPanel11.add(jPanel8);
 
         jPanel9.setName("jPanel9"); // NOI18N
 
@@ -1833,7 +1881,44 @@ public class ApplicationPanel extends ContentPanel {
                 .addContainerGap())
         );
 
-        jPanel11.add(jPanel9);
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(14, 14, 14)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
 
         groupPanel1.setName("groupPanel1"); // NOI18N
         groupPanel1.setTitleText(bundle.getString("ApplicationPanel.groupPanel1.titleText")); // NOI18N
@@ -1842,8 +1927,8 @@ public class ApplicationPanel extends ContentPanel {
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
             .addComponent(groupPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel12Layout.setVerticalGroup(
@@ -1851,7 +1936,7 @@ public class ApplicationPanel extends ContentPanel {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addComponent(groupPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -2258,7 +2343,7 @@ public class ApplicationPanel extends ContentPanel {
                 .addContainerGap()
                 .addComponent(tbServices, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollFeeDetails1, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                .addComponent(scrollFeeDetails1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2506,7 +2591,7 @@ public class ApplicationPanel extends ContentPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tbPropertyDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPropertyDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addComponent(scrollPropertyDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2580,11 +2665,11 @@ public class ApplicationPanel extends ContentPanel {
                 .addContainerGap()
                 .addComponent(labDocRequired, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollDocRequired)
+                .addComponent(scrollDocRequired, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(documentPanelLayout.createSequentialGroup()
                 .addComponent(documentsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 102, Short.MAX_VALUE))
         );
 
         tabbedControlMain.addTab(bundle.getString("ApplicationPanel.documentPanel.TabConstraints.tabTitle"), documentPanel); // NOI18N
@@ -2599,7 +2684,7 @@ public class ApplicationPanel extends ContentPanel {
         );
         mapPanelLayout.setVerticalGroup(
             mapPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 479, Short.MAX_VALUE)
+            .addGap(0, 457, Short.MAX_VALUE)
         );
 
         tabbedControlMain.addTab(bundle.getString("ApplicationPanel.mapPanel.TabConstraints.tabTitle"), mapPanel); // NOI18N
@@ -2811,7 +2896,7 @@ public class ApplicationPanel extends ContentPanel {
             feesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, feesPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollFeeDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                .addComponent(scrollFeeDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -2870,7 +2955,7 @@ public class ApplicationPanel extends ContentPanel {
             validationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(validationPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(validationsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+                .addComponent(validationsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2932,7 +3017,7 @@ public class ApplicationPanel extends ContentPanel {
             historyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(historyPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(actionLogPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+                .addComponent(actionLogPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2955,7 +3040,7 @@ public class ApplicationPanel extends ContentPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tabbedControlMain, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
+                .addComponent(tabbedControlMain, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -3777,6 +3862,7 @@ public class ApplicationPanel extends ContentPanel {
     private javax.swing.JButton btnViewService;
     private javax.swing.JComboBox cbxAgents;
     public javax.swing.JComboBox cbxCommunicationWay;
+    public javax.swing.JComboBox cbxGender;
     private javax.swing.JComboBox cbxNationality;
     private javax.swing.JCheckBox cbxPaid;
     private org.sola.clients.beans.referencedata.CommunicationTypeListBean communicationTypes;
@@ -3790,6 +3876,7 @@ public class ApplicationPanel extends ContentPanel {
     private javax.swing.JTextField formTxtReceiptRef;
     private javax.swing.JFormattedTextField formTxtServiceFee;
     private javax.swing.JFormattedTextField formTxtTaxes;
+    private org.sola.clients.beans.referencedata.GenderTypeListBean genderTypes;
     private org.sola.clients.swing.ui.GroupPanel groupPanel1;
     public javax.swing.JPanel historyPanel;
     private javax.swing.JButton jButton1;
@@ -3808,6 +3895,7 @@ public class ApplicationPanel extends ContentPanel {
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
@@ -3851,6 +3939,7 @@ public class ApplicationPanel extends ContentPanel {
     private javax.swing.JLabel lbDob;
     private javax.swing.JLabel lbNationality;
     private javax.swing.JLabel lbState;
+    private javax.swing.JLabel lblGender;
     public javax.swing.JPanel mapPanel;
     private javax.swing.JMenuItem menuAddService;
     private javax.swing.JMenuItem menuApprove;

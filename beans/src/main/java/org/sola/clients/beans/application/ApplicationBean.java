@@ -926,11 +926,16 @@ public class ApplicationBean extends ApplicationSummaryBean {
     public boolean lodgeApplication() {
         setApplicantRole();
         setAgentRole();
-        ApplicationTO app = TypeConverters.BeanToTrasferObject(this, ApplicationTO.class);
+          if (getContactPerson().getGenderCode()==null){
+            MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_GENDER);
+            
+          } 
+          ApplicationTO app = TypeConverters.BeanToTrasferObject(this, ApplicationTO.class);
         app = WSManager.getInstance().getCaseManagementService().createApplication(app);
         TypeConverters.TransferObjectToBean(app, ApplicationBean.class, this);
         propertySupport.firePropertyChange(APPLICATION_PROPERTY, null, this);
         return true;
+         
     }
 
     /**
@@ -941,11 +946,17 @@ public class ApplicationBean extends ApplicationSummaryBean {
     public boolean saveApplication() {
         setApplicantRole();
         setAgentRole();
+        if (getContactPerson().getGenderCode()==null && getContactPerson().getTypeCode().contentEquals("naturalPerson")){
+            MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_GENDER);
+            
+        }
+        
         ApplicationTO app = TypeConverters.BeanToTrasferObject(this, ApplicationTO.class);
         app = WSManager.getInstance().getCaseManagementService().saveApplication(app);
         TypeConverters.TransferObjectToBean(app, ApplicationBean.class, this);
         propertySupport.firePropertyChange(APPLICATION_PROPERTY, null, this);
         return true;
+       
     }
 
     /**

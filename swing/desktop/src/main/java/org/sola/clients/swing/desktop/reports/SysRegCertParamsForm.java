@@ -78,7 +78,6 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     private String tmpLocation = "";
     private static String cachePath = System.getProperty("user.home") + "/sola/cache/documents/";
     private static String svgPath = System.getProperty("user.home") + "/sola/cache/svg/";
-    
     private String reportdate;
     private String reportTogenerate;
     private Date currentDate;
@@ -304,14 +303,18 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 //            String featureFront = this.cachePath +  "front.png";
             String featureFront = this.svgPath +  "front.svg";
 //          
+//            String featureFront = "/images/sola/front.svg";
+//          
+            
 //            String featureFront = this.cachePath +  "Flag.svg";
            
 //            String featureBack = this.cachePath + "back.png";
-            String featureBack = this.cachePath + "back.svg";
-            
+            String featureBack = this.svgPath + "back.svg";
+//            String featureBack = "/images/sola/back.svg";
+
             File file = new File(featureImageFileName);
             
-            if (file.exists()) {
+//            if (file.exists()) {
 //                MessageUtility.displayMessage(ClientMessage.TITLE_ALREADY_GENERATED,
 //                new Object[]{parcelLabel});
 //              
@@ -321,7 +324,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 //                FileUtility.deleteFileFromCache(parcelLabel + ".png");
                 i = i + 1;
             }
-        }
+//        }
         if (i == 0) {
             MessageUtility.displayMessage(ClientMessage.NO_CERTIFICATE_GENERATION);
         } else {
