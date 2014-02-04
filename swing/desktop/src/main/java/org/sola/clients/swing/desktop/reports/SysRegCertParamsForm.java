@@ -77,7 +77,8 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     private String nr;
     private String tmpLocation = "";
     private static String cachePath = System.getProperty("user.home") + "/sola/cache/documents/";
-//    private static String mapPath = System.getProperty("user.home") + "/sola/";
+    private static String svgPath = System.getProperty("user.home") + "/sola/cache/svg/";
+    
     private String reportdate;
     private String reportTogenerate;
     private Date currentDate;
@@ -299,9 +300,9 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 
             String parcelLabel = baUnit.getCadastreObjectList().get(0).getNameLastpart().toString() + '/' + baUnit.getCadastreObjectList().get(0).getNameFirstpart().toString();
             parcelLabel = parcelLabel.replace('/', '-');
-            String featureImageFileName = this.cachePath + parcelLabel + ".png";
+            String featureImageFileName = this.svgPath + parcelLabel + ".png";
 //            String featureFront = this.cachePath +  "front.png";
-            String featureFront = this.cachePath +  "front.svg";
+            String featureFront = this.svgPath +  "front.svg";
 //          
 //            String featureFront = this.cachePath +  "Flag.svg";
            
