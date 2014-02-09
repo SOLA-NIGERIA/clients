@@ -5,11 +5,11 @@
     <parent>
         <artifactId>sola-clients</artifactId>
         <groupId>org.sola</groupId>
-        <version>1.2-SNAPSHOT</version>
+        <version>1.2-10022014</version>
     </parent>
     <groupId>org.sola.clients</groupId>
     <artifactId>clients-reports</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.2-10022014</version>
     <name>Clients Reports</name>
     <url>http://maven.apache.org</url>
     <properties>
@@ -159,11 +159,11 @@
             <artifactId>batik-xml</artifactId>
             <version>1.7</version>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>org.apache.xalan</groupId>
             <artifactId>xalan</artifactId>
             <version>2.7.1-1.jbossorg</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>xerces</groupId>
             <artifactId>xerces</artifactId>

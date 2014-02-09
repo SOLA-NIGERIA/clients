@@ -542,8 +542,8 @@ public class ReportManager {
      * report.
      *
      */
-    public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
-        String  featureFront,String featureBack) {
+    public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, 
+            SysRegCertificatesBean appBaunit,String featureImageFileName, String  featureFront,String featureBack) {
         HashMap inputParameters = new HashMap();
         String me ="/images/sola/Picture1.png";  
         String appNr = null;
