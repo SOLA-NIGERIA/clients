@@ -144,7 +144,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="15" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Section: "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Work Unit: "]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement mode="Transparent" x="434" y="7" width="121" height="28" forecolor="#FF3300" backcolor="#FFFFFF"/>

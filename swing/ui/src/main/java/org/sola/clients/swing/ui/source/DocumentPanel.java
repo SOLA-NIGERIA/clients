@@ -33,7 +33,13 @@ import java.awt.ComponentOrientation;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextField;
 import org.sola.clients.beans.digitalarchive.DocumentBean;
 import org.sola.clients.beans.party.PartyListBean;
@@ -250,7 +256,7 @@ public class DocumentPanel extends javax.swing.JPanel {
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/ui/source/Bundle"); // NOI18N
 
-        if ((this.cbxDocType.getSelectedItem().toString().contains(this.document.SYSTEMATIC_CLAIM_FORM) && this.cbxRecOff.getSelectedIndex()==-1)||
+        if ((this.cbxDocType.getSelectedItem()!= null && this.cbxDocType.getSelectedItem().toString().contains(this.document.SYSTEMATIC_CLAIM_FORM) && this.cbxRecOff.getSelectedIndex()==-1)||
                 this.cbxDocType.getSelectedItem().toString().contains(this.document.SKETCH_FORM) && this.cbxDemOff.getSelectedIndex()==-1) {
             MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_FIELDS,
                     new Object[]{this.lblOwnerName.getText().toString()});
@@ -380,6 +386,7 @@ public class DocumentPanel extends javax.swing.JPanel {
 
         txtDocRecordDate.setFont(new java.awt.Font("Thaoma", 0, 12));
         txtDocRecordDate.setFormatterFactory(FormattersFactory.getInstance().getDateFormatterFactory());
+        txtDocRecordDate.setToolTipText(bundle.getString("DocumentPanel.txtDocRecordDate.toolTipText")); // NOI18N
         txtDocRecordDate.setName("txtDocRecordDate"); // NOI18N
         txtDocRecordDate.setNextFocusableComponent(txtDocRefNumber);
 
@@ -388,6 +395,11 @@ public class DocumentPanel extends javax.swing.JPanel {
 
         txtDocRecordDate.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
         txtDocRecordDate.setHorizontalAlignment(JTextField.LEADING);
+        txtDocRecordDate.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDocRecordDateFocusLost(evt);
+            }
+        });
 
         jLabel3.setText(bundle.getString("DocumentPanel.jLabel3.text")); // NOI18N
         jLabel3.setName("jLabel3"); // NOI18N
@@ -882,6 +894,45 @@ public class DocumentPanel extends javax.swing.JPanel {
     private void txtOwnerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOwnerNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtOwnerNameActionPerformed
+    private String setExpiration(Object dateRecordation, String docExp) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+        System.out.println("DATEREORDATION  "+dateRecordation.toString());
+        Date dateRec = null;
+        try {
+            dateRec = sdf.parse(dateRecordation.toString());
+        } catch (ParseException ex) {
+            Logger.getLogger(DocumentPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        String dt = sdf.format(dateRec);
+
+        Calendar c = Calendar.getInstance();
+        int expiration = Integer.parseInt("365");
+        try {
+            c.setTime(sdf.parse(dt));
+        } catch (ParseException ex) {
+            Logger.getLogger(DocumentPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        c.add(Calendar.DATE, expiration);  // number of days to add
+//        dt = sdf.format(c.getTime());  // dt is now the new date
+        dt = sdf.format(c.getTime());  // dt is now the new date
+        return dt;
+    }
+    private void txtDocRecordDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDocRecordDateFocusLost
+        Date tmpExp;
+        String newDateString;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+//        this.txtDocRecordDate.setValue(formatter.format(this.txtDocRecordDate.getText()));
+//        tmpExp = formatter.parse(addPubliNotificationDuration(this.txtDocRecordDate.getValue(), ownerNameListingListBean.getOwnerNameListing().get(0).getPublicNotificationDuration()));
+          try {
+                 tmpExp = formatter.parse(setExpiration(this.txtDocRecordDate.getText(),"365")); 
+                 newDateString = formatter.format(tmpExp);
+                 this.txtExpiration.setText(newDateString);   
+              } catch (ParseException ex) {
+                        Logger.getLogger(DocumentPanel.class.getName()).log(Level.SEVERE, null, ex);
+              }
+       
+    }//GEN-LAST:event_txtDocRecordDateFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public org.sola.clients.swing.common.controls.BrowseControl browseAttachment;

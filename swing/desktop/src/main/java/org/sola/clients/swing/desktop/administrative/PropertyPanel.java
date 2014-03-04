@@ -110,7 +110,7 @@ public class PropertyPanel extends ContentPanel {
     public BaUnitBean whichBaUnitSelected;
     private boolean isBtnNext = false;
     private Integer term;
-    int srId= 32632;
+//    int srId= 32632;
 
             
 
@@ -1143,35 +1143,32 @@ public class PropertyPanel extends ContentPanel {
                     }
                 }  
                 
-                    String featureImageFileName = null;
-                    try {
-                        MapFeatureImageGenerator generator;
-                        if (mapControl != null) {
-                            // Use the map on the Property form as the basis for the snapshot.
-                            // This allows a user to setup the map before the snapshot is taken.
-                            generator = new MapFeatureImageGenerator(mapControl.getMap());
-                        } else {
-                            // Create a new map to render the parcel geometry only.
-                            generator = new MapFeatureImageGenerator(srId);
-//                              generator = new MapFeatureImageGenerator(mapControl.getMap().getSrid());
-                        
-                        }
-
-                     
-                        
-                        
-                       if (baUnitBean1.getCadastreObjectList().size()>0) { 
-                        String parcelLabel = baUnitBean1.getCadastreObjectList().get(0).getNameLastpart().toString()+'/'+baUnitBean1.getCadastreObjectList().get(0).getNameFirstpart().toString();
-                        
-                        
-                        featureImageFileName = generator.getFeatureImage(
-                                baUnitBean1.getCadastreObjectList().get(0).getGeomPolygon(),
-                                parcelLabel, null,
-                                MapFeatureImageGenerator.IMAGE_FORMAT_PNG);
-                       }
-                    } catch (InitializeMapException mapEx) {
-                        LogUtility.log("Unable to initialize MapFeaureImageGenerator", mapEx);
-                    }
+//                    String featureImageFileName = null;
+//                    try {
+//                        MapFeatureImageGenerator generator;
+//                        if (mapControl != null) {
+//                            // Use the map on the Property form as the basis for the snapshot.
+//                            // This allows a user to setup the map before the snapshot is taken.
+//                            generator = new MapFeatureImageGenerator(mapControl.getMap());
+//                        } else {
+//                            // Create a new map to render the parcel geometry only.
+//                            generator = new MapFeatureImageGenerator(srId);
+////                              generator = new MapFeatureImageGenerator(mapControl.getMap().getSrid());
+//                        
+//                        }
+   
+//                       if (baUnitBean1.getCadastreObjectList().size()>0) { 
+//                        String parcelLabel = baUnitBean1.getCadastreObjectList().get(0).getNameLastpart().toString()+'/'+baUnitBean1.getCadastreObjectList().get(0).getNameFirstpart().toString();
+//                        
+//                        
+//                        featureImageFileName = generator.getFeatureImage(
+//                                baUnitBean1.getCadastreObjectList().get(0).getGeomPolygon(),
+//                                parcelLabel, null,
+//                                MapFeatureImageGenerator.IMAGE_FORMAT_PNG);
+//                       }
+//                    } catch (InitializeMapException mapEx) {
+//                        LogUtility.log("Unable to initialize MapFeaureImageGenerator", mapEx);
+//                    }
                 
                 return null;
             }

@@ -71,6 +71,7 @@ import org.sola.clients.swing.desktop.source.PowerOfAttorneyViewForm;
 import org.sola.clients.swing.ui.MainContentPanel;
 import org.sola.clients.swing.bulkoperations.*;
 import org.sola.clients.swing.bulkoperations.sources.LoadSourcesPanel;
+import org.sola.clients.swing.desktop.reports.*;
 import org.sola.common.RolesConstants;
 import org.sola.common.help.HelpUtility;
 import org.sola.common.logging.LogUtility;
@@ -702,7 +703,7 @@ public class MainForm extends javax.swing.JFrame {
         menuLodgementReport = new javax.swing.JMenuItem();
         menuSystematic = new javax.swing.JMenu();
         menuSpatialUnitGroup = new javax.swing.JMenuItem();
-        menuLoadScannedDoc = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         menuPubDispRep = new javax.swing.JMenu();
         menuPublicNotification = new javax.swing.JMenuItem();
         menuItemMapPublicDisplay = new javax.swing.JMenuItem();
@@ -710,6 +711,8 @@ public class MainForm extends javax.swing.JFrame {
         menuReports = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         menuStatus = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        menuLoadScannedDoc = new javax.swing.JMenuItem();
         javax.swing.JMenu helpMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
         jmiContextHelp = new javax.swing.JMenuItem();
@@ -1043,13 +1046,13 @@ public class MainForm extends javax.swing.JFrame {
         });
         menuSystematic.add(menuSpatialUnitGroup);
 
-        menuLoadScannedDoc.setText(bundle.getString("MainForm.menuLoadScannedDoc.text")); // NOI18N
-        menuLoadScannedDoc.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem3.setText(bundle.getString("MainForm.jMenuItem3.text")); // NOI18N
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuLoadScannedDocActionPerformed(evt);
+                jMenuItem3ActionPerformed(evt);
             }
         });
-        menuSystematic.add(menuLoadScannedDoc);
+        menuSystematic.add(jMenuItem3);
 
         menuPubDispRep.setText(bundle.getString("MainForm.menuPubDispRep.text")); // NOI18N
 
@@ -1098,6 +1101,22 @@ public class MainForm extends javax.swing.JFrame {
         menuReports.add(menuStatus);
 
         menuSystematic.add(menuReports);
+
+        jMenuItem2.setText(bundle.getString("MainForm.jMenuItem2.text")); // NOI18N
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        menuSystematic.add(jMenuItem2);
+
+        menuLoadScannedDoc.setText(bundle.getString("MainForm.menuLoadScannedDoc.text")); // NOI18N
+        menuLoadScannedDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLoadScannedDocActionPerformed(evt);
+            }
+        });
+        menuSystematic.add(menuLoadScannedDoc);
 
         menuBar.add(menuSystematic);
 
@@ -1235,6 +1254,20 @@ public class MainForm extends javax.swing.JFrame {
         SysRegManagementParamsForm managementGenerator = new SysRegManagementParamsForm(this, true, whichReport);
         managementGenerator.setVisible(true);
     }
+    
+    
+    private void openSysRegGenderReport(java.awt.event.ActionEvent evt) {
+       SysRegManagementParamsForm managementGenerator = new SysRegManagementParamsForm(this, true, "sysRegGenderBean");
+        managementGenerator.clickView(evt);
+    }
+    private void openSysRegWorkUnit(java.awt.event.ActionEvent evt) {
+       SysRegWorkUnitForm  srwu  = new SysRegWorkUnitForm(null, true);
+       srwu.setVisible(true);
+    }
+    private void openSysRegStatusReport(java.awt.event.ActionEvent evt) {
+       SysRegManagementParamsForm managementGenerator = new SysRegManagementParamsForm(this, true, "sysRegStatusBean");
+        managementGenerator.clickView(evt);
+    }
 
     /**
      * Opens {@link ReportViewerForm} to display report.
@@ -1269,7 +1302,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemMapPublicDisplayActionPerformed
 
     private void menuStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuStatusActionPerformed
-        openSysRegManagementParamsForm("sysRegStatusBean");
+        openSysRegStatusReport(evt);
     }//GEN-LAST:event_menuStatusActionPerformed
 
     private void menuExportRightsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExportRightsActionPerformed
@@ -1295,6 +1328,14 @@ public class MainForm extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
           openSysRegManagementParamsForm("sysRegProductionBean");
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        openSysRegGenderReport (evt);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        openSysRegWorkUnit (evt);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void editPassword() {
         showPasswordPanel();
@@ -1333,6 +1374,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton btnShowDashboard;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;

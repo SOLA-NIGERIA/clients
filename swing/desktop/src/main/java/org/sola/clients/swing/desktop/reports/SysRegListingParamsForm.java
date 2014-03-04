@@ -200,6 +200,11 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
         txtFromDate.setToolTipText(bundle.getString("SysRegListingParamsForm.txtFromDate.toolTipText")); // NOI18N
         txtFromDate.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
         txtFromDate.setHorizontalAlignment(JTextField.LEADING);
+        txtFromDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFromDateActionPerformed(evt);
+            }
+        });
         txtFromDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 txtFromDatePropertyChange(evt);
@@ -265,7 +270,7 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
                             .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(viewReport)))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -495,6 +500,11 @@ public class SysRegListingParamsForm extends javax.swing.JDialog {
     private void txtFromDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtFromDatePropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFromDatePropertyChange
+
+    private void txtFromDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFromDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFromDateActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnShowCalendarFrom;
     private org.sola.clients.swing.ui.cadastre.LocationSearch cadastreObjectSearch;

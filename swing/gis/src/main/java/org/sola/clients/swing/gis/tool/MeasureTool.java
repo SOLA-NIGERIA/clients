@@ -23,7 +23,7 @@ public class MeasureTool extends ExtendedDrawTool {
         this.setGeometryType(Geometries.LINESTRING);
         this.setToolName("measure");
         this.setToolTip(toolTip);
-        this.setIconImage("resources/calculate.png");
+        this.setIconImage("resources/ruler.png");
     }
 
     /** Triggered when the user double clicks to complete the measure

@@ -542,8 +542,8 @@ public class ReportManager {
      * report.
      *
      */
-    public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, 
-            SysRegCertificatesBean appBaunit,String featureImageFileName, String  featureFront,String featureBack) {
+    public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
+        String  featureFront,String featureBack) {
         HashMap inputParameters = new HashMap();
         String me ="/images/sola/Picture1.png";  
         String appNr = null;
@@ -655,6 +655,40 @@ public class ReportManager {
         }
     }
     
+
+    
+//      /**
+//     * Generates and displays <b>Sys Reg Status</b> report.
+//     *
+//     * @param appBean Application bean containing data for the report.
+//     */
+    public static JasperPrint getSysRegGenderReport(SysRegGenderBean genderBean) {
+        
+        HashMap inputParameters = new HashMap();
+        Date currentdate = new Date(System.currentTimeMillis());
+        inputParameters.put("REPORT_LOCALE", Locale.getDefault());
+
+        inputParameters.put("CURRENT_DATE", currentdate);
+
+        inputParameters.put("STATE", "Kogi");
+        inputParameters.put("LGA", "");
+        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
+        SysRegGenderBean[] beans = new SysRegGenderBean[1];
+        beans[0] = genderBean;
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+        try {
+            return JasperFillManager.fillReport(
+                    ReportManager.class.getResourceAsStream("/reports/SysRegGender.jasper"),
+                    inputParameters, jds);
+        } catch (JRException ex) {
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        }
+    }
+    
+    
+    
 //      /**
 //     * Generates and displays <b>Sys Reg Status</b> report.
 //     *
@@ -668,6 +702,8 @@ public class ReportManager {
 
         inputParameters.put("CURRENT_DATE", currentdate);
 
+        inputParameters.put("STATE", "Kogi");
+        inputParameters.put("LGA", "");
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("FROMDATE", dateFrom);
         inputParameters.put("TODATE", dateTo);

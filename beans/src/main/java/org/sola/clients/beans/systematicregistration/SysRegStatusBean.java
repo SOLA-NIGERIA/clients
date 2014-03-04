@@ -34,20 +34,22 @@ import org.sola.webservices.transferobjects.administrative.SysRegManagementParam
 public class SysRegStatusBean extends AbstractIdBean {
 
     private ObservableList<SysRegStatusBean> statusList;
-    private String block;
-    private BigDecimal appLodgedNoSP;
-    private BigDecimal appLodgedSP;
-    private BigDecimal SPnoApp;
-    private BigDecimal appPendObj;
-    private BigDecimal appIncDoc;
-    private BigDecimal appPDisp;
-    private BigDecimal appCompPDispNoCert;
-    private BigDecimal appCertificate;
-    private BigDecimal appPrLand;
-    private BigDecimal appPubLand;
-    private BigDecimal TotApp;
-    private BigDecimal TotSurvPar;
+    private String     srwu;
+    private BigDecimal estimatedparcel;
+    private BigDecimal recordedparcel;
+    private BigDecimal recordedclaims;
+    private BigDecimal scanneddemarcation;
+    private BigDecimal scannedclaims;
+    private BigDecimal digitizedparcels;
+    private BigDecimal claimsentered;
+    private BigDecimal parcelsreadyPD;
+    private BigDecimal parcelsPD;
+    private BigDecimal 	parcelscompletedPD;
+    private BigDecimal unsolveddisputes;
+    private BigDecimal generatedcertificates;
+    private BigDecimal distributedcertificates;
 
+ 
     public SysRegStatusBean() {
         super();
         statusList = ObservableCollections.observableList(new LinkedList<SysRegStatusBean>());
@@ -61,110 +63,119 @@ public class SysRegStatusBean extends AbstractIdBean {
         this.statusList = statusList;
     }
 
-    public BigDecimal getSPnoApp() {
-        return SPnoApp;
+    public BigDecimal getClaimsentered() {
+        return claimsentered;
     }
 
-    public void setSPnoApp(BigDecimal SPnoApp) {
-        this.SPnoApp = SPnoApp;
+    public void setClaimsentered(BigDecimal claimsentered) {
+        this.claimsentered = claimsentered;
     }
 
-    public BigDecimal getTotApp() {
-        return TotApp;
+    public BigDecimal getDigitizedparcels() {
+        return digitizedparcels;
+    }
+  
+    public void setDigitizedparcels(BigDecimal digitizedparcels) {
+        this.digitizedparcels = digitizedparcels;
     }
 
-    public void setTotApp(BigDecimal TotApp) {
-        this.TotApp = TotApp;
+    public BigDecimal getDistributedcertificates() {
+        return distributedcertificates;
     }
 
-    public BigDecimal getTotSurvPar() {
-        return TotSurvPar;
+    public void setDistributedcertificates(BigDecimal distributedcertificates) {
+        this.distributedcertificates = distributedcertificates;
     }
 
-    public void setTotSurvPar(BigDecimal TotSurvPar) {
-        this.TotSurvPar = TotSurvPar;
+    public BigDecimal getEstimatedparcel() {
+        return estimatedparcel;
     }
 
-    public BigDecimal getAppCertificate() {
-        return appCertificate;
+    public void setEstimatedparcel(BigDecimal estimatedparcel) {
+        this.estimatedparcel = estimatedparcel;
     }
 
-    public void setAppCertificate(BigDecimal appCertificate) {
-        this.appCertificate = appCertificate;
+    public BigDecimal getGeneratedcertificates() {
+        return generatedcertificates;
     }
 
-    public BigDecimal getAppCompPDispNoCert() {
-        return appCompPDispNoCert;
+    public void setGeneratedcertificates(BigDecimal generatedcertificates) {
+        this.generatedcertificates = generatedcertificates;
     }
 
-    public void setAppCompPDispNoCert(BigDecimal appCompPDispNoCert) {
-        this.appCompPDispNoCert = appCompPDispNoCert;
+    public BigDecimal getParcelsPD() {
+        return parcelsPD;
     }
 
-    public BigDecimal getAppIncDoc() {
-        return appIncDoc;
+    public void setParcelsPD(BigDecimal parcelsPD) {
+        this.parcelsPD = parcelsPD;
     }
 
-    public void setAppIncDoc(BigDecimal appIncDoc) {
-        this.appIncDoc = appIncDoc;
+    public BigDecimal getParcelscompletedPD() {
+        return parcelscompletedPD;
     }
 
-    public BigDecimal getAppLodgedNoSP() {
-        return appLodgedNoSP;
+    public void setParcelscompletedPD(BigDecimal parcelscompletedPD) {
+        this.parcelscompletedPD = parcelscompletedPD;
     }
 
-    public void setAppLodgedNoSP(BigDecimal appLodgedNoSP) {
-        this.appLodgedNoSP = appLodgedNoSP;
+    public BigDecimal getParcelsreadyPD() {
+        return parcelsreadyPD;
     }
 
-    public BigDecimal getAppLodgedSP() {
-        return appLodgedSP;
+    public void setParcelsreadyPD(BigDecimal parcelsreadyPD) {
+        this.parcelsreadyPD = parcelsreadyPD;
     }
 
-    public void setAppLodgedSP(BigDecimal appLodgedSP) {
-        this.appLodgedSP = appLodgedSP;
+    public BigDecimal getRecordedclaims() {
+        return recordedclaims;
     }
 
-    public BigDecimal getAppPDisp() {
-        return appPDisp;
+    public void setRecordedclaims(BigDecimal recordedclaims) {
+        this.recordedclaims = recordedclaims;
     }
 
-    public void setAppPDisp(BigDecimal appPDisp) {
-        this.appPDisp = appPDisp;
+    public BigDecimal getRecordedparcel() {
+        return recordedparcel;
     }
 
-    public BigDecimal getAppPendObj() {
-        return appPendObj;
+    public void setRecordedparcel(BigDecimal recordedparcel) {
+        this.recordedparcel = recordedparcel;
     }
 
-    public void setAppPendObj(BigDecimal appPendObj) {
-        this.appPendObj = appPendObj;
+    public BigDecimal getScannedclaims() {
+        return scannedclaims;
     }
 
-    public BigDecimal getAppPrLand() {
-        return appPrLand;
+    public void setScannedclaims(BigDecimal scannedclaims) {
+        this.scannedclaims = scannedclaims;
     }
 
-    public void setAppPrLand(BigDecimal appPrLand) {
-        this.appPrLand = appPrLand;
+    public BigDecimal getScanneddemarcation() {
+        return scanneddemarcation;
     }
 
-    public BigDecimal getAppPubLand() {
-        return appPubLand;
+    public void setScanneddemarcation(BigDecimal scanneddemarcation) {
+        this.scanneddemarcation = scanneddemarcation;
     }
 
-    public void setAppPubLand(BigDecimal appPubLand) {
-        this.appPubLand = appPubLand;
+    public String getSrwu() {
+        return srwu;
     }
 
-    public String getBlock() {
-        return block;
+    public void setSrwu(String srwu) {
+        this.srwu = srwu;
     }
 
-    public void setBlock(String block) {
-        this.block = block;
+    public BigDecimal getUnsolveddisputes() {
+        return unsolveddisputes;
     }
 
+    public void setUnsolveddisputes(BigDecimal unsolveddisputes) {
+        this.unsolveddisputes = unsolveddisputes;
+    }
+
+    
     /**
      * Returns collection of {@link ApplicationBean} objects. This method is
      * used by Jasper report designer to extract properties of application bean

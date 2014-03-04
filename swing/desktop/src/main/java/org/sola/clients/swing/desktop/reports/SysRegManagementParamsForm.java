@@ -112,6 +112,7 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
         sysRegProgressBean = new org.sola.clients.beans.systematicregistration.SysRegProgressBean();
         sysRegProductionBean = new org.sola.clients.beans.systematicregistration.SysRegProductionBean();
         searchParams1 = new org.sola.clients.beans.application.LodgementViewParamsBean();
+        sysRegGenderBean = new org.sola.clients.beans.systematicregistration.SysRegGenderBean();
         reportViewerPanel = new org.sola.clients.swing.ui.reports.ReportViewerPanel();
         labHeader = new javax.swing.JLabel();
         txtFromDate = new javax.swing.JFormattedTextField();
@@ -227,7 +228,7 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(viewReport)))
                 .addContainerGap())
-            .addComponent(statusPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+            .addComponent(statusPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
         );
         reportViewerPanelLayout.setVerticalGroup(
             reportViewerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,6 +311,13 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
         }
         return sysRegStatusBean;
     }
+    
+     private SysRegGenderBean createSysRegGenderBean() {
+        if (sysRegGenderBean == null) {
+            sysRegGenderBean = new SysRegGenderBean();
+        }
+        return sysRegGenderBean;
+    }
 
     private SysRegProgressBean createSysRegProgressBean() {
         if (sysRegProgressBean == null) {
@@ -329,7 +337,12 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
         }
         return monday;
     }
-
+    
+    
+    public void clickView(java.awt.event.ActionEvent evt) {                                           
+        viewReportActionPerformed (evt);
+    }
+    
     private void viewReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewReportActionPerformed
 
         Date tmpFrom = (Date) txtFromDate.getValue();
@@ -365,7 +378,13 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_REPORT));
-
+                 
+                
+                if (finalReport.contentEquals("sysRegGenderBean")) {
+                    sysRegGenderBean.passParameter("sysRegGenderBean");
+                    showReport(ReportManager.getSysRegGenderReport(sysRegGenderBean));
+                }
+                
                 if (finalReport.contentEquals("sysRegManagementBean")) {
                     sysRegManagementBean.passParameter(searchParams);
                     showReport(ReportManager.getSysRegManagementReport(sysRegManagementBean, finalFrom, finalTo, tmpLocation));
@@ -407,6 +426,7 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
     private org.sola.clients.beans.systematicregistration.SysRegManagementParamsBean searchParams;
     private org.sola.clients.beans.application.LodgementViewParamsBean searchParams1;
     private javax.swing.JPanel statusPanel;
+    private org.sola.clients.beans.systematicregistration.SysRegGenderBean sysRegGenderBean;
     private org.sola.clients.beans.systematicregistration.SysRegManagementBean sysRegManagementBean;
     private org.sola.clients.beans.systematicregistration.SysRegProductionBean sysRegProductionBean;
     private org.sola.clients.beans.systematicregistration.SysRegProgressBean sysRegProgressBean;

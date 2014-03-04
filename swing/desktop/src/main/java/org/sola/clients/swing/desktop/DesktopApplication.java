@@ -49,7 +49,9 @@ public class DesktopApplication {
      * @param args Array of input parameters.
      */
     public static void main(String[] args) {
-        // Show splash screen
+    // Set class to record user preferences for
+        WindowUtility.setMainAppClass(DesktopApplication.class);
+    // Show splash screen
         SplashForm splash = new SplashForm();
         WindowUtility.centerForm(splash);
         splash.setVisible(true);

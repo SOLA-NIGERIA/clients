@@ -354,7 +354,7 @@
 			</textField>
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement x="0" y="0" width="555" height="802"/>
-				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation($P{BACK_IMAGE})]]></imageExpression>
+				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation("images/sola/front.svg")]]></imageExpression>
 			</image>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement mode="Transparent" x="122" y="438" width="100" height="20" forecolor="#CC3300" backcolor="#FFFFFF"/>

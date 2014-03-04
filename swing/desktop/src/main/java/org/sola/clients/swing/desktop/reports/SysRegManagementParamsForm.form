@@ -14,6 +14,8 @@
     </Component>
     <Component class="org.sola.clients.beans.application.LodgementViewParamsBean" name="searchParams1">
     </Component>
+    <Component class="org.sola.clients.beans.systematicregistration.SysRegGenderBean" name="sysRegGenderBean">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
@@ -78,7 +80,7 @@
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
-              <Component id="statusPanel" alignment="0" pref="438" max="32767" attributes="0"/>
+              <Component id="statusPanel" alignment="0" pref="455" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
