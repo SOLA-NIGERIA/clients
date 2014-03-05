@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
+ * Copyright (C) 2014 - Food and Agriculture Organization of the United Nations (FAO).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -149,7 +149,7 @@ public class Development {
     /**
      * Test the controls bundle for cadastre change
      */
-    //@Ignore
+    @Ignore
     @Test
     public void testUIControlsBundleForCadastreChange() throws Exception {
         System.out.println("Test ControlsBundle for cadastre change");
@@ -175,7 +175,7 @@ public class Development {
         SecurityBean.authenticate("test", "test".toCharArray(), this.getWSConfig());
         
         ControlsBundleForCadastreChange ctrl = new ControlsBundleForCadastreChange(
-                this.getApplicationBean("3000"), "4000", "3078053", "parcel");
+                this.getApplicationBean("3001"), "4000", "3078053", "parcel");
         
         //ctrl.setReadOnly(true);
 
@@ -203,7 +203,7 @@ public class Development {
         this.displayControlsBundleForm(ctrl);
     }
 
-    @Ignore
+    //@Ignore
     @Test
     public void testUIControlsBundleForCadastreRedefinition() throws Exception {
         System.out.println("Test ControlsBundle for cadastre redefinition");
