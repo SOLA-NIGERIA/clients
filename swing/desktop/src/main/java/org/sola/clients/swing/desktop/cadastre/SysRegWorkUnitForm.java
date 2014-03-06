@@ -116,6 +116,7 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
         selectionPanel = new javax.swing.JPanel();
         cadastreObjectSearch = new org.sola.clients.swing.ui.cadastre.LocationSearch();
         configureSRWU = new javax.swing.JButton();
+        labHeader = new javax.swing.JLabel();
         srwuPanel = new javax.swing.JPanel();
         labNotificationFrom = new javax.swing.JLabel();
         txtFromDate = new javax.swing.JFormattedTextField();
@@ -137,6 +138,7 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
         srwuToolBar = new javax.swing.JToolBar();
         btnSave1 = new org.sola.clients.swing.common.buttons.BtnSave();
         jButton1 = new javax.swing.JButton();
+        labHeader1 = new javax.swing.JLabel();
         headerPanel = new org.sola.clients.swing.ui.HeaderPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -152,24 +154,33 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
             }
         });
 
+        labHeader.setBackground(new java.awt.Color(255, 153, 0));
+        labHeader.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labHeader.setForeground(new java.awt.Color(255, 255, 255));
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/cadastre/Bundle"); // NOI18N
+        labHeader.setText(bundle1.getString("SysRegWorkUnitForm.labHeader.text")); // NOI18N
+        labHeader.setOpaque(true);
+
         javax.swing.GroupLayout selectionPanelLayout = new javax.swing.GroupLayout(selectionPanel);
         selectionPanel.setLayout(selectionPanelLayout);
         selectionPanelLayout.setHorizontalGroup(
             selectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(selectionPanelLayout.createSequentialGroup()
-                .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(configureSRWU)
                 .addContainerGap())
+            .addComponent(labHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         selectionPanelLayout.setVerticalGroup(
             selectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(selectionPanelLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addComponent(labHeader)
+                .addGap(10, 10, 10)
                 .addGroup(selectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(configureSRWU))
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         labNotificationFrom.setText(bundle.getString("SysRegListingParamsForm.labNotificationFrom.text")); // NOI18N
@@ -245,37 +256,6 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
 
         panelScanned.add(txtDistributedCertificates);
 
-        javax.swing.GroupLayout srwuPanelLayout = new javax.swing.GroupLayout(srwuPanel);
-        srwuPanel.setLayout(srwuPanelLayout);
-        srwuPanelLayout.setHorizontalGroup(
-            srwuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelScanned, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
-            .addGroup(srwuPanelLayout.createSequentialGroup()
-                .addGroup(srwuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtFromDate, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                    .addComponent(labNotificationFrom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnShowCalendarFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(srwuPanelLayout.createSequentialGroup()
-                .addComponent(panelRecorded, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        srwuPanelLayout.setVerticalGroup(
-            srwuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(srwuPanelLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(panelRecorded, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(panelScanned, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labNotificationFrom)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(srwuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnShowCalendarFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-
         srwuToolBar.setFloatable(false);
         srwuToolBar.setRollover(true);
         srwuToolBar.setName("srwuToolBar");
@@ -301,7 +281,49 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
         });
         srwuToolBar.add(jButton1);
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/cadastre/Bundle"); // NOI18N
+        labHeader1.setBackground(new java.awt.Color(255, 153, 0));
+        labHeader1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labHeader1.setForeground(new java.awt.Color(255, 255, 255));
+        labHeader1.setText(bundle1.getString("SysRegWorkUnitForm.labHeader1.text")); // NOI18N
+        labHeader1.setOpaque(true);
+
+        javax.swing.GroupLayout srwuPanelLayout = new javax.swing.GroupLayout(srwuPanel);
+        srwuPanel.setLayout(srwuPanelLayout);
+        srwuPanelLayout.setHorizontalGroup(
+            srwuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelScanned, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+            .addGroup(srwuPanelLayout.createSequentialGroup()
+                .addGroup(srwuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtFromDate, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                    .addComponent(labNotificationFrom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnShowCalendarFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(srwuPanelLayout.createSequentialGroup()
+                .addGroup(srwuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelRecorded, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(srwuToolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        srwuPanelLayout.setVerticalGroup(
+            srwuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(srwuPanelLayout.createSequentialGroup()
+                .addComponent(labHeader1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(srwuToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(panelRecorded, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(panelScanned, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labNotificationFrom)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(srwuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnShowCalendarFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
         headerPanel.setTitleText(bundle1.getString("SysRegWorkUnitForm.headerPanel.titleText")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -310,7 +332,6 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(srwuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(selectionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(srwuToolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -319,9 +340,7 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
                 .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(selectionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(srwuToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(41, 41, 41)
                 .addComponent(srwuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -443,6 +462,8 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel labHeader;
+    private javax.swing.JLabel labHeader1;
     private javax.swing.JLabel labNotificationFrom;
     private javax.swing.JPanel panelRecorded;
     private javax.swing.JPanel panelScanned;
