@@ -179,20 +179,22 @@ public class OwnershipPanel extends ContentPanel {
 
     private void customizeForm() {
         String stringTitle = rrrBean.getRrrType().getDisplayValue();
-        if (appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){
-           stringTitle = stringTitle+" "+ MessageUtility.getLocalizedMessage(
-                            ClientMessage.SYSTEMATIC_REGISTRATION_CLAIM).getMessage(); 
-           this.groupPanel1.setTitleText(this.groupPanel1.getTitleText()+" "+MessageUtility.getLocalizedMessage(
-                            ClientMessage.SYSTEMATIC_REGISTRATION_CLAIMANTS).getMessage());
-           this.tableShares.getColumnModel().getColumn(0).setHeaderValue(MessageUtility.getLocalizedMessage(
-                            ClientMessage.SYSTEMATIC_REGISTRATION_CLAIMANT).getMessage());
+        
+        if (appService!=null){
+            if (appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){
+            stringTitle = stringTitle+" "+ MessageUtility.getLocalizedMessage(
+                                ClientMessage.SYSTEMATIC_REGISTRATION_CLAIM).getMessage(); 
+            this.groupPanel1.setTitleText(this.groupPanel1.getTitleText()+" "+MessageUtility.getLocalizedMessage(
+                                ClientMessage.SYSTEMATIC_REGISTRATION_CLAIMANTS).getMessage());
+            this.tableShares.getColumnModel().getColumn(0).setHeaderValue(MessageUtility.getLocalizedMessage(
+                                ClientMessage.SYSTEMATIC_REGISTRATION_CLAIMANT).getMessage());
 
-        }
-         if (appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)){
-           this.txtRegDatetime.setValue(null);
-           this.rrrBean.setExpirationDate(this.baunitBean.getExpirationDate());
-        }
-           
+            }
+            if (appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)){
+            this.txtRegDatetime.setValue(null);
+            this.rrrBean.setExpirationDate(this.baunitBean.getExpirationDate());
+            }
+        }           
         headerPanel.setTitleText(stringTitle);
         if (rrrAction == RrrBean.RRR_ACTION.NEW) {
             btnSave.setText(MessageUtility.getLocalizedMessage(
@@ -220,7 +222,8 @@ public class OwnershipPanel extends ContentPanel {
     }
 
     private void openShareForm(RrrShareBean shareBean, RrrBean.RRR_ACTION rrrAction) {
-         if (appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){
+         
+        if (appService != null && appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){
           SharePanel shareForm = new SharePanel(shareBean, rrrAction, appService, applicationBean, rrrBean);
           ShareFormListener listener = new ShareFormListener();
           shareForm.addPropertyChangeListener(SharePanel.UPDATED_RRR_SHARE, listener);
