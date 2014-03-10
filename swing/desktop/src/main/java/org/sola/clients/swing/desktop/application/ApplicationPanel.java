@@ -1667,7 +1667,7 @@ public class ApplicationPanel extends ContentPanel {
             .addComponent(txtNationality)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(lbNationality)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(cbxNationality, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 4, Short.MAX_VALUE))
@@ -1732,6 +1732,7 @@ public class ApplicationPanel extends ContentPanel {
 
         jPanel20.setName(bundle.getString("ApplicationPanel.jPanel20.name_1")); // NOI18N
 
+        lblGender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         lblGender.setText(bundle.getString("ApplicationPanel.lblGender.text")); // NOI18N
         lblGender.setName(bundle.getString("ApplicationPanel.lblGender.name")); // NOI18N
 
@@ -1949,7 +1950,7 @@ public class ApplicationPanel extends ContentPanel {
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
+            .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 639, Short.MAX_VALUE)
             .addComponent(groupPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel12Layout.setVerticalGroup(
@@ -3061,7 +3062,7 @@ public class ApplicationPanel extends ContentPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tabbedControlMain, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
+                .addComponent(tabbedControlMain, javax.swing.GroupLayout.PREFERRED_SIZE, 485, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
