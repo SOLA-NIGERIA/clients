@@ -212,7 +212,7 @@ public final class ControlsBundleForCadastreChange extends ControlsBundleForTran
         // the database functions: cadastre.get_new_cadastre_object_identifier_last_part
         // and cadastre.get_new_cadastre_object_identifier_first_part has to be updated
         // to reflect the algorithm that is used for generating the identifier.
-        this.newCadastreObjectLayer.setUseClientSideIdentifierGenerator(true);
+        this.newCadastreObjectLayer.setUseClientSideIdentifierGenerator(false);
         this.getMap().addLayer(newCadastreObjectLayer);
 
         this.newPointsLayer = new CadastreChangeNewSurveyPointLayer(this.newCadastreObjectLayer);
