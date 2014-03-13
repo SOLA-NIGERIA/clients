@@ -1,26 +1,28 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO). All rights
- * reserved.
+ * Copyright (C) 2014 - Food and Agriculture Organization of the United Nations (FAO).
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification, are permitted
- * provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice,this list of conditions
- * and the following disclaimer. 2. Redistributions in binary form must reproduce the above
- * copyright notice,this list of conditions and the following disclaimer in the documentation and/or
- * other materials provided with the distribution. 3. Neither the name of FAO nor the names of its
- * contributors may be used to endorse or promote products derived from this software without
- * specific prior written permission.
+ *    1. Redistributions of source code must retain the above copyright notice,this list
+ *       of conditions and the following disclaimer.
+ *    2. Redistributions in binary form must reproduce the above copyright notice,this list
+ *       of conditions and the following disclaimer in the documentation and/or other
+ *       materials provided with the distribution.
+ *    3. Neither the name of FAO nor the names of its contributors may be used to endorse or
+ *       promote products derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
- * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
- * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 /*
@@ -133,7 +135,7 @@ public abstract class CadastreRedefinitionAbstractNodeTool
      * @param nodeFeature The node to manipulate
      */
     protected final boolean manipulateNode(SimpleFeature nodeFeature) {
-        boolean manipulationHappen = true;
+        boolean manipulationHappen;
         Geometry nodeFeatureGeom = (Geometry) nodeFeature.getDefaultGeometry();
         this.form.setStatus(CadastreRedefinitionNodeModifyForm.Status.DoNothing);
         this.form.setCoordinateX(nodeFeatureGeom.getCoordinate().x);
@@ -142,11 +144,14 @@ public abstract class CadastreRedefinitionAbstractNodeTool
                 this.cadastreObjectModifiedLayer.getCadastreObjectFeatures(nodeFeature).size() < 3);
         this.form.setVisible(true);
         if (this.form.getStatus() == CadastreRedefinitionNodeModifyForm.Status.ModifyNode) {
-            manipulationHappen = this.modifyNode(
-                    nodeFeature, this.form.getCoordinateX(), this.form.getCoordinateY());
+            manipulationHappen = this.cadastreObjectNodeModifiedLayer.modifyNode(
+                    nodeFeature, this.form.getCoordinateX(), this.form.getCoordinateY());                    
         } else if (this.form.getStatus() == CadastreRedefinitionNodeModifyForm.Status.RemoveNode) {
             manipulationHappen = this.removeNode(nodeFeature);
-        } else {
+        } else if (this.form.getStatus() == CadastreRedefinitionNodeModifyForm.Status.ModifyNodeInteractive) {
+            manipulationHappen = true;
+        } 
+        else {
             manipulationHappen = false;
         }
         return manipulationHappen;
@@ -161,71 +166,6 @@ public abstract class CadastreRedefinitionAbstractNodeTool
     protected final SimpleFeature getFirstNodeFeature(Envelope2D env) {
         return this.cadastreObjectNodeModifiedLayer.getFirstFeatureInRange(
                 new ReferencedEnvelope(env));
-    }
-
-    /**
-     * It modifies the node by changing its coordinates. This will bring changes to cadastre objects
-     * that share this node. If the changing of this node, brings the cadastre objects in the
-     * original situation, it will be removed, because nothing is changed.
-     *
-     * @param nodeFeature The node feature
-     * @param newCoordinateX The new coordinate X
-     * @param newCoordinateY The new coordinate Y
-     * @return True if the change happen
-     */
-    private boolean modifyNode(
-            SimpleFeature nodeFeature,
-            Double newCoordinateX, Double newCoordinateY) {
-        Geometry nodeFeatureGeom = (Geometry) nodeFeature.getDefaultGeometry();
-        Coordinate existingCoordinate = new Coordinate(
-                nodeFeatureGeom.getCoordinate().x, nodeFeatureGeom.getCoordinate().y);
-
-        List<SimpleFeature> cadastreObjects =
-                this.cadastreObjectModifiedLayer.getCadastreObjectFeatures(nodeFeature);
-
-        Map<String, Geometry> backup = new HashMap<String, Geometry>();
-        boolean success = true;
-        for (SimpleFeature cadastreObjectFeature : cadastreObjects) {
-            backup.put(
-                    cadastreObjectFeature.getID(),
-                    (Geometry) cadastreObjectFeature.getDefaultGeometry());
-            Geometry cadastreObjectGeom =
-                    (Geometry) ((Geometry) cadastreObjectFeature.getDefaultGeometry()).clone();
-            com.vividsolutions.jts.geom.CoordinateList coordinates =
-                    new CoordinateList(cadastreObjectGeom.getCoordinates(), false);
-
-            Coordinate coordinate;
-            for (Object coordinateObj : coordinates) {
-                coordinate = (Coordinate) coordinateObj;
-                if (coordinate.equals2D(existingCoordinate)) {
-                    coordinate.x = newCoordinateX;
-                    coordinate.y = newCoordinateY;
-                }
-            }
-            success = this.cadastreObjectModifiedLayer.replaceFeatureGeometry(
-                    cadastreObjectFeature, cadastreObjectGeom);
-            if (!success) {
-                break;
-            }
-        }
-
-        if (success) {
-            nodeFeatureGeom.getCoordinate().x = newCoordinateX;
-            nodeFeatureGeom.getCoordinate().y = newCoordinateY;
-            nodeFeatureGeom.geometryChanged();
-            this.cadastreObjectNodeModifiedLayer.getFeatureCollection().notifyListeners(
-                    nodeFeature, CollectionEvent.FEATURES_CHANGED);
-            this.removeIfNodeNotUsed(nodeFeature);
-            this.getMapControl().refresh();
-        } else {
-            for (SimpleFeature cadastreObjectFeature : cadastreObjects) {
-                if (backup.containsKey(cadastreObjectFeature.getID())) {
-                    cadastreObjectFeature.setDefaultGeometry(
-                            backup.get(cadastreObjectFeature.getID()));
-                }
-            }
-        }
-        return success;
     }
 
     /**
@@ -306,25 +246,5 @@ public abstract class CadastreRedefinitionAbstractNodeTool
 
         return this.cadastreObjectModifiedLayer.getGeometryFactory().createLinearRing(
                 coordinates.toCoordinateArray());
-    }
-
-    /**
-     * Removes a node if there is no cadastre object connected with it. This situation happen when
-     * the cadastre objects are removed from the list of target objects because they did not change
-     * from their original shape.
-     *
-     * @param nodeFeature
-     * @return True = if the node is removed
-     */
-    private boolean removeIfNodeNotUsed(SimpleFeature nodeFeature) {
-        boolean objectsAreRemoved = false;
-        List<SimpleFeature> cadastreObjects =
-                this.cadastreObjectModifiedLayer.getCadastreObjectFeatures(nodeFeature);
-
-        if (cadastreObjects.isEmpty()) {
-            this.cadastreObjectNodeModifiedLayer.removeFeature(nodeFeature.getID(), false);
-            objectsAreRemoved = true;
-        }
-        return objectsAreRemoved;
     }
 }

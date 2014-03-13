@@ -78,7 +78,7 @@
                           <Component id="viewReport" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="27" max="32767" attributes="0"/>
               </Group>
               <Component id="statusPanel" alignment="0" pref="455" max="32767" attributes="0"/>
           </Group>
