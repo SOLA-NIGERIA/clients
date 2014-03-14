@@ -159,14 +159,14 @@
 	<pageHeader>
 		<band height="28" splitType="Stretch">
 			<textField>
-				<reportElement x="154" y="0" width="280" height="28" forecolor="#006600"/>
+				<reportElement x="154" y="0" width="145" height="28" forecolor="#006600"/>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="15" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Work Unit: "]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="434" y="0" width="121" height="28" forecolor="#FF3300" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="299" y="0" width="256" height="28" forecolor="#FF3300" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="13" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single" firstLineIndent="5"/>
