@@ -328,9 +328,11 @@ public class SysRegManagementParamsForm extends javax.swing.JDialog {
 
     private boolean checkMonday(Date finalFrom) {
         Calendar cal = Calendar.getInstance();
+        boolean monday = false;
+        if (finalFrom != null) {
         cal.setTime(finalFrom);
-        System.out.println("GIORNO SETTIMANA  "+cal.get(Calendar.DAY_OF_WEEK));
-        boolean monday = cal.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY;
+         monday = cal.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY;
+        }
         if (monday==false) {
             MessageUtility.displayMessage(ClientMessage.DATE_MONDAY);
             return monday;
