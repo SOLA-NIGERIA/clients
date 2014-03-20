@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Gender Report" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="org.sola.clients.reports.locale.SysRegMenagement">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="63"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -50,6 +50,46 @@
 		</box>
 	</style>
 	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
@@ -105,7 +145,20 @@
 			<variableExpression><![CDATA[$F{total}]]></variableExpression>
 		</variable>
 	</subDataset>
-	<subDataset name="dataset1"/>
+	<subDataset name="Table Dataset 2">
+		<field name="field1" class="java.lang.String"/>
+		<field name="field2" class="java.lang.String"/>
+		<field name="field3" class="java.lang.String"/>
+		<field name="field4" class="java.lang.String"/>
+		<field name="field5" class="java.lang.String"/>
+		<field name="field6" class="java.lang.String"/>
+		<field name="number of male" class="java.lang.String"/>
+		<field name="field2_1" class="java.lang.String"/>
+		<field name="field3_1" class="java.lang.String"/>
+		<field name="field4_1" class="java.lang.String"/>
+		<field name="field5_1" class="java.lang.String"/>
+		<field name="field6_1" class="java.lang.String"/>
+	</subDataset>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="FROMDATE" class="java.util.Date"/>
 	<parameter name="STATE" class="java.lang.String"/>
@@ -178,55 +231,27 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="52">
+		<band height="67">
 			<staticText>
-				<reportElement mode="Transparent" x="329" y="0" width="43" height="20" forecolor="#000000"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
+				<reportElement mode="Transparent" x="265" y="20" width="49" height="20" forecolor="#736343" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Legenda]]></text>
+				<text><![CDATA[Legend]]></text>
 			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="372" y="0" width="170" height="20" forecolor="#000000"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Times New Roman" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Female:   number of parcels by female claimant]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="372" y="20" width="171" height="18" forecolor="#000000"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Times New Roman" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Male:      number of parcels by male claimant]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="543" y="0" width="217" height="20" forecolor="#000000"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Times New Roman" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Joint:     number of parcels by joint 1male-1female claimant]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="543" y="20" width="216" height="18" forecolor="#000000"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Times New Roman" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Mixed:   number of parcels by mixed males-females claimant]]></text>
-			</staticText>
+			<image>
+				<reportElement x="314" y="20" width="401" height="42"/>
+				<imageExpression><![CDATA["images/sola/legendGender.png"]]></imageExpression>
+			</image>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="61" splitType="Stretch">
+		<band height="66" splitType="Stretch">
 			<frame>
-				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="61"/>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="66"/>
 				<componentElement>
-					<reportElement key="table" style="table" x="43" y="0" width="717" height="61"/>
+					<reportElement key="table" style="table" x="43" y="0" width="717" height="66"/>
 					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
 						<datasetRun subDataset="Gender">
 							<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{genderList}.toArray())]]></dataSourceExpression>
@@ -513,4 +538,127 @@
 			</frame>
 		</band>
 	</pageFooter>
+	<summary>
+		<band height="301">
+			<bar3DChart>
+				<chart>
+					<reportElement x="0" y="0" width="802" height="301"/>
+					<chartTitle>
+						<font fontName="Times New Roman" size="14" isBold="true"/>
+						<titleExpression><![CDATA["Ownership Gender Distribution"]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend position="Right"/>
+				</chart>
+				<categoryDataset>
+					<dataset>
+						<datasetRun subDataset="Gender">
+							<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{genderList}.toArray())]]></dataSourceExpression>
+						</datasetRun>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Female"]]></seriesExpression>
+						<categoryExpression><![CDATA["Total"]]></categoryExpression>
+						<valueExpression><![CDATA[$V{TotalEstimated}]]></valueExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA["Female: "+$V{TotalEstimated}]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Male"]]></seriesExpression>
+						<categoryExpression><![CDATA["Total"]]></categoryExpression>
+						<valueExpression><![CDATA[$V{TotalrecordedParcel}]]></valueExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA["Male: "+$V{TotalrecordedParcel}]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Joint"]]></seriesExpression>
+						<categoryExpression><![CDATA["Total"]]></categoryExpression>
+						<valueExpression><![CDATA[$V{TotalrecordedClaims}]]></valueExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA["Joint: "+$V{TotalrecordedClaims}]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Mixed"]]></seriesExpression>
+						<categoryExpression><![CDATA["Total"]]></categoryExpression>
+						<valueExpression><![CDATA[$V{TotalScannedDemarcation}]]></valueExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA["Mixed: "+$V{TotalScannedDemarcation}]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Entity"]]></seriesExpression>
+						<categoryExpression><![CDATA["Total"]]></categoryExpression>
+						<valueExpression><![CDATA[$V{TotalScannedClaims}]]></valueExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA["Entity: "+$V{TotalScannedClaims}]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Not recorded"]]></seriesExpression>
+						<categoryExpression><![CDATA["Total"]]></categoryExpression>
+						<valueExpression><![CDATA[$V{TotalDigitizedParcels}]]></valueExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA["Not recorded: "+$V{TotalDigitizedParcels}]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Female"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{parcel}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{totFem}]]></valueExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA["Female: "+$V{TotalEstimated}]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Male"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{parcel}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{totMale}]]></valueExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA["Male: "+$V{TotalrecordedParcel}]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Joint"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{parcel}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{totJoint}]]></valueExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA["Joint: "+$V{TotalrecordedClaims}]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Mixed"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{parcel}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{totMixed}]]></valueExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA["Mixed: "+$V{TotalScannedDemarcation}]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Entity"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{parcel}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{totEntity}]]></valueExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA["Entity: "+$V{TotalScannedClaims}]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Not recorded"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{parcel}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{totNull}]]></valueExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA["Not recorded: "+$V{TotalDigitizedParcels}]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot labelRotation="90.0"/>
+					<itemLabel/>
+					<valueAxisLabelExpression><![CDATA["Ownerships"]]></valueAxisLabelExpression>
+				</bar3DPlot>
+			</bar3DChart>
+		</band>
+	</summary>
 </jasperReport>
