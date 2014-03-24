@@ -705,8 +705,9 @@ public class MainForm extends javax.swing.JFrame {
         menuSpatialUnitGroup = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         menuPubDispRep = new javax.swing.JMenu();
-        menuPublicNotification = new javax.swing.JMenuItem();
         menuItemMapPublicDisplay = new javax.swing.JMenuItem();
+        menuPublicNotification = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         menuCertificates = new javax.swing.JMenuItem();
         menuReports = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -1056,6 +1057,14 @@ public class MainForm extends javax.swing.JFrame {
 
         menuPubDispRep.setText(bundle.getString("MainForm.menuPubDispRep.text")); // NOI18N
 
+        menuItemMapPublicDisplay.setText(bundle.getString("MainForm.menuItemMapPublicDisplay.text")); // NOI18N
+        menuItemMapPublicDisplay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemMapPublicDisplayActionPerformed(evt);
+            }
+        });
+        menuPubDispRep.add(menuItemMapPublicDisplay);
+
         menuPublicNotification.setText(bundle.getString("MainForm.menuPublicNotification.text")); // NOI18N
         menuPublicNotification.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1064,13 +1073,13 @@ public class MainForm extends javax.swing.JFrame {
         });
         menuPubDispRep.add(menuPublicNotification);
 
-        menuItemMapPublicDisplay.setText(bundle.getString("MainForm.menuItemMapPublicDisplay.text")); // NOI18N
-        menuItemMapPublicDisplay.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem4.setText(bundle.getString("MainForm.jMenuItem4.text")); // NOI18N
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemMapPublicDisplayActionPerformed(evt);
+                jMenuItem4ActionPerformed(evt);
             }
         });
-        menuPubDispRep.add(menuItemMapPublicDisplay);
+        menuPubDispRep.add(jMenuItem4);
 
         menuSystematic.add(menuPubDispRep);
 
@@ -1337,6 +1346,10 @@ public class MainForm extends javax.swing.JFrame {
         openSysRegWorkUnit (evt);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+         openSysRegListingParamsForm("Owners");
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     private void editPassword() {
         showPasswordPanel();
     }
@@ -1376,6 +1389,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;

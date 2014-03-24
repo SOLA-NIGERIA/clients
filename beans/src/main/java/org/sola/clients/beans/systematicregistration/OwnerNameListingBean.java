@@ -28,10 +28,8 @@ public class OwnerNameListingBean extends AbstractIdBean {
     public static final String NAME_FIRSTPART_PROPERTY = "nameFirstpart";
     public static final String NAME_LASTPART_PROPERTY = "nameLastpart";
     public static final String LAND_USECODE_PROPERTY = "landUsecode";
-    public static final String RESIDENTIAL_PROPERTY = "residential";
-    public static final String COMMERCIAL_PROPERTY = "commercial";
-    public static final String AGRICULTURAL_PROPERTY = "agricultural";
-    public static final String INDUSTRIAL_PROPERTY = "industrial";
+    public static final String LOCATION_PROPERTY = "location";
+    public static final String RRR_PROPERTY = "rrr";
     public static final String BAUNIT_PROPERTY = "baUnitId";
     public static final String PUBLIC_NOTIFICATION_DURATION_PROPERTY = "publicNotificationDuration";
     public static final String SIZE_PROPERTY = "size";
@@ -47,11 +45,25 @@ public class OwnerNameListingBean extends AbstractIdBean {
     private String value;
     private String objections;
     private BigDecimal size;
-    private BigDecimal residential;
-    private BigDecimal commercial;
-    private BigDecimal agricultural;
-    private BigDecimal industrial;
     private String publicNotificationDuration;
+    private String location;
+    private String rrr;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getRrr() {
+        return rrr;
+    }
+
+    public void setRrr(String rrr) {
+        this.rrr = rrr;
+    }
 
     public String getPublicNotificationDuration() {
         return publicNotificationDuration;
@@ -61,14 +73,7 @@ public class OwnerNameListingBean extends AbstractIdBean {
         this.publicNotificationDuration = publicNotificationDuration;
     }
 
-    public BigDecimal getAgricultural() {
-        return agricultural;
-    }
-
-    public void setAgricultural(BigDecimal agricultural) {
-        this.agricultural = agricultural;
-    }
-
+    
     public String getBaUnitId() {
         return baUnitId;
     }
@@ -77,22 +82,7 @@ public class OwnerNameListingBean extends AbstractIdBean {
         this.baUnitId = baUnitId;
     }
 
-    public BigDecimal getCommercial() {
-        return commercial;
-    }
-
-    public void setCommercial(BigDecimal commercial) {
-        this.commercial = commercial;
-    }
-
-    public BigDecimal getIndustrial() {
-        return industrial;
-    }
-
-    public void setIndustrial(BigDecimal industrial) {
-        this.industrial = industrial;
-    }
-
+    
     public String getLandUsecode() {
         return landUsecode;
     }
@@ -115,14 +105,6 @@ public class OwnerNameListingBean extends AbstractIdBean {
 
     public void setNameLastpart(String nameLastpart) {
         this.nameLastpart = nameLastpart;
-    }
-
-    public BigDecimal getResidential() {
-        return residential;
-    }
-
-    public void setResidential(BigDecimal residential) {
-        this.residential = residential;
     }
 
     public String getValue() {

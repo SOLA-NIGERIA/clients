@@ -31,6 +31,7 @@ public class ParcelNumberListingBean extends AbstractIdBean {
     public static final String SIZE_PROPERTY = "size";
     public static final String BAUNIT_PROPERTY = "baUnitId";
     public static final String CONCATENATED_NAME_PROPERTY = "concatenatedName";
+    public static final String CONCATENATED_RRR_PROPERTY = "concatenatedRrr";
     public static final String PUBLIC_NOTIFICATION_DURATION_PROPERTY = "publicNotificationDuration";
     public static final String NAME_PROPERTY = "name";
     public static final String OBJECTIONS_PROPERTY = "objections";
@@ -46,7 +47,18 @@ public class ParcelNumberListingBean extends AbstractIdBean {
     private String name;
     private String objections;
     private String propertyLocation;
+    
+    
+    private String concatenatedRrr;
 
+    public String getConcatenatedRrr() {
+        return concatenatedRrr;
+    }
+
+    public void setConcatenatedRrr(String concatenatedRrr) {
+        this.concatenatedRrr = concatenatedRrr;
+    }
+    
     public String getPropertyLocation() {
         return propertyLocation;
     }
