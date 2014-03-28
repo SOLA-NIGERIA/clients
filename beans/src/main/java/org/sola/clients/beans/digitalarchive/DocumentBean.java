@@ -152,7 +152,7 @@ public class DocumentBean extends AbstractIdBean {
             DocumentBinaryTO documentBinary = new DocumentBinaryTO();
             documentBinary.setDescription(file.getName());
             documentBinary.setFileName(file.getAbsolutePath());
-//            documentBinary.setBody(FileUtility.getFileBinary(file.getAbsolutePath()));
+            FileUtility.getFileBinary(file.getAbsolutePath());
             documentBinary.setExtension(FileUtility.getFileExtension(file.getName()));
             DocumentTO document = WSManager.getInstance().getDigitalArchive().createDocument(documentBinary);
             DocumentBean documentBean = TypeConverters.TransferObjectToBean(document,
