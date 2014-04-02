@@ -31,6 +31,7 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
 
     public static final String ASSIGNMENT_CHANGED = "assignmentChanged";
     private List<ApplicationSearchResultBean> applications;
+    private ApplicationSearchResultBean application;
 
     /**
      * Default constructor
@@ -44,11 +45,22 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         initComponents();
         customizeForm();
     }
+    
+    
+     public ApplicationAssignmentDialog(ApplicationSearchResultBean application,
+            java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        this.application = application;
+        System.out.println("USERASSIGNMENT "+SecurityBean.getCurrentUser().getId());
+       
+        initComponents();
+        customizeForm();
+    }
 
     private void customizeForm() {
         cbxUsers.setEnabled(false);
 
-        if (applications == null || applications.size() < 1) {
+        if ( application == null && (applications == null || applications.size() < 1)) {
             btnAssign.setEnabled(false);
             return;
         }
@@ -72,8 +84,13 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
             return;
         }
 
-        for (ApplicationSearchResultBean app : applications) {
-            ApplicationBean.assignUser(app, usersList.getSelectedUser().getId());
+         if (application != null) {
+            ApplicationBean.assignUser(application, usersList.getSelectedUser().getId());
+        }
+        else { 
+            for (ApplicationSearchResultBean app : applications) {
+                ApplicationBean.assignUser(app, usersList.getSelectedUser().getId());
+            }
         }
 
         MessageUtility.displayMessage(ClientMessage.APPLICATION_ASSIGNED);

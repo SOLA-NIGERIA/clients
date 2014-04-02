@@ -29,6 +29,7 @@ package org.sola.clients.swing.desktop.administrative;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Iterator;
 import javax.validation.groups.Default;
 import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.RrrBean;
@@ -38,6 +39,7 @@ import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
 import org.sola.clients.beans.referencedata.RequestTypeBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
+import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.swing.common.LafManager;
 import org.sola.clients.swing.desktop.MainForm;
 import org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel;
@@ -85,8 +87,26 @@ public class OwnershipPanel extends ContentPanel {
         if (rrrAction == RrrBean.RRR_ACTION.VIEW) {
             allowEdit = false;
         }
-
-        DocumentsManagementExtPanel panel = new DocumentsManagementExtPanel(
+// FOR RETRIEVING THE CLAIMS FORM ATTACHED TO THE APPLICATION AS FIRST DOCUMENT IN THE LIST OF RRR DOCUMENTS        
+     if (applicationBean.getSourceList().getFilteredList().size()>0){
+       Boolean addSource = true;
+         for (Iterator<SourceBean> it = applicationBean.getSourceList().getFilteredList().iterator(); it.hasNext();) {
+            SourceBean appSource = it.next();
+            if (appSource.getTypeCode().contentEquals("systematicRegn")) {
+               for (Iterator<SourceBean> itInt = rrrBean.getSourceList().getFilteredList().iterator(); itInt.hasNext();) {
+                SourceBean appSourceInt = itInt.next();
+                if (appSource.getId().contentEquals(appSourceInt.getId())){
+                    addSource = false;
+                }
+               }
+              if (addSource) {
+                  rrrBean.getSourceList().getFilteredList().add(appSource);
+              } 
+            }
+         } 
+     } 
+        
+       DocumentsManagementExtPanel panel = new DocumentsManagementExtPanel(
                 rrrBean.getSourceList(), applicationBean, allowEdit);
         return panel;
     }
@@ -189,6 +209,8 @@ public class OwnershipPanel extends ContentPanel {
             this.tableShares.getColumnModel().getColumn(0).setHeaderValue(MessageUtility.getLocalizedMessage(
                                 ClientMessage.SYSTEMATIC_REGISTRATION_CLAIMANT).getMessage());
 
+           
+//            this.documentsPanel.documentsPanel.d
             }
             if (appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)){
             this.txtRegDatetime.setValue(null);

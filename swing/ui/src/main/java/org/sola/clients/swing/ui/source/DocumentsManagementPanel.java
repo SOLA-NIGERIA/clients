@@ -476,7 +476,7 @@ public class DocumentsManagementPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnView;
     private javax.swing.JButton btnViewAttachmanet;
-    private org.sola.clients.swing.ui.source.DocumentsPanel documentsPanel;
+    public org.sola.clients.swing.ui.source.DocumentsPanel documentsPanel;
     private javax.swing.JPopupMenu documentsTablePopupMenu;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenuItem menuAdd;
