@@ -54,6 +54,8 @@ import org.sola.common.RolesConstants;
 import org.sola.common.WindowUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
+import org.sola.clients.beans.application.ApplicationBean;
+import org.sola.clients.swing.desktop.MainForm;
 
 /**
  * This form provides parameterized application search capabilities. <p>The
@@ -61,6 +63,15 @@ import org.sola.common.messaging.MessageUtility;
  * {@link ApplicationSearchResultsListBean},<br />{@link ApplicationSearchParamsBean}</p>
  */
 public class ApplicationSearchPanel extends ContentPanel {
+    private class AssignmentPanelListener implements PropertyChangeListener {
+ 
+        @Override
+        public void propertyChange(PropertyChangeEvent e) {
+            if (e.getPropertyName().equals(ApplicationAssignmentDialog.ASSIGNMENT_CHANGED)) {
+            }
+        }
+    }
+    private AssignmentPanelListener assignmentPanelListener;
 
     /**
      * Default constructor to create form and initialize parameters.
@@ -110,6 +121,7 @@ public class ApplicationSearchPanel extends ContentPanel {
         jSeparator1 = new javax.swing.JToolBar.Separator();
         lblSearchResults = new javax.swing.JLabel();
         labResults = new javax.swing.JLabel();
+        btnAssignApplication = new javax.swing.JButton();
         headerPanel1 = new org.sola.clients.swing.ui.HeaderPanel();
         jPanel10 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -264,6 +276,20 @@ public class ApplicationSearchPanel extends ContentPanel {
         labResults.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
         labResults.setHorizontalAlignment(JLabel.LEADING);
         jToolBar1.add(labResults);
+
+        btnAssignApplication.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/assign.png"))); // NOI18N
+        btnAssignApplication.setText(bundle.getString("ApplicationSearchPanel.btnAssignApplication.text_1")); // NOI18N
+        btnAssignApplication.setToolTipText(bundle.getString("ApplicationSearchPanel.btnAssignApplication.toolTipText_1")); // NOI18N
+        btnAssignApplication.setFocusable(false);
+        btnAssignApplication.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnAssignApplication.setName(bundle.getString("ApplicationSearchPanel.btnAssignApplication.name_1")); // NOI18N
+        btnAssignApplication.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAssignApplication.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignApplicationActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnAssignApplication);
 
         headerPanel1.setName("headerPanel1"); // NOI18N
         headerPanel1.setTitleText(bundle.getString("ApplicationSearchPanel.headerPanel1.titleText")); // NOI18N
@@ -797,11 +823,63 @@ public class ApplicationSearchPanel extends ContentPanel {
     private void btnSearchUpiWardParcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchUpiWardParcelActionPerformed
         SearchUpiWardParcel();
     }//GEN-LAST:event_btnSearchUpiWardParcelActionPerformed
+
+    private void btnAssignApplicationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignApplicationActionPerformed
+        assignApplication();
+    }//GEN-LAST:event_btnAssignApplicationActionPerformed
     
     private void setUpiWardParcel(String parcelNumber, String upiWardCode) {
         this.txtParcel.setText(upiWardCode+'/'+parcelNumber);
     }
     
+    /**
+     * Opens form to assign application.
+     */
+    private void assignApplication() {
+        assignUnassign(appList.getSelectedApplication(), true);
+    }
+    
+      /**
+     * Opens application assignment form with selected applications.
+     *
+     * @param appList Selected applications to assign or unassign.
+     * @param assign Indicates whether to assign or unassign applications
+     */
+    private void assignUnassign(final ApplicationSearchResultBean appList, final boolean assign) {
+        
+         if (appList == null) {
+            return;
+        }
+
+     if (assign) {
+            if (appList.getAssigneeId()== null) {
+                ApplicationAssignmentDialog form = new ApplicationAssignmentDialog(appList, MainForm.getInstance(), true);
+                WindowUtility.centerForm(form);
+                form.addPropertyChangeListener(assignmentPanelListener);
+                form.setVisible(true);
+            } else {
+                MessageUtility.displayMessage(ClientMessage.CHECK_ALREADY_ASSIGNED, new Object[]{appList.getAssigneeName()});
+                return;
+            } 
+        } else {
+            if (MessageUtility.displayMessage(ClientMessage.APPLICATION_CONFIRM_UNASSIGN) == MessageUtility.BUTTON_ONE) {
+                    String assigneeId = appList.getAssigneeId();
+                    if (assigneeId != null && assigneeId.equals(SecurityBean.getCurrentUser().getId())
+                            && !SecurityBean.isInRole(RolesConstants.APPLICATION_UNASSIGN_FROM_YOURSELF,
+                            RolesConstants.APPLICATION_UNASSIGN_FROM_OTHERS)) {
+                        // Can't unassign from yourself
+                        MessageUtility.displayMessage(ClientMessage.APPLICATION_UNASSIGN_FROM_SELF_FORBIDDEN,
+                                new Object[]{appList.getNr()});
+                    }
+                    if (assigneeId != null && !assigneeId.equals(SecurityBean.getCurrentUser().getId())
+                            && !SecurityBean.isInRole(RolesConstants.APPLICATION_UNASSIGN_FROM_OTHERS)) {
+                        MessageUtility.displayMessage(ClientMessage.APPLICATION_UNASSIGN_FROM_OTHERS_FORBIDDEN,
+                                new Object[]{appList.getNr()});
+                    }
+                    ApplicationBean.assignUser(appList, null);
+                }
+        }
+    }    
     private void SearchUpiWardParcel() {
         SearchParcelDialog form = new SearchParcelDialog(null, true);
         WindowUtility.centerForm(form);
@@ -851,6 +929,7 @@ public class ApplicationSearchPanel extends ContentPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.sola.clients.beans.application.ApplicationSearchResultsListBean appList;
     private javax.swing.JScrollPane appListPanel;
+    private javax.swing.JButton btnAssignApplication;
     private javax.swing.JButton btnClear;
     public javax.swing.JButton btnFind;
     private javax.swing.JButton btnOpenApplication;
