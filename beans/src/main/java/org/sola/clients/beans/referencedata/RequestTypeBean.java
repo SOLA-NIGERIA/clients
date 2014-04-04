@@ -63,7 +63,7 @@ public class RequestTypeBean extends AbstractCodeBean {
     public static final String CODE_CANCEL_PROPERTY = "cancelProperty";
     public static final String CODE_SYSTEMATIC_REGISTRATION = "systematicRegn";
     public static final String CODES_FOR_SYSREG = "ownership stateOwnership mortgage lease caveat regnDeeds regnPowerOfAttorney";
-    public static final String CODE_DISPUTE = "dispute";
+    public static final String CODE_DISPUTE = "lodgeObjection";
     public static final String CODE_DISPUTE_VIEW = "DisputeView";
     public static final String CODE_MAP_EXISTINGPARCEL = "mapExistingParcel";
 
