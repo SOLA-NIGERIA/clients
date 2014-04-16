@@ -39,6 +39,8 @@ public class LocalizationManager {
 
     private static final String LANGUAGE = "language";
     private static final String COUNTRY = "country";
+    private static final String SOLA_VERSION = "1404c";
+
 
     /** 
      * Loads default language and country codes and sets {@link Locale} settings
@@ -85,7 +87,17 @@ public class LocalizationManager {
         }
 
     }
-    
+     /**
+     * Determines the version number for display based on whether this is a
+     * production version of SOLA or a Test version.
+     *
+     * @return
+     */
+    public static String getVersionNumber() {
+        String result = "Release " + SOLA_VERSION;
+        
+        return result;
+    }
     
 
     /** Restarts application. */
