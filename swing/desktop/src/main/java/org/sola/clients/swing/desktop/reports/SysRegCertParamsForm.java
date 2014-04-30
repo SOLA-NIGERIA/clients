@@ -55,6 +55,8 @@ import org.sola.clients.beans.systematicregistration.SysRegCertificatesListBean;
 import org.sola.clients.beans.validation.ValidationResultBean;
 import org.sola.clients.reports.ReportManager;
 import org.sola.clients.swing.common.controls.CalendarForm;
+import org.sola.clients.swing.common.tasks.SolaTask;
+import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.MainForm;
 import org.sola.clients.swing.desktop.ReportViewerForm;
 import org.sola.clients.swing.desktop.source.DocumentForm;
@@ -73,11 +75,11 @@ import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
 public class SysRegCertParamsForm extends javax.swing.JDialog {
 
     private String location;
-    private String title = "Certificate ";
+    private String title = "Certificates for Section";
     private String nr;
     private String tmpLocation = "";
     private static String cachePath = System.getProperty("user.home") + "/sola/cache/documents/";
-    private static String svgPath = System.getProperty("user.home") + "/sola/cache/svg/";
+    private static String svgPath = "images/sola/";
     private String reportdate;
     private String reportTogenerate;
     private Date currentDate;
@@ -115,20 +117,16 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     /**
      * Opens {@link ReportViewerForm} to display report.
      */
-    private void showReport(JasperPrint report) {
+    private void showReport(JasperPrint report,  String parcelLabel) {
         ReportViewerForm form = new ReportViewerForm(report);
-//        if (nr != null) {
-//            form.setVisible(true);
-//            form.setAlwaysOnTop(true);
-//        }
         try {
-            postProcessReport(report);
+            postProcessReport(report, parcelLabel);
         } catch (Exception ex) {
             Logger.getLogger(SysRegListingParamsForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    protected void postProcessReport(JasperPrint populatedReport) throws Exception {
+    protected void postProcessReport(JasperPrint populatedReport, String parcelLabel) throws Exception {
 
         System.out.println("Inside postProcessReport");
 
@@ -147,19 +145,21 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         FileUtility.saveFileFromStream(null, this.reportTogenerate);
 
         System.out.println("End download");
-        saveDocument(this.reportTogenerate, recDate, this.reportdate);
+        saveDocument(this.reportTogenerate, recDate, this.reportdate, parcelLabel);
         FileUtility.deleteFileFromCache(this.reportTogenerate);
     }
 
-    private void saveDocument(String fileName, Date recDate, String subDate) throws Exception {
+    private void saveDocument(String fileName, Date recDate, String subDate, String parcelLabel) throws Exception {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         String reportdate = formatter.format(recDate);
 
 
         this.document.setTypeCode("title");
-        this.document.setReferenceNr(this.location);
         this.document.setRecordation(this.currentDate);
-        this.document.setDescription(this.reportTogenerate);
+        this.document.setReferenceNr(this.location);
+//        this.document.setDescription(this.reportTogenerate);
+//        this.document.setReferenceNr(this.location);
+        this.document.setDescription(parcelLabel);
 
 
         DocumentBean document1 = new DocumentBean();
@@ -259,11 +259,11 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         ApplicationTO applicationTO = WSManager.getInstance().getCaseManagementService().getApplication(id);
         return TypeConverters.TransferObjectToBean(applicationTO, ApplicationBean.class, null);
     }
-
-    private void btnGenCertificateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenCertificateActionPerformed
+    
+     private void generateReport (){
+        
         if (cadastreObjectSearch.getSelectedElement() != null) {
             this.location = cadastreObjectSearch.getSelectedElement().toString();
-//            tmpLocation = (this.location.substring(this.location.indexOf("/") + 1).trim());
             tmpLocation = (this.location);
         } else {
             MessageUtility.displayMessage(ClientMessage.CHECK_SELECT_LOCATION);
@@ -287,50 +287,50 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         int i = 0;
 
         for (Iterator<SysRegCertificatesBean> it = sysRegCertificatesListBean.getSysRegCertificates().iterator(); it.hasNext();) {
-            SysRegCertificatesBean appBaunit = it.next();
+            final SysRegCertificatesBean appBaunit = it.next();
             baUnitId = appBaunit.getBaUnitId();
             appId = appBaunit.getAppId();
 
             this.reportTogenerate = baUnitId + "_" + tmpLocation + "_" + this.reportdate + ".pdf";
             this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
             this.reportTogenerate = this.reportTogenerate.replace("/", "_");
-            BaUnitBean baUnit = getBaUnit(baUnitId);
-            ApplicationBean applicationBean = getApplication(appId);
+            final BaUnitBean baUnit = getBaUnit(baUnitId);
+            final ApplicationBean applicationBean = getApplication(appId);
 
-            String parcelLabel = baUnit.getCadastreObjectList().get(0).getNameLastpart().toString() + '/' + baUnit.getCadastreObjectList().get(0).getNameFirstpart().toString();
-            parcelLabel = parcelLabel.replace('/', '-');
-            String featureImageFileName = this.svgPath + parcelLabel + ".png";
-//            String featureFront = this.cachePath +  "front.png";
-            String featureFront = this.svgPath +  "front.svg";
-//          
-//            String featureFront = "/images/sola/front.svg";
-//          
+//            String parcelLabel = baUnit.getCadastreObjectList().get(0).getNameLastpart().toString() + '/' + baUnit.getCadastreObjectList().get(0).getNameFirstpart().toString();
+//            parcelLabel = parcelLabel.replace('/', '-');
+            String parcelLabel =  tmpLocation+'/'+appBaunit.getNameFirstpart();
+            final String featureImageFileName =  ".png";
+            final String featureFront = this.svgPath +  "front.svg";
+            final String featureBack = this.svgPath + "back.svg";
             
-//            String featureFront = this.cachePath +  "Flag.svg";
-           
-//            String featureBack = this.cachePath + "back.png";
-            String featureBack = this.svgPath + "back.svg";
-//            String featureBack = "/images/sola/back.svg";
-
-            File file = new File(featureImageFileName);
-            
-//            if (file.exists()) {
-//                MessageUtility.displayMessage(ClientMessage.TITLE_ALREADY_GENERATED,
-//                new Object[]{parcelLabel});
-//              
-//            } else {
-                showReport(ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureFront, featureBack));
-//              TODO VERIFTY THIS::::
-//                FileUtility.deleteFileFromCache(parcelLabel + ".png");
+//            File file = new File(featureImageFileName);
+     
+                showReport(ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureFront, featureBack),parcelLabel);
+               
                 i = i + 1;
             }
-//        }
         if (i == 0) {
             MessageUtility.displayMessage(ClientMessage.NO_CERTIFICATE_GENERATION);
-        } else {
+        }
+        else {
             showDocMessage(this.tmpLocation);
         }
         this.dispose();
+     }    
+    
+    
+    private void btnGenCertificateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenCertificateActionPerformed
+            SolaTask t = new SolaTask<Void, Void>() {
+
+              @Override
+               public Void doTask() {
+                setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_CREATE_CERTIFICATE));
+                generateReport ();
+              return null;
+              }
+             };
+             TaskManager.getInstance().runTask(t);   
 
     }//GEN-LAST:event_btnGenCertificateActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables

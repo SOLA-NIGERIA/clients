@@ -234,7 +234,7 @@ public class MainForm extends javax.swing.JFrame {
         menuSearchApplication.setEnabled(btnSearchApplications.isEnabled());
         menuNewApplication.setEnabled(btnNewApplication.isEnabled());
         menuExportRights.setEnabled(SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_RIGHTS_EXPORT));
-
+        menuLanguage.setVisible(false);
         // Load dashboard
         openDashBoard();
 
@@ -683,13 +683,12 @@ public class MainForm extends javax.swing.JFrame {
         menuExportRights = new javax.swing.JMenuItem();
         javax.swing.JMenuItem menuExitItem = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
-        menuLanguage = new javax.swing.JMenu();
-        menuLangEN = new javax.swing.JMenuItem();
-        menuLangIT = new javax.swing.JMenuItem();
         menuLogLevel = new javax.swing.JMenu();
         menuAllLogLevel = new javax.swing.JMenuItem();
         menuDefaultLogLevel = new javax.swing.JMenuItem();
         menuOffLogLevel = new javax.swing.JMenuItem();
+        menuLanguage = new javax.swing.JMenu();
+        menuLangEN = new javax.swing.JMenuItem();
         menuApplications = new javax.swing.JMenu();
         menuNewApplication = new javax.swing.JMenuItem();
         menuSearch = new javax.swing.JMenu();
@@ -906,28 +905,6 @@ public class MainForm extends javax.swing.JFrame {
 
         menuView.setText(bundle.getString("MainForm.menuView.text")); // NOI18N
 
-        menuLanguage.setText(bundle.getString("MainForm.menuLanguage.text")); // NOI18N
-
-        menuLangEN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flags/en.jpg"))); // NOI18N
-        menuLangEN.setText(bundle.getString("MainForm.menuLangEN.text")); // NOI18N
-        menuLangEN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuLangENActionPerformed(evt);
-            }
-        });
-        menuLanguage.add(menuLangEN);
-
-        menuLangIT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flags/it.jpg"))); // NOI18N
-        menuLangIT.setText(bundle.getString("MainForm.menuLangIT.text")); // NOI18N
-        menuLangIT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuLangITActionPerformed(evt);
-            }
-        });
-        menuLanguage.add(menuLangIT);
-
-        menuView.add(menuLanguage);
-
         menuLogLevel.setText(bundle.getString("MainForm.menuLogLevel.text")); // NOI18N
 
         menuAllLogLevel.setText(bundle.getString("MainForm.menuAllLogLevel.text")); // NOI18N
@@ -955,6 +932,19 @@ public class MainForm extends javax.swing.JFrame {
         menuLogLevel.add(menuOffLogLevel);
 
         menuView.add(menuLogLevel);
+
+        menuLanguage.setText(bundle.getString("MainForm.menuLanguage.text")); // NOI18N
+
+        menuLangEN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flags/en.jpg"))); // NOI18N
+        menuLangEN.setText(bundle.getString("MainForm.menuLangEN.text")); // NOI18N
+        menuLangEN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLangENActionPerformed(evt);
+            }
+        });
+        menuLanguage.add(menuLangEN);
+
+        menuView.add(menuLanguage);
 
         menuBar.add(menuView);
 
@@ -1236,10 +1226,6 @@ public class MainForm extends javax.swing.JFrame {
         setLanguage("en", "US");
     }//GEN-LAST:event_menuLangENActionPerformed
 
-    private void menuLangITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLangITActionPerformed
-        setLanguage("it", "IT");
-    }//GEN-LAST:event_menuLangITActionPerformed
-
     private void btnOpenBaUnitSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenBaUnitSearchActionPerformed
         searchBaUnit();
     }//GEN-LAST:event_btnOpenBaUnitSearchActionPerformed
@@ -1406,7 +1392,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuExportRights;
     private javax.swing.JMenuItem menuItemMapPublicDisplay;
     private javax.swing.JMenuItem menuLangEN;
-    private javax.swing.JMenuItem menuLangIT;
     private javax.swing.JMenu menuLanguage;
     private javax.swing.JMenuItem menuLoadScannedDoc;
     private javax.swing.JMenuItem menuLodgementReport;

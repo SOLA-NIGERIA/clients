@@ -440,13 +440,14 @@ public class ReportManager {
     public static JasperPrint getSysRegPubDisParcelNameReport(ParcelNumberListingListBean parcelnumberList,
             Date dateFrom, Date dateTo, String location, String subReport) {
         HashMap inputParameters = new HashMap();
+        String upiCode = parcelnumberList.getParcelNumberListing().get(0).getNameLastpart();
         String logoImage = "/images/sola/logoMinistry.png";
         location = location.substring(location.indexOf("/")+1);
         String tmpLocation =  location.substring(location.indexOf("/")+1);
         String lga = location.replace("/"+tmpLocation, " Lga");
         String section = tmpLocation.substring(tmpLocation.indexOf("/")+1);
         String ward = tmpLocation.replace("/"+section, ", ");
-        location = "Section "+section+", Ward "+ward+lga;
+        location = "Section "+section+", Ward "+ward+lga+" ( "+upiCode+" )";
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("FROM_DATE", dateFrom);
@@ -480,13 +481,14 @@ public class ReportManager {
     public static JasperPrint getSysRegPubDisOwnerNameReport(OwnerNameListingListBean ownernameList,
             Date dateFrom, Date dateTo, String location, String subReport) {
         HashMap inputParameters = new HashMap();
+        String upiCode = ownernameList.getOwnerNameListing().get(0).getNameLastpart();
         String logoImage = "/images/sola/logoMinistry.png";
         location = location.substring(location.indexOf("/")+1);
         String tmpLocation =  location.substring(location.indexOf("/")+1);
         String lga = location.replace("/"+tmpLocation, " Lga");
         String section = tmpLocation.substring(tmpLocation.indexOf("/")+1);
         String ward = tmpLocation.replace("/"+section, ", ");
-        location = "Section "+section+", Ward "+ward+lga;
+        location = "Section "+section+", Ward "+ward+lga+" ( "+upiCode+" )";
         
 //	Date currentdate = new Date(System.currentTimeMillis());
 //        inputParameters.put("CURRENT_DATE", currentdate);
@@ -558,6 +560,10 @@ public class ReportManager {
         String  featureFront,String featureBack) {
         HashMap inputParameters = new HashMap();
         String me ="/images/sola/Picture1.png";  
+         String featureFloatFront ="images/sola/front_float.svg";
+        String featureFloatBack = "images/sola/back_float.svg";
+            
+
         String appNr = null;
         String claimant = null;
         String owners = null;
@@ -569,7 +575,8 @@ public class ReportManager {
         String term = null;
         Date commencingDate = null;
         String landUse = null;
-        String propLocation = null;
+        String propAddress = null;
+        String lga = null;
         BigDecimal size = null;
         String groundRent = null;
         appNr =    appBaunit.getNr();
@@ -581,7 +588,11 @@ public class ReportManager {
         commencingDate = appBaunit.getCommencingDate();
         size = appBaunit.getSize();
         landUse = appBaunit.getLandUse();
-        propLocation = baUnitBean.getLocation();
+        lga = appBaunit.getPropLocation();
+        propAddress = baUnitBean.getLocation();
+
+      
+        
         if (! baUnitBean.isIsDeveloped()) {
           if (baUnitBean.getYearsForDev()!=null) {
            timeToDevelop = baUnitBean.getYearsForDev().toString();
@@ -608,7 +619,7 @@ public class ReportManager {
         inputParameters.put("VALUE_IMPROV", valueForImprov);
         inputParameters.put("TERM", term);
         inputParameters.put("LAND_USE", landUse);
-        inputParameters.put("PROP_LOCATION", propLocation);
+        inputParameters.put("PROP_LOCATION", propAddress);
         inputParameters.put("SIZE", size);
         inputParameters.put("REFNR", title);
         inputParameters.put("GROUND_RENT", groundRent);
@@ -616,6 +627,10 @@ public class ReportManager {
         inputParameters.put("MAP_IMAGE", featureImageFileName);
         inputParameters.put("FRONT_IMAGE", featureFront);
         inputParameters.put("BACK_IMAGE", featureBack);
+        inputParameters.put("FRONT_FLOAT_IMAGE", featureFloatFront);
+        inputParameters.put("BACK_FLOAT_IMAGE", featureFloatBack);
+        inputParameters.put("LGA", lga);
+       
         BaUnitBean[] beans = new BaUnitBean[1];
         beans[0] = baUnitBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);

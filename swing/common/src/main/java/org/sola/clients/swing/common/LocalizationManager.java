@@ -39,7 +39,7 @@ public class LocalizationManager {
 
     private static final String LANGUAGE = "language";
     private static final String COUNTRY = "country";
-    private static final String SOLA_VERSION = "1404c";
+    private static final String SOLA_VERSION = "1404d";
 
 
     /** 
