@@ -443,10 +443,10 @@ public class ReportManager {
         String logoImage = "/images/sola/logoMinistry.png";
         location = location.substring(location.indexOf("/")+1);
         String tmpLocation =  location.substring(location.indexOf("/")+1);
-        String lga = location.replace("/"+tmpLocation, " Lga");
+        String lga = location.replace("/"+tmpLocation, " LGA");
         String section = tmpLocation.substring(tmpLocation.indexOf("/")+1);
         String ward = tmpLocation.replace("/"+section, ", ");
-        location = "Section "+section+", Ward "+ward+lga;
+        location = "SECTION "+section+", WARD "+ward+lga;
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("FROM_DATE", dateFrom);
@@ -483,10 +483,10 @@ public class ReportManager {
         String logoImage = "/images/sola/logoMinistry.png";
         location = location.substring(location.indexOf("/")+1);
         String tmpLocation =  location.substring(location.indexOf("/")+1);
-        String lga = location.replace("/"+tmpLocation, " Lga");
+        String lga = location.replace("/"+tmpLocation, " LGA");
         String section = tmpLocation.substring(tmpLocation.indexOf("/")+1);
         String ward = tmpLocation.replace("/"+section, ", ");
-        location = "Section "+section+", Ward "+ward+lga;
+        location = "SECTION "+section+", WARD "+ward+lga;
         
 //	Date currentdate = new Date(System.currentTimeMillis());
 //        inputParameters.put("CURRENT_DATE", currentdate);
