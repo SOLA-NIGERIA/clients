@@ -83,7 +83,7 @@ public class LoginPanel extends javax.swing.JPanel {
         txtUsername.requestFocus();
         lblVersion.setText(LocalizationManager.getVersionNumber());
  
-        //this.languageCombobox.setVisible(false);
+        this.languageCombobox.setVisible(false);
         // TODO: REMOVE IN RELEASE!!!
         //txtUsername.setText("test");
         //txtUserPassword.setText("test");
@@ -136,6 +136,7 @@ public class LoginPanel extends javax.swing.JPanel {
         txtUsername.setEnabled(isEnabled);
         txtUserPassword.setEnabled(isEnabled);
         languageCombobox.setEnabled(isEnabled);
+        this.languageCombobox.setVisible(false);
         if (isEnabled) {
             txtUsername.requestFocusInWindow();
             txtUsername.selectAll();
