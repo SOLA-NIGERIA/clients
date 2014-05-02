@@ -447,11 +447,7 @@ public class ReportManager {
         String lga = location.replace("/"+tmpLocation, " LGA");
         String section = tmpLocation.substring(tmpLocation.indexOf("/")+1);
         String ward = tmpLocation.replace("/"+section, ", ");
-<<<<<<< HEAD
-        location = "SECTION "+section+", WARD "+ward+lga;
-=======
-        location = "Section "+section+", Ward "+ward+lga+" ( "+upiCode+" )";
->>>>>>> master
+        location = "SECTION "+section+", WARD "+ward+lga+" ( "+upiCode+" )";
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("FROM_DATE", dateFrom);
