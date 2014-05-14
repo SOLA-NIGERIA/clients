@@ -556,13 +556,13 @@ public class ReportManager {
      * report.
      *
      */
-    public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
+//     public static JasperPrint getSysRegSlrtPlanReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
+   public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
         String  featureFront,String featureBack) {
         HashMap inputParameters = new HashMap();
-        String me ="/images/sola/Picture1.png";  
-         String featureFloatFront ="images/sola/front_float.svg";
+        String featureFloatFront ="images/sola/front_float.svg";
         String featureFloatBack = "images/sola/back_float.svg";
-            
+                
 
         String appNr = null;
         String claimant = null;
@@ -577,6 +577,8 @@ public class ReportManager {
         String landUse = null;
         String propAddress = null;
         String lga = null;
+        String ward = null;
+        String state = null;
         BigDecimal size = null;
         String groundRent = null;
         appNr =    appBaunit.getNr();
@@ -589,7 +591,8 @@ public class ReportManager {
         size = appBaunit.getSize();
         landUse = appBaunit.getLandUse();
         lga = appBaunit.getPropLocation();
-        propAddress = baUnitBean.getLocation();
+        ward = appBaunit.getWard();
+        state = appBaunit.getState();propAddress = baUnitBean.getLocation();
 
       
         
@@ -623,34 +626,166 @@ public class ReportManager {
         inputParameters.put("SIZE", size);
         inputParameters.put("REFNR", title);
         inputParameters.put("GROUND_RENT", groundRent);
-        inputParameters.put("IMG_URL", ReportManager.class.getResourceAsStream(me));
-        inputParameters.put("MAP_IMAGE", featureImageFileName);
         inputParameters.put("FRONT_IMAGE", featureFront);
         inputParameters.put("BACK_IMAGE", featureBack);
         inputParameters.put("FRONT_FLOAT_IMAGE", featureFloatFront);
         inputParameters.put("BACK_FLOAT_IMAGE", featureFloatBack);
         inputParameters.put("LGA", lga);
-       
+        inputParameters.put("WARD", ward);
+        inputParameters.put("STATE", state);
+        
+        
+        
         BaUnitBean[] beans = new BaUnitBean[1];
         beans[0] = baUnitBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
         try {
-//            return JasperFillManager.fillReport(
-//                    ReportManager.class.getResourceAsStream("/reports/CofO.jasper"),
-//                    inputParameters, jds);
-            
             return JasperFillManager.fillReport(
                     ReportManager.class.getClassLoader().getResourceAsStream("reports/CofO.jasper"),
                     inputParameters, jds);
-
             
         } catch (JRException ex) {
             MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
                     new Object[]{ex.getLocalizedMessage()});
             return null;
         }
+        
+        
+        
     }
       
+      /**
+     * Generates and displays <b>Systematic registration Certificates
+     * report</b>.
+     *
+     * @param certificatesList List Parcel list bean containing data for the
+     * report.
+     *
+     */
+    public static JasperPrint getSysRegSlrtPlanReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
+//      public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
+   
+        String  featureFront,String featureBack) {
+        HashMap inputParameters = new HashMap();
+        String featureFloatFront ="images/sola/front_float.svg";
+        String featureFloatBack = "images/sola/back_float.svg";
+        String sltrPlanFront = "images/sola/slrtPlan.svg";
+            
+
+        String appNr = null;
+        String claimant = null;
+        String owners = null;
+        String title = null;
+        String address = null;
+        String imageryDate = null;
+        String timeToDevelop = null;
+        String valueForImprov = null;       
+        String term = null;
+        Date commencingDate = null;
+        String landUse = null;
+        String propAddress = null;
+        String lga = null;
+        String ward = null;
+        String state = null;
+        BigDecimal size = null;
+        String groundRent = null;
+        appNr =    appBaunit.getNr();
+        claimant = appBean.getContactPerson().getFullName();
+        address =  appBean.getContactPerson().getAddress().getDescription();
+        owners = appBaunit.getOwners();
+        title  =  appBaunit.getTitle();
+        imageryDate = appBaunit.getImageryDate();
+        commencingDate = appBaunit.getCommencingDate();
+        size = appBaunit.getSize();
+        landUse = appBaunit.getLandUse();
+        lga = appBaunit.getPropLocation();
+        ward = appBaunit.getWard();
+        state = appBaunit.getState();
+        propAddress = baUnitBean.getLocation();
+
+        appBaunit.getId();
+        
+//        System.out.println("ID  "+ appBaunit.getId());
+//        TODO CALL THE METHOD FOR GETTING THE MAP IMAGE
+//        The method that will generate the map image will ask for these paramters/arguments:
+//1 - cadastreObjectId: This is the id of the cadastre_object.id
+//2 - width and height of the image in points: This is the width of the image which has to be the same as the image expected in the report. The same in the analogy with the existing reports where an map image can be embedded.
+//
+//The method will give back an object with:
+//1 - Path to the image
+//2 - Scale
+//3 - Area in m2
+//  4 - UTM zone
+//  5 - Scalebar 
+          
+        String mapImage ="images/sola/slrtMapSample.png";  
+        String utmZone = "UTM Zone 32N";
+        String scale = "1 cm = 2000 m (1:2000)";
+        String scalebarImageLocation ="images/sola/slrtScalebarSample.png";
+        
+        
+        if (! baUnitBean.isIsDeveloped()) {
+          if (baUnitBean.getYearsForDev()!=null) {
+           timeToDevelop = baUnitBean.getYearsForDev().toString();
+          }
+          if (baUnitBean.getValueToImp()!=null) {
+           valueForImprov = baUnitBean.getValueToImp().toString();
+          } 
+        }
+        if (baUnitBean.getTerm()!=null) {
+           term = baUnitBean.getTerm().toString();
+        }
+        groundRent = appBaunit.getGroundRent().toString();
+        
+        inputParameters.put("REPORT_LOCALE", Locale.getDefault());
+        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
+        inputParameters.put("LOCATION", location);
+        inputParameters.put("AREA", location);
+        inputParameters.put("APP_NR", appNr);
+        inputParameters.put("CLIENT_NAME", owners);
+        inputParameters.put("ADDRESS", address);
+        inputParameters.put("IMAGERY_DATE", imageryDate);
+        inputParameters.put("COMMENCING_DATE", commencingDate);
+        inputParameters.put("TIME_DEVELOP", timeToDevelop);
+        inputParameters.put("VALUE_IMPROV", valueForImprov);
+        inputParameters.put("TERM", term);
+        inputParameters.put("LAND_USE", landUse);
+        inputParameters.put("PROP_LOCATION", propAddress);
+        inputParameters.put("SIZE", size);
+        inputParameters.put("REFNR", title);
+        inputParameters.put("GROUND_RENT", groundRent);
+        inputParameters.put("FRONT_IMAGE", featureFront);
+        inputParameters.put("BACK_IMAGE", featureBack);
+        inputParameters.put("FRONT_FLOAT_IMAGE", featureFloatFront);
+        inputParameters.put("BACK_FLOAT_IMAGE", featureFloatBack);
+        inputParameters.put("LGA", lga);
+        inputParameters.put("WARD", ward);
+        inputParameters.put("STATE", state);
+        inputParameters.put("SLTR_PLAN_IMAGE", sltrPlanFront);
+        inputParameters.put("MAP_IMAGE", mapImage);
+        inputParameters.put("SCALE", scale);
+        inputParameters.put("UTM", utmZone);
+        inputParameters.put("SCALEBAR", scalebarImageLocation);
+        
+        BaUnitBean[] beans = new BaUnitBean[1];
+        beans[0] = baUnitBean;
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+        try {
+            
+            return JasperFillManager.fillReport(
+                    ReportManager.class.getClassLoader().getResourceAsStream("reports/SltrPlan.jasper"),
+                    inputParameters, jds);
+           
+            
+        } catch (JRException ex) {
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        }
+        
+        
+        
+    }
     
      /**
      * Generates and displays <b>BA Unit</b> report.
@@ -697,7 +832,7 @@ public class ReportManager {
 
         inputParameters.put("CURRENT_DATE", currentdate);
 
-        inputParameters.put("STATE", "Kogi");
+        inputParameters.put("STATE", "Ondo");
         inputParameters.put("LGA", "");
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         SysRegGenderBean[] beans = new SysRegGenderBean[1];
@@ -729,7 +864,7 @@ public class ReportManager {
 
         inputParameters.put("CURRENT_DATE", currentdate);
 
-        inputParameters.put("STATE", "Kogi");
+        inputParameters.put("STATE", "Ondo");
         inputParameters.put("LGA", "");
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("FROMDATE", dateFrom);
@@ -822,7 +957,7 @@ public class ReportManager {
         inputParameters.put("CURRENT_DATE", currentdate);
 
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
-        inputParameters.put("STATE", "Kogi");
+        inputParameters.put("STATE", "Ondo");
         inputParameters.put("LGA", "");
         inputParameters.put("FROMDATE", dateFrom);
         inputParameters.put("TODATE", dateTo);
