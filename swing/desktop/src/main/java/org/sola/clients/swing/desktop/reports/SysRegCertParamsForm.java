@@ -117,16 +117,16 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     /**
      * Opens {@link ReportViewerForm} to display report.
      */
-    private void showReport(JasperPrint report,  String parcelLabel) {
+    private void showReport(JasperPrint report,  String parcelLabel, String docType) {
         ReportViewerForm form = new ReportViewerForm(report);
         try {
-            postProcessReport(report, parcelLabel);
+            postProcessReport(report, parcelLabel, docType);
         } catch (Exception ex) {
             Logger.getLogger(SysRegListingParamsForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    protected void postProcessReport(JasperPrint populatedReport, String parcelLabel) throws Exception {
+    protected void postProcessReport(JasperPrint populatedReport, String parcelLabel, String docType) throws Exception {
 
         System.out.println("Inside postProcessReport");
 
@@ -134,7 +134,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 
         Date recDate = this.currentDate;
         String location = this.tmpLocation.replace(" ", "_");
-
+        this.reportTogenerate = docType+"-"+this.reportTogenerate;
         JRPdfExporter exporterPdf = new JRPdfExporter();
         exporterPdf.setParameter(JRXlsExporterParameter.JASPER_PRINT, populatedReport);
         exporterPdf.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
@@ -145,16 +145,16 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         FileUtility.saveFileFromStream(null, this.reportTogenerate);
 
         System.out.println("End download");
-        saveDocument(this.reportTogenerate, recDate, this.reportdate, parcelLabel);
+        saveDocument(this.reportTogenerate, recDate, this.reportdate, parcelLabel, docType);
         FileUtility.deleteFileFromCache(this.reportTogenerate);
     }
 
-    private void saveDocument(String fileName, Date recDate, String subDate, String parcelLabel) throws Exception {
+    private void saveDocument(String fileName, Date recDate, String subDate, String parcelLabel, String docType) throws Exception {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         String reportdate = formatter.format(recDate);
 
 
-        this.document.setTypeCode("title");
+        this.document.setTypeCode(docType);
         this.document.setRecordation(this.currentDate);
         this.document.setReferenceNr(this.location);
 //        this.document.setDescription(this.reportTogenerate);
@@ -196,7 +196,6 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         cadastreObjectBean = new org.sola.clients.beans.cadastre.CadastreObjectBean();
         sysRegCertificatesBean = new org.sola.clients.beans.systematicregistration.SysRegCertificatesBean();
         sysRegCertificatesListBean = new org.sola.clients.beans.systematicregistration.SysRegCertificatesListBean();
-        documentPanel = new org.sola.clients.swing.ui.source.DocumentPanel();
         cadastreObjectSearch = new org.sola.clients.swing.ui.cadastre.LocationSearch();
         btnGenCertificate = new javax.swing.JButton();
         labHeader = new javax.swing.JLabel();
@@ -225,7 +224,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
+                    .addComponent(labHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGenCertificate)
                 .addContainerGap())
@@ -306,7 +305,8 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             
 //            File file = new File(featureImageFileName);
      
-                showReport(ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureFront, featureBack),parcelLabel);
+                showReport(ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureFront, featureBack),parcelLabel,"title");
+                showReport(ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureFront, featureBack),parcelLabel,"parcelPlan");
                
                 i = i + 1;
             }
@@ -337,7 +337,6 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     private javax.swing.JButton btnGenCertificate;
     private org.sola.clients.beans.cadastre.CadastreObjectBean cadastreObjectBean;
     private org.sola.clients.swing.ui.cadastre.LocationSearch cadastreObjectSearch;
-    private org.sola.clients.swing.ui.source.DocumentPanel documentPanel;
     private javax.swing.JLabel labHeader;
     private org.sola.clients.beans.systematicregistration.SysRegCertificatesBean sysRegCertificatesBean;
     private org.sola.clients.beans.systematicregistration.SysRegCertificatesListBean sysRegCertificatesListBean;
