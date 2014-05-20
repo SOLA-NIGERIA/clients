@@ -593,7 +593,8 @@ public class ReportManager {
         landUse = appBaunit.getLandUse();
         lga = appBaunit.getPropLocation();
         ward = appBaunit.getWard();
-        state = appBaunit.getState();propAddress = baUnitBean.getLocation();
+        state = "Kogi";//appBaunit.getState();
+        propAddress = baUnitBean.getLocation();
 
       
         
@@ -701,7 +702,7 @@ public class ReportManager {
         landUse = appBaunit.getLandUse();
         lga = appBaunit.getPropLocation();
         ward = appBaunit.getWard();
-        state = appBaunit.getState();
+        state = "Kogi";//appBaunit.getState();
         propAddress = baUnitBean.getLocation();
 
         appBaunit.getId();
