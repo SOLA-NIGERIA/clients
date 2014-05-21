@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
+ * Copyright (C) 2014 - Food and Agriculture Organization of the United Nations (FAO).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -69,11 +69,11 @@ public class MapImageGeneratorTest {
      * Test of getImageAsFileLocation method, of class MapImageGenerator.
      */
     @Test
-    @Ignore
+    //@Ignore
     public void testGetImageAsFileLocation() throws Exception {
         System.out.println("getImageAsFileLocation");
-        double imageWidth = 200.0;
-        double imageHeight = 200.0;
+        double imageWidth = 600.0;
+        double imageHeight = 600.0;
         double scale = 1500.0;
         int dpi = 96;
         String imageFormat = "png";
@@ -100,7 +100,7 @@ public class MapImageGeneratorTest {
         wmsLayerNames.add("sola:nz_orthophoto");
         ExtendedWmsLiteLayer wmsLayer = new ExtendedWmsLiteLayer(
                 "wmsLayer", "WMS Layer", wmsServerURL, wmsLayerNames, "1.1.1", "image/jpeg");
-        map.addLayer(wmsLayer);
+        //map.addLayer(wmsLayer);
 return map;
     }
 }

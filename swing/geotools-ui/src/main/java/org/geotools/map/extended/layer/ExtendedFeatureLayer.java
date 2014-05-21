@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
+ * Copyright (C) 2014 - Food and Agriculture Organization of the United Nations (FAO).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -111,6 +111,9 @@ public class ExtendedFeatureLayer extends ExtendedLayer {
      * It adds extra sld resources to the existing one. The last one added gets priority.
      */
     public static void setExtraSldResources(String sldExtraResources){
+        if (sldResources.contains(sldExtraResources)){
+            return;
+        }
         sldResources = String.format("%s,%s",sldExtraResources, sldResources); 
     }
     /**

@@ -29,8 +29,10 @@
  */
 package org.sola.clients.swing.desktop.reports;
 
+import com.vividsolutions.jts.io.ParseException;
 import java.awt.ComponentOrientation;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -45,6 +47,11 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
+import org.geotools.feature.SchemaException;
+import org.geotools.swing.extended.exception.InitializeLayerException;
+import org.geotools.swing.extended.exception.InitializeMapException;
+import org.opengis.referencing.FactoryException;
+import org.opengis.referencing.operation.TransformException;
 import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.converters.TypeConverters;
@@ -60,6 +67,8 @@ import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.MainForm;
 import org.sola.clients.swing.desktop.ReportViewerForm;
 import org.sola.clients.swing.desktop.source.DocumentForm;
+import org.sola.clients.swing.gis.imagegenerator.MapImageGeneratorForSelectedParcel;
+import org.sola.clients.swing.gis.imagegenerator.MapImageInformation;
 import org.sola.clients.swing.ui.MainContentPanel;
 import org.sola.common.FileUtility;
 import org.sola.common.messaging.ClientMessage;
@@ -117,7 +126,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     /**
      * Opens {@link ReportViewerForm} to display report.
      */
-    private void showReport(JasperPrint report,  String parcelLabel, String docType) {
+    private void showReport(JasperPrint report, String parcelLabel, String docType) {
         ReportViewerForm form = new ReportViewerForm(report);
         try {
             postProcessReport(report, parcelLabel, docType);
@@ -134,13 +143,13 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 
         Date recDate = this.currentDate;
         String location = this.tmpLocation.replace(" ", "_");
-        this.reportTogenerate = docType+"-"+this.reportTogenerate;
+        this.reportTogenerate = docType + "-" + this.reportTogenerate;
         JRPdfExporter exporterPdf = new JRPdfExporter();
         exporterPdf.setParameter(JRXlsExporterParameter.JASPER_PRINT, populatedReport);
         exporterPdf.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
         exporterPdf.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_COLUMNS, Boolean.TRUE);
         exporterPdf.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME, cachePath + this.reportTogenerate);
-        exporterPdf.setParameter(JRPdfExporterParameter.FORCE_SVG_SHAPES,Boolean.TRUE);
+        exporterPdf.setParameter(JRPdfExporterParameter.FORCE_SVG_SHAPES, Boolean.TRUE);
         exporterPdf.exportReport();
         FileUtility.saveFileFromStream(null, this.reportTogenerate);
 
@@ -258,9 +267,9 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         ApplicationTO applicationTO = WSManager.getInstance().getCaseManagementService().getApplication(id);
         return TypeConverters.TransferObjectToBean(applicationTO, ApplicationBean.class, null);
     }
-    
-     private void generateReport (){
-        
+
+    private void generateReport() throws InitializeLayerException {
+
         if (cadastreObjectSearch.getSelectedElement() != null) {
             this.location = cadastreObjectSearch.getSelectedElement().toString();
             tmpLocation = (this.location);
@@ -284,49 +293,81 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         String nrTmp = null;
         String appId = null;
         int i = 0;
+        try {
+            MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(514, 429, 150, 40);
 
-        for (Iterator<SysRegCertificatesBean> it = sysRegCertificatesListBean.getSysRegCertificates().iterator(); it.hasNext();) {
-            final SysRegCertificatesBean appBaunit = it.next();
-            baUnitId = appBaunit.getBaUnitId();
-            appId = appBaunit.getAppId();
+            for (Iterator<SysRegCertificatesBean> it = sysRegCertificatesListBean.getSysRegCertificates().iterator(); it.hasNext();) {
+                final SysRegCertificatesBean appBaunit = it.next();
+                baUnitId = appBaunit.getBaUnitId();
+                appId = appBaunit.getAppId();
 
-            this.reportTogenerate = baUnitId + "_" + tmpLocation + "_" + this.reportdate + ".pdf";
-            this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
-            this.reportTogenerate = this.reportTogenerate.replace("/", "_");
-            final BaUnitBean baUnit = getBaUnit(baUnitId);
-            final ApplicationBean applicationBean = getApplication(appId);
+                this.reportTogenerate = baUnitId + "_" + tmpLocation + "_" + this.reportdate + ".pdf";
+                this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
+                this.reportTogenerate = this.reportTogenerate.replace("/", "_");
+                final BaUnitBean baUnit = getBaUnit(baUnitId);
+                final ApplicationBean applicationBean = getApplication(appId);
 
 //            String parcelLabel = baUnit.getCadastreObjectList().get(0).getNameLastpart().toString() + '/' + baUnit.getCadastreObjectList().get(0).getNameFirstpart().toString();
 //            parcelLabel = parcelLabel.replace('/', '-');
-            String parcelLabel =  tmpLocation+'/'+appBaunit.getNameFirstpart();
-            final String featureImageFileName =  ".png";
-            final String featureFront = this.svgPath +  "front.svg";
-            final String featureBack = this.svgPath + "back.svg";
-            
+                String parcelLabel = tmpLocation + '/' + appBaunit.getNameFirstpart();
+
+                MapImageInformation mapImageInfo = mapImage.getMapAndScalebarImage(appBaunit.getId());
+
+                  
+
+                final String featureImageFileName = mapImageInfo.getMapImageLocation();
+                final String featureScalebarFileName= mapImageInfo.getScalebarImageLocation();
+                final Number scale= mapImageInfo.getScale();
+                final Integer srid= mapImageInfo.getSrid();
+                
+                System.out.println("SRID   "+ mapImageInfo.getSrid());
+                final String featureFront = this.svgPath + "front.svg";
+                final String featureBack = this.svgPath + "back.svg";
+
 //            File file = new File(featureImageFileName);
-     
-                showReport(ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureFront, featureBack),parcelLabel,"title");
-                showReport(ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureFront, featureBack),parcelLabel,"parcelPlan");
-               
+
+                showReport(ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureFront, featureBack), parcelLabel, "title");
+                showReport(ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName,  srid, scale, featureFront, featureBack), parcelLabel, "parcelPlan");
+
                 i = i + 1;
             }
-        if (i == 0) {
+        } catch (InitializeMapException ex) {
+            Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SchemaException ex) {
+            Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FactoryException ex) {
+            Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TransformException ex) {
+            Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    if (i == 0) {
             MessageUtility.displayMessage(ClientMessage.NO_CERTIFICATE_GENERATION);
-        }
-        else {
+    }
+    else {
             showDocMessage(this.tmpLocation);
-        }
-        this.dispose();
-     }    
-    
-    
+    }
+
+    this.dispose();
+}
     private void btnGenCertificateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenCertificateActionPerformed
             SolaTask t = new SolaTask<Void, Void>() {
 
               @Override
-               public Void doTask() {
+        public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_CREATE_CERTIFICATE));
-                generateReport ();
+                try {
+                    generateReport ();
+                
+
+} catch (InitializeLayerException ex) {
+                    Logger.getLogger(SysRegCertParamsForm.class  
+
+.getName()).log(Level.SEVERE, null, ex);
+                }
               return null;
               }
              };

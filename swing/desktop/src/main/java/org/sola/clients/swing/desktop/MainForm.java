@@ -71,6 +71,7 @@ import org.sola.clients.swing.desktop.source.PowerOfAttorneyViewForm;
 import org.sola.clients.swing.ui.MainContentPanel;
 import org.sola.clients.swing.bulkoperations.*;
 import org.sola.clients.swing.bulkoperations.sources.LoadSourcesPanel;
+import org.sola.clients.swing.desktop.cadastre.MapSpatialUnitEditPanel;
 import org.sola.clients.swing.desktop.reports.*;
 import org.sola.common.RolesConstants;
 import org.sola.common.help.HelpUtility;
@@ -702,6 +703,7 @@ public class MainForm extends javax.swing.JFrame {
         menuLodgementReport = new javax.swing.JMenuItem();
         menuSystematic = new javax.swing.JMenu();
         menuSpatialUnitGroup = new javax.swing.JMenuItem();
+        mnuSpatialUnitEditor = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         menuPubDispRep = new javax.swing.JMenu();
         menuItemMapPublicDisplay = new javax.swing.JMenuItem();
@@ -1037,6 +1039,14 @@ public class MainForm extends javax.swing.JFrame {
         });
         menuSystematic.add(menuSpatialUnitGroup);
 
+        mnuSpatialUnitEditor.setText(bundle.getString("MainForm.mnuSpatialUnitEditor.text")); // NOI18N
+        mnuSpatialUnitEditor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuSpatialUnitEditorActionPerformed(evt);
+            }
+        });
+        menuSystematic.add(mnuSpatialUnitEditor);
+
         jMenuItem3.setText(bundle.getString("MainForm.jMenuItem3.text")); // NOI18N
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1336,10 +1346,33 @@ public class MainForm extends javax.swing.JFrame {
          openSysRegListingParamsForm("Owners");
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void mnuSpatialUnitEditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSpatialUnitEditorActionPerformed
+        openMapSpatialUnitEditor();
+    }//GEN-LAST:event_mnuSpatialUnitEditorActionPerformed
+
     private void editPassword() {
         showPasswordPanel();
     }
+    
+        private void openMapSpatialUnitEditor() {
+        SolaTask t = new SolaTask<Void, Void>() {
 
+            @Override
+            public Void doTask() {
+                setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_MAP));
+                if (!pnlContent.isPanelOpened(MapSpatialUnitEditPanel.PANEL_NAME)) {
+                    MapSpatialUnitEditPanel mapPanel = new MapSpatialUnitEditPanel();
+                    pnlContent.addPanel(mapPanel, MapSpatialUnitEditPanel.PANEL_NAME);
+                }
+                pnlContent.showPanel(MapSpatialUnitEditPanel.PANEL_NAME);
+                return null;
+            }
+        };
+        TaskManager.getInstance().runTask(t);
+    }
+
+    
+    
     /**
      * Shows password panel.
      */
@@ -1411,6 +1444,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuStatus;
     private javax.swing.JMenu menuSystematic;
     private javax.swing.JMenu menuView;
+    private javax.swing.JMenuItem mnuSpatialUnitEditor;
     private org.sola.clients.swing.ui.MainContentPanel pnlContent;
     private javax.swing.JPanel statusPanel;
     private org.sola.clients.swing.common.tasks.TaskPanel taskPanel1;

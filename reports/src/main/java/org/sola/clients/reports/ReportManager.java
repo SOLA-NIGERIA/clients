@@ -52,6 +52,7 @@ import org.sola.clients.beans.systematicregistration.*;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
+
 /**
  * Provides methods to generate and display various reports.
  */
@@ -444,10 +445,10 @@ public class ReportManager {
         String logoImage = "/images/sola/logoMinistry.png";
         location = location.substring(location.indexOf("/")+1);
         String tmpLocation =  location.substring(location.indexOf("/")+1);
-        String lga = location.replace("/"+tmpLocation, " LGA");
+        String lga = location.replace("/"+tmpLocation, " Lga");
         String section = tmpLocation.substring(tmpLocation.indexOf("/")+1);
         String ward = tmpLocation.replace("/"+section, ", ");
-        location = "SECTION "+section+", WARD "+ward+lga+" ( "+upiCode+" )";
+        location = "Section "+section+", Ward "+ward+lga+" ( "+upiCode+" )";
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("FROM_DATE", dateFrom);
@@ -485,11 +486,10 @@ public class ReportManager {
         String logoImage = "/images/sola/logoMinistry.png";
         location = location.substring(location.indexOf("/")+1);
         String tmpLocation =  location.substring(location.indexOf("/")+1);
-        String lga = location.replace("/"+tmpLocation, " LGA");
+        String lga = location.replace("/"+tmpLocation, " Lga");
         String section = tmpLocation.substring(tmpLocation.indexOf("/")+1);
         String ward = tmpLocation.replace("/"+section, ", ");
-
-        location = "SECTION "+section+", WARD "+ward+lga+" ( "+upiCode+" )";
+        location = "Section "+section+", Ward "+ward+lga+" ( "+upiCode+" )";
         
 //	Date currentdate = new Date(System.currentTimeMillis());
 //        inputParameters.put("CURRENT_DATE", currentdate);
@@ -593,8 +593,7 @@ public class ReportManager {
         landUse = appBaunit.getLandUse();
         lga = appBaunit.getPropLocation();
         ward = appBaunit.getWard();
-        state = "Kogi";//appBaunit.getState();
-        propAddress = baUnitBean.getLocation();
+        state = appBaunit.getState();propAddress = baUnitBean.getLocation();
 
       
         
@@ -665,9 +664,7 @@ public class ReportManager {
      *
      */
     public static JasperPrint getSysRegSlrtPlanReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
-//      public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
-   
-        String  featureFront,String featureBack) {
+            String featureScalebarFileName, Integer srid, Number scale, String  featureFront,String featureBack) {
         HashMap inputParameters = new HashMap();
         String featureFloatFront ="images/sola/front_float.svg";
         String featureFloatBack = "images/sola/back_float.svg";
@@ -702,7 +699,7 @@ public class ReportManager {
         landUse = appBaunit.getLandUse();
         lga = appBaunit.getPropLocation();
         ward = appBaunit.getWard();
-        state = "Kogi";//appBaunit.getState();
+        state = appBaunit.getState();
         propAddress = baUnitBean.getLocation();
 
         appBaunit.getId();
@@ -719,11 +716,18 @@ public class ReportManager {
 //3 - Area in m2
 //  4 - UTM zone
 //  5 - Scalebar 
-          
-        String mapImage ="images/sola/slrtMapSample.png";  
-        String utmZone = "UTM Zone 32N";
-        String scale = "1 cm = 2000 m (1:2000)";
-        String scalebarImageLocation ="images/sola/slrtScalebarSample.png";
+              
+        
+//        String mapImage ="images/sola/slrtMapSample.png";  
+//        String utmZone = "UTM Zone 32N";
+//        String scaleLabel = "1 cm = 2000 m (1:2000)";
+//        String scalebarImageLocation ="images/sola/slrtScalebarSample.png";
+        
+        String mapImage = featureImageFileName;  
+        String utmZone = srid.toString().substring(srid.toString().length()-2);
+        utmZone = "UTM Zone" + utmZone  +"N";
+        String scaleLabel = "1 cm = "+scale.intValue()+" m (1:"+scale.intValue()+")" ;
+        String scalebarImageLocation =featureScalebarFileName;
         
         
         if (! baUnitBean.isIsDeveloped()) {
@@ -765,7 +769,7 @@ public class ReportManager {
         inputParameters.put("STATE", state);
         inputParameters.put("SLTR_PLAN_IMAGE", sltrPlanFront);
         inputParameters.put("MAP_IMAGE", mapImage);
-        inputParameters.put("SCALE", scale);
+        inputParameters.put("SCALE", scaleLabel);
         inputParameters.put("UTM", utmZone);
         inputParameters.put("SCALEBAR", scalebarImageLocation);
         

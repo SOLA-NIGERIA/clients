@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations
+ * Copyright (C) 2014 - Food and Agriculture Organization of the United Nations
  * (FAO). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -55,24 +55,27 @@ public class MapImageGenerator {
 
     private final static String TEMPORARY_IMAGE_FILE_LOCATION =
             System.getProperty("user.home") + File.separator + "sola";
-    private static String DOCUMENT_CACHE_PATH = System.getProperty("user.home") + "/sola/cache/documents";
-    
     private final static String TEMPORARY_IMAGE_FILE = "map";
     private MapContent mapContent;
     private Color textColor = Color.RED;
     private Font textFont = new Font(Font.SANS_SERIF, Font.BOLD, 10);
-	private String textInTheMapCenter = null;
-
+    private String textInTheMapCenter = null;
+    private boolean drawCoordinatesInTheSides = true;
 
     /**
      * Constructor of the generator.
      *
-     * @param mapContent The map content used as a source for generating the image
+     * @param mapContent The map content used as a source for generating the
+     * image
      */
     public MapImageGenerator(MapContent mapContent) {
         this.mapContent = mapContent;
     }
-    
+
+    public MapContent getMapContent() {
+        return mapContent;
+    }
+
     /**
      * Gets the color of the text used in the image
      *
@@ -108,8 +111,7 @@ public class MapImageGenerator {
     public void setTextFont(Font textFont) {
         this.textFont = textFont;
     }
-	
-	
+
     public String getTextInTheMapCenter() {
         return textInTheMapCenter;
     }
@@ -118,6 +120,13 @@ public class MapImageGenerator {
         this.textInTheMapCenter = textInTheMapCenter;
     }
 
+    public boolean GetDrawCoordinatesInTheSides() {
+        return drawCoordinatesInTheSides;
+    }
+
+    public void setDrawCoordinatesInTheSides(boolean drawCoordinatesInTheSides) {
+        this.drawCoordinatesInTheSides = drawCoordinatesInTheSides;
+    }
 
     /**
      * It generates the image.
@@ -129,19 +138,32 @@ public class MapImageGenerator {
      * @return An buffered image
      */
     public BufferedImage getImage(double imageWidth, double imageHeight, double scale, int dpi) {
-        ReferencedEnvelope currentExtent = this.mapContent.getViewport().getBounds();
-        double centerX = currentExtent.getMedian(0);
-        double centerY = currentExtent.getMedian(1);
+        return getImage(this.mapContent.getViewport().getBounds(), imageWidth, imageHeight, scale, dpi);
+    }
+
+    /**
+     * It generates the image.
+     *
+     * @param initialExtent The initial extent of the map
+     * @param imageWidth The image width
+     * @param imageHeight The image height
+     * @param scale The scale of the map
+     * @param dpi The dpi used
+     * @return An buffered image
+     */
+    public BufferedImage getImage(ReferencedEnvelope initialExtent, double imageWidth, double imageHeight, double scale, int dpi) {
+        double centerX = initialExtent.getMedian(0);
+        double centerY = initialExtent.getMedian(1);
         double dotPerCm = dpi / 2.54;
         double extentWidth = imageWidth * scale / (dotPerCm * 100);
         double extentHeight = imageHeight * scale / (dotPerCm * 100);
         ReferencedEnvelope extent = new ReferencedEnvelope(
                 centerX - extentWidth / 2, centerX + extentWidth / 2,
                 centerY - extentHeight / 2, centerY + extentHeight / 2,
-                currentExtent.getCoordinateReferenceSystem());
+                initialExtent.getCoordinateReferenceSystem());
         return this.getImage((int) Math.round(imageWidth), extent);
     }
-
+    
     /**
      * It generates the image. The height of the image is calculated.
      *
@@ -158,50 +180,57 @@ public class MapImageGenerator {
         StreamingRenderer renderer = new StreamingRenderer();
         renderer.setMapContent(this.mapContent);
         Rectangle rectangle = new Rectangle(imageWidth, imageHeight);
-        
+
         //Save the current viewport
         MapViewport mapViewportOriginal = this.mapContent.getViewport();
-        
+
         //Define a new viewport 
         MapViewport mapViewport = new MapViewport(extent, true);
         mapViewport.setScreenArea(rectangle);
         mapViewport.setCoordinateReferenceSystem(this.mapContent.getViewport().getCoordinateReferenceSystem());
-        
+
         //Set the new viewport
         renderer.getMapContent().setViewport(mapViewport);
-        
+
         // Render map according to the new viewport. Use the viewport 
         // worldToScreen transformation to ensure the image is rendered 
         // with the same orientation as the map. 
         renderer.paint(graphics, rectangle, extent, mapViewport.getWorldToScreen());
         //Set the previous viewport back
         this.mapContent.setViewport(mapViewportOriginal);
-        graphics.setColor(Color.BLACK);
-        graphics.drawRect(0, 0, imageWidth - 1, imageHeight - 1);
-        graphics.setFont(this.textFont);
-        graphics.setColor(this.textColor);
 
-        this.drawText(graphics, String.format("%s N", (int) extent.getMaxY()),
-                imageWidth / 2, 10, true);
-        this.drawText(graphics, String.format("%s N", (int) extent.getMinY()),
-                imageWidth / 2, imageHeight - 3, true);
-        AffineTransform originalTransform = graphics.getTransform();
-        graphics.rotate(-Math.PI / 2, 10, imageHeight / 2);
-        this.drawText(graphics, String.format("%s E", (int) extent.getMinX()),
-                10, imageHeight / 2, false);
-        graphics.setTransform(originalTransform);
-        graphics.rotate(Math.PI / 2, imageWidth - 10, imageHeight / 2);
-        this.drawText(graphics, String.format("%s E", (int) extent.getMaxX()),
-                imageWidth - 100, imageHeight / 2, false);
-        graphics.setTransform(originalTransform);
-         if (this.textInTheMapCenter != null){
+        if (GetDrawCoordinatesInTheSides()) {
+            graphics.setColor(Color.BLACK);
+            graphics.drawRect(0, 0, imageWidth - 1, imageHeight - 1);
+            graphics.setFont(this.textFont);
+            graphics.setColor(this.textColor);
+
+            this.drawText(graphics, String.format("%s N", (int) extent.getMaxY()),
+                    imageWidth / 2, 10, true);
+            this.drawText(graphics, String.format("%s N", (int) extent.getMinY()),
+                    imageWidth / 2, imageHeight - 3, true);
+            AffineTransform originalTransform = graphics.getTransform();
+            graphics.rotate(-Math.PI / 2, 10, imageHeight / 2);
+            this.drawText(graphics, String.format("%s E", (int) extent.getMinX()),
+                    10, imageHeight / 2, false);
+            graphics.setTransform(originalTransform);
+            graphics.rotate(Math.PI / 2, imageWidth - 10, imageHeight / 2);
+            this.drawText(graphics, String.format("%s E", (int) extent.getMaxX()),
+                    imageWidth - 100, imageHeight / 2, false);
+
+            graphics.setTransform(originalTransform);
+
+        }
+        if (this.textInTheMapCenter != null) {
             this.drawText(graphics, textInTheMapCenter, imageWidth / 2, imageHeight / 2, true);
         }
+
         return bi;
     }
 
     /**
-     * It generates the image and it saves it in a temporary file.
+     * It generates the image and it saves it in a temporary file. The file is
+     * map.<format>
      *
      * @param imageWidth The width in pixels/pointers of the image
      * @param imageHeight The height in pixels/pointers of the image
@@ -215,41 +244,50 @@ public class MapImageGenerator {
      */
     public String getImageAsFileLocation(double imageWidth, double imageHeight, double scale,
             int dpi, String imageFormat) throws IOException {
-        File location = new File(TEMPORARY_IMAGE_FILE_LOCATION);
-        if (!location.exists()) {
-            location.mkdirs();
-        }
-        String pathToResult = TEMPORARY_IMAGE_FILE_LOCATION + File.separator
-                + TEMPORARY_IMAGE_FILE + "." + imageFormat;
-        File outputFile = new File(pathToResult);
-        BufferedImage bufferedImage = this.getImage(imageWidth, imageHeight, scale, dpi);
-        ImageIO.write(bufferedImage, imageFormat, outputFile);
-        return pathToResult;
+        return this.getImageAsFileLocation(this.mapContent.getViewport().getBounds(), 
+                imageWidth, imageHeight, scale, dpi, imageFormat, TEMPORARY_IMAGE_FILE);
     }
-    
-      /**
-     * Generates an image using the specified extent and saves the image to an image file.
+
+    /**
+     * It generates the image and it saves it in a temporary file.
      *
-     * @param imageWidth The width of the image in pixels
-     * @param extent The extent of the map window to use for the image
-     * @param imageFormat The format of the image. Potential values can be jpg, png, bmp
-     * @return The path and file name of the image file
+     * @param imageWidth The width in pixels/pointers of the image
+     * @param imageHeight The height in pixels/pointers of the image
+     * @param scale The desired scale
+     * @param dpi The dpi of the target. If it is a pdf generation it is the dpi
+     * of the pdf generator
+     * @param imageFormat Acceptable formats for the image. Potential values can
+     * be jpg, png, bmp
+     * @param fileNameWithoutExtension The filename with the extension and
+     * without folder
+     * @return The absolute path where the image is stored
      * @throws IOException
      */
-    public String getImageAsFileLocation(int imageWidth, ReferencedEnvelope extent,
-            String imageFormat, String label) throws IOException {
-        File location = new File(TEMPORARY_IMAGE_FILE_LOCATION);
-        if (!location.exists()) {
-            location.mkdirs();
-        }
-        String pathToResult = DOCUMENT_CACHE_PATH + File.separator
-                + label + "." + imageFormat;
+    public String getImageAsFileLocation(
+            ReferencedEnvelope initialExtent, double imageWidth, double imageHeight, double scale,
+            int dpi, String imageFormat, String fileNameWithoutExtension) throws IOException {
+        String pathToResult = getFullpathOfMapImage(fileNameWithoutExtension, imageFormat);
         File outputFile = new File(pathToResult);
-        BufferedImage bufferedImage = this.getImage(imageWidth, extent);
+        BufferedImage bufferedImage = this.getImage(initialExtent, imageWidth, imageHeight, scale, dpi);
         ImageIO.write(bufferedImage, imageFormat, outputFile);
         return pathToResult;
     }
 
+    /**
+     * It gets the full path of the map image given the name of the file without extension.
+     * This method makes also the folder where the image is saved if it does not exist.
+     * @param fileNameWithoutExtension
+     * @param imageFormat
+     * @return 
+     */
+    public String getFullpathOfMapImage(String fileNameWithoutExtension, String imageFormat){
+        File location = new File(TEMPORARY_IMAGE_FILE_LOCATION);
+        if (!location.exists()) {
+            location.mkdirs();
+        }
+        return TEMPORARY_IMAGE_FILE_LOCATION + File.separator + fileNameWithoutExtension + "." + imageFormat;
+    }
+    
     private void drawText(Graphics2D graphics, String txt, int x, int y, boolean center) {
         if (center) {
             FontMetrics fontMetrics = graphics.getFontMetrics();
