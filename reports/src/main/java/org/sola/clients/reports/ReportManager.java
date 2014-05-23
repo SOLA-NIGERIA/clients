@@ -725,8 +725,8 @@ public class ReportManager {
         
         String mapImage = featureImageFileName;  
         String utmZone = srid.toString().substring(srid.toString().length()-2);
-        utmZone = "UTM Zone" + utmZone  +"N";
-        String scaleLabel = "1 cm = "+scale.intValue()+" m (1:"+scale.intValue()+")" ;
+        utmZone = "WGS84 UTM Zone" + utmZone  +"N";
+        String scaleLabel = "1: "+scale.intValue();
         String scalebarImageLocation =featureScalebarFileName;
         
         

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ParcelPlan" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="172"/>
+	<property name="ireport.y" value="154"/>
 	<subDataset name="dataset1">
 		<parameter name="AREA" class="java.lang.Object">
 			<parameterDescription><![CDATA[]]></parameterDescription>
@@ -193,7 +193,7 @@
 					<font fontName="Myriad Pro" size="15" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA["The area of land highlighted above, with Parcel number: "+$F{nameLastpart}+"/"+ $F{nameFirstpart}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["The area of edged red land above, with Parcel number: "+$F{nameLastpart}+"/"+ $F{nameFirstpart}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement mode="Opaque" x="40" y="651" width="514" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -250,16 +250,6 @@
 				<textFieldExpression><![CDATA["Prepared from orthorectified satellite imagery\ndated: "+$P{IMAGERY_DATE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="353" y="743" width="217" height="29" forecolor="#000000" backcolor="#FFFFFF">
-					<printWhenExpression><![CDATA["1".equals( "2" )]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Compiled from parcel indexmap sheet..........\ndated:"]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
 				<reportElement mode="Transparent" x="353" y="773" width="217" height="30" forecolor="#CC0000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -270,19 +260,23 @@
 			<frame>
 				<reportElement x="40" y="152" width="514" height="429"/>
 				<image hAlign="Center" vAlign="Middle" isLazy="true">
-					<reportElement x="0" y="0" width="514" height="429"/>
+					<reportElement x="21" y="0" width="490" height="429"/>
 					<imageExpression><![CDATA[$P{MAP_IMAGE}]]></imageExpression>
+				</image>
+				<image>
+					<reportElement mode="Transparent" x="417" y="7" width="26" height="28"/>
+					<imageExpression><![CDATA["images/sola/north-arrow.png"]]></imageExpression>
 				</image>
 			</frame>
 			<textField>
-				<reportElement x="353" y="724" width="217" height="20"/>
+				<reportElement x="353" y="724" width="217" height="41"/>
 				<textElement>
 					<font fontName="Myriad Pro" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Coordinates are in metres, "+$P{UTM}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Coordinates are in metres, \n"+$P{UTM}]]></textFieldExpression>
 			</textField>
 			<image scaleImage="Clip" hAlign="Center" isUsingCache="false">
-				<reportElement x="192" y="510" width="200" height="40" isRemoveLineWhenBlank="true"/>
+				<reportElement x="192" y="532" width="200" height="40" isRemoveLineWhenBlank="true"/>
 				<imageExpression><![CDATA[$P{SCALEBAR}]]></imageExpression>
 			</image>
 		</band>

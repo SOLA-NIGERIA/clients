@@ -294,7 +294,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         String appId = null;
         int i = 0;
         try {
-            MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(514, 429, 150, 40);
+            MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(490, 429, 150, 40);
 
             for (Iterator<SysRegCertificatesBean> it = sysRegCertificatesListBean.getSysRegCertificates().iterator(); it.hasNext();) {
                 final SysRegCertificatesBean appBaunit = it.next();
