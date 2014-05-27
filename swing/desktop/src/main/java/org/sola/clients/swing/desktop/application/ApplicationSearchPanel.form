@@ -62,18 +62,23 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel10" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jPanel10" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel3" min="-2" pref="198" max="-2" attributes="0"/>
-                          <Component id="txtDocumentReference" min="-2" pref="255" max="-2" attributes="0"/>
+                          <Component id="txtDocumentReference" min="-2" pref="188" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtDocumentNumber" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                          <Component id="jLabel4" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel4" min="-2" pref="137" max="-2" attributes="0"/>
-                          <Component id="txtDocumentNumber" min="-2" pref="389" max="-2" attributes="0"/>
+                          <Component id="cadastreObjectSearch" min="-2" pref="237" max="-2" attributes="0"/>
+                          <Component id="lblSection" min="-2" pref="203" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="jPanel14" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -95,22 +100,25 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="3" max="32767" attributes="0"/>
+                          <Component id="lblSection" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txtDocumentReference" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtDocumentNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cadastreObjectSearch" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="jPanel14" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Component id="jToolBar1" min="-2" pref="25" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="appListPanel" pref="169" max="32767" attributes="0"/>
+              <Component id="appListPanel" pref="163" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -1014,5 +1022,27 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="org.sola.clients.swing.ui.cadastre.LocationSearch" name="cadastreObjectSearch">
+      <Properties>
+        <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationSearchPanel.cadastreObjectSearch.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+      <BindingProperties>
+        <BindingProperty name="text" source="searchParams" sourcePath="${section}" target="cadastreObjectSearch" targetPath="text" updateStrategy="0" immediately="false">
+          <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+        </BindingProperty>
+      </BindingProperties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblSection">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationSearchPanel.lblSection.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationSearchPanel.lblSection.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>
