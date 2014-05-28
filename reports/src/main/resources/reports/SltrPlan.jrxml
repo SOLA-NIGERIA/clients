@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ParcelPlan" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO" uuid="b4fb677e-7d98-44f3-a1c1-ac63a08eaae7">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="504"/>
+	<property name="ireport.y" value="0"/>
 	<subDataset name="dataset1" uuid="8ef60993-f9a4-49fd-bc62-a214f19178db">
 		<parameter name="AREA" class="java.lang.Object">
 			<parameterDescription><![CDATA[]]></parameterDescription>
@@ -177,7 +177,7 @@
 					<font fontName="Myriad Pro" size="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Ward/village "+$P{WARD}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Ward/Village "+$P{WARD}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="1162501f-8d68-4e32-beeb-f84b0ce40934" mode="Opaque" x="247" y="37" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>

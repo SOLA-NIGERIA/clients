@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO" whenResourceMissingType="Empty" uuid="62b77c6f-3bd7-4680-91f5-4f6e06ff2ddd">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="90"/>
+	<property name="ireport.y" value="994"/>
 	<style name="table 1">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -544,18 +544,12 @@ Given under my hand on:
 "       permit to be made any addition or alteration to the said buildings already erected on the land except\n"+
 "       in accordance with plans and specifications approved by the planning authority.\n"+
 "\n"+
-"4.    To maintain in good and substantial repair to the satisfaction of the Commissioner or any other\n"+
-"       officer appointed by the Governor, all buildings on the said land and appurtenances thereto, and to\n"+
-"       do other works, properly maintained in clean and sanitary condition all of the land and surroundings\n"+
-"       of the buildings.\n"+
-"\n"+
-"5.    To keep the exterior and interior of the building/s to be erected and all outbuildings and erections\n"+
-"       which may at any time during the term of the grant be erected on the land and the fencing and\n"+
-"       appurtenances in good and tenantable repair and condition.\n"+
-"\n"+
-"6.    The holder shall not transfer this title or any part thereof by sale, assignment, mortgage, transfer\n"+
-"       of possession, sub-lease or bequest, or otherwise howsoever without the prior consent of the\n"+
-"       Government."]]></textFieldExpression>
+"4.    To keep the exterior and interior of the building/s and all outbuildings,fences and appurtenances on \n"+
+"       the land in good, clean, sanitary and tenantable repair and condition to the satisfaction of the \n"+
+"       Commissioner or any other officer appointed by the Governor.\n"+"\n"+
+"5.    The holder and all successors in title shall not transfer this title or any part thereof by sale, assignment,\n"+
+"       mortgage, transfer of possession, sub-lease or bequest, or otherwise howsoever without the prior \n"+
+"       consent of the Governor."]]></textFieldExpression>
 			</textField>
 			<componentElement>
 				<reportElement uuid="5ed5c480-63c9-469e-9609-24363de549c7" key="table" style="table" stretchType="RelativeToBandHeight" x="57" y="98" width="481" height="78"/>
@@ -669,7 +663,7 @@ Given under my hand on:
 				<reportElement uuid="bb5f5973-0573-4ff2-9aad-766477547e9a" x="385" y="620" width="157" height="1"/>
 			</line>
 			<componentElement>
-				<reportElement uuid="044952ac-6290-41d9-910f-623ee01d3969" key="table 6" style="table 6" positionType="Float" x="39" y="636" width="533" height="167"/>
+				<reportElement uuid="044952ac-6290-41d9-910f-623ee01d3969" key="table 6" style="table 6" positionType="Float" x="34" y="636" width="533" height="167"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 1" uuid="e31fe6fd-199b-4744-a044-74b0c02e6786">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource(1)]]></dataSourceExpression>
