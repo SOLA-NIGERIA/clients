@@ -31,17 +31,19 @@ package org.sola.clients.swing.desktop.reports;
 
 import com.vividsolutions.jts.io.ParseException;
 import java.awt.ComponentOrientation;
+import java.awt.Desktop;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
@@ -82,7 +84,7 @@ import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
  * @author RizzoM
  */
 public class SysRegCertParamsForm extends javax.swing.JDialog {
-
+    
     private String location;
     private String title = "Certificates for Section";
     private String nr;
@@ -110,7 +112,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         }
         this.setTitle(this.title);
         this.document = new SourceBean();
-
+        
     }
 
     /**
@@ -127,67 +129,95 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
      * Opens {@link ReportViewerForm} to display report.
      */
     private void showReport(JasperPrint report, String parcelLabel, String docType) {
-        ReportViewerForm form = new ReportViewerForm(report);
+//        ReportViewerForm form = new ReportViewerForm(report);
         try {
             postProcessReport(report, parcelLabel, docType);
         } catch (Exception ex) {
             Logger.getLogger(SysRegListingParamsForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     protected void postProcessReport(JasperPrint populatedReport, String parcelLabel, String docType) throws Exception {
-
+        
         System.out.println("Inside postProcessReport");
-
+        
         System.out.println("start download");
-
+        
         Date recDate = this.currentDate;
+        System.out.println("STEP 1");
         String location = this.tmpLocation.replace(" ", "_");
+        System.out.println("STEP 2");
         this.reportTogenerate = docType + "-" + this.reportTogenerate;
+        System.out.println("STEP 3");
         JRPdfExporter exporterPdf = new JRPdfExporter();
+        System.out.println("STEP 4");
         exporterPdf.setParameter(JRXlsExporterParameter.JASPER_PRINT, populatedReport);
+        System.out.println("STEP 5");
         exporterPdf.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
+        System.out.println("STEP 6");
         exporterPdf.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_COLUMNS, Boolean.TRUE);
+        System.out.println("STEP 7");
         exporterPdf.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME, cachePath + this.reportTogenerate);
+        System.out.println("STEP 8");
         exporterPdf.setParameter(JRPdfExporterParameter.FORCE_SVG_SHAPES, Boolean.TRUE);
+        System.out.println("STEP 9");
         exporterPdf.exportReport();
+        System.out.println("STEP 10");
+        
+        
+        
         FileUtility.saveFileFromStream(null, this.reportTogenerate);
-
         System.out.println("End download");
         saveDocument(this.reportTogenerate, recDate, this.reportdate, parcelLabel, docType);
         FileUtility.deleteFileFromCache(this.reportTogenerate);
-    }
 
+//        List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
+//
+//            jprintlist.add(populatedReport);
+////            jprintlist.add(jprint2);
+////            jprintlist.add(jprint3);
+//
+//            JRExporter exporter = new JRPdfExporter();
+//            exporter.setParameter(JRPdfExporterParameter.JASPER_PRINT_LIST, jprintlist);
+//
+//            OutputStream output = new FileOutputStream(new File(cachePath +"TOTAL_"+this.reportTogenerate));
+//
+//            exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, output);
+//            exporter.exportReport();
+
+        
+    }
+    
     private void saveDocument(String fileName, Date recDate, String subDate, String parcelLabel, String docType) throws Exception {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         String reportdate = formatter.format(recDate);
-
-
+        
+        
         this.document.setTypeCode(docType);
         this.document.setRecordation(this.currentDate);
         this.document.setReferenceNr(this.location);
 //        this.document.setDescription(this.reportTogenerate);
 //        this.document.setReferenceNr(this.location);
         this.document.setDescription(parcelLabel);
-
-
+        
+        
         DocumentBean document1 = new DocumentBean();
         File file = new File(cachePath + fileName);
         document1 = DocumentBean.createDocumentFromLocalFile(file);
-
+        
         document.setArchiveDocument(document1);
         document.save();
         document.clean2();
-
+        
     }
-
+    
     private void showDocMessage(String fileName) {
-
+        
         String params = this.title + ":  " + fileName;
         MessageUtility.displayMessage(ClientMessage.SOURCE_SYS_REP_GENERATED, new Object[]{params});
-
+        
     }
-
+    
     private void showCalendar(JFormattedTextField dateField) {
         CalendarForm calendar = new CalendarForm(null, true, dateField);
         calendar.setVisible(true);
@@ -262,14 +292,14 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         BaUnitTO baUnitTO = WSManager.getInstance().getAdministrative().getBaUnitById(id);
         return TypeConverters.TransferObjectToBean(baUnitTO, BaUnitBean.class, null);
     }
-
+    
     private ApplicationBean getApplication(String id) {
         ApplicationTO applicationTO = WSManager.getInstance().getCaseManagementService().getApplication(id);
         return TypeConverters.TransferObjectToBean(applicationTO, ApplicationBean.class, null);
     }
-
+    
     private void generateReport() throws InitializeLayerException {
-
+        
         if (cadastreObjectSearch.getSelectedElement() != null) {
             this.location = cadastreObjectSearch.getSelectedElement().toString();
             tmpLocation = (this.location);
@@ -277,30 +307,34 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             MessageUtility.displayMessage(ClientMessage.CHECK_SELECT_LOCATION);
             return;
         }
-
+        
         Date currentdate = new Date(System.currentTimeMillis());
         this.currentDate = currentdate;
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMyy");
         this.reportdate = formatter.format(currentdate);
-
+        
         if (nr != null) {
             sysRegCertificatesListBean.passParameterApp(tmpLocation, nr);
         } else {
             sysRegCertificatesListBean.passParameter(tmpLocation);
         }
-
+        
         String baUnitId = null;
         String nrTmp = null;
         String appId = null;
         int i = 0;
         try {
             MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(490, 429, 150, 40);
-
+            List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
+            JasperPrint CofO = null;
+            JasperPrint ParcelPlan = null;
             for (Iterator<SysRegCertificatesBean> it = sysRegCertificatesListBean.getSysRegCertificates().iterator(); it.hasNext();) {
                 final SysRegCertificatesBean appBaunit = it.next();
+                for (int n = 0; n < 50; n++)  { 
+                
                 baUnitId = appBaunit.getBaUnitId();
                 appId = appBaunit.getAppId();
-
+                
                 this.reportTogenerate = baUnitId + "_" + tmpLocation + "_" + this.reportdate + ".pdf";
                 this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
                 this.reportTogenerate = this.reportTogenerate.replace("/", "_");
@@ -310,27 +344,52 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 //            String parcelLabel = baUnit.getCadastreObjectList().get(0).getNameLastpart().toString() + '/' + baUnit.getCadastreObjectList().get(0).getNameFirstpart().toString();
 //            parcelLabel = parcelLabel.replace('/', '-');
                 String parcelLabel = tmpLocation + '/' + appBaunit.getNameFirstpart();
-
-                MapImageInformation mapImageInfo = mapImage.getMapAndScalebarImage(appBaunit.getId());
-
-                  
-
-                final String featureImageFileName = mapImageInfo.getMapImageLocation();
-                final String featureScalebarFileName= mapImageInfo.getScalebarImageLocation();
-                final Number scale= mapImageInfo.getScale();
-                final Integer srid= mapImageInfo.getSrid();
                 
-                System.out.println("SRID   "+ mapImageInfo.getSrid());
+                MapImageInformation mapImageInfo = mapImage.getMapAndScalebarImage(appBaunit.getId());
+                
+                
+                
+                final String featureImageFileName = mapImageInfo.getMapImageLocation();
+                final String featureScalebarFileName = mapImageInfo.getScalebarImageLocation();
+                final Number scale = mapImageInfo.getScale();
+                final Integer srid = mapImageInfo.getSrid();
+                
                 final String featureFront = this.svgPath + "front.svg";
                 final String featureBack = this.svgPath + "back.svg";
-
-//            File file = new File(featureImageFileName);
-
-                showReport(ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureFront, featureBack), parcelLabel, "title");
-                showReport(ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName,  srid, scale, featureFront, featureBack), parcelLabel, "parcelPlan");
-
-                i = i + 1;
+                CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureFront, featureBack);
+                ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack);
+                
+                showReport(CofO, parcelLabel, "title");
+                showReport(ParcelPlan, parcelLabel, "parcelPlan");
+                
+                 jprintlist.add(CofO);
+                 jprintlist.add(ParcelPlan);
+                 i = i + 1;
+                System.out.println("n ="+n);
+                mapImage.dispose();
+                }  
+                
             }
+            System.out.println("i ="+i);
+            JRExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRPdfExporterParameter.JASPER_PRINT_LIST, jprintlist);
+            OutputStream output = new FileOutputStream(new File(cachePath + "TOTAL_" + this.location.replace("/", "-") + ".pdf"));
+            exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, output);
+            try {
+                exporter.exportReport();
+                output.close();
+            } catch (JRException ex) {
+                Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {                
+                FileUtility.saveFileFromStream(null, cachePath + "TOTAL_" + this.location.replace("/", "-") + ".pdf");
+                saveDocument("TOTAL_" + this.location.replace("/", "-") + ".pdf", this.currentDate, this.reportdate, this.location.replace("/", "-"), "title");
+                FileUtility.deleteFileFromCache(cachePath + "TOTAL_" + this.location.replace("/", "-") + ".pdf");
+                
+            } catch (Exception ex) {
+                Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         } catch (InitializeMapException ex) {
             Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SchemaException ex) {
@@ -344,35 +403,41 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         } catch (ParseException ex) {
             Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-    if (i == 0) {
+        if (i == 0) {
             MessageUtility.displayMessage(ClientMessage.NO_CERTIFICATE_GENERATION);
-    }
-    else {
+        } else {
             showDocMessage(this.tmpLocation);
+        }
+        
+        this.dispose();
+        
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File myFile = new File(cachePath + "TOTAL_" + this.location.replace("/", "-") + ".pdf");
+                Desktop.getDesktop().open(myFile);
+            } catch (IOException ex) {
+                // no application registered for PDFs
+            }
+        }
     }
-
-    this.dispose();
-}
     private void btnGenCertificateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenCertificateActionPerformed
-            SolaTask t = new SolaTask<Void, Void>() {
-
-              @Override
-        public Void doTask() {
+        SolaTask t = new SolaTask<Void, Void>() {
+            
+            @Override
+            public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_CREATE_CERTIFICATE));
                 try {
-                    generateReport ();
-                
-
-} catch (InitializeLayerException ex) {
-                    Logger.getLogger(SysRegCertParamsForm.class  
-
-.getName()).log(Level.SEVERE, null, ex);
+                    generateReport();
+                    
+                    
+                } catch (InitializeLayerException ex) {
+                    Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
-              return null;
-              }
-             };
-             TaskManager.getInstance().runTask(t);   
-
+                return null;
+            }
+        };
+        TaskManager.getInstance().runTask(t);        
+        
     }//GEN-LAST:event_btnGenCertificateActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGenCertificate;

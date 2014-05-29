@@ -37,6 +37,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
@@ -776,17 +778,26 @@ public class ReportManager {
         BaUnitBean[] beans = new BaUnitBean[1];
         beans[0] = baUnitBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
+        InputStream inputStream =  ReportManager.class.getClassLoader().getResourceAsStream("reports/SltrPlan.jasper");
+        
         try {
-            
-            return JasperFillManager.fillReport(
-                    ReportManager.class.getClassLoader().getResourceAsStream("reports/SltrPlan.jasper"),
+            JasperPrint report =JasperFillManager.fillReport(
+                    inputStream,
                     inputParameters, jds);
+                inputStream.close();
            
+            
+            return report;
+            
             
         } catch (JRException ex) {
             MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
                     new Object[]{ex.getLocalizedMessage()});
             return null;
+        }
+         catch (IOException ex) {
+                Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
         }
         
         

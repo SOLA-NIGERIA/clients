@@ -193,7 +193,12 @@ public class MapImageGeneratorForSelectedParcel {
                 scale, this.scalebarWidth, DPI, String.format("scalebar-%s", cadastreObjectID)));
         return info;
     }
-
+    
+    
+    public void dispose () {
+        this.map.getMapContent().dispose();
+    }
+    
     private String getMapImageAsFileLocation(
             ReferencedEnvelope extent, double scale, String fileName) throws IOException {
         String pathToResult = mapImageGenerator.getFullpathOfMapImage(fileName, IMAGE_FORMAT);
