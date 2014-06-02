@@ -47,7 +47,15 @@ public class SysRegCertificatesBean extends AbstractIdBean {
     private String state;
     private String ward;
     private String imageryDate;
+    private Integer CofO;
 
+    public Integer getCofO() {
+        return CofO;
+    }
+
+    public void setCofO(Integer CofO) {
+        this.CofO = CofO;
+    }
     public String getImageryDate() {
         return imageryDate;
     }

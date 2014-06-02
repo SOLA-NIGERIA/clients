@@ -1038,6 +1038,7 @@ public class ApplicationPanel extends ContentPanel {
         dropDownButton1 = new org.sola.clients.swing.common.controls.DropDownButton();
         jSeparator7 = new javax.swing.JToolBar.Separator();
         btnCertificate = new javax.swing.JButton();
+        btnPlan = new javax.swing.JButton();
         tabbedControlMain = new javax.swing.JTabbedPane();
         contactPanel = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
@@ -1443,6 +1444,18 @@ public class ApplicationPanel extends ContentPanel {
         });
         jToolBar3.add(btnCertificate);
 
+        btnPlan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/document-task.png"))); // NOI18N
+        btnPlan.setText(bundle.getString("ApplicationPanel.btnPlan.text")); // NOI18N
+        btnPlan.setFocusable(false);
+        btnPlan.setName(bundle.getString("ApplicationPanel.btnPlan.name")); // NOI18N
+        btnPlan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPlan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlanActionPerformed(evt);
+            }
+        });
+        jToolBar3.add(btnPlan);
+
         tabbedControlMain.setName("tabbedControlMain"); // NOI18N
         tabbedControlMain.setPreferredSize(new java.awt.Dimension(440, 370));
         tabbedControlMain.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
@@ -1690,7 +1703,7 @@ public class ApplicationPanel extends ContentPanel {
         lbState.setText(bundle.getString("ApplicationPanel.lbState.text")); // NOI18N
         lbState.setName(bundle.getString("ApplicationPanel.lbState.name")); // NOI18N
 
-        cbxState.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kogi", "Adamawa", "Abia", "Bauchi", "Bayelsa", "Benue", "Borno", "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa", "Niger", "Ogun", "Kogi", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto", "Taraba", "Yobe", "Zamfara" }));
+        cbxState.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kogi", "Adamawa", "Abia", "Bauchi", "Bayelsa", "Benue", "Borno", "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto", "Taraba", "Yobe", "Zamfara" }));
         cbxState.setName(bundle.getString("ApplicationPanel.cbxState.name")); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appBean, org.jdesktop.beansbinding.ELProperty.create("${contactPerson.state}"), cbxState, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
@@ -3269,7 +3282,7 @@ public class ApplicationPanel extends ContentPanel {
     }//GEN-LAST:event_btnVerifyPropertyActionPerformed
 
     private void btnCertificateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCertificateActionPerformed
-        openSysRegCertParamsForm(appBean.getNr());
+        openSysRegCertParamsForm(appBean.getNr(), "title");
     }//GEN-LAST:event_btnCertificateActionPerformed
 
     private void txtNationalityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNationalityActionPerformed
@@ -3315,6 +3328,10 @@ public class ApplicationPanel extends ContentPanel {
       }
     }//GEN-LAST:event_cbxStateActionPerformed
 
+    private void btnPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlanActionPerformed
+        openSysRegCertParamsForm(appBean.getNr(), "parcelPlan");
+    }//GEN-LAST:event_btnPlanActionPerformed
+
     
     private void openAutRepForm(final PartySummaryBean partySummaryBean, final boolean isReadOnly) {
         final AutRepFormListener listener = new AutRepFormListener();
@@ -3352,9 +3369,10 @@ public class ApplicationPanel extends ContentPanel {
     
     
     
-    private void openSysRegCertParamsForm(String nr) {
-        SysRegCertParamsForm certificateGenerator = new SysRegCertParamsForm(null, true, nr, null);
-        certificateGenerator.setVisible(true);
+    private void openSysRegCertParamsForm(String nr, String whichReport) {
+       
+        SysRegCertParamsForm certificateGenerator = new SysRegCertParamsForm(null, true, nr, appBean.getSection(),whichReport);
+//        certificateGenerator.setVisible(true);
     }
 
     /**
@@ -3848,6 +3866,7 @@ public class ApplicationPanel extends ContentPanel {
     private javax.swing.JButton btnCertificate;
     private javax.swing.JButton btnCompleteService;
     private javax.swing.JButton btnDownService;
+    private javax.swing.JButton btnPlan;
     private javax.swing.JButton btnPrintFee;
     private javax.swing.JButton btnPrintStatusReport;
     private javax.swing.JButton btnRemoveProperty;

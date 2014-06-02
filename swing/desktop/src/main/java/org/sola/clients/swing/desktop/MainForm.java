@@ -710,6 +710,7 @@ public class MainForm extends javax.swing.JFrame {
         menuPublicNotification = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         menuCertificates = new javax.swing.JMenuItem();
+        menuPlan = new javax.swing.JMenuItem();
         menuReports = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         menuStatus = new javax.swing.JMenuItem();
@@ -1091,6 +1092,14 @@ public class MainForm extends javax.swing.JFrame {
         });
         menuSystematic.add(menuCertificates);
 
+        menuPlan.setText(bundle.getString("MainForm.menuPlan.text")); // NOI18N
+        menuPlan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuPlanActionPerformed(evt);
+            }
+        });
+        menuSystematic.add(menuPlan);
+
         menuReports.setText(bundle.getString("MainForm.menuReports.text")); // NOI18N
 
         jMenuItem1.setText(bundle.getString("MainForm.jMenuItem1.text")); // NOI18N
@@ -1250,8 +1259,8 @@ public class MainForm extends javax.swing.JFrame {
         reportDateChooser.setVisible(true);
     }
 
-    private void openSysRegCertificatesParamsForm() {
-        SysRegCertParamsForm certificateGenerator = new SysRegCertParamsForm(null, true);
+    private void openSysRegCertificatesParamsForm(String report) {
+        SysRegCertParamsForm certificateGenerator = new SysRegCertParamsForm(null, true, report);
         certificateGenerator.setVisible(true);
     }
 
@@ -1299,7 +1308,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_menuPublicNotificationActionPerformed
 
     private void menuCertificatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCertificatesActionPerformed
-        openSysRegCertificatesParamsForm();
+        openSysRegCertificatesParamsForm("title");
     }//GEN-LAST:event_menuCertificatesActionPerformed
 
     private void menuItemMapPublicDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemMapPublicDisplayActionPerformed
@@ -1349,6 +1358,10 @@ public class MainForm extends javax.swing.JFrame {
     private void mnuSpatialUnitEditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSpatialUnitEditorActionPerformed
         openMapSpatialUnitEditor();
     }//GEN-LAST:event_mnuSpatialUnitEditorActionPerformed
+
+    private void menuPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPlanActionPerformed
+         openSysRegCertificatesParamsForm("parcelPlan");
+    }//GEN-LAST:event_menuPlanActionPerformed
 
     private void editPassword() {
         showPasswordPanel();
@@ -1433,6 +1446,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuNewApplication;
     private javax.swing.JMenuItem menuOffLogLevel;
     private javax.swing.JMenuItem menuPersons;
+    private javax.swing.JMenuItem menuPlan;
     private javax.swing.JMenu menuPubDispRep;
     private javax.swing.JMenuItem menuPublicNotification;
     private javax.swing.JMenu menuReports;
