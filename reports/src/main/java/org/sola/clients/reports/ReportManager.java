@@ -774,7 +774,7 @@ public class ReportManager {
         inputParameters.put("SCALE", scaleLabel);
         inputParameters.put("UTM", utmZone);
         inputParameters.put("SCALEBAR", scalebarImageLocation);
-        
+          
         BaUnitBean[] beans = new BaUnitBean[1];
         beans[0] = baUnitBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
