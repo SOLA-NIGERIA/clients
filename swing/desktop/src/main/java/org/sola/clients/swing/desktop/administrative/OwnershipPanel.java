@@ -27,6 +27,7 @@
  */
 package org.sola.clients.swing.desktop.administrative;
 
+import java.awt.Color;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Iterator;
@@ -37,6 +38,9 @@ import org.sola.clients.beans.administrative.RrrShareBean;
 import org.sola.clients.beans.administrative.validation.OwnershipValidationGroup;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
+import org.sola.clients.beans.converters.TypeConverters;
+import org.sola.clients.beans.party.PartyBean;
+import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.beans.referencedata.RequestTypeBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.beans.source.SourceBean;
@@ -46,10 +50,12 @@ import org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel;
 import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.clients.swing.ui.MainContentPanel;
 import org.sola.clients.swing.ui.renderers.FormattersFactory;
+import org.sola.clients.swing.ui.renderers.RightHolderType;
 import org.sola.clients.swing.ui.renderers.TableCellListRenderer;
-import org.sola.clients.swing.ui.source.DocumentsManagementPanel;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
+import org.sola.services.boundary.wsclients.WSManager;
+import org.sola.webservices.transferobjects.casemanagement.PartyTO;
 
 /**
  * Form for managing ownership right. {@link RrrBean} is used to bind the data on the form.
@@ -57,7 +63,7 @@ import org.sola.common.messaging.MessageUtility;
 public class OwnershipPanel extends ContentPanel {
 
     private class ShareFormListener implements PropertyChangeListener {
-
+       
         @Override
         public void propertyChange(PropertyChangeEvent evt) {
             if (evt.getPropertyName().equals(SharePanel.UPDATED_RRR_SHARE)
@@ -66,6 +72,18 @@ public class OwnershipPanel extends ContentPanel {
                         rrrBean.getRrrShareList(), true);
                 tableShares.clearSelection();
             }
+            if (rrrBean.getFilteredRrrShareList().size()==1 && rrrBean.getFilteredRrrShareList().get(0).getShare().contains("1/1")) {
+                if (rrrBean.getFilteredRrrShareList().get(0).getRightHolderType().contains("Joint")) {
+                 txtNotationText.setText("Joint Claimants");
+                }
+                else {
+                 txtNotationText.setText("In undefined unequal shares");   
+                }
+            }
+            else {
+                txtNotationText.setText("Share Claimants");
+            }
+              
         }
     }
     
@@ -87,7 +105,7 @@ public class OwnershipPanel extends ContentPanel {
         if (rrrAction == RrrBean.RRR_ACTION.VIEW) {
             allowEdit = false;
         }
-// FOR RETRIEVING THE CLAIMS FORM ATTACHED TO THE APPLICATION AS FIRST DOCUMENT IN THE LIST OF RRR DOCUMENTS        
+        // FOR RETRIEVING THE CLAIMS FORM ATTACHED TO THE APPLICATION AS FIRST DOCUMENT IN THE LIST OF RRR DOCUMENTS        
      if (applicationBean.getSourceList().getFilteredList().size()>0){
        Boolean addSource = true;
          for (Iterator<SourceBean> it = applicationBean.getSourceList().getFilteredList().iterator(); it.hasNext();) {
@@ -106,7 +124,8 @@ public class OwnershipPanel extends ContentPanel {
          } 
      } 
         
-       DocumentsManagementExtPanel panel = new DocumentsManagementExtPanel(
+
+        DocumentsManagementExtPanel panel = new DocumentsManagementExtPanel(
                 rrrBean.getSourceList(), applicationBean, allowEdit);
         return panel;
     }
@@ -115,6 +134,15 @@ public class OwnershipPanel extends ContentPanel {
         if (rrrBean == null) {
             rrrBean = new RrrBean();
         }
+//        if (rrrBean.getNotation()!= null && rrrBean.getNotation().getNotationText().contains("Joint")) {
+             
+             rrrBean.getFilteredRrrShareList().get(0).setRightHolderType(rrrBean.getNotation().getNotationText());
+//             System.out.println("RIGHT HOLDER TYPE  "+rrrBean.getFilteredRrrShareList().get(0).getRightHolderType());
+//             rrrBean.getFilteredRrrShareList().get(0).setRightHolderType(this.txtNotationText.getText());
+             System.out.println("RIGHT HOLDER TYPE IN CREATE RRRBEAN "+rrrBean.getFilteredRrrShareList().get(0).getRightHolderType());
+                        
+             
+//        }
         return rrrBean;
     }
 
@@ -160,7 +188,7 @@ public class OwnershipPanel extends ContentPanel {
         } else {
             this.rrrBean = rrrBean.makeCopyByAction(rrrAction);
         }
-        this.rrrBean.addPropertyChangeListener(new PropertyChangeListener() {
+         this.rrrBean.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
@@ -169,6 +197,7 @@ public class OwnershipPanel extends ContentPanel {
                 }
             }
         });
+        
     }
 
     private void customizeSharesButtons(RrrShareBean rrrShare) {
@@ -179,7 +208,7 @@ public class OwnershipPanel extends ContentPanel {
         }
 
         btnAddShare.setEnabled(isChangesAllowed);
-
+        btnAddJoint.setEnabled(isChangesAllowed);
         if (rrrShare == null) {
             btnRemoveShare.setEnabled(false);
             btnChangeShare.setEnabled(false);
@@ -198,25 +227,38 @@ public class OwnershipPanel extends ContentPanel {
     }
 
     private void customizeForm() {
-        String stringTitle = rrrBean.getRrrType().getDisplayValue();
         
+        String stringTitle = rrrBean.getRrrType().getDisplayValue();
         if (appService!=null){
-            if (appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){
-            stringTitle = stringTitle+" "+ MessageUtility.getLocalizedMessage(
-                                ClientMessage.SYSTEMATIC_REGISTRATION_CLAIM).getMessage(); 
-            this.groupPanel1.setTitleText(this.groupPanel1.getTitleText()+" "+MessageUtility.getLocalizedMessage(
-                                ClientMessage.SYSTEMATIC_REGISTRATION_CLAIMANTS).getMessage());
-            this.tableShares.getColumnModel().getColumn(0).setHeaderValue(MessageUtility.getLocalizedMessage(
-                                ClientMessage.SYSTEMATIC_REGISTRATION_CLAIMANT).getMessage());
-
+	 if (appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){
+            
+           stringTitle = stringTitle+" "+ MessageUtility.getLocalizedMessage(
+                            ClientMessage.SYSTEMATIC_REGISTRATION_CLAIM).getMessage(); 
+           this.groupPanel1.setTitleText(MessageUtility.getLocalizedMessage(
+                            ClientMessage.SYSTEMATIC_REGISTRATION_CLAIMANTS).getMessage());
+           this.tableShares.getColumnModel().getColumn(0).setHeaderValue(MessageUtility.getLocalizedMessage(
+                            ClientMessage.SYSTEMATIC_REGISTRATION_CLAIMANT).getMessage());
            
-//            this.documentsPanel.documentsPanel.d
-            }
-            if (appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)){
-            this.txtRegDatetime.setValue(null);
-            this.rrrBean.setExpirationDate(this.baunitBean.getExpirationDate());
-            }
-        }           
+           RrrShareBean rrrShareBean = new RrrShareBean();
+           String pId = applicationBean.getContactPersonId();
+           PartyTO partyTO = WSManager.getInstance().getCaseManagementService().getParty(pId);
+           PartySummaryBean partySummary = TypeConverters.TransferObjectToBean(partyTO, PartyBean.class, null);
+           partySummary.getLastName();
+        if (rrrBean.getFilteredRrrShareList().size() == 0) {
+            Short labeldef = 1;
+            rrrShareBean.getRightHolderList().add(partySummary);
+            rrrShareBean.setDenominator(labeldef);
+            rrrShareBean.setNominator(labeldef);
+            rrrBean.getFilteredRrrShareList().add(rrrShareBean);
+        }
+           
+          }
+          if (appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)){
+           this.txtRegDatetime.setValue(null);
+           this.rrrBean.setExpirationDate(this.baunitBean.getExpirationDate());
+          }
+		}
+           
         headerPanel.setTitleText(stringTitle);
         if (rrrAction == RrrBean.RRR_ACTION.NEW) {
             btnSave.setText(MessageUtility.getLocalizedMessage(
@@ -241,10 +283,21 @@ public class OwnershipPanel extends ContentPanel {
             txtNotationText.setEditable(false);
             cbxIsPrimary.setEnabled(false);
         }
+              System.out.println("NOTATION:::  "+rrrBean.getNotation().getNotationText());
+       
+//        if (rrrBean.getNotation()!= null && rrrBean.getNotation().getNotationText().contains("Joint")) {
+//             rrrBean.getFilteredRrrShareList().get(0).setRightHolderType(rrrBean.getNotation().getNotationText());
+//             System.out.println("RIGHT HOLDER TYPE  "+rrrBean.getFilteredRrrShareList().get(0).getRightHolderType());
+//             
+             rrrBean.getFilteredRrrShareList().get(0).setRightHolderType(this.txtNotationText.getText());
+             System.out.println("RIGHT HOLDER TYPE  "+rrrBean.getFilteredRrrShareList().get(0).getRightHolderType());
+             
+             
+//        }
     }
 
     private void openShareForm(RrrShareBean shareBean, RrrBean.RRR_ACTION rrrAction) {
-         
+       
         if (appService != null && appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){
           SharePanel shareForm = new SharePanel(shareBean, rrrAction, appService, applicationBean, rrrBean);
           ShareFormListener listener = new ShareFormListener();
@@ -257,9 +310,24 @@ public class OwnershipPanel extends ContentPanel {
           shareForm.addPropertyChangeListener(SharePanel.UPDATED_RRR_SHARE, listener);
           getMainContentPanel().addPanel(shareForm, MainContentPanel.CARD_OWNERSHIP_SHARE, true);
         }
-       
     }
-
+    
+    private void openJointForm(RrrShareBean shareBean, RrrBean.RRR_ACTION rrrAction) {
+       
+        if (appService != null && appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){
+          SharePanel shareForm = new SharePanel(shareBean, rrrAction, appService, applicationBean, rrrBean, "Joint");
+          ShareFormListener listener = new ShareFormListener();
+          shareForm.addPropertyChangeListener(SharePanel.UPDATED_RRR_SHARE, listener);
+          getMainContentPanel().addPanel(shareForm, MainContentPanel.CARD_OWNERSHIP_SHARE, true);
+         }    
+        else { 
+          SharePanel shareForm = new SharePanel(shareBean, rrrAction);
+          ShareFormListener listener = new ShareFormListener();
+          shareForm.addPropertyChangeListener(SharePanel.UPDATED_RRR_SHARE, listener);
+          getMainContentPanel().addPanel(shareForm, MainContentPanel.CARD_OWNERSHIP_SHARE, true);
+        }
+    }
+    
     private boolean saveRrr() {
         if (rrrBean.validate(true, Default.class, OwnershipValidationGroup.class).size() < 1) {
             firePropertyChange(UPDATED_RRR, null, rrrBean);
@@ -308,9 +376,10 @@ public class OwnershipPanel extends ContentPanel {
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
+        btnAddJoint = new javax.swing.JButton();
+        btnChangeShare = new javax.swing.JButton();
         btnAddShare = new javax.swing.JButton();
         btnRemoveShare = new javax.swing.JButton();
-        btnChangeShare = new javax.swing.JButton();
         btnViewShare = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableShares = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
@@ -462,6 +531,29 @@ public class OwnershipPanel extends ContentPanel {
         jToolBar1.setRollover(true);
         jToolBar1.setName("jToolBar1"); // NOI18N
 
+        btnAddJoint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/joint.png"))); // NOI18N
+        btnAddJoint.setText(bundle.getString("OwnershipPanel.btnAddJoint.text")); // NOI18N
+        btnAddJoint.setFocusable(false);
+        btnAddJoint.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        btnAddJoint.setName(bundle.getString("OwnershipPanel.btnAddJoint.name")); // NOI18N
+        btnAddJoint.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAddJoint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddJointActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnAddJoint);
+
+        btnChangeShare.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/pencil.png"))); // NOI18N
+        btnChangeShare.setText(bundle.getString("OwnershipPanel.btnChangeShare.text")); // NOI18N
+        btnChangeShare.setName("btnChangeShare"); // NOI18N
+        btnChangeShare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeShareActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnChangeShare);
+
         btnAddShare.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/add.png"))); // NOI18N
         btnAddShare.setText(bundle.getString("OwnershipPanel.btnAddShare.text")); // NOI18N
         btnAddShare.setName("btnAddShare"); // NOI18N
@@ -481,16 +573,6 @@ public class OwnershipPanel extends ContentPanel {
             }
         });
         jToolBar1.add(btnRemoveShare);
-
-        btnChangeShare.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/change-share.png"))); // NOI18N
-        btnChangeShare.setText(bundle.getString("OwnershipPanel.btnChangeShare.text")); // NOI18N
-        btnChangeShare.setName("btnChangeShare"); // NOI18N
-        btnChangeShare.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChangeShareActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(btnChangeShare);
 
         btnViewShare.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/view.png"))); // NOI18N
         btnViewShare.setText(bundle.getString("OwnershipPanel.btnViewShare.text")); // NOI18N
@@ -514,11 +596,14 @@ public class OwnershipPanel extends ContentPanel {
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, eLProperty, tableShares);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rightHolderList}"));
         columnBinding.setColumnName("Right Holder List");
-        columnBinding.setColumnClass(org.jdesktop.observablecollections.ObservableList.class);
+        columnBinding.setColumnClass(org.sola.clients.beans.controls.SolaList.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${share}"));
         columnBinding.setColumnName("Share");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${share}${rightHolderList}${rightHolderType}"));
+        columnBinding.setColumnName("Share}${right Holder List}${right Holder Type");
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${selectedShare}"), tableShares, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
@@ -532,10 +617,15 @@ public class OwnershipPanel extends ContentPanel {
         jScrollPane1.setViewportView(tableShares);
         tableShares.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("OwnershipPanel.tableShares.columnModel.title0")); // NOI18N
         tableShares.getColumnModel().getColumn(0).setCellRenderer(new TableCellListRenderer("getName", "getLastName"));
-        tableShares.getColumnModel().getColumn(1).setMinWidth(150);
-        tableShares.getColumnModel().getColumn(1).setPreferredWidth(150);
-        tableShares.getColumnModel().getColumn(1).setMaxWidth(150);
+        tableShares.getColumnModel().getColumn(1).setMinWidth(80);
+        tableShares.getColumnModel().getColumn(1).setPreferredWidth(80);
+        tableShares.getColumnModel().getColumn(1).setMaxWidth(80);
         tableShares.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("OwnershipPanel.tableShares.columnModel.title1")); // NOI18N
+        tableShares.getColumnModel().getColumn(2).setMinWidth(30);
+        tableShares.getColumnModel().getColumn(2).setPreferredWidth(30);
+        tableShares.getColumnModel().getColumn(2).setMaxWidth(50);
+        tableShares.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("OwnershipPanel.tableShares.columnModel.title2")); // NOI18N
+        tableShares.getColumnModel().getColumn(2).setCellRenderer(new RightHolderType());
 
         groupPanel1.setName("groupPanel1"); // NOI18N
         groupPanel1.setTitleText(bundle.getString("OwnershipPanel.groupPanel1.titleText")); // NOI18N
@@ -630,7 +720,15 @@ public class OwnershipPanel extends ContentPanel {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnAddShareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddShareActionPerformed
+        
+//       if (    (this.rrrBean.getFilteredRrrShareList()!= null && this.rrrBean.getFilteredRrrShareList().size()>0)
+//               &&(this.rrrBean.getFilteredRrrShareList().get(0).getShareType()!= null && this.rrrBean.getFilteredRrrShareList().size()==1&&this.rrrBean.getFilteredRrrShareList().get(0).getShareType().contentEquals("Sole Land Holder"))
+//               && rrrAction.equals(RrrBean.RRR_ACTION.NEW)){
+//          MessageUtility.displayMessage(ClientMessage.ONLY_ONE_SOLEOWNER);
+//        }
+//        else {
         addShare();
+//    }  
     }//GEN-LAST:event_btnAddShareActionPerformed
 
     private void btnRemoveShareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveShareActionPerformed
@@ -661,10 +759,24 @@ public class OwnershipPanel extends ContentPanel {
         viewShare();
     }//GEN-LAST:event_menuViewShareActionPerformed
 
+    private void btnAddJointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddJointActionPerformed
+       addJoint();
+    }//GEN-LAST:event_btnAddJointActionPerformed
+
     private void changeShare() {
+        
+        this.rrrBean.getFilteredRrrShareList().get(0).setRightHolderType("Share");
+        System.out.println("LISTA SHARE   "+rrrBean.getFilteredRrrShareList().get(0).getShare());
+        if (this.rrrBean.getFilteredRrrShareList().size()==1 && this.rrrBean.getFilteredRrrShareList().get(0).getShare().contains("1/1")) {
+         this.txtNotationText.setText("In undefined unequal shares");
+        }
+        else {
+         this.txtNotationText.setText("Share Claimants");
+        }
         if (rrrBean.getSelectedShare() != null) {
             openShareForm(rrrBean.getSelectedShare(), RrrBean.RRR_ACTION.VARY);
         }
+        
     }
 
     private void removeShare() {
@@ -675,15 +787,39 @@ public class OwnershipPanel extends ContentPanel {
     }
 
     private void addShare() {
+        
+        this.rrrBean.getFilteredRrrShareList().get(0).setRightHolderType("Share");
+        System.out.println("LISTA SHARE   "+rrrBean.getFilteredRrrShareList().get(0).getShare());
+        this.txtNotationText.setText("Share Claimants");
+        
         openShareForm(null, RrrBean.RRR_ACTION.NEW);
     }
-
+    
+    private void addJoint() { 
+        Short numden = 1;
+        System.out.println("LISTA SHARE   "+rrrBean.getFilteredRrrShareList().get(0).getShare());
+        rrrBean.getFilteredRrrShareList().get(0).setDenominator(numden);
+        rrrBean.getFilteredRrrShareList().get(0).setNominator(numden);
+        this.rrrBean.getFilteredRrrShareList().get(0).setRightHolderType("Joint");
+        System.out.println("LISTA SHARE   "+rrrBean.getFilteredRrrShareList().get(0).getShare());
+        this.txtNotationText.setText("Joint Claimants");
+        this.txtNotationText.setEditable(false);
+        
+        if (rrrBean.getFilteredRrrShareList().size()>1) {
+           MessageUtility.displayMessage(ClientMessage.ONLY_ONE_JOINTOWNER);
+                return;
+        }
+        else { 
+         openJointForm(rrrBean.getFilteredRrrShareList().get(0), RrrBean.RRR_ACTION.NEW);
+        }
+    }
     private void viewShare() {
         if (rrrBean.getSelectedShare() != null) {
             openShareForm(rrrBean.getSelectedShare(), RrrBean.RRR_ACTION.VIEW);
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddJoint;
     private javax.swing.JButton btnAddShare;
     private javax.swing.JButton btnChangeShare;
     private javax.swing.JButton btnRemoveShare;

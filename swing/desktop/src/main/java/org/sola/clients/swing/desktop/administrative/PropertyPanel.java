@@ -108,8 +108,8 @@ public class PropertyPanel extends ContentPanel {
     private PropertyChangeListener newPropertyWizardListener;
     public BaUnitBean whichBaUnitSelected;
     private boolean isBtnNext = false;
-    private Integer term;
-//    int srId= 32632;
+    private Integer term = 0;
+//    int srId= 32631;
 
             
 
@@ -917,6 +917,14 @@ public class PropertyPanel extends ContentPanel {
      * Opens appropriate right form to create new right.
      */
     private void createRight() {
+        if (this.txtTerm.getText()==null||this.txtTerm.getText()==""||this.txtTerm.getText().isEmpty()){
+                java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
+//            --  MessageUtility.displayMessage(ClientMessage.CHECK_IN_PERPETUITY);    
+            MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_FIELDS,
+                            new Object[]{bundle.getString("PropertyPanel.lblTerm.text")});
+//                return;  
+//            }
+         }
         openRightForm(null, RrrBean.RRR_ACTION.NEW);
     }
 
@@ -1023,6 +1031,7 @@ public class PropertyPanel extends ContentPanel {
             panel = new SimpleRightholderPanel(rrrBean, applicationBean, applicationService, action);
             cardName = MainContentPanel.CARD_SIMPLE_OWNERSHIP;
         } else if (rrrCode.equalsIgnoreCase(RrrBean.CODE_OWNERSHIP)
+                || rrrCode.equalsIgnoreCase(RrrBean.CODE_OWNERSHIP_PERPETUITY)
                 || rrrCode.equalsIgnoreCase(RrrBean.CODE_STATE_OWNERSHIP)
                 || rrrCode.equalsIgnoreCase(RrrBean.CODE_APARTMENT)) {
             panel = new OwnershipPanel(rrrBean, applicationBean, applicationService, action, baUnitBean1);
@@ -1088,12 +1097,23 @@ public class PropertyPanel extends ContentPanel {
                 return;
               }
             } 
-            if (this.txtTerm.getText()==null||this.txtTerm.getText()==""||this.txtTerm.getText().isEmpty()){
+//            if (((this.baUnitBean1.getRrrFilteredList()!= null && !this.baUnitBean1.getRrrFilteredList().get(0).getRrrType().getCode().contains(RrrBean.CODE_OWNERSHIP_PERPETUITY)))  && (this.txtTerm.getText()==null||this.txtTerm.getText()==""||this.txtTerm.getText().isEmpty())){
+            if ((this.txtTerm.getText()==null||this.txtTerm.getText()==""||this.txtTerm.getText().isEmpty())){
                 java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
-                MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_FIELDS,
+//            --  MessageUtility.displayMessage(ClientMessage.CHECK_IN_PERPETUITY);    
+            MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_FIELDS,
                             new Object[]{bundle.getString("PropertyPanel.lblTerm.text")});
                 return;  
             }
+            if (this.baUnitBean1.getLandUse()==null){
+                 java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
+//            --  MessageUtility.displayMessage(ClientMessage.CHECK_IN_PERPETUITY);    
+            MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_FIELDS,
+                            new Object[]{bundle.getString("PropertyPanel.lblLandUse.text")});
+                return;  
+                
+            }
+            
          }
         
         if (txtArea.isEditable() || isBtnNext) {
@@ -1155,7 +1175,10 @@ public class PropertyPanel extends ContentPanel {
 ////                              generator = new MapFeatureImageGenerator(mapControl.getMap().getSrid());
 //                        
 //                        }
-   
+//
+//                     
+//                        
+//                        
 //                       if (baUnitBean1.getCadastreObjectList().size()>0) { 
 //                        String parcelLabel = baUnitBean1.getCadastreObjectList().get(0).getNameLastpart().toString()+'/'+baUnitBean1.getCadastreObjectList().get(0).getNameFirstpart().toString();
 //                        
@@ -3021,8 +3044,21 @@ public class PropertyPanel extends ContentPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+ 
+    
+//    if(     (applicationService.getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION))
+//            && (this.baUnitBean1.getRrrSharesList()!= null && this.baUnitBean1.getRrrSharesList().size()>0)
+//            && (this.baUnitBean1.getRrrSharesList().get(0).getRrrShare().getShareType().contentEquals("Shared Land Holders"))
+//            && (this.baUnitBean1.getRrrSharesList().get(0).getRrrShare().getShare().contentEquals("1/1"))
+//            && (this.baUnitBean1.getRrrSharesList().get(0).getRrrShare().getRightHolderList().size()>this.baUnitBean1.getAllBaUnitNotationList().size()-1)) {
+//      
+//      MessageUtility.displayMessage(ClientMessage.NOTATION_NOT_ASMUCHAS_OWNERS);
+//                  
+//    } else {
+    
     saveBaUnit(true, false);
     customizeForm();
+//  } 
 }//GEN-LAST:event_btnSaveActionPerformed
     
     private void tableRightsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableRightsMouseClicked

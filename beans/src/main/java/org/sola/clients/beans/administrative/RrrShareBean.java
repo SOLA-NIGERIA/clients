@@ -47,7 +47,7 @@ import org.sola.webservices.transferobjects.administrative.RrrShareTO;
  */
 @RrrShareCheck
 public class RrrShareBean extends AbstractVersionedBean {
-
+    public String rightHolderType;
     public static final String SELECTED_RIGHTHOLDER_PROPERTY = "selectedRightHolder";
     private String rrrId;
     @NotNull(message = ClientMessage.CHECK_NOTNULL_NOMINATOR, payload = Localized.class)
@@ -64,10 +64,20 @@ public class RrrShareBean extends AbstractVersionedBean {
         rightHolderList = new SolaList();
     }
 
+    public String getRightHolderType() {
+        return rightHolderType;
+    }
+
+    public void setRightHolderType(String rightHolderType) {
+        this.rightHolderType = rightHolderType;
+    }
+    
+    
+    
     public Short getDenominator() {
         return denominator;
     }
-
+    
     public void setDenominator(Short denominator) {
         this.denominator = denominator;
     }

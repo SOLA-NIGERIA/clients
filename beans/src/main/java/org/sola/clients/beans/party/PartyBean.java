@@ -66,9 +66,11 @@ public class PartyBean extends PartySummaryBean {
     public static final String PHONE_PROPERTY = "phone";
     public static final String MOBILE_PROPERTY = "mobile";
     public static final String GENDER_TYPE_CODE_PROPERTY = "genderTypeCode";
+    public static final String STATE_TYPE_CODE_PROPERTY = "stateTypeCode";
     public static final String ID_TYPE_CODE_PROPERTY = "idTypeCode";
     public static final String SELECTED_ROLE_PROPERTY = "selectedRole";
     public static final String GENDER_TYPE_PROPERTY = "genderType";
+    public static final String STATE_TYPE_PROPERTY = "stateType";
     public static final String ID_TYPE_PROPERTY = "idType";
     public static final String IDNUMBER_PROPERTY = "idNumber";
     public static final String FAX_PROPERTY = "fax";
@@ -100,6 +102,8 @@ public class PartyBean extends PartySummaryBean {
     private transient PartyRoleBean selectedRole;
     private Date dob;
     private String state;
+    private StateTypeBean stateTypeBean;
+   
     private String nationality;
     
     private SolaList<SourceBean> sourceList;
@@ -126,6 +130,7 @@ public class PartyBean extends PartySummaryBean {
     }
 
     public void setState(String state) {
+        
         this.state = state;
     }
     
@@ -141,9 +146,6 @@ public class PartyBean extends PartySummaryBean {
         super();
         roleList = new SolaList();
         sourceList = new SolaList();
-//        sourceList.setExcludedStatuses(new String[]{StatusConstants.HISTORIC});
-//        sourceList.setIncludedStatuses(new String[]{StatusConstants.CURRENT});
-        
     }
 
     public void clean() {
@@ -247,6 +249,18 @@ public class PartyBean extends PartySummaryBean {
 
     public void setGenderType(GenderTypeBean genderTypeBean) {
         this.setJointRefDataBean(getGenderType(), genderTypeBean, GENDER_TYPE_PROPERTY);
+    }
+    
+    public StateTypeBean getStateType() {
+        if (stateTypeBean == null) {
+            stateTypeBean = new StateTypeBean();
+        }
+        stateTypeBean.setDisplayValue(getState());
+        return stateTypeBean;
+    }
+
+    public void setStateType(StateTypeBean stateTypeBean) {
+        this.setState(stateTypeBean.getDisplayValue());
     }
 
     public String getGenderCode() {

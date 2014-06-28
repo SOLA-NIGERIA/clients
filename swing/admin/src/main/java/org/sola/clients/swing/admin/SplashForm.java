@@ -27,42 +27,71 @@
  */
 package org.sola.clients.swing.admin;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+
 /**
  * Splash form for Admin application.
  */
 public class SplashForm extends javax.swing.JWindow {
-
-    /** Creates new form SplashForm */
+private ImageIcon imageSplash;
+    private static String strconfFile = System.getProperty("user.home") + "/sola/configuration.properties";
+    
     public SplashForm() {
+        File confFile = new File (strconfFile);  
+        FileInputStream   streamFile = null;
+        try {
+          streamFile = new FileInputStream  (confFile);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(org.sola.clients.swing.desktop.SplashForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Properties prop = new Properties();
+        try {
+            prop.load(streamFile);
+        } catch (IOException ex) {
+            Logger.getLogger(org.sola.clients.swing.desktop.SplashForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String prefix =prop.getProperty("state");
         initComponents();
+        imageSplash = new ImageIcon(org.sola.clients.swing.desktop.SplashForm.class.getResource(
+                            "/images/sola/"+prefix+"splash_admin_a.png"));
+        
+        lblSplash.setIcon(imageSplash);
+        
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblSplash = new javax.swing.JLabel();
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sola/splash_admin_a.png"))); // NOI18N
-        jLabel1.setAlignmentY(0.0F);
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel1.setName("jLabel1"); // NOI18N
+        lblSplash.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSplash.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sola/splash_admin_a.png"))); // NOI18N
+        lblSplash.setAlignmentY(0.0F);
+        lblSplash.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblSplash.setName("lblSplash"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(lblSplash, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(lblSplash, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblSplash;
     // End of variables declaration//GEN-END:variables
 }

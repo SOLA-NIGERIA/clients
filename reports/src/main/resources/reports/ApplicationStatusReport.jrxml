@@ -76,6 +76,7 @@
 	<parameter name="IMAGE_SPLASHNEW" class="java.io.InputStream" isForPrompting="false"/>
 	<parameter name="IMAGE_SCRITTA_GREEN" class="java.io.InputStream" isForPrompting="false"/>
 	<parameter name="WHICH_CALLER" class="java.lang.String"/>
+	<parameter name="MINISTRY_LOGO" class="java.io.InputStream"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -155,7 +156,7 @@
 			</line>
 			<image>
 				<reportElement x="462" y="0" width="87" height="67"/>
-				<imageExpression><![CDATA["images/sola/logoMinistry.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{MINISTRY_LOGO}]]></imageExpression>
 			</image>
 		</band>
 	</title>

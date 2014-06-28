@@ -163,6 +163,7 @@
 	<parameter name="FROMDATE" class="java.util.Date"/>
 	<parameter name="STATE" class="java.lang.String"/>
 	<parameter name="LGA" class="java.lang.String"/>
+	<parameter name="MINISTRY_LOGO" class="java.io.InputStream"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -189,7 +190,7 @@
 			</staticText>
 			<image>
 				<reportElement x="715" y="10" width="87" height="67"/>
-				<imageExpression><![CDATA["images/sola/logoMinistry.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{MINISTRY_LOGO}]]></imageExpression>
 			</image>
 			<frame>
 				<reportElement x="252" y="56" width="291" height="21"/>

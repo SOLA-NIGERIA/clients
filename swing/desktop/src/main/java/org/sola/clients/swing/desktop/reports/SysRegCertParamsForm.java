@@ -329,29 +329,23 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 String parcelLabel = tmpLocation + '/' + appBaunit.getNameFirstpart();
                 final String featureFront = this.svgPath + "front.svg";
                 final String featureBack = this.svgPath + "back.svg";
-                
+                MapImageInformation mapImageInfo = mapImage.getMapAndScalebarImage(appBaunit.getId());
+                final String featureImageFileName = mapImageInfo.getMapImageLocation();
+                final String featureScalebarFileName = mapImageInfo.getScalebarImageLocation();
+                final Number scale = mapImageInfo.getScale();
+                final Integer srid = mapImageInfo.getSrid();
+                    
                 if (this.whichReport.contains("parcelPlan")){  
-                    MapImageInformation mapImageInfo = mapImage.getMapAndScalebarImage(appBaunit.getId());
-                    final String featureImageFileName = mapImageInfo.getMapImageLocation();
-                    final String featureScalebarFileName = mapImageInfo.getScalebarImageLocation();
-                    final Number scale = mapImageInfo.getScale();
-                    final Integer srid = mapImageInfo.getSrid();
                     ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack);
                     showReport(ParcelPlan, parcelLabel, this.whichReport);
                     jprintlist.add(ParcelPlan);
                 } else if (this.whichReport.contains("title")){  
-                    final String featureImageFileName = null;
-                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureFront, featureBack);
+                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack);
                     showReport(CofO, parcelLabel, this.whichReport);
                     jprintlist.add(CofO);
                 }
                 else {  
-                    MapImageInformation mapImageInfo = mapImage.getMapAndScalebarImage(appBaunit.getId());
-                    final String featureImageFileName = mapImageInfo.getMapImageLocation();
-                    final String featureScalebarFileName = mapImageInfo.getScalebarImageLocation();
-                    final Number scale = mapImageInfo.getScale();
-                    final Integer srid = mapImageInfo.getSrid();
-                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureFront, featureBack);
+                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack);
                     showReport(CofO, parcelLabel, "title");
                     ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack);
                     showReport(ParcelPlan, parcelLabel,"parcelPlan");
@@ -363,7 +357,13 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             }
 
          if (this.nr == "" || this.nr == null) {         
-            whichFile= "TOTAL_"+this.whichReport+"-"+ this.location.replace("/", "-");
+            whichFile= "TOTAL_"+this.whichReport+"-"+ this.location.replace('/', '-');
+            for(int c=0; c<whichFile.length(); c++){
+                if (!Character.isLetterOrDigit(whichFile.charAt(c)))
+                {
+                    whichFile = whichFile.replace(whichFile.charAt(c),'-');
+                }
+            }
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRPdfExporterParameter.JASPER_PRINT_LIST, jprintlist);
             OutputStream output = new FileOutputStream(new File(cachePath +whichFile+ ".pdf"));

@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO" whenResourceMissingType="Empty" uuid="0d0b1776-3366-44e1-894d-4e41126eaa99">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="904"/>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table">
+		<box>
+			<pen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#73E6AC">
+		<box>
+			<pen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CFE6DA">
+		<box>
+			<pen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0"/>
+		</box>
+	</style>
+	<style name="table 6_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="dataset1" uuid="3cbde0cf-1326-4722-956d-4bd4e0e07d3c">
+		<parameter name="AREA" class="java.lang.Object">
+			<parameterDescription><![CDATA[]]></parameterDescription>
+			<defaultValueExpression><![CDATA[$P{AREA}.toString()]]></defaultValueExpression>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[]]>
+		</queryString>
+		<field name="nameFirstpart" class="java.lang.String">
+			<fieldDescription><![CDATA[nameFirstpart]]></fieldDescription>
+		</field>
+		<field name="nameLastpart" class="java.lang.String">
+			<fieldDescription><![CDATA[nameLastpart]]></fieldDescription>
+		</field>
+		<field name="cadastreObjectType" class="java.lang.String">
+			<fieldDescription><![CDATA[cadastreObjectType.displayValue]]></fieldDescription>
+		</field>
+		<field name="sourceReference" class="java.lang.String">
+			<fieldDescription><![CDATA[sourceReference]]></fieldDescription>
+		</field>
+		<field name="status" class="java.lang.String">
+			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="Rights" uuid="f175731e-0c17-4994-8485-c67b8d19c8a3">
+		<field name="rrrType" class="java.lang.String">
+			<fieldDescription><![CDATA[rrrType.displayValue]]></fieldDescription>
+		</field>
+		<field name="registrationDate" class="java.util.Date">
+			<fieldDescription><![CDATA[registrationDate]]></fieldDescription>
+		</field>
+		<field name="status" class="java.lang.String">
+			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="Ownership" uuid="31be8896-97f1-48dc-9b3c-1942e9d526b1">
+		<field name="Owners" class="java.lang.String">
+			<fieldDescription><![CDATA[rrrShare.rightHoldersStringList]]></fieldDescription>
+		</field>
+		<field name="Share" class="java.lang.String">
+			<fieldDescription><![CDATA[rrrShare.share]]></fieldDescription>
+		</field>
+		<field name="Status" class="java.lang.String">
+			<fieldDescription><![CDATA[status]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="Notations" uuid="069a7afd-439a-4f66-a981-b9be7cb6e148">
+		<field name="Ref. Number" class="java.lang.String">
+			<fieldDescription><![CDATA[referenceNr]]></fieldDescription>
+		</field>
+		<field name="Notation Text" class="java.lang.String">
+			<fieldDescription><![CDATA[notationText]]></fieldDescription>
+		</field>
+		<field name="Status" class="java.lang.String">
+			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="Table Dataset 1" uuid="22e385a6-ae88-41ec-a567-c6ac1faebe14"/>
+	<parameter name="CLIENT_NAME" class="java.lang.String"/>
+	<parameter name="MAP_IMAGE" class="java.lang.String"/>
+	<parameter name="ADDRESS" class="java.lang.String"/>
+	<parameter name="IMAGERY_DATE" class="java.lang.String"/>
+	<parameter name="LODGING_DATE" class="java.util.Date"/>
+	<parameter name="COMMENCING_DATE" class="java.util.Date"/>
+	<parameter name="TIME_DEVELOP" class="java.lang.String"/>
+	<parameter name="VALUE_IMPROV" class="java.lang.String"/>
+	<parameter name="TERM" class="java.lang.String"/>
+	<parameter name="APP_NR" class="java.lang.String"/>
+	<parameter name="LAND_USE" class="java.lang.String"/>
+	<parameter name="PROP_LOCATION" class="java.lang.String"/>
+	<parameter name="SIZE" class="java.math.BigDecimal"/>
+	<parameter name="GROUND_RENT" class="java.lang.String"/>
+	<parameter name="REFNR" class="java.lang.String"/>
+	<parameter name="FRONT_IMAGE" class="java.lang.String"/>
+	<parameter name="BACK_IMAGE" class="java.lang.String"/>
+	<parameter name="FRONT_FLOAT_IMAGE" class="java.lang.String"/>
+	<parameter name="BACK_FLOAT_IMAGE" class="java.lang.String"/>
+	<parameter name="PLAN_NUMBER" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{REFNR}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="STATE" class="java.lang.String"/>
+	<parameter name="LGA" class="java.lang.String"/>
+	<parameter name="WARD" class="java.lang.String"/>
+	<parameter name="SCALE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[" 1:2 000 "]]></defaultValueExpression>
+	</parameter>
+	<parameter name="UTM" class="java.lang.String">
+		<defaultValueExpression><![CDATA["UTM Zone 32N"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SCALEBAR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="baUnitType" class="org.sola.clients.beans.referencedata.BaUnitTypeBean">
+		<fieldDescription><![CDATA[baUnitType]]></fieldDescription>
+	</field>
+	<field name="cadastreObjectFilteredList" class="org.jdesktop.observablecollections.ObservableList">
+		<fieldDescription><![CDATA[cadastreObjectFilteredList]]></fieldDescription>
+	</field>
+	<field name="estateType" class="java.lang.String">
+		<fieldDescription><![CDATA[estateType]]></fieldDescription>
+	</field>
+	<field name="filteredSourceList" class="org.jdesktop.observablecollections.ObservableList">
+		<fieldDescription><![CDATA[filteredSourceList]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[name]]></fieldDescription>
+	</field>
+	<field name="nameFirstpart" class="java.lang.String">
+		<fieldDescription><![CDATA[nameFirstpart]]></fieldDescription>
+	</field>
+	<field name="nameLastpart" class="java.lang.String">
+		<fieldDescription><![CDATA[nameLastpart]]></fieldDescription>
+	</field>
+	<field name="rrrFilteredList" class="org.jdesktop.observablecollections.ObservableList">
+		<fieldDescription><![CDATA[rrrFilteredList]]></fieldDescription>
+	</field>
+	<field name="rrrSharesList" class="org.jdesktop.observablecollections.ObservableList">
+		<fieldDescription><![CDATA[rrrSharesList]]></fieldDescription>
+	</field>
+	<field name="status" class="org.sola.clients.beans.referencedata.RegistrationStatusTypeBean">
+		<fieldDescription><![CDATA[status]]></fieldDescription>
+	</field>
+	<field name="allBaUnitNotationList" class="org.jdesktop.observablecollections.ObservableList">
+		<fieldDescription><![CDATA[allBaUnitNotationList]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="842" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement uuid="f6150065-1725-4dec-9b0e-f8d960c4ea5e" x="0" y="0" width="595" height="842"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation($P{FRONT_IMAGE})]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="a231973f-2d28-4d77-8ca6-0f91a9685e6d" mode="Transparent" x="109" y="212" width="383" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Adobe Caslon Pro" size="11" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CLIENT_NAME}.replaceAll(",", "\n ")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="28f7ab35-5629-4644-893e-b42b5f7ff6f1" x="36" y="366" width="524" height="47"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Myriad Pro" size="10"/>
+				</textElement>
+				<text><![CDATA[(herein after referred to as "the holder" which shall include his lawful assignees and successors), is hereby granted a Statutory Right of Occupancy in and over land described overleaf and so delineated for a term of ____________ commencing from _________________ according to the true intent and meaning of the Land Use Act 1978 and subject to the special terms and conditions here set out.]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="a1dc76c9-8dc2-4494-bf40-4389a401ea8f" positionType="Float" mode="Transparent" x="428" y="374" width="100" height="12" forecolor="#009966" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TERM}+" years"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d21f6836-ad61-46a7-ab74-2dbfb1b433aa" positionType="Float" isPrintRepeatedValues="false" x="109" y="253" width="383" height="20" forecolor="#009966"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Myriad Pro" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ADDRESS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement uuid="d0280061-d3a2-484d-8b1a-1b99bfa80121" positionType="Float" x="31" y="377" width="100" height="20" forecolor="#009966"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Myriad Pro" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{LODGING_DATE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="b438def9-44ea-43ce-92e6-bf026a83c7a6" mode="Transparent" x="252" y="175" width="200" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["This is to certify that:"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="7d755013-4209-41e7-a9be-45f4c3b1178a" x="231" y="234" width="132" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Myriad Pro" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[of]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="36217a6d-63ba-479d-9c71-63d942996b34" positionType="Float" x="141" y="276" width="314" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Myriad Pro" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ONDO STATE OF NIGERIA"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="7838a56d-dcb1-45c3-920b-bbefd38ae3cd" x="109" y="331" width="383" height="1"/>
+			</line>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="3c99ad7b-bba2-4493-a513-50d07ae8a9d7" positionType="Float" mode="Transparent" x="184" y="139" width="166" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CERTIFICATE OF OCCUPANCY NO: "]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="ff35de49-37fa-4b8d-942a-276fe25a5ff3" positionType="Float" mode="Transparent" x="354" y="139" width="151" height="20" forecolor="#009966" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nameLastpart}+"/"+ $F{nameFirstpart}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="a70e1866-7b96-4bc5-a5db-e4bee3850e55" positionType="Float" mode="Transparent" x="216" y="450" width="152" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Terms and Conditions of Grant "]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="b0296005-510c-4dde-9b3b-3b3e49fe2a3a" x="236" y="771" width="132" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="cf47c415-d3eb-4db0-b424-a8e9b4376a1f" x="249" y="779" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Myriad Pro" isBold="false"/>
+				</textElement>
+				<text><![CDATA[The Governor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4273efb1-c8fd-4a5b-91ff-b2b1ed260715" x="38" y="470" width="510" height="264"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Myriad Pro" size="10"/>
+				</textElement>
+				<text><![CDATA[1. To pay in advance a premium of N................ and yearly rent of N                or as may be reviewed.
+2. To pay and discharge all rates (including utilities), assessments, impositions, penalties, whatever as may be charged or imposed on the said land or any part thereof or any building thereon or upon the occupier(s) or holder thereof.
+3. To pay forthwith to the Ondo State Government or its lawful agencies, if not earlier paid, survey fees, and all other charges as may be charged in respect of the preparation, registration, and issuance of this Certificate.
+4. Within two years from the date of the commencement of the Right of Occupancy to erect and complete on the said land buildings and other works specified in related plans approved or to be approved by the Urban/Regional Planning Office or any other agency so empowered to do so provided that the issuing authority may extend, upon expiration of initial 2 years, the period to erect or complete the building for a further period not exceeding additional two years upon payment of appropriate fees.
+5. To use the land for                            purpose only.
+6. Not to erect or build or permit to be erected or built on the land, buildings other than those permitted to be effected by virtue of this Certificate of Occupancy or to make or permit to be made any alteration to the said building already effected in the land except in accordance with the plans and specification approved by the Urban/Regional Planning Officer or any other Officer(s) authorized by the Governor or on his behalf.
+7. To allow relevant Urban and Regional Planning Officer(s) or relevant Officer(s) authorized by the Governor at reasonable hours during the day to enter the land subject of Right of Occupancy for the purpose of inspection and compliance with the terms of the grant.
+8. Not to alienate the Right of Occupancy hereby granted or any part thereof by sale, assignment, mortgage, transfer bequest or otherwise howsoever without prior consent of the Governor.
+9. To comply with the provisions of Land Use Act and all rules and regulations laid down from time to time by relevant agencies of Government and to pay revised rents or charges as may be effected by the Government.
+10. The holder or occupier of the land will maintain reasonable standards of accommodation, sanitary and good environmental and living conditions.
+
+Given under my hand this ________day of _________________, 20____
+]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="23230901-0185-4e6a-9d96-3d5db3b848bf" positionType="Float" mode="Transparent" x="313" y="468" width="77" height="14" forecolor="#009966" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[!$P{GROUND_RENT}.equals( "0" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{GROUND_RENT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="21352e6d-b386-463f-8e46-9b4729aaa20d" positionType="Float" mode="Transparent" x="130" y="571" width="101" height="9" forecolor="#009966" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{LAND_USE}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="842">
+			<image scaleImage="RetainShape" hAlign="Center" vAlign="Top">
+				<reportElement uuid="817c9daa-ed1a-464b-9022-5a57d2849448" x="0" y="0" width="595" height="842"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation($P{BACK_IMAGE})]]></imageExpression>
+			</image>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="9de76d53-b695-4898-9325-bd6d4ae43062" positionType="Float" mode="Transparent" x="247" y="563" width="100" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["REGISTRATION"]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="67c15cd5-be0f-4dbe-b075-ced8cbc80d03" positionType="Float" mode="Transparent" x="354" y="759" width="190" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Adobe Caslon Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Assistant Chief Registrar of Deeds"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="41e5d86f-c124-4879-9703-af654a332ebb" x="372" y="746" width="157" height="1"/>
+			</line>
+			<image scaleImage="Clip" hAlign="Center" isUsingCache="false">
+				<reportElement uuid="ee3d65a6-2247-4747-8577-25fb3fcf02a2" x="132" y="304" width="131" height="19" isRemoveLineWhenBlank="true"/>
+				<imageExpression><![CDATA[$P{SCALEBAR}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="92b31447-a771-4299-bab9-4ea510b7d8bc" x="210" y="81" width="63" height="13"/>
+				<textElement>
+					<font fontName="Myriad Pro" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Parcel Plan]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="49d3c5ba-0f03-48d7-9cae-686397cd0481" mode="Opaque" x="278" y="77" width="188" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(No: "+$F{nameLastpart}+"/"+ $F{nameFirstpart}+")"]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="8dccacb1-fbb8-4c45-8bff-b063f1d0891d" mode="Opaque" x="331" y="111" width="212" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Approximate Scale: "+$P{SCALE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="f23955c2-8cfb-4c88-8a96-389e10ffc425" mode="Opaque" x="330" y="143" width="215" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Area: Approximately "+$P{SIZE}+ " square metres."]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement uuid="e0bccae8-416f-4b08-9386-1cf4c2f97838" x="4" y="110" width="382" height="228"/>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement uuid="8b9adfd8-19c9-4a2f-a78b-cf4678dc3ea0" x="1" y="0" width="381" height="224"/>
+					<imageExpression><![CDATA[$P{MAP_IMAGE}]]></imageExpression>
+				</image>
+				<image>
+					<reportElement uuid="8622033c-3000-4b6d-8c20-26710b528926" mode="Transparent" x="243" y="12" width="31" height="41"/>
+					<imageExpression><![CDATA["images/sola/u-north-arrow.png"]]></imageExpression>
+				</image>
+			</frame>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="744d574d-ee7e-414d-a8ea-dedddf04b1e6" mode="Transparent" x="331" y="238" width="217" height="30" forecolor="#CC0000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Do not scale distances from or photographically enlarge this plan"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="fefbee0f-3950-40f7-8d98-9696477605cc" x="388" y="505" width="155" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="380ea6e8-1e5d-4899-a87d-b22ede848fc6" x="331" y="186" width="217" height="41"/>
+				<textElement>
+					<font fontName="Myriad Pro" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Coordinates are in metres, \n"+"Origin: "+$P{UTM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="c54c22d6-9509-4985-9df4-9a8a687e1644" mode="Transparent" x="410" y="522" width="112" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Surveyor General "]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="2cd21ddf-8b9d-46df-92e3-8ce3a78dc9fd" mode="Transparent" x="58" y="489" width="75" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Surveyed by: "]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="2078b2cf-dbc1-4250-8e63-7c0f2ddd6d40" mode="Transparent" x="331" y="285" width="217" height="34" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Prepared from orthorectified satellite imagery\ndated: "+$P{IMAGERY_DATE} + " and using GeoXH 6000 GPS based on WGS84"]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="dbfadb10-5cdd-4abc-838e-ad4d2e90354e" mode="Transparent" x="311" y="492" width="75" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Approved by: "]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="39570624-4a66-46a5-a038-ff3526cf32de" x="134" y="505" width="151" height="1"/>
+			</line>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="ba105583-1a18-499b-869c-9ce475d92341" positionType="Float" mode="Transparent" x="64" y="759" width="144" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Adobe Caslon Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Chief Registrar of Deeds"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="4d54b35c-8111-43be-990e-ecd05dc896be" x="62" y="745" width="157" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="41cae2a0-ccec-48b9-9281-7a51e44b1cb4" x="362" y="592" width="204" height="136"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Myriad Pro" isBold="false"/>
+				</textElement>
+				<text><![CDATA[This instrument was delivered to me for 
+
+registration by the Director of Deemed
+
+Rights and Deeds Registry, Land Records
+
+Bureau at _____________ o’clock in the
+
+ _______________ this ________ day of
+
+ _____________, 20____.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7034f0b5-5b4f-4b29-a8af-ec8f8e207fc3" x="45" y="592" width="215" height="108"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Myriad Pro" isBold="false"/>
+				</textElement>
+				<text><![CDATA[This instrument is registered on ____________
+
+_______________________________________
+
+as No_____ at page____ in Volume __________
+
+(Certificates of Occupancy) of the Lands Registry
+
+in the office at Akure.
+]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="c2688ca1-7335-4361-afe7-e03ee490e0e2" positionType="Float" mode="Transparent" x="20" y="777" width="171" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Adobe Caslon Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Serial No: _______________"]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement uuid="e8325af0-8785-4243-905f-6440f85b729a" x="452" y="33" width="116" height="74"/>
+				<imageExpression><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode($P{REFNR},com.google.zxing.BarcodeFormat.QR_CODE, 86, 53))]]></imageExpression>
+			</image>
+			<image hAlign="Center" vAlign="Middle" isLazy="true">
+				<reportElement uuid="2af8172c-a4fe-465d-8738-2adbf6c9562d" x="310" y="337" width="236" height="140"/>
+				<imageExpression><![CDATA[$P{MAP_IMAGE}]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>

@@ -577,7 +577,6 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
                     cadastreObjectSearch.getSelectedElement());
             this.location = cadastreObjectSearch.getSelectedElement().toString();
             tmpLocation = (this.location);
-            System.out.println("LOCATION     " + tmpLocation);
             createSysRegWorkUnitBean();
             SysRegWorkUnitForm srwu = new SysRegWorkUnitForm(null, true, tmpLocation);
             this.dispose();

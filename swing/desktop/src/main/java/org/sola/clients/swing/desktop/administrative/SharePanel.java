@@ -125,7 +125,46 @@ public class SharePanel extends ContentPanel {
 
         saveRrrShareState();
     }
+    public SharePanel(RrrShareBean rrrShareBean, RrrBean.RRR_ACTION rrrAction, ApplicationServiceBean applicationService, ApplicationBean applicationBean, RrrBean rrrBean, String ShareType) {
+        this.rrrAction = rrrAction;
+        prepareRrrShareBean(rrrShareBean);
+        this.address = applicationBean.getContactPerson().getAddress().getDescription().toString();
+        initComponents();
 
+        customizeForm(rrrAction);
+        this.groupPanel1.setTitleText(MessageUtility.getLocalizedMessage(
+                ClientMessage.SYSTEMATIC_REGISTRATION_CLAIMANTS).getMessage());
+
+        customizeOwnersButtons(null);
+        String pId = applicationBean.getContactPersonId();
+        PartyTO partyTO = WSManager.getInstance().getCaseManagementService().getParty(pId);
+        PartySummaryBean partySummary = TypeConverters.TransferObjectToBean(partyTO, PartyBean.class, null);
+        
+        if (rrrBean.getFilteredRrrShareList().size() == 0) {
+            Short labeldef = 1;
+            this.txtDenominator.setValue(labeldef);
+            this.txtNominator.setValue(labeldef);
+            this.txtNominator.setText("1");
+            this.txtDenominator.setText("1");
+            this.rrrShareBean.getFilteredRightHolderList().add(partySummary);
+        }
+
+       if (ShareType.contentEquals("Joint")) {
+            Short labeldef = 1;
+            this.txtDenominator.setValue(labeldef);
+            this.txtNominator.setValue(labeldef);
+            this.txtNominator.setText("1");
+            this.txtDenominator.setText("1");
+            this.txtNominator.setEditable(false);
+            this.txtDenominator.setEditable(false);
+            this.txtNominator.setEnabled(false);
+            this.txtDenominator.setEnabled(false);
+            this.headerPanel.setTitleText(ShareType);
+            this.groupPanel1.setTitleText(ShareType+" "+this.groupPanel1.getTitleText());
+        }
+
+        saveRrrShareState();
+    }
     private RrrShareBean CreateRrrShareBean() {
         if (rrrShareBean == null) {
             rrrShareBean = new RrrShareBean();
@@ -205,6 +244,18 @@ public class SharePanel extends ContentPanel {
         menuEditOwner.setEnabled(btnEditOwner.isEnabled());
         menuRemoveOwner.setEnabled(btnRemoveOwner.isEnabled());
         menuViewOwner.setEnabled(btnViewOwner.isEnabled());
+//         if (this.rrrShareBean.getShareType()!= null) {
+//            
+//                if (this.rrrShareBean.getShareType().contentEquals("Sole Land Holder")){
+//                    this.soleLandButton.setSelected(true);
+//                }
+//                if (this.rrrShareBean.getShareType().contentEquals("Joint Land Holders")){
+//                    this.jointLandButton.setSelected(true);
+//                }
+//                if (this.rrrShareBean.getShareType().contentEquals("Shared Land Holders")){
+//                    this.sharedLandButton.setSelected(true);
+//                }
+//         }
     }
 
     private void openRightHolderForm(final PartySummaryBean partySummaryBean, final boolean isReadOnly) {
@@ -266,7 +317,12 @@ public class SharePanel extends ContentPanel {
     }
 
     private void addOwner() {
-        openRightHolderForm(null, false);
+    
+//        if (this.soleLandButton.isSelected()&&this.rrrShareBean.getRightHolderList().size()==1) {
+//          MessageUtility.displayMessage(ClientMessage.ONLY_ONE_SOLEOWNER);
+//        } else {
+         openRightHolderForm(null, false);
+//        }
     }
 
     private void editOwner() {
@@ -286,6 +342,7 @@ public class SharePanel extends ContentPanel {
         menuEditOwner = new javax.swing.JMenuItem();
         menuRemoveOwner = new javax.swing.JMenuItem();
         menuViewOwner = new javax.swing.JMenuItem();
+        radioOwersGroup = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtDenominator = new javax.swing.JFormattedTextField();
@@ -486,14 +543,14 @@ public class SharePanel extends ContentPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 859, Short.MAX_VALUE)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 859, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 863, Short.MAX_VALUE)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 863, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(25, 25, 25)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
@@ -509,7 +566,7 @@ public class SharePanel extends ContentPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(groupPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 879, Short.MAX_VALUE)
+                    .addComponent(groupPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 883, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -538,14 +595,19 @@ public class SharePanel extends ContentPanel {
                 .addComponent(groupPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+//     if (!this.soleLandButton.isSelected()&&!this.jointLandButton.isSelected()&&!this.sharedLandButton.isSelected()) {
+//          MessageUtility.displayMessage(ClientMessage.SHARES_SELECT_TYPE);
+//     }
+//     else { 
         saveRrrShare();
+//     }   
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnAddOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOwnerActionPerformed
@@ -581,8 +643,13 @@ public class SharePanel extends ContentPanel {
     }//GEN-LAST:event_menuViewOwnerActionPerformed
 
     private void btnSelectExistingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectExistingActionPerformed
+//      if (this.soleLandButton.isSelected()&&this.rrrShareBean.getRightHolderList().size()==1) {
+//          MessageUtility.displayMessage(ClientMessage.ONLY_ONE_SOLEOWNER);
+//      } else {
         openSelectRightHolderForm();
+//      }  
     }//GEN-LAST:event_btnSelectExistingActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddOwner;
     private javax.swing.JButton btnEditOwner;
@@ -603,6 +670,7 @@ public class SharePanel extends ContentPanel {
     private javax.swing.JMenuItem menuRemoveOwner;
     private javax.swing.JMenuItem menuViewOwner;
     private javax.swing.JPopupMenu popupOwners;
+    private javax.swing.ButtonGroup radioOwersGroup;
     private org.sola.clients.beans.administrative.RrrShareBean rrrShareBean;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableOwners;
     private javax.swing.JFormattedTextField txtDenominator;

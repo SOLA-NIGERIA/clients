@@ -193,6 +193,8 @@ public class ApplicationPanel extends ContentPanel {
         }
         return genderTypes;
     }
+    
+    
     /**
      * This constructor is used to open existing application for editing.
      *
@@ -333,6 +335,11 @@ public class ApplicationPanel extends ContentPanel {
             tabbedControlMain.addTab(bundle.getString("ApplicationPanel.validationPanel.TabConstraints.tabTitle"), validationPanel);
             tabbedControlMain.addTab(bundle.getString("ApplicationPanel.historyPanel.TabConstraints.tabTitle"), historyPanel);
             btnValidate.setEnabled(true);
+            for (int i = 0, n = this.cbxState.getItemCount(); i < n; i++) {
+                if (this.cbxState.getItemAt(i).toString().contains(this.txtState.getText())) {
+                    this.cbxState.setSelectedIndex(i);
+                }
+            }
         } else {
             cbxAgents.requestFocus(true);
             cbxAgents.setSelectedIndex(-1);
@@ -340,7 +347,8 @@ public class ApplicationPanel extends ContentPanel {
             tabbedControlMain.removeTabAt(tabbedControlMain.indexOfComponent(validationPanel));
             btnValidate.setEnabled(false);
             this.cbxNationality.setSelectedIndex(168);
-            this.cbxState.setSelectedIndex(0);
+            this.cbxState.setSelectedIndex(0); 
+            this.txtState.setText(this.cbxState.getItemAt(0).toString());
         }
 
         menuApprove.setEnabled(appBean.canApprove()
@@ -1026,6 +1034,7 @@ public class ApplicationPanel extends ContentPanel {
         landUseTypeListBean1 = new org.sola.clients.beans.referencedata.LandUseTypeListBean();
         partyListBean1 = createPartyList();
         genderTypes = createGenderTypes();
+        stateTypes = new org.sola.clients.beans.referencedata.StateTypeListBean();
         pnlHeader = new org.sola.clients.swing.ui.HeaderPanel();
         jToolBar3 = new javax.swing.JToolBar();
         btnSave = new javax.swing.JButton();
@@ -1703,10 +1712,12 @@ public class ApplicationPanel extends ContentPanel {
         lbState.setText(bundle.getString("ApplicationPanel.lbState.text")); // NOI18N
         lbState.setName(bundle.getString("ApplicationPanel.lbState.name")); // NOI18N
 
-        cbxState.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kogi", "Adamawa", "Abia", "Bauchi", "Bayelsa", "Benue", "Borno", "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto", "Taraba", "Yobe", "Zamfara" }));
         cbxState.setName(bundle.getString("ApplicationPanel.cbxState.name")); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appBean, org.jdesktop.beansbinding.ELProperty.create("${contactPerson.state}"), cbxState, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${stateTypeList}");
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, stateTypes, eLProperty, cbxState);
+        bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appBean, org.jdesktop.beansbinding.ELProperty.create("${contactPerson.stateType}"), cbxState, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
         cbxState.addActionListener(new java.awt.event.ActionListener() {
@@ -1747,8 +1758,8 @@ public class ApplicationPanel extends ContentPanel {
         cbxGender.setName(bundle.getString("ApplicationPanel.cbxGender.name")); // NOI18N
         cbxGender.setRenderer(new SimpleComboBoxRenderer("getDisplayValue"));
 
-        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${genderTypeList}");
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, genderTypes, eLProperty, cbxGender);
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${genderTypeList}");
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, genderTypes, eLProperty, cbxGender);
         bindingGroup.addBinding(jComboBoxBinding);
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appBean, org.jdesktop.beansbinding.ELProperty.create("${contactPerson.genderType}"), cbxGender, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
@@ -3323,9 +3334,18 @@ public class ApplicationPanel extends ContentPanel {
     }//GEN-LAST:event_cbxNationalityActionPerformed
 
     private void cbxStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxStateActionPerformed
-       if (this.cbxState.getSelectedIndex()>= 0) {
-       this.txtState.setText(this.cbxState.getSelectedItem().toString());
-      }
+        if (this.cbxState.getSelectedIndex()>= 0) {
+         if (appBean != null && !appBean.isNew()) {
+         if (evt.getModifiers()== 0) {   
+             for (int i = 0, n = this.cbxState.getItemCount(); i < n; i++) {
+                 if (this.cbxState.getItemAt(i).toString().contains(this.txtState.getText())) {
+                     this.cbxState.setSelectedIndex(i);
+                 }
+             }
+         }    
+        } 
+         this.txtState.setText(this.cbxState.getSelectedItem().toString());
+       }
     }//GEN-LAST:event_cbxStateActionPerformed
 
     private void btnPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlanActionPerformed
@@ -3986,6 +4006,7 @@ public class ApplicationPanel extends ContentPanel {
     private javax.swing.JScrollPane scrollFeeDetails1;
     private javax.swing.JScrollPane scrollPropertyDetails;
     private javax.swing.JPanel servicesPanel;
+    private org.sola.clients.beans.referencedata.StateTypeListBean stateTypes;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tabActionLog;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tabFeeDetails;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tabPropertyDetails;

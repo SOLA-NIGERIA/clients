@@ -896,7 +896,6 @@ public class DocumentPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtOwnerNameActionPerformed
     private String setExpiration(Object dateRecordation, String docExp) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
-        System.out.println("DATEREORDATION  "+dateRecordation.toString());
         Date dateRec = null;
         try {
             dateRec = sdf.parse(dateRecordation.toString());

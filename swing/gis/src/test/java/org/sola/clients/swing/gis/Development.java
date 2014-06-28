@@ -221,15 +221,15 @@ public class Development {
         this.displayControlsBundleForm(ctrl);
     }
 
-//    @Ignore
-//    @Test
-//    public void testUIControlsBundleForSpatialUnitManagement() throws Exception {
-//        System.out.println("Test ControlsBundle for Spatial unit");
-//        SecurityBean.authenticate("test", "test".toCharArray(), this.getWSConfig());
-//        ControlsBundleForSpatialUnitEditor ctrl = 
-//                new ControlsBundleForSpatialUnitEditor();
-//        this.displayControlsBundleForm(ctrl);
-//    }
+    @Ignore
+    @Test
+    public void testUIControlsBundleForSpatialUnitManagement() throws Exception {
+        System.out.println("Test ControlsBundle for Spatial unit");
+        SecurityBean.authenticate("test", "test".toCharArray(), this.getWSConfig());
+        ControlsBundleForSpatialUnitEditor ctrl = 
+                new ControlsBundleForSpatialUnitEditor();
+        this.displayControlsBundleForm(ctrl);
+    }
     
     @Ignore
     @Test
@@ -241,6 +241,7 @@ public class Development {
         this.displayControlsBundleForm(ctrl);
     }
 
+    //@Ignore
     @Test
     public void TestTitlePlan() throws Exception {
         System.out.println("Test title plan");
