@@ -47,8 +47,53 @@ public class SysRegCertificatesBean extends AbstractIdBean {
     private String state;
     private String ward;
     private String imageryDate;
+    private String imageryResolution;
+    private String imagerySource;
+    private String sheetNr;
     private Integer CofO;
+    private String surveyor;
+    private String rank;
 
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
+
+    public String getSurveyor() {
+        return surveyor;
+    }
+
+    public void setSurveyor(String surveyor) {
+        this.surveyor = surveyor;
+    }
+
+    public String getImageryResolution() {
+        return imageryResolution;
+    }
+
+    public void setImageryResolution(String imageryResolution) {
+        this.imageryResolution = imageryResolution;
+    }
+
+    public String getImagerySource() {
+        return imagerySource;
+    }
+
+    public void setImagerySource(String imagerySource) {
+        this.imagerySource = imagerySource;
+    }
+
+    public String getSheetNr() {
+        return sheetNr;
+    }
+
+    public void setSheetNr(String sheetNr) {
+        this.sheetNr = sheetNr;
+    }
+    
     public Integer getCofO() {
         return CofO;
     }

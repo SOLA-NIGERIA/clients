@@ -729,11 +729,13 @@ public class ReportManager {
      *
      */
     public static JasperPrint getSysRegSlrtPlanReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
-            String featureScalebarFileName, Integer srid, Number scale, String  featureFront,String featureBack) {
+            String featureScalebarFileName, Integer srid, Number scale, String  featureFront,String featureBack,String featureImageFileNameSmall) {
         HashMap inputParameters = new HashMap();
         String featureFloatFront ="images/sola/front_float.svg";
         String featureFloatBack = "images/sola/back_float.svg";
         String sltrPlanFront = "images/sola/slrtPlan.svg";
+        String small = "";
+        String map = "";
             
 
         String appNr = null;
@@ -753,6 +755,12 @@ public class ReportManager {
         String state = null;
         BigDecimal size = null;
         String groundRent = null;
+        String imageryResolution = "50 cm";
+        String sheetNr = "";
+        String imagerySource = "";
+        String surveyor = "";
+        String rank = "";
+        
         appNr =    appBaunit.getNr();
         claimant = appBean.getContactPerson().getFullName();
         address =  appBean.getContactPerson().getAddress().getDescription();
@@ -766,6 +774,12 @@ public class ReportManager {
         ward = appBaunit.getWard();
         state = appBaunit.getState();
         propAddress = baUnitBean.getLocation();
+        imageryResolution=appBaunit.getImageryResolution();
+        imagerySource=appBaunit.getImagerySource();        
+//    TODO IF THERE IS A LIST OF MAPSHEET UNCOMMENT THIS
+        sheetNr=appBaunit.getSheetNr();
+        surveyor=appBaunit.getSurveyor();
+        rank=appBaunit.getRank();   
 
         appBaunit.getId();
         
@@ -782,8 +796,11 @@ public class ReportManager {
 //  5 - Scalebar 
         
         String mapImage = featureImageFileName;  
+        String mapImageSmall = featureImageFileNameSmall;  
         String utmZone = srid.toString().substring(srid.toString().length()-2);
-        utmZone = "WGS84 UTM Zone" + utmZone  +"N";
+//        utmZone = imagerySource;
+//        utmZone = "WGS84 UTM Zone" + utmZone  +"N";
+        utmZone = imagerySource + utmZone  +"N";
         String scaleLabel = "1: "+scale.intValue();
         String scalebarImageLocation =featureScalebarFileName;
         
@@ -827,9 +844,18 @@ public class ReportManager {
         inputParameters.put("STATE", state);
         inputParameters.put("SLTR_PLAN_IMAGE", sltrPlanFront);
         inputParameters.put("MAP_IMAGE", mapImage);
+//        inputParameters.put("MAP_IMAGE", map);
         inputParameters.put("SCALE", scaleLabel);
         inputParameters.put("UTM", utmZone);
         inputParameters.put("SCALEBAR", scalebarImageLocation);
+        inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
+//        inputParameters.put("MAP_IMAGE_SMALL", small);
+        inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
+        inputParameters.put("SHEET_NR", sheetNr);
+        inputParameters.put("SURVEYOR", surveyor);
+        inputParameters.put("RANK", rank);
+        
+        
           
         BaUnitBean[] beans = new BaUnitBean[1];
         beans[0] = baUnitBean;

@@ -135,14 +135,15 @@ public class OwnershipPanel extends ContentPanel {
             rrrBean = new RrrBean();
         }
 //        if (rrrBean.getNotation()!= null && rrrBean.getNotation().getNotationText().contains("Joint")) {
-             
+     if (rrrBean.getFilteredRrrShareList()!= null && rrrBean.getFilteredRrrShareList().size()>0) {
+                
              rrrBean.getFilteredRrrShareList().get(0).setRightHolderType(rrrBean.getNotation().getNotationText());
 //             System.out.println("RIGHT HOLDER TYPE  "+rrrBean.getFilteredRrrShareList().get(0).getRightHolderType());
 //             rrrBean.getFilteredRrrShareList().get(0).setRightHolderType(this.txtNotationText.getText());
              System.out.println("RIGHT HOLDER TYPE IN CREATE RRRBEAN "+rrrBean.getFilteredRrrShareList().get(0).getRightHolderType());
                         
              
-//        }
+        }
         return rrrBean;
     }
 

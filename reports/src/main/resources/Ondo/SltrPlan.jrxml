@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ParcelPlan" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO" uuid="e9d97208-5eee-41b3-aee8-b068b02095bc">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ParcelPlan" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="57"/>
-	<subDataset name="dataset1" uuid="dcccb7e0-c4db-40bf-8b32-2de291e6d5d5">
+	<property name="ireport.y" value="154"/>
+	<subDataset name="dataset1">
 		<parameter name="AREA" class="java.lang.Object">
 			<parameterDescription><![CDATA[]]></parameterDescription>
 			<defaultValueExpression><![CDATA[$P{AREA}.toString()]]></defaultValueExpression>
@@ -27,7 +27,7 @@
 			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
 		</field>
 	</subDataset>
-	<subDataset name="Rights" uuid="d88f89f5-bde3-4605-90a7-32cc2eccf3f3">
+	<subDataset name="Rights">
 		<field name="rrrType" class="java.lang.String">
 			<fieldDescription><![CDATA[rrrType.displayValue]]></fieldDescription>
 		</field>
@@ -38,7 +38,7 @@
 			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
 		</field>
 	</subDataset>
-	<subDataset name="Ownership" uuid="4de23e0d-1e1d-4594-8c87-a09f457ea0ea">
+	<subDataset name="Ownership">
 		<field name="Owners" class="java.lang.String">
 			<fieldDescription><![CDATA[rrrShare.rightHoldersStringList]]></fieldDescription>
 		</field>
@@ -49,7 +49,7 @@
 			<fieldDescription><![CDATA[status]]></fieldDescription>
 		</field>
 	</subDataset>
-	<subDataset name="Notations" uuid="bf25519c-6ed1-4504-b64a-f652096b16d9">
+	<subDataset name="Notations">
 		<field name="Ref. Number" class="java.lang.String">
 			<fieldDescription><![CDATA[referenceNr]]></fieldDescription>
 		</field>
@@ -136,11 +136,11 @@
 	<detail>
 		<band height="842" splitType="Stretch">
 			<image hAlign="Center" vAlign="Top">
-				<reportElement uuid="ddf65af5-fafa-4864-997a-caec7b889205" x="0" y="0" width="595" height="842"/>
+				<reportElement x="0" y="0" width="595" height="842"/>
 				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation($P{SLTR_PLAN_IMAGE})]]></imageExpression>
 			</image>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="dffdceec-fe07-4d68-b0dd-133c7ba135ed" mode="Opaque" x="150" y="79" width="294" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="150" y="79" width="294" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -148,7 +148,7 @@
 				<textFieldExpression><![CDATA[$P{STATE}+"   State"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="856663c4-3f41-4367-b523-07abffd2c68f" mode="Transparent" x="50" y="692" width="75" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="50" y="692" width="75" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -156,7 +156,7 @@
 				<textFieldExpression><![CDATA["Surveyed by: "]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="3a91d0c0-06b4-4775-9d60-39213bf99f92" mode="Opaque" x="150" y="99" width="294" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="150" y="99" width="294" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -164,7 +164,7 @@
 				<textFieldExpression><![CDATA[$P{LGA}+"   Local Government Area"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="be904b45-cd3b-4d64-99db-27a82d83fc93" mode="Opaque" x="100" y="58" width="385" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="100" y="58" width="385" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single" rightIndent="20"/>
@@ -172,7 +172,7 @@
 				<textFieldExpression><![CDATA["Certificate of Occupancy No.   "+ $P{REFNR}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="357e889d-525d-4711-b788-635084e9b344" mode="Opaque" x="150" y="120" width="294" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="150" y="120" width="294" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -180,7 +180,7 @@
 				<textFieldExpression><![CDATA[$P{WARD}+"   Ward/village"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="39ea4f12-6a55-4b98-8d0e-7e3bdbd76153" mode="Opaque" x="247" y="37" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="247" y="37" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="16" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -188,7 +188,7 @@
 				<textFieldExpression><![CDATA["Parcel Plan"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="8796ae7d-8fe3-4a59-b549-cd11ec7d81ab" mode="Opaque" x="40" y="631" width="514" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="40" y="631" width="514" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="15" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -196,7 +196,7 @@
 				<textFieldExpression><![CDATA["The area of edged red land above, with Parcel number: "+$F{nameLastpart}+"/"+ $F{nameFirstpart}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="920347e6-e338-413a-ac41-2b1d87fefdf0" mode="Opaque" x="40" y="651" width="514" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="40" y="651" width="514" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="15" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -204,7 +204,7 @@
 				<textFieldExpression><![CDATA[" is approximately "+$P{SIZE}+ " square metres in size."]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="7333f4ac-b6f6-4871-9703-fb4488786d2a" mode="Opaque" x="40" y="603" width="514" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="40" y="603" width="514" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="15" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -212,7 +212,7 @@
 				<textFieldExpression><![CDATA["Approximate Scale: "+$P{SCALE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="9cb6ddae-0e37-462a-b126-12cea3799447" mode="Transparent" x="50" y="745" width="75" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="50" y="745" width="75" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -220,13 +220,13 @@
 				<textFieldExpression><![CDATA["Approved by: "]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement uuid="5ed8225e-5eca-4126-b492-344e8eeb6753" x="120" y="758" width="190" height="1"/>
+				<reportElement x="120" y="708" width="190" height="1"/>
 			</line>
 			<line>
-				<reportElement uuid="dc9c413e-6526-459d-8f1e-d9c65bc808ae" x="120" y="708" width="190" height="1"/>
+				<reportElement x="120" y="758" width="190" height="1"/>
 			</line>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="da4448f6-ede9-45f9-96dc-6d67d5dd975b" mode="Transparent" x="125" y="712" width="106" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="125" y="712" width="106" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -234,7 +234,7 @@
 				<textFieldExpression><![CDATA["SLTR Officer: "]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="8b11b65d-e971-46ce-93c9-892625a14d8e" mode="Transparent" x="125" y="760" width="112" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="125" y="760" width="112" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -242,7 +242,7 @@
 				<textFieldExpression><![CDATA["Surveyor General: "]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="a07cbdf6-40a1-4c02-8a30-02447d8acf47" mode="Transparent" x="353" y="690" width="217" height="34" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="353" y="690" width="217" height="34" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -250,7 +250,7 @@
 				<textFieldExpression><![CDATA["Prepared from orthorectified satellite imagery\ndated: "+$P{IMAGERY_DATE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="ccd971c6-c679-47d7-b954-a4bbba6afbe3" mode="Transparent" x="353" y="773" width="217" height="30" forecolor="#CC0000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="353" y="773" width="217" height="30" forecolor="#CC0000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -258,25 +258,25 @@
 				<textFieldExpression><![CDATA["Do not scale distances from or photographically enlarge this plan"]]></textFieldExpression>
 			</textField>
 			<frame>
-				<reportElement uuid="a824fee5-a77c-4ba9-8641-7d8ec83a1f1c" x="40" y="152" width="514" height="429"/>
+				<reportElement x="40" y="152" width="514" height="429"/>
 				<image hAlign="Center" vAlign="Middle" isLazy="true">
-					<reportElement uuid="b76937a4-5e3b-4503-837c-7c8b5c3f2865" x="21" y="0" width="490" height="429"/>
+					<reportElement x="21" y="0" width="490" height="429"/>
 					<imageExpression><![CDATA[$P{MAP_IMAGE}]]></imageExpression>
 				</image>
 				<image>
-					<reportElement uuid="cc2c4b3c-ef19-4727-ab34-21c1166b2d23" mode="Transparent" x="417" y="7" width="26" height="28"/>
+					<reportElement mode="Transparent" x="417" y="7" width="26" height="28"/>
 					<imageExpression><![CDATA["images/sola/north-arrow.png"]]></imageExpression>
 				</image>
 			</frame>
 			<textField>
-				<reportElement uuid="aff67957-78b5-4979-8dd9-70ccd437a933" x="353" y="724" width="217" height="41"/>
+				<reportElement x="353" y="724" width="217" height="41"/>
 				<textElement>
 					<font fontName="Myriad Pro" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Coordinates are in metres, \n"+$P{UTM}]]></textFieldExpression>
 			</textField>
 			<image scaleImage="Clip" hAlign="Center" isUsingCache="false">
-				<reportElement uuid="a222f019-d5e4-4fda-9fef-372cebe87df7" x="192" y="532" width="200" height="40" isRemoveLineWhenBlank="true"/>
+				<reportElement x="192" y="532" width="200" height="40" isRemoveLineWhenBlank="true"/>
 				<imageExpression><![CDATA[$P{SCALEBAR}]]></imageExpression>
 			</image>
 		</band>

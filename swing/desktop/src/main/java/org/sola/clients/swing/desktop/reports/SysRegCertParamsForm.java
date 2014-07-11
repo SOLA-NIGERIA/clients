@@ -312,7 +312,10 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         Integer prevCofO = 0;
         int i = 0;
         try {
-            MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(490, 429, 150, 40);
+//            MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(490, 429, 150, 40);
+//            MapImageGeneratorForSelectedParcel mapImageSmall = new MapImageGeneratorForSelectedParcel(225, 225, 150, 40);
+              MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(520, 300,200,200,false, 0, 0);
+
             List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
             JasperPrint CofO = null;
             JasperPrint ParcelPlan = null;
@@ -329,14 +332,18 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 String parcelLabel = tmpLocation + '/' + appBaunit.getNameFirstpart();
                 final String featureFront = this.svgPath + "front.svg";
                 final String featureBack = this.svgPath + "back.svg";
-                MapImageInformation mapImageInfo = mapImage.getMapAndScalebarImage(appBaunit.getId());
+//                MapImageInformation mapImageInfo = mapImage.getMapAndScalebarImage(appBaunit.getId());
+                
+                MapImageInformation mapImageInfo = mapImage.getInformation(appBaunit.getId());
                 final String featureImageFileName = mapImageInfo.getMapImageLocation();
                 final String featureScalebarFileName = mapImageInfo.getScalebarImageLocation();
                 final Number scale = mapImageInfo.getScale();
                 final Integer srid = mapImageInfo.getSrid();
+//                MapImageInformation mapImageInfoSmall = mapImageSmall.getMapAndScalebarImage(appBaunit.getId());
+                final String featureImageFileNameSmall = mapImageInfo.getSketchMapImageLocation();
                     
                 if (this.whichReport.contains("parcelPlan")){  
-                    ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack);
+                    ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
                     showReport(ParcelPlan, parcelLabel, this.whichReport);
                     jprintlist.add(ParcelPlan);
                 } else if (this.whichReport.contains("title")){  
@@ -347,7 +354,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 else {  
                     CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack);
                     showReport(CofO, parcelLabel, "title");
-                    ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack);
+                    ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
                     showReport(ParcelPlan, parcelLabel,"parcelPlan");
                     jprintlist.add(CofO);
                     jprintlist.add(ParcelPlan);
