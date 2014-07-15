@@ -153,6 +153,9 @@ public abstract class SolaControlsBundle extends ControlsBundle {
      */
     private void addLayerConfig(ConfigMapLayerTO configMapLayer)
             throws InitializeLayerException, SchemaException {
+		if (!configMapLayer.isActive()){
+            return;
+        }	
         if (configMapLayer.getTypeCode().equals("wms")) {
             String wmsServerURL = configMapLayer.getUrl();
             ArrayList<String> wmsLayerNames = new ArrayList<String>();
