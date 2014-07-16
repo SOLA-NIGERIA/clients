@@ -5,11 +5,11 @@
     <parent>
         <artifactId>sola-clients</artifactId>
         <groupId>org.sola</groupId>
-        <version>1406c</version>
+        <version>1407a</version>
     </parent>
     <groupId>org.sola.clients</groupId>
     <artifactId>clients-beans</artifactId>
-    <version>1406c</version>
+    <version>1407a</version>
     <name>Clients Beans</name>
     
     <properties>
@@ -62,7 +62,7 @@
         <dependency>
             <groupId>org.sola.services.ejbs</groupId>
             <artifactId>sola-party</artifactId>
-            <version>1406c</version>
+            <version>1407a</version>
             <type>jar</type>
         </dependency>
     </dependencies>
