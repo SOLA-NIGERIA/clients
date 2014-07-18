@@ -203,8 +203,11 @@ public class ApplicationPanel extends ContentPanel {
     public ApplicationPanel(String applicationId, boolean dashBoard) {
         this.applicationID = applicationId;
         this.isDashboard = dashBoard;
+        System.out.println("QUI 0");
         initComponents();
+        System.out.println("QUI 1");
         postInit();
+        System.out.println("QUI DOPO POSTINIT");
     }
 
     /**
@@ -229,9 +232,11 @@ public class ApplicationPanel extends ContentPanel {
      * Runs post initialization actions to customize form elements.
      */
     private void postInit() {
+        System.out.println("QUI 2");
         this.btnSearchUpiWardParcel.setVisible(false);
+        System.out.println("QUI 3");
         this.btnCertificate.setEnabled(false);
-        
+        System.out.println("QUI 4");
 //        disabled for systematic registration in nigeria
 //    ----------------------------
         this.btnCalculateFee.setVisible(false);
@@ -259,7 +264,7 @@ public class ApplicationPanel extends ContentPanel {
             public void listElementPropertyChanged(ObservableList ol, int i) {
             }
         });
-
+System.out.println("QUI 5");
         appBean.getServiceList().addObservableListListener(new ObservableListListener() {
 
             @Override
@@ -304,10 +309,13 @@ public class ApplicationPanel extends ContentPanel {
                 }
             }
         });
-
+System.out.println("QUI 6");
         customizeServicesButtons();
+        System.out.println("QUI 7");
         customizeApplicationForm();
+        System.out.println("QUI 8");
         customizePropertyButtons();
+        System.out.println("QUI 9");
     }
 
     /**

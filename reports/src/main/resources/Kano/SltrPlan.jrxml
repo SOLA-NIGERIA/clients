@@ -222,7 +222,7 @@
 					<font fontName="Myriad Pro" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single" leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Plan No: "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Plan No:   "+$P{PLAN_NUMBER}]]></textFieldExpression>
 			</textField>
 			<frame>
 				<reportElement x="40" y="135" width="520" height="300"/>
@@ -231,8 +231,8 @@
 					<imageExpression><![CDATA[$P{MAP_IMAGE}]]></imageExpression>
 				</image>
 				<image>
-					<reportElement x="482" y="14" width="14" height="109"/>
-					<imageExpression><![CDATA["C:\\Users\\rizzom\\Desktop\\SOLA-SLTR-NIGERIA\\sola\\code\\clients\\reports\\src\\main\\resources\\images\\sola\\north-arrow.png"]]></imageExpression>
+					<reportElement x="482" y="27" width="14" height="109"/>
+					<imageExpression><![CDATA["images/sola/UN-north-arrow.png"]]></imageExpression>
 				</image>
 			</frame>
 			<staticText>

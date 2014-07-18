@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ParcelPlan" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="133"/>
+	<property name="ireport.y" value="0"/>
 	<subDataset name="dataset1">
 		<parameter name="AREA" class="java.lang.Object">
 			<parameterDescription><![CDATA[]]></parameterDescription>
@@ -152,12 +152,12 @@
 					<font fontName="Myriad Pro" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Ward Village     "+$P{WARD}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Ward Village: "+$P{WARD}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="40" y="510" width="107" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="40" y="522" width="107" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Myriad Pro" size="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Myriad Pro" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Approved by:"]]></textFieldExpression>
@@ -168,7 +168,7 @@
 					<font fontName="Myriad Pro" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Local Government Area     "+$P{LGA}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Local Government Area: "+$P{LGA}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 				<reportElement mode="Transparent" x="0" y="61" width="595" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -176,7 +176,7 @@
 					<font fontName="Myriad Pro" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single" rightIndent="20"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Parcel     "+$P{REFNR}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{REFNR}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement mode="Transparent" x="0" y="112" width="595" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -184,7 +184,7 @@
 					<font fontName="Myriad Pro" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA["State     "+$P{STATE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["State: "+$P{STATE}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement mode="Transparent" x="0" y="38" width="595" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -211,24 +211,28 @@
 				<textFieldExpression><![CDATA["Scale: "+$P{SCALE}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="147" y="522" width="168" height="1"/>
+				<reportElement x="125" y="535" width="190" height="1"/>
 				<graphicElement>
 					<pen lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="334" y="748" width="205" height="15" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="334" y="756" width="205" height="15" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Myriad Pro" size="15" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
+					<font fontName="Myriad Pro" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single" leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Plan No: "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Plan No:   "+$P{PLAN_NUMBER}]]></textFieldExpression>
 			</textField>
 			<frame>
 				<reportElement x="40" y="135" width="520" height="300"/>
 				<image hAlign="Center" vAlign="Middle" isLazy="true">
 					<reportElement x="0" y="0" width="520" height="300"/>
 					<imageExpression><![CDATA[$P{MAP_IMAGE}]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="482" y="27" width="14" height="109"/>
+					<imageExpression><![CDATA["images/sola/UN-north-arrow.png"]]></imageExpression>
 				</image>
 			</frame>
 			<staticText>
@@ -240,7 +244,7 @@
 				<text><![CDATA[Location Map]]></text>
 			</staticText>
 			<frame>
-				<reportElement x="334" y="512" width="205" height="198"/>
+				<reportElement x="335" y="512" width="204" height="198"/>
 				<image hAlign="Center">
 					<reportElement x="2" y="2" width="200" height="196"/>
 					<imageExpression><![CDATA[$P{MAP_IMAGE_SMALL}]]></imageExpression>
@@ -249,13 +253,13 @@
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement mode="Transparent" x="334" y="789" width="205" height="15" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Myriad Pro" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
+					<font fontName="Myriad Pro" size="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single" leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Sheet No: "+$P{SHEET_NR}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="40" y="556" width="95" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="40" y="568" width="95" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -263,21 +267,21 @@
 				<textFieldExpression><![CDATA["Date:"]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="110" y="570" width="205" height="1"/>
+				<reportElement x="110" y="582" width="205" height="1"/>
 				<graphicElement>
 					<pen lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="126" y="526" width="190" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="126" y="538" width="190" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Myriad Pro" size="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Myriad Pro" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Surveyor General"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="41" y="585" width="84" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="41" y="597" width="84" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -285,7 +289,7 @@
 				<textFieldExpression><![CDATA["Surveyed by:"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="125" y="602" width="176" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="125" y="614" width="176" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -293,7 +297,7 @@
 				<textFieldExpression><![CDATA[$P{RANK}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="125" y="585" width="176" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="125" y="597" width="176" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -304,16 +308,16 @@
 				<reportElement mode="Transparent" x="333" y="740" width="204" height="66"/>
 			</rectangle>
 			<textField>
-				<reportElement x="134" y="556" width="181" height="15"/>
+				<reportElement x="134" y="568" width="181" height="15"/>
 				<textElement textAlignment="Center">
 					<font fontName="Myriad Pro" size="13" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["/                    /"]]></textFieldExpression>
 			</textField>
 			<frame>
-				<reportElement x="35" y="635" width="280" height="172"/>
+				<reportElement x="35" y="640" width="280" height="172"/>
 				<textField>
-					<reportElement x="10" y="52" width="250" height="72"/>
+					<reportElement x="10" y="37" width="250" height="72"/>
 					<textElement>
 						<font fontName="Myriad Pro" size="10"/>
 					</textElement>
@@ -323,22 +327,22 @@
 "Coordinate System: "+$P{UTM}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement mode="Transparent" x="10" y="18" width="250" height="34" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement mode="Transparent" x="10" y="18" width="250" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Myriad Pro" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Do not scale distances from or photographically enlarge this plan"]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Do not scale distances from or enlarge this plan"]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="18" width="10" height="34"/>
+					<reportElement x="0" y="18" width="10" height="15"/>
 					<textElement textAlignment="Left">
 						<font fontName="Myriad Pro" isBold="true"/>
 					</textElement>
 					<text><![CDATA[1.]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Transparent" x="0" y="52" width="10" height="41" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement mode="Transparent" x="0" y="37" width="10" height="41" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Myriad Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -355,7 +359,7 @@
 				</staticText>
 			</frame>
 			<line>
-				<reportElement x="402" y="763" width="134" height="1"/>
+				<reportElement x="394" y="767" width="142" height="1"/>
 				<graphicElement>
 					<pen lineStyle="Dotted"/>
 				</graphicElement>

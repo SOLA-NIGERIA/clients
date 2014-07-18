@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO" whenResourceMissingType="Empty">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1089"/>
+	<property name="ireport.y" value="1228"/>
 	<style name="table 1">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -497,7 +497,7 @@ Given under my hand this ________day of _________________, 20____
 				<textFieldExpression><![CDATA["Do not scale distances from or photographically enlarge this plan"]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="388" y="555" width="155" height="1"/>
+				<reportElement x="388" y="540" width="155" height="1"/>
 			</line>
 			<textField>
 				<reportElement x="67" y="463" width="217" height="41"/>
@@ -507,7 +507,7 @@ Given under my hand this ________day of _________________, 20____
 				<textFieldExpression><![CDATA["Coordinates are in metres. \n"+"Origin: "+$P{UTM}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="413" y="575" width="112" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="413" y="560" width="112" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -515,7 +515,7 @@ Given under my hand this ________day of _________________, 20____
 				<textFieldExpression><![CDATA["Surveyor General "]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="311" y="505" width="75" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="311" y="490" width="75" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -531,7 +531,7 @@ Given under my hand this ________day of _________________, 20____
 				<textFieldExpression><![CDATA["Prepared from orthorectified satellite imagery of 50cm resolution dated: "+$P{IMAGERY_DATE} + " and \nusing GeoXH 6000 GPS"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="311" y="542" width="75" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="311" y="527" width="75" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -539,7 +539,7 @@ Given under my hand this ________day of _________________, 20____
 				<textFieldExpression><![CDATA["Approved by: "]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="387" y="521" width="151" height="1"/>
+				<reportElement x="387" y="505" width="151" height="1"/>
 			</line>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement positionType="Float" mode="Transparent" x="64" y="759" width="144" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -596,14 +596,6 @@ in the office at Akure.
 				<reportElement x="380" y="198" width="156" height="107"/>
 				<imageExpression><![CDATA[$P{MAP_IMAGE}]]></imageExpression>
 			</image>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="310" y="476" width="62" height="11" forecolor="#000000" backcolor="#FFFFFF"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Sheet No:"]]></textFieldExpression>
-			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement mode="Transparent" x="310" y="462" width="76" height="11" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
