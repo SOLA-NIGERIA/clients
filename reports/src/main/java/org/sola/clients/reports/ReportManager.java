@@ -592,10 +592,14 @@ public class ReportManager {
 //     String  featureFront,String featureBack) {
      
     public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
-       String featureScalebarFileName, Integer srid, Number scale, String  featureFront,String featureBack) {
+       String featureScalebarFileName, Integer srid, Number scale, String  featureFront,String featureBack,String featureImageFileNameSmall) {
         HashMap inputParameters = new HashMap();
         String featureFloatFront ="images/sola/front_float.svg";
         String featureFloatBack = "images/sola/back_float.svg";
+        String small = "";
+        String map = "";
+         
+        
         String cofoReport = null;
         String appNr = null;
         String claimant = null;
@@ -615,9 +619,15 @@ public class ReportManager {
         String state = null;
         BigDecimal size = null;
         String groundRent = null;
+        String imageryResolution = "50 cm";
+        String sheetNr = "";
+        String imagerySource = "";
+        String surveyor = "";
+        String rank = "";
         appNr =    appBaunit.getNr();
         claimant = appBean.getContactPerson().getFullName();
         imageryDate = appBaunit.getImageryDate();
+        
         
         address =  appBean.getContactPerson().getAddress().getDescription();
         owners = appBaunit.getOwners();
@@ -630,10 +640,17 @@ public class ReportManager {
         ward = appBaunit.getWard();
         state = appBaunit.getState();propAddress = baUnitBean.getLocation();
         //Special addition for generating image
+        imageryResolution=appBaunit.getImageryResolution();
+        imagerySource=appBaunit.getImagerySource();        
+        sheetNr=appBaunit.getSheetNr();
+        surveyor=appBaunit.getSurveyor();
+        rank=appBaunit.getRank();   
         String mapImage = featureImageFileName;  
+        String mapImageSmall = featureImageFileNameSmall;  
         String utmZone = srid.toString().substring(srid.toString().length()-2);
-        utmZone = "UTM(Zone" + utmZone  +")";
-        String scaleLabel = "1:"+scale.intValue();
+//        utmZone = "UTM(Zone" + utmZone  +")";
+        utmZone = imagerySource + utmZone  +"N";
+        String scaleLabel = "1: "+scale.intValue();
         String scalebarImageLocation =featureScalebarFileName;
         String prefix = getPrefix();
         cofoReport = prefix+"/CofO.jasper"; 
@@ -661,6 +678,18 @@ public class ReportManager {
             inputParameters.put("PAGE2_IMAGE", page2);
             inputParameters.put("PAGE3_IMAGE", page3);
         }
+        if (prefix.contains("Ondo")) {
+            featureFloatFront ="images/sola/front_float_Ondo.svg";
+            featureFloatBack = "images/sola/back_float_Ondo.svg";
+            featureFront ="images/sola/front_Ondo.svg";
+            featureBack = "images/sola/back_Ondo.svg";
+       
+            inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
+            inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
+            inputParameters.put("SHEET_NR", sheetNr);
+            inputParameters.put("SURVEYOR", surveyor);
+            inputParameters.put("RANK", rank);
+        }
         
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
@@ -687,7 +716,6 @@ public class ReportManager {
         inputParameters.put("LGA", lga);
         inputParameters.put("WARD", ward);
         inputParameters.put("STATE", state);
-         //inputParameters.put("SLTR_PLAN_IMAGE", sltrPlanFront);
         inputParameters.put("MAP_IMAGE", mapImage);
         inputParameters.put("SCALE", scaleLabel);
         inputParameters.put("UTM", utmZone);
@@ -760,7 +788,6 @@ public class ReportManager {
         String imagerySource = "";
         String surveyor = "";
         String rank = "";
-        
         appNr =    appBaunit.getNr();
         claimant = appBean.getContactPerson().getFullName();
         address =  appBean.getContactPerson().getAddress().getDescription();
@@ -776,11 +803,10 @@ public class ReportManager {
         propAddress = baUnitBean.getLocation();
         imageryResolution=appBaunit.getImageryResolution();
         imagerySource=appBaunit.getImagerySource();        
-//    TODO IF THERE IS A LIST OF MAPSHEET UNCOMMENT THIS
         sheetNr=appBaunit.getSheetNr();
         surveyor=appBaunit.getSurveyor();
         rank=appBaunit.getRank();   
-
+     
         appBaunit.getId();
         
 //        TODO CALL THE METHOD FOR GETTING THE MAP IMAGE
@@ -803,8 +829,7 @@ public class ReportManager {
         utmZone = imagerySource + utmZone  +"N";
         String scaleLabel = "1: "+scale.intValue();
         String scalebarImageLocation =featureScalebarFileName;
-        
-        
+         
         if (! baUnitBean.isIsDeveloped()) {
           if (baUnitBean.getYearsForDev()!=null) {
            timeToDevelop = baUnitBean.getYearsForDev().toString();
@@ -855,8 +880,7 @@ public class ReportManager {
         inputParameters.put("SURVEYOR", surveyor);
         inputParameters.put("RANK", rank);
         
-        
-          
+           
         BaUnitBean[] beans = new BaUnitBean[1];
         beans[0] = baUnitBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);

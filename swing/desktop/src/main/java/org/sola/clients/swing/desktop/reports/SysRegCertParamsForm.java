@@ -347,12 +347,12 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                     showReport(ParcelPlan, parcelLabel, this.whichReport);
                     jprintlist.add(ParcelPlan);
                 } else if (this.whichReport.contains("title")){  
-                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack);
+                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
                     showReport(CofO, parcelLabel, this.whichReport);
                     jprintlist.add(CofO);
                 }
                 else {  
-                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack);
+                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
                     showReport(CofO, parcelLabel, "title");
                     ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
                     showReport(ParcelPlan, parcelLabel,"parcelPlan");
