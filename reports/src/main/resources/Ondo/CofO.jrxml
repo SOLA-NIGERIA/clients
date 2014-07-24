@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO" whenResourceMissingType="Empty">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1020"/>
+	<property name="ireport.y" value="64"/>
 	<style name="table 1">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -299,11 +299,11 @@
 				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation($P{FRONT_IMAGE})]]></imageExpression>
 			</image>
 			<textField isStretchWithOverflow="true">
-				<reportElement mode="Transparent" x="109" y="212" width="383" height="20"/>
+				<reportElement mode="Transparent" x="109" y="201" width="383" height="33"/>
 				<textElement textAlignment="Center">
 					<font fontName="Adobe Caslon Pro" size="11" isBold="true" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{CLIENT_NAME}.replaceAll(",", "\n ")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{CLIENT_NAME}.replaceAll(",", ", ")]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="36" y="366" width="524" height="47"/>
@@ -480,7 +480,7 @@ Given under my hand this ________day of _________________, 20____
 				<textFieldExpression><![CDATA["Area: "+$P{SIZE}+ " square metres"+ " (Approximate)"]]></textFieldExpression>
 			</textField>
 			<frame>
-				<reportElement x="36" y="145" width="324" height="204"/>
+				<reportElement x="36" y="155" width="324" height="204"/>
 				<image hAlign="Center" vAlign="Middle" isLazy="true">
 					<reportElement x="1" y="5" width="318" height="191"/>
 					<imageExpression><![CDATA[$P{MAP_IMAGE}]]></imageExpression>
@@ -580,7 +580,7 @@ in the office at Akure.
 				<textFieldExpression><![CDATA["Parcel Plan"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Opaque" x="134" y="106" width="294" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="134" y="115" width="294" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -588,7 +588,7 @@ in the office at Akure.
 				<textFieldExpression><![CDATA[$P{LGA}+"   Local Government Area"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Opaque" x="134" y="127" width="294" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="134" y="136" width="294" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -596,19 +596,12 @@ in the office at Akure.
 				<textFieldExpression><![CDATA[$P{STATE}+"   State"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Opaque" x="134" y="85" width="294" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="134" y="94" width="294" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Ward  "+$P{WARD}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement mode="Transparent" x="90" y="66" width="383" height="20"/>
-				<textElement textAlignment="Center">
-					<font fontName="Adobe Caslon Pro" size="11" isBold="true" isItalic="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{CLIENT_NAME}.replaceAll(",", "\n ")]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement mode="Opaque" x="249" y="49" width="64" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -619,7 +612,7 @@ in the office at Akure.
 				<textFieldExpression><![CDATA[" of"]]></textFieldExpression>
 			</textField>
 			<frame>
-				<reportElement x="382" y="158" width="175" height="171"/>
+				<reportElement x="382" y="168" width="175" height="171"/>
 				<image hAlign="Center">
 					<reportElement x="2" y="2" width="173" height="169"/>
 					<imageExpression><![CDATA[$P{MAP_IMAGE_SMALL}]]></imageExpression>
@@ -647,6 +640,13 @@ in the office at Akure.
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Surveyed by: "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement mode="Transparent" x="91" y="63" width="383" height="33"/>
+				<textElement textAlignment="Center">
+					<font fontName="Adobe Caslon Pro" size="11" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CLIENT_NAME}.replaceAll(",",",")]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
