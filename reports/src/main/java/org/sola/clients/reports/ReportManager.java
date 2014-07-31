@@ -59,7 +59,8 @@ public class ReportManager {
      private static String strconfFile = System.getProperty("user.home") + "/sola/configuration.properties";
      public static String prefix = "reports";
      private static String logoImage = "/images/sola/"+ getPrefix ()+"logoMinistry.png";
-        
+     
+      
      
      public static String getPrefix () {
      
@@ -79,7 +80,30 @@ public class ReportManager {
         prefix =prop.getProperty("state");
         return prefix;
      }   
-       
+     
+     public static String getSvg (String svg) {
+       String svgFile;
+       File confFile = new File (strconfFile);  
+       FileInputStream   streamFile = null;
+        try {
+          streamFile = new FileInputStream  (confFile);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Properties prop = new Properties();
+        try {
+            prop.load(streamFile);
+        } catch (IOException ex) {
+            Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        svgFile =prop.getProperty(svg);
+        return svgFile;
+        
+     }   
+     
+     
+     
+     
     /**
      * Generates and displays <b>Lodgement notice</b> report for the new
      * application.
@@ -670,6 +694,11 @@ public class ReportManager {
         groundRent = appBaunit.getGroundRent().toString();
         
         
+            featureFloatFront =getSvg("featureFloatFront");
+            featureFloatBack = getSvg("featureFloatBack");
+            featureFront =getSvg("featureFront");
+            featureBack = getSvg("featureBack");
+       
         if (prefix.contains("Kogi")) {
             String page1="images/sola/Page1.svg";
             String page2="images/sola/Page2.svg";
@@ -678,11 +707,12 @@ public class ReportManager {
             inputParameters.put("PAGE2_IMAGE", page2);
             inputParameters.put("PAGE3_IMAGE", page3);
         }
+        
         if (prefix.contains("Ondo")) {
-            featureFloatFront ="images/sola/front_float_Ondo.svg";
-            featureFloatBack = "images/sola/back_float_Ondo.svg";
-            featureFront ="images/sola/front_Ondo.svg";
-            featureBack = "images/sola/back_Ondo.svg";
+            featureFloatFront ="images/sola/front_float_"+prefix+".svg";
+            featureFloatBack = "images/sola/back_float_"+prefix+".svg";
+            featureFront ="images/sola/front_"+prefix+".svg";
+            featureBack = "images/sola/back_"+prefix+".svg";
        
             inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
             inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
