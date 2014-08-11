@@ -5,12 +5,12 @@
     <parent>
         <artifactId>sola-clients-swing</artifactId>
         <groupId>org.sola.clients</groupId>
-        <version>1407b</version>
+        <version>1408a</version>
     </parent>
 
     <groupId>org.sola.clients.swing</groupId>
     <artifactId>sola-bulk-operations</artifactId>
-    <version>1407b</version>
+    <version>1408a</version>
     <name>Clients Bulk Operations</name>
 
     <build>

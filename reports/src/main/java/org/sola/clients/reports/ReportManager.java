@@ -50,6 +50,7 @@ import org.sola.clients.beans.system.BrListBean;
 import org.sola.clients.beans.systematicregistration.*;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
+import org.sola.services.boundary.wsclients.WSManager;
 
 
 /**
@@ -64,39 +65,17 @@ public class ReportManager {
      
      public static String getPrefix () {
      
-       File confFile = new File (strconfFile);  
-       FileInputStream   streamFile = null;
-        try {
-          streamFile = new FileInputStream  (confFile);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Properties prop = new Properties();
-        try {
-            prop.load(streamFile);
-        } catch (IOException ex) {
-            Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        prefix =prop.getProperty("state");
+        prefix = WSManager.getInstance().getInstance().getAdminService().getSetting(
+                "state", "");
         return prefix;
      }   
      
      public static String getSvg (String svg) {
        String svgFile;
-       File confFile = new File (strconfFile);  
-       FileInputStream   streamFile = null;
-        try {
-          streamFile = new FileInputStream  (confFile);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Properties prop = new Properties();
-        try {
-            prop.load(streamFile);
-        } catch (IOException ex) {
-            Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        svgFile =prop.getProperty(svg);
+       
+        svgFile = WSManager.getInstance().getInstance().getAdminService().getSetting(
+                svg, "");
+       
         return svgFile;
         
      }   
