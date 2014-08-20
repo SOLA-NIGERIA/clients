@@ -220,6 +220,12 @@ public class PartyPanel extends javax.swing.JPanel {
         if (partyBean.isNew()) {
             switchPartyType(true);
             individualButton.setSelected(true);
+            this.roleTableScrollPanel.setVisible(false);
+            this.tablePartyRole.setVisible(false);
+            this.jToolBar1.setVisible(false);
+            this.cbxPartyRoleTypes.setVisible(false);
+            this.groupPanel1.setVisible(false);
+            
         } else {
             if (partyBean.getTypeCode() != null
                     && partyBean.getTypeCode().equals(entityString)) {
@@ -1482,9 +1488,9 @@ public class PartyPanel extends javax.swing.JPanel {
     private javax.swing.JMenuItem menuRemoveRole;
     public org.sola.clients.beans.referencedata.PartyRoleTypeListBean partyRoleTypes;
     private javax.swing.JPopupMenu popupRoles;
-    private javax.swing.JScrollPane roleTableScrollPanel;
+    public javax.swing.JScrollPane roleTableScrollPanel;
     private org.sola.clients.beans.referencedata.StateTypeListBean stateTypes;
-    private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tablePartyRole;
+    public org.sola.clients.swing.common.controls.JTableWithDefaultStyles tablePartyRole;
     public javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtAlias;
     private javax.swing.JFormattedTextField txtDob;

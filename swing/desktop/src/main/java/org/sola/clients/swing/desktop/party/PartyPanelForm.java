@@ -203,6 +203,11 @@ public class PartyPanelForm extends ContentPanel {
         if (address!="") {
             this.cbxImportAddress.setVisible(importAddress);
             this.address=address;
+            this.partyPanel.roleTableScrollPanel.setVisible(false);
+            this.partyPanel.tablePartyRole.setVisible(false);
+            this.partyPanel.jToolBar1.setVisible(false);
+            this.partyPanel.cbxPartyRoleTypes.setVisible(false);
+            this.partyPanel.groupPanel1.setVisible(false);
         }
     }
 
