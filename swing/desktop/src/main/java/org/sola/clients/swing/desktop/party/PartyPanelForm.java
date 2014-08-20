@@ -404,6 +404,9 @@ public class PartyPanelForm extends ContentPanel {
         if (this.cbxImportAddress.isSelected()) {
             this.partyPanel.txtAddress.setText(address);
         }
+        if (! this.cbxImportAddress.isSelected()) {
+            this.partyPanel.txtAddress.setText("");
+        }
     }//GEN-LAST:event_cbxImportAddressActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
