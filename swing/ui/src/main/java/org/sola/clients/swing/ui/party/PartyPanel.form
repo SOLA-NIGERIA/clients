@@ -53,6 +53,8 @@
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="createGenderTypes()"/>
       </AuxValues>
     </Component>
+    <Component class="org.sola.clients.beans.referencedata.StateTypeListBean" name="stateTypes">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -859,20 +861,20 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txtState" alignment="0" pref="181" max="32767" attributes="0"/>
-                          <Component id="cbxState" alignment="0" pref="181" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="lbState" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
+                          <Component id="cbxState" alignment="0" pref="181" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="lbState" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="cbxState" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                               <Component id="txtState" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="15" max="32767" attributes="0"/>
                           </Group>
@@ -904,51 +906,13 @@
                     </Component>
                     <Component class="javax.swing.JComboBox" name="cbxState">
                       <Properties>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="34">
-                            <StringItem index="0" value="Kogi"/>
-                            <StringItem index="1" value="Adamawa"/>
-                            <StringItem index="2" value="Abia"/>
-                            <StringItem index="3" value="Bauchi"/>
-                            <StringItem index="4" value="Bayelsa"/>
-                            <StringItem index="5" value="Benue"/>
-                            <StringItem index="6" value="Borno"/>
-                            <StringItem index="7" value="Cross River"/>
-                            <StringItem index="8" value="Delta"/>
-                            <StringItem index="9" value="Ebonyi"/>
-                            <StringItem index="10" value="Edo"/>
-                            <StringItem index="11" value="Ekiti"/>
-                            <StringItem index="12" value="Gombe"/>
-                            <StringItem index="13" value="Imo"/>
-                            <StringItem index="14" value="Jigawa"/>
-                            <StringItem index="15" value="Kaduna"/>
-                            <StringItem index="16" value="Kano"/>
-                            <StringItem index="17" value="Katsina"/>
-                            <StringItem index="18" value="Kebbi"/>
-                            <StringItem index="19" value="Kogi"/>
-                            <StringItem index="20" value="Kwara"/>
-                            <StringItem index="21" value="Lagos"/>
-                            <StringItem index="22" value="Nasarawa"/>
-                            <StringItem index="23" value="Niger"/>
-                            <StringItem index="24" value="Ogun"/>
-                            <StringItem index="25" value="Ondo"/>
-                            <StringItem index="26" value="Osun"/>
-                            <StringItem index="27" value="Oyo"/>
-                            <StringItem index="28" value="Plateau"/>
-                            <StringItem index="29" value="Rivers"/>
-                            <StringItem index="30" value="Sokoto"/>
-                            <StringItem index="31" value="Taraba"/>
-                            <StringItem index="32" value="Yobe"/>
-                            <StringItem index="33" value="Zamfara"/>
-                          </StringArray>
-                        </Property>
                         <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/sola/clients/swing/ui/party/Bundle.properties" key="PartyPanel.cbxState.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
-                        <Property name="opaque" type="boolean" value="false"/>
                       </Properties>
                       <BindingProperties>
-                        <BindingProperty name="selectedItem" source="Form" sourcePath="${partyBean.state}" target="cbxState" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+                        <BindingProperty name="elements" source="stateTypes" sourcePath="${stateTypeList}" target="cbxState" targetPath="elements" updateStrategy="0" immediately="false"/>
+                        <BindingProperty name="selectedItem" source="Form" sourcePath="${partyBean.stateType}" target="cbxState" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
                       </BindingProperties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxStateActionPerformed"/>

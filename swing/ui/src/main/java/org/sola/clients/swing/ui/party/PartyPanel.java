@@ -402,6 +402,7 @@ public class PartyPanel extends javax.swing.JPanel {
         popupRoles = new javax.swing.JPopupMenu();
         menuRemoveRole = new javax.swing.JMenuItem();
         genderTypes = createGenderTypes();
+        stateTypes = new org.sola.clients.beans.referencedata.StateTypeListBean();
         detailsPanel = new javax.swing.JTabbedPane();
         basicPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -757,11 +758,12 @@ public class PartyPanel extends javax.swing.JPanel {
         lbState.setText(bundle.getString("PartyPanel.lbState.text")); // NOI18N
         lbState.setName(bundle.getString("PartyPanel.lbState.name")); // NOI18N
 
-        cbxState.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kogi", "Adamawa", "Abia", "Bauchi", "Bayelsa", "Benue", "Borno", "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto", "Taraba", "Yobe", "Zamfara" }));
         cbxState.setName(bundle.getString("PartyPanel.cbxState.name")); // NOI18N
-        cbxState.setOpaque(false);
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${partyBean.state}"), cbxState, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${stateTypeList}");
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, stateTypes, eLProperty, cbxState);
+        bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${partyBean.stateType}"), cbxState, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
         cbxState.addActionListener(new java.awt.event.ActionListener() {
@@ -775,18 +777,18 @@ public class PartyPanel extends javax.swing.JPanel {
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(txtState, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-            .addComponent(cbxState, 0, 181, Short.MAX_VALUE)
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addComponent(lbState)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(cbxState, 0, 181, Short.MAX_VALUE)
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addComponent(lbState)
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(9, 9, 9)
                 .addComponent(txtState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
@@ -1389,17 +1391,26 @@ public class PartyPanel extends javax.swing.JPanel {
         linkDocument();
     }//GEN-LAST:event_btnLinkPaperTitleActionPerformed
 
-    private void cbxStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxStateActionPerformed
-        if (this.cbxState.getSelectedIndex() >= 0) {
-            this.txtState.setText(this.cbxState.getSelectedItem().toString());
-        }
-    }//GEN-LAST:event_cbxStateActionPerformed
-
     private void cbxNationalityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxNationalityActionPerformed
         if (this.cbxNationality.getSelectedIndex() >= 0) {
             this.txtNationality.setText(this.cbxNationality.getSelectedItem().toString());
         }
     }//GEN-LAST:event_cbxNationalityActionPerformed
+
+    private void cbxStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxStateActionPerformed
+        if (this.cbxState.getSelectedIndex() >= 0) {
+            if (partyBean != null && !partyBean.isNew()) {
+                if (evt.getModifiers() == 0) {
+                    for (int i = 0, n = this.cbxState.getItemCount(); i < n; i++) {
+                        if (this.cbxState.getItemAt(i).toString().contains(this.txtState.getText())) {
+                            this.cbxState.setSelectedIndex(i);
+                        }
+                    }
+                }
+            }
+            this.txtState.setText(this.cbxState.getSelectedItem().toString());
+        }
+    }//GEN-LAST:event_cbxStateActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel basicPanel;
@@ -1472,6 +1483,7 @@ public class PartyPanel extends javax.swing.JPanel {
     public org.sola.clients.beans.referencedata.PartyRoleTypeListBean partyRoleTypes;
     private javax.swing.JPopupMenu popupRoles;
     private javax.swing.JScrollPane roleTableScrollPanel;
+    private org.sola.clients.beans.referencedata.StateTypeListBean stateTypes;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tablePartyRole;
     public javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtAlias;
