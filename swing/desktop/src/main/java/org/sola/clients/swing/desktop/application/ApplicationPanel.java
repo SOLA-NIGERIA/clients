@@ -406,19 +406,23 @@ System.out.println("QUI 6");
             txtArea.setEditable(editAllowed);
             txtValue.setEditable(editAllowed);
             btnCertificate.setEnabled(false);
+            btnPlan.setEnabled(false);
             documentsPanel.setAllowEdit(editAllowed);
             btnAddAgent.setEnabled(editAllowed);
             btnSearchUpiWardParcel.setEnabled(editAllowed);
             if (appBean.getStatusCode().equals(StatusConstants.APPROVED)&&appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
                 btnCertificate.setEnabled(true);
+                btnPlan.setEnabled(true);
             } else {
                 btnCertificate.setVisible(false);
+                btnPlan.setVisible(false);
             }
         } else {
             if (!SecurityBean.isInRole(RolesConstants.APPLICATION_CREATE_APPS)) {
                 btnSave.setEnabled(false);
             }
             btnCertificate.setEnabled(false);
+            btnPlan.setEnabled(false);
         }
         saveAppState();
     }
