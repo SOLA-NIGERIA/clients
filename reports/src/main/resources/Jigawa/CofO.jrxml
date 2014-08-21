@@ -567,7 +567,7 @@ Given under my hand on:
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
 								<reportElement x="0" y="0" width="479" height="20">
-									<printWhenExpression><![CDATA[!$F{Notation Text}.equals( "Title issued at completion of systematic registration" )&&($F{Notation Text}.contains( "Mortage")||$F{Notation Text}.contains( "Lease" )||$F{Notation Text}.contains( "Access" )||$F{Notation Text}.contains( "Water" )||$F{Notation Text}.contains( "Caveat" )||$F{Notation Text}.contains( "Road" )||$F{Notation Text}.contains( "Lien" )||$F{Notation Text}.contains( "Occupation" ))]]></printWhenExpression>
+									<printWhenExpression><![CDATA[!$F{Notation Text}.equals( "Certificate of Occupancy issued at the completion of systematic land registration titling" )&&($F{Notation Text}.contains( "Mortage")||$F{Notation Text}.contains( "Lease" )||$F{Notation Text}.contains( "Access" )||$F{Notation Text}.contains( "Water" )||$F{Notation Text}.contains( "Caveat" )||$F{Notation Text}.contains( "Road" )||$F{Notation Text}.contains( "Lien" )||$F{Notation Text}.contains( "Occupation" ))]]></printWhenExpression>
 								</reportElement>
 								<textElement>
 									<font fontName="Myriad Pro" size="11"/>
