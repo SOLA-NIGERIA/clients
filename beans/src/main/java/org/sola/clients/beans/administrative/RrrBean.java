@@ -108,6 +108,10 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String SELECTED_RIGHTHOLDER_PROPERTY = "selectedRightHolder";
     public static final String DUE_DATE_PROPERTY = "dueDate";
     public static final String SELECTED_LEASE_CONDITION_PROPERTY = "selectedLeaseCondition";
+    public static final String DEFINED_SHARES = "In defined shares as specified";
+    public static final String UNDEVIDED_SHARES = "In undevided shares";
+    public static final String JOINT = "Joint Claimants";
+    
     
     private String baUnitId;
     private String nr;

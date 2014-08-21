@@ -74,16 +74,15 @@ public class OwnershipPanel extends ContentPanel {
             }
             if (rrrBean.getFilteredRrrShareList().size()==1 && rrrBean.getFilteredRrrShareList().get(0).getShare().contains("1/1")) {
                 if (rrrBean.getFilteredRrrShareList().get(0).getRightHolderType().contains("Joint")) {
-                 txtNotationText.setText("Joint Claimants");
+                 txtNotationText.setText(rrrBean.JOINT);
                 }
                 else {
-                 txtNotationText.setText("In undefined unequal shares");   
+                 txtNotationText.setText(rrrBean.UNDEVIDED_SHARES);   
                 }
             }
             else {
-                txtNotationText.setText("Share Claimants");
+                txtNotationText.setText(rrrBean.DEFINED_SHARES);
             }
-              
         }
     }
     
@@ -769,10 +768,10 @@ public class OwnershipPanel extends ContentPanel {
         this.rrrBean.getFilteredRrrShareList().get(0).setRightHolderType("Share");
         System.out.println("LISTA SHARE   "+rrrBean.getFilteredRrrShareList().get(0).getShare());
         if (this.rrrBean.getFilteredRrrShareList().size()==1 && this.rrrBean.getFilteredRrrShareList().get(0).getShare().contains("1/1")) {
-         this.txtNotationText.setText("In undefined unequal shares");
+         this.txtNotationText.setText(this.rrrBean.UNDEVIDED_SHARES);
         }
         else {
-         this.txtNotationText.setText("Share Claimants");
+         this.txtNotationText.setText(this.rrrBean.DEFINED_SHARES);
         }
         if (rrrBean.getSelectedShare() != null) {
             openShareForm(rrrBean.getSelectedShare(), RrrBean.RRR_ACTION.VARY);
@@ -791,7 +790,7 @@ public class OwnershipPanel extends ContentPanel {
         
         this.rrrBean.getFilteredRrrShareList().get(0).setRightHolderType("Share");
         System.out.println("LISTA SHARE   "+rrrBean.getFilteredRrrShareList().get(0).getShare());
-        this.txtNotationText.setText("Share Claimants");
+        this.txtNotationText.setText(this.rrrBean.DEFINED_SHARES);
         
         openShareForm(null, RrrBean.RRR_ACTION.NEW);
     }
@@ -803,7 +802,7 @@ public class OwnershipPanel extends ContentPanel {
         rrrBean.getFilteredRrrShareList().get(0).setNominator(numden);
         this.rrrBean.getFilteredRrrShareList().get(0).setRightHolderType("Joint");
         System.out.println("LISTA SHARE   "+rrrBean.getFilteredRrrShareList().get(0).getShare());
-        this.txtNotationText.setText("Joint Claimants");
+        this.txtNotationText.setText(this.rrrBean.JOINT);
         this.txtNotationText.setEditable(false);
         
         if (rrrBean.getFilteredRrrShareList().size()>1) {
