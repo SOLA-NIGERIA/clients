@@ -125,4 +125,17 @@ public class ApplicationSummaryBean extends AbstractIdBean {
         this.nr = nr;
         propertySupport.firePropertyChange(NR_PROPERTY, old, this.nr);
     }
+    
+    /**
+     * @return The full name of the party being the concatenation of the name and lastName
+     * properties separated by a space.
+     */
+    public String getPartialNr() {
+        String partialNr = getNr() == null ? "" : getNr();
+        if(getNr() != null && partialNr.indexOf("-")>0){
+              partialNr = partialNr.substring(partialNr.indexOf("-")+1);
+        }
+        return partialNr;
+    }
+    
 }

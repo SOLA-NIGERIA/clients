@@ -312,7 +312,7 @@
                       <Subbinding sourcePath="${checked}">
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Boolean.class"/>
                       </Subbinding>
-                      <Subbinding sourcePath="${nr}">
+                      <Subbinding sourcePath="${partialNr}">
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                       </Subbinding>
@@ -649,7 +649,7 @@
                       <Subbinding sourcePath="${checked}">
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Boolean.class"/>
                       </Subbinding>
-                      <Subbinding sourcePath="${nr}">
+                      <Subbinding sourcePath="${partialNr}">
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                       </Subbinding>
