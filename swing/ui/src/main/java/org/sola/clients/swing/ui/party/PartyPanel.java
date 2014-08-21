@@ -220,11 +220,11 @@ public class PartyPanel extends javax.swing.JPanel {
         if (partyBean.isNew()) {
             switchPartyType(true);
             individualButton.setSelected(true);
-            this.roleTableScrollPanel.setVisible(false);
-            this.tablePartyRole.setVisible(false);
-            this.jToolBar1.setVisible(false);
-            this.cbxPartyRoleTypes.setVisible(false);
-            this.groupPanel1.setVisible(false);
+//            this.roleTableScrollPanel.setVisible(false);
+//            this.tablePartyRole.setVisible(false);
+//            this.jToolBar1.setVisible(false);
+//            this.cbxPartyRoleTypes.setVisible(false);
+//            this.groupPanel1.setVisible(false);
             
         } else {
             if (partyBean.getTypeCode() != null
