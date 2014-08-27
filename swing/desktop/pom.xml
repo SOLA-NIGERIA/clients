@@ -101,6 +101,12 @@
             <version>1408a</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.sola.services.boundary</groupId>
+            <artifactId>sola-web-service-clients</artifactId>
+            <version>1408a</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <profiles>
         <profile>
