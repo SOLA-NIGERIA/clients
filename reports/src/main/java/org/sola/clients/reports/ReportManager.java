@@ -599,6 +599,7 @@ public class ReportManager {
         HashMap inputParameters = new HashMap();
         String featureFloatFront ="images/sola/front_float.svg";
         String featureFloatBack = "images/sola/back_float.svg";
+        String featureNorthArrow = "images/sola/UN-north-arrow.png";
         String small = "";
         String map = "";
          
@@ -678,6 +679,23 @@ public class ReportManager {
             featureFront =getSvg("featureFront");
             featureBack = getSvg("featureBack");
        
+            
+        if (prefix.contains("Jigawa")) {
+            featureFloatFront ="images/sola/front_float_"+prefix+".svg";
+            featureFloatBack = "images/sola/back_float_"+prefix+".svg";
+            featureFront ="images/sola/front_"+prefix+".svg";
+            featureBack = "images/sola/back_"+prefix+".svg";
+            featureNorthArrow ="/images/sola/UN-north-arrow_"+prefix+".png";
+       
+            inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
+            inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
+            inputParameters.put("SHEET_NR", sheetNr);
+            inputParameters.put("SURVEYOR", surveyor);
+            inputParameters.put("RANK", rank);
+            inputParameters.put("UN_NORTH_ARROW", ReportManager.class.getResourceAsStream(featureNorthArrow));
+        }
+                    
+            
         if (prefix.contains("Kogi")) {
             String page1="images/sola/Page1.svg";
             String page2="images/sola/Page2.svg";
@@ -967,7 +985,10 @@ public class ReportManager {
 
         inputParameters.put("CURRENT_DATE", currentdate);
 
-        inputParameters.put("STATE", "Ondo");
+        
+        
+        inputParameters.put("STATE", prefix);
+
         inputParameters.put("LGA", "");
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("MINISTRY_LOGO", ReportManager.class.getResourceAsStream(logoImage));
@@ -1096,7 +1117,8 @@ public class ReportManager {
         inputParameters.put("CURRENT_DATE", currentdate);
 
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
-        inputParameters.put("STATE", "Ondo");
+        
+        inputParameters.put("STATE", prefix);
         inputParameters.put("LGA", "");
         inputParameters.put("FROMDATE", dateFrom);
         inputParameters.put("TODATE", dateTo);

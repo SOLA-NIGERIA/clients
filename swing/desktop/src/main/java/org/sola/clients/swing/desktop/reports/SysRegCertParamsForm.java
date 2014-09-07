@@ -79,6 +79,8 @@ import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.administrative.BaUnitTO;
 import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
 
+
+
 /**
  *
  * @author RizzoM
@@ -99,6 +101,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     private String whichFile;
     private Integer rowVersion=0;
     private ReportViewerForm form;
+    private String prefix;
     
 
     /**
@@ -285,6 +288,8 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     }
     
     private void generateReport() throws InitializeLayerException {
+        
+      
        if (this.location==null) { 
         if (  cadastreObjectSearch.getSelectedElement() != null) {
             this.location = cadastreObjectSearch.getSelectedElement().toString();
@@ -306,16 +311,34 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             sysRegCertificatesListBean.passParameter(tmpLocation);
         }
         
+        String prefix = getPrefix();
         String baUnitId = null;
         String nrTmp = null;
         String appId = null;
         Integer prevCofO = 0;
         int i = 0;
+        
+                int imageWidth   = 520;
+                int imageHeight  = 300;
+                int sketchWidth  = 200;
+                int sketchHeight = 200;
+                
         try {
 //            MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(490, 429, 150, 40);
 //            MapImageGeneratorForSelectedParcel mapImageSmall = new MapImageGeneratorForSelectedParcel(225, 225, 150, 40);
-              MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(520, 300,200,200,false, 0, 0);
+  
 
+            if (prefix.contains("Jigawa")){ 
+                // A3 side by side according to SURCON sample
+                imageWidth   = 200;
+                imageHeight  = 300;
+                sketchWidth  = 200;
+                sketchHeight = 300;   
+            }
+
+                           
+            MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(imageWidth, imageHeight,sketchWidth,sketchHeight,false, 0, 0);
+            
             List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
             JasperPrint CofO = null;
             JasperPrint ParcelPlan = null;
@@ -453,4 +476,10 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     private org.sola.clients.beans.systematicregistration.SysRegCertificatesBean sysRegCertificatesBean;
     private org.sola.clients.beans.systematicregistration.SysRegCertificatesListBean sysRegCertificatesListBean;
     // End of variables declaration//GEN-END:variables
+
+    private String getPrefix() {
+                prefix = WSManager.getInstance().getInstance().getAdminService().getSetting(
+                "state", "");
+                return prefix;
+    }
 }
