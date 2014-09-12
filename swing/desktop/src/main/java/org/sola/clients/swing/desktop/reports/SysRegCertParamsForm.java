@@ -88,7 +88,7 @@ import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
 public class SysRegCertParamsForm extends javax.swing.JDialog {
     
     private String location;
-    private String title = "SLTR Document(s) for Section ";
+    private String title = "SLTR Document(s) for Work Unit ";
     private String nr;
     private String tmpLocation = "";
     private static String cachePath = System.getProperty("user.home") + "/sola/cache/documents/";
@@ -224,13 +224,11 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         cadastreObjectBean = new org.sola.clients.beans.cadastre.CadastreObjectBean();
         sysRegCertificatesBean = new org.sola.clients.beans.systematicregistration.SysRegCertificatesBean();
         sysRegCertificatesListBean = new org.sola.clients.beans.systematicregistration.SysRegCertificatesListBean();
-        cadastreObjectSearch = new org.sola.clients.swing.ui.cadastre.LocationSearch();
         btnGenCertificate = new javax.swing.JButton();
         labHeader = new javax.swing.JLabel();
+        cadastreObjectSearch = new org.sola.clients.swing.ui.cadastre.WorkUnitSearch();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/reports/Bundle"); // NOI18N
-        cadastreObjectSearch.setText(bundle.getString("SysRegListingParamsForm.cadastreObjectSearch.text")); // NOI18N
-
         btnGenCertificate.setText(bundle.getString("SysRegCertParamsForm.btnGenCertificate.text")); // NOI18N
         btnGenCertificate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,6 +242,8 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         labHeader.setText(bundle.getString("SysRegCertParamsForm.labHeader.text")); // NOI18N
         labHeader.setOpaque(true);
 
+        cadastreObjectSearch.setText(bundle.getString("SysRegCertParamsForm.cadastreObjectSearch.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -251,8 +251,8 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE))
+                    .addComponent(labHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                    .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGenCertificate)
                 .addContainerGap())
@@ -264,8 +264,8 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 .addComponent(labHeader)
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGenCertificate))
+                    .addComponent(btnGenCertificate)
+                    .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(203, Short.MAX_VALUE))
         );
 
@@ -471,7 +471,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGenCertificate;
     private org.sola.clients.beans.cadastre.CadastreObjectBean cadastreObjectBean;
-    private org.sola.clients.swing.ui.cadastre.LocationSearch cadastreObjectSearch;
+    private org.sola.clients.swing.ui.cadastre.WorkUnitSearch cadastreObjectSearch;
     private javax.swing.JLabel labHeader;
     private org.sola.clients.beans.systematicregistration.SysRegCertificatesBean sysRegCertificatesBean;
     private org.sola.clients.beans.systematicregistration.SysRegCertificatesListBean sysRegCertificatesListBean;
