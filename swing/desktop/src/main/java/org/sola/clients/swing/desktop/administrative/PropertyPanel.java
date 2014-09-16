@@ -108,9 +108,9 @@ public class PropertyPanel extends ContentPanel {
     private PropertyChangeListener newPropertyWizardListener;
     public BaUnitBean whichBaUnitSelected;
     private boolean isBtnNext = false;
-    private Integer term = 0;
-//    int srId= 32631;
-
+//    TERM ALL OVER NIGERIA = 99
+//    private Integer term = 0;
+    private Integer term = 99;
             
 
     /**
@@ -147,6 +147,8 @@ public class PropertyPanel extends ContentPanel {
     }
 
     private void getTerm() {
+        //    TERM ALL OVER NIGERIA = 99
+//        Integer term=0;
         Integer term=0;
         String textTerm;
         if (applicationService.getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){    
@@ -154,15 +156,15 @@ public class PropertyPanel extends ContentPanel {
             this.landUse = this.baUnitBean1.getLandUseType().getCode();
             String nationality = this.applicationBean.getContactPerson().getNationality().toString();
 
-            if (landUse.startsWith("res")&& nationality.contains("Nigeria")) {
-                term=99;
-            } 
-            else if (landUse.startsWith("bus")&& nationality.contains("Nigeria")) {
-                term = 40;
-            }
-            else  {
+//            if (landUse.startsWith("res")&& nationality.contains("Nigeria")) {
+//                term=99;
+//            } 
+//            else if (landUse.startsWith("bus")&& nationality.contains("Nigeria")) {
+//                term = 40;
+//            }
+//            else  {
                 term = this.term;
-            }
+//            }
 
             if (this.landUse != null && term != null ) {
                         textTerm =term.toString();
