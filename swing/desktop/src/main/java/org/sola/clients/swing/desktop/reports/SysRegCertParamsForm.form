@@ -30,8 +30,8 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="cadastreObjectSearch" max="32767" attributes="0"/>
                   <Component id="labHeader" pref="394" max="32767" attributes="0"/>
+                  <Component id="cadastreObjectSearch" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnGenCertificate" min="-2" max="-2" attributes="0"/>
@@ -46,8 +46,8 @@
               <Component id="labHeader" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="cadastreObjectSearch" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnGenCertificate" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cadastreObjectSearch" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="203" max="32767" attributes="0"/>
           </Group>
@@ -55,13 +55,6 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="org.sola.clients.swing.ui.cadastre.LocationSearch" name="cadastreObjectSearch">
-      <Properties>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/sola/clients/swing/desktop/reports/Bundle.properties" key="SysRegListingParamsForm.cadastreObjectSearch.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="btnGenCertificate">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
@@ -93,6 +86,13 @@
           <ResourceString bundle="org/sola/clients/swing/desktop/reports/Bundle.properties" key="SysRegCertParamsForm.labHeader.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </AccessibilityProperties>
+    </Component>
+    <Component class="org.sola.clients.swing.ui.cadastre.LocationSearch" name="cadastreObjectSearch">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/sola/clients/swing/desktop/reports/Bundle.properties" key="SysRegCertParamsForm.cadastreObjectSearch.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

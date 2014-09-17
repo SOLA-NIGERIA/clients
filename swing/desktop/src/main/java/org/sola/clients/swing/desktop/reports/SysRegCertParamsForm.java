@@ -79,6 +79,8 @@ import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.administrative.BaUnitTO;
 import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
 
+
+
 /**
  *
  * @author RizzoM
@@ -99,6 +101,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     private String whichFile;
     private Integer rowVersion=0;
     private ReportViewerForm form;
+    private String prefix;
     
 
     /**
@@ -221,13 +224,11 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         cadastreObjectBean = new org.sola.clients.beans.cadastre.CadastreObjectBean();
         sysRegCertificatesBean = new org.sola.clients.beans.systematicregistration.SysRegCertificatesBean();
         sysRegCertificatesListBean = new org.sola.clients.beans.systematicregistration.SysRegCertificatesListBean();
-        cadastreObjectSearch = new org.sola.clients.swing.ui.cadastre.LocationSearch();
         btnGenCertificate = new javax.swing.JButton();
         labHeader = new javax.swing.JLabel();
+        cadastreObjectSearch = new org.sola.clients.swing.ui.cadastre.LocationSearch();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/reports/Bundle"); // NOI18N
-        cadastreObjectSearch.setText(bundle.getString("SysRegListingParamsForm.cadastreObjectSearch.text")); // NOI18N
-
         btnGenCertificate.setText(bundle.getString("SysRegCertParamsForm.btnGenCertificate.text")); // NOI18N
         btnGenCertificate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,6 +242,8 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         labHeader.setText(bundle.getString("SysRegCertParamsForm.labHeader.text")); // NOI18N
         labHeader.setOpaque(true);
 
+        cadastreObjectSearch.setText(bundle.getString("SysRegCertParamsForm.cadastreObjectSearch.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -248,8 +251,8 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE))
+                    .addComponent(labHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                    .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGenCertificate)
                 .addContainerGap())
@@ -261,8 +264,8 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 .addComponent(labHeader)
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGenCertificate))
+                    .addComponent(btnGenCertificate)
+                    .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(203, Short.MAX_VALUE))
         );
 
@@ -285,6 +288,8 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     }
     
     private void generateReport() throws InitializeLayerException {
+        
+      
        if (this.location==null) { 
         if (  cadastreObjectSearch.getSelectedElement() != null) {
             this.location = cadastreObjectSearch.getSelectedElement().toString();
@@ -306,16 +311,34 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             sysRegCertificatesListBean.passParameter(tmpLocation);
         }
         
+        String prefix = getPrefix();
         String baUnitId = null;
         String nrTmp = null;
         String appId = null;
         Integer prevCofO = 0;
         int i = 0;
+        
+                int imageWidth   = 520;
+                int imageHeight  = 300;
+                int sketchWidth  = 200;
+                int sketchHeight = 200;
+                
         try {
 //            MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(490, 429, 150, 40);
 //            MapImageGeneratorForSelectedParcel mapImageSmall = new MapImageGeneratorForSelectedParcel(225, 225, 150, 40);
-              MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(520, 300,200,200,false, 0, 0);
+  
 
+            if (prefix.contains("Jigawa")){ 
+                // A3 side by side according to SURCON sample
+                imageWidth   = 200;
+                imageHeight  = 300;
+                sketchWidth  = 200;
+                sketchHeight = 300;   
+            }
+
+                           
+            MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(imageWidth, imageHeight,sketchWidth,sketchHeight,false, 0, 0);
+            
             List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
             JasperPrint CofO = null;
             JasperPrint ParcelPlan = null;
@@ -347,12 +370,12 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                     showReport(ParcelPlan, parcelLabel, this.whichReport);
                     jprintlist.add(ParcelPlan);
                 } else if (this.whichReport.contains("title")){  
-                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureFront, featureBack);
+                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
                     showReport(CofO, parcelLabel, this.whichReport);
                     jprintlist.add(CofO);
                 }
                 else {  
-                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureFront, featureBack);
+                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
                     showReport(CofO, parcelLabel, "title");
                     ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
                     showReport(ParcelPlan, parcelLabel,"parcelPlan");
@@ -453,4 +476,10 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     private org.sola.clients.beans.systematicregistration.SysRegCertificatesBean sysRegCertificatesBean;
     private org.sola.clients.beans.systematicregistration.SysRegCertificatesListBean sysRegCertificatesListBean;
     // End of variables declaration//GEN-END:variables
+
+    private String getPrefix() {
+                prefix = WSManager.getInstance().getInstance().getAdminService().getSetting(
+                "state", "");
+                return prefix;
+    }
 }
