@@ -4,19 +4,55 @@
  */
 package org.sola.clients.swing.bulkoperations;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+
 /**
  * Splash form.
  * 
  * @author Elton Manoku
  */
 public class SplashForm extends javax.swing.JWindow {
+    private ImageIcon imageSplash;
+    private String prefix = null;
 
     /**
      * Creates new form SplashForm
      */
     public SplashForm() {
+        BufferedReader in = null;
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("config/wsconfig"); // NOI18N
+        String url = bundle.getString("SOLA_STATE_SERVLET_SERVICE_URL.text");
+        try {
+            URL oracle = new URL(url);
+            in = new BufferedReader(
+                    new InputStreamReader(oracle.openStream()));
+
+            prefix = in.readLine();
+            System.out.println(prefix);
+
+            in.close();
+        } catch (IOException ex) {
+            Logger.getLogger(SplashForm.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                in.close();
+            } catch (IOException ex) {
+                Logger.getLogger(SplashForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         initComponents();
+        imageSplash = new ImageIcon(SplashForm.class.getResource(
+                "/images/sola/" + prefix + "splash_bulk_a.png"));
+        lblSplash.setIcon(imageSplash);
+
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form. WARNING: Do NOT
@@ -26,24 +62,24 @@ public class SplashForm extends javax.swing.JWindow {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblSplash = new javax.swing.JLabel();
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sola/splash_bulk_a.png"))); // NOI18N
+        lblSplash.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sola/splash_bulk_a.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblSplash, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblSplash, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblSplash;
     // End of variables declaration//GEN-END:variables
 }

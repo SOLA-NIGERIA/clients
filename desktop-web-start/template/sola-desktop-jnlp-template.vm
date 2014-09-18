@@ -45,7 +45,7 @@
     <property name="SOLA_WS_ADMINISTRATIVE_SERVICE_URL" value="$$context/webservices/administrative-service?wsdl"/>
     <property name="SOLA_WS_FILE_STREAMING_SERVICE_URL" value="$$context/webservices/filestreaming-service?wsdl"/>
     <property name="SOLA_WS_BULK_OPERATIONS_SERVICE_URL" value="$$context/webservices/bulkoperations-service?wsdl"/>
-
+    <property name="SOLA_STATE_SERVLET_SERVICE_URL.text" value="$$context/webservices/StateServlet"/>
      $dependencies
   </resources>
   <application-desc main-class="$mainClass"/>

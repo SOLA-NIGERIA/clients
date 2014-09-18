@@ -22,7 +22,14 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
+    <repositories>
+        <repository>
+            <id>sourceforge</id>
+            <name>Sourceforge Repository</name>
+            <url>http://logicaldoc.sourceforge.net/maven/</url>
+        </repository>
+      
+    </repositories>
     <pluginRepositories>
         <pluginRepository>
             <id>onejar-maven-plugin.googlecode.com</id>
@@ -81,6 +88,11 @@
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
             <version>0.9.8</version>
+        </dependency>
+		<dependency>
+            <groupId>org.kabeja</groupId>
+            <artifactId>kabeja</artifactId>
+            <version>0.4</version>            
         </dependency>
     </dependencies>
     <profiles>
