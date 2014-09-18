@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO" whenResourceMissingType="Empty">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO" whenResourceMissingType="Empty" uuid="43949fdd-09eb-43db-8a03-f9ad86f3f7e1">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="5"/>
+	<property name="ireport.y" value="676"/>
 	<style name="table 1">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -161,7 +161,7 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<subDataset name="dataset1">
+	<subDataset name="dataset1" uuid="9969e2a0-f64c-4c24-bf77-7a1cea859a50">
 		<parameter name="AREA" class="java.lang.Object">
 			<parameterDescription><![CDATA[]]></parameterDescription>
 			<defaultValueExpression><![CDATA[$P{AREA}.toString()]]></defaultValueExpression>
@@ -185,7 +185,7 @@
 			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
 		</field>
 	</subDataset>
-	<subDataset name="Rights">
+	<subDataset name="Rights" uuid="27137a7f-4370-4bf2-9208-ee62a07b9a54">
 		<field name="rrrType" class="java.lang.String">
 			<fieldDescription><![CDATA[rrrType.displayValue]]></fieldDescription>
 		</field>
@@ -196,7 +196,7 @@
 			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
 		</field>
 	</subDataset>
-	<subDataset name="Ownership">
+	<subDataset name="Ownership" uuid="e47bb89f-88c0-4c1b-95b5-df3af4bc6802">
 		<field name="Owners" class="java.lang.String">
 			<fieldDescription><![CDATA[rrrShare.rightHoldersStringList]]></fieldDescription>
 		</field>
@@ -207,7 +207,7 @@
 			<fieldDescription><![CDATA[status]]></fieldDescription>
 		</field>
 	</subDataset>
-	<subDataset name="Notations">
+	<subDataset name="Notations" uuid="97dba7c8-037f-4481-9c67-f7e2b7bb31d5">
 		<field name="Ref. Number" class="java.lang.String">
 			<fieldDescription><![CDATA[referenceNr]]></fieldDescription>
 		</field>
@@ -218,7 +218,7 @@
 			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
 		</field>
 	</subDataset>
-	<subDataset name="Table Dataset 1"/>
+	<subDataset name="Table Dataset 1" uuid="26e967b8-a0e7-49e9-9488-20728a5798df"/>
 	<parameter name="CLIENT_NAME" class="java.lang.String"/>
 	<parameter name="ADDRESS" class="java.lang.String"/>
 	<parameter name="LODGING_DATE" class="java.util.Date"/>
@@ -284,11 +284,11 @@
 	<detail>
 		<band height="842" splitType="Stretch">
 			<image hAlign="Center" vAlign="Middle">
-				<reportElement x="0" y="0" width="595" height="842"/>
+				<reportElement uuid="96c5284c-1ec9-4309-b436-3f6f32827abf" x="0" y="0" width="595" height="842"/>
 				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation($P{FRONT_IMAGE})]]></imageExpression>
 			</image>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Opaque" x="150" y="162" width="295" height="22" backcolor="#FFFFFF"/>
+				<reportElement uuid="cd427b45-8331-4e80-8ed6-02c293b85e88" mode="Opaque" x="150" y="162" width="295" height="22" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -296,7 +296,7 @@
 				<textFieldExpression><![CDATA[$P{STATE}+" State"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="39" y="273" width="533" height="284"/>
+				<reportElement uuid="3dec71ad-f5be-4a9d-b41f-6ac75a725673" positionType="Float" x="39" y="273" width="533" height="284"/>
 				<textElement>
 					<font fontName="Myriad Pro" size="11"/>
 					<paragraph lineSpacing="Single"/>
@@ -320,7 +320,7 @@ Given under my hand on:
 ]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Transparent" x="218" y="395" width="200" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="7254e110-64b0-4665-aad3-da780df3cc42" positionType="Float" mode="Transparent" x="218" y="395" width="200" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -328,14 +328,14 @@ Given under my hand on:
 				<textFieldExpression><![CDATA[$P{LAND_USE}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement mode="Transparent" x="47" y="246" width="501" height="20"/>
+				<reportElement uuid="fe7fd9a9-2bf0-4e4e-9b45-2d355c66431d" mode="Transparent" x="47" y="246" width="501" height="20"/>
 				<textElement textAlignment="Center">
 					<font fontName="Myriad Pro" size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{CLIENT_NAME}.replaceAll(",", "\n ")]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Transparent" x="169" y="302" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="2dba59ff-d5aa-411b-8a99-e08c359507c2" positionType="Float" mode="Transparent" x="169" y="302" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -343,7 +343,7 @@ Given under my hand on:
 				<textFieldExpression><![CDATA[$P{TERM}+" years"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement mode="Transparent" x="295" y="57" width="268" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="c5eac338-7086-43bf-ab6c-9aae9fe996d5" mode="Transparent" x="275" y="57" width="268" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -351,7 +351,7 @@ Given under my hand on:
 				<textFieldExpression><![CDATA[$P{REFNR}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Transparent" x="218" y="416" width="214" height="20" forecolor="#000000" backcolor="#FFFFFF">
+				<reportElement uuid="26bf23c7-ebe7-4a58-82d7-04a0f6e42148" positionType="Float" mode="Transparent" x="218" y="416" width="214" height="20" forecolor="#000000" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[!$P{GROUND_RENT}.equals( "0" )]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
@@ -361,21 +361,21 @@ Given under my hand on:
 				<textFieldExpression><![CDATA[$P{GROUND_RENT}+" "+$R{currency}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" isPrintRepeatedValues="false" x="169" y="343" width="320" height="20" forecolor="#000000"/>
+				<reportElement uuid="0af1b685-597a-4fa5-a306-26338d1ac73c" positionType="Float" isPrintRepeatedValues="false" x="169" y="343" width="320" height="20" forecolor="#000000"/>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
 					<font fontName="Myriad Pro" size="11" isBold="true" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ADDRESS}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd MMMMM yyyy">
-				<reportElement positionType="Float" x="169" y="320" width="100" height="20" forecolor="#000000"/>
+				<reportElement uuid="eb89f512-ef75-4039-a2d0-8c3c5e2acb6d" positionType="Float" x="169" y="320" width="100" height="20" forecolor="#000000"/>
 				<textElement verticalAlignment="Bottom">
 					<font fontName="Myriad Pro" size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="39" y="230" width="200" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="c23df862-085b-4600-b386-a3ed9620c2ed" mode="Transparent" x="39" y="230" width="200" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single" leftIndent="5"/>
@@ -383,12 +383,12 @@ Given under my hand on:
 				<textFieldExpression><![CDATA["This is to certify that:"]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="418" y="537" width="120" height="1"/>
+				<reportElement uuid="e5309074-c7be-45bc-b383-92919b54e67c" x="418" y="537" width="120" height="1"/>
 			</line>
 			<frame>
-				<reportElement positionType="Float" x="39" y="590" width="551" height="116"/>
+				<reportElement uuid="468fc5be-4f55-4c21-918d-d41a76187419" positionType="Float" x="39" y="590" width="551" height="116"/>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement positionType="Float" mode="Transparent" x="0" y="17" width="200" height="20" backcolor="#FFFFFF"/>
+					<reportElement uuid="49105639-e4af-4785-bfdd-8fbec0f8a315" positionType="Float" mode="Transparent" x="0" y="17" width="200" height="20" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -396,7 +396,7 @@ Given under my hand on:
 					<textFieldExpression><![CDATA["All that piece of land situated in the"]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement positionType="Float" mode="Transparent" x="0" y="41" width="130" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="3f2b140e-90b9-477f-b3b7-f2747c3c9ae0" positionType="Float" mode="Transparent" x="0" y="41" width="130" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -404,7 +404,7 @@ Given under my hand on:
 					<textFieldExpression><![CDATA["Local Government Area: "]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement mode="Transparent" x="125" y="41" width="121" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="d1913894-73f1-48a2-9a0a-f130422a3e7f" mode="Transparent" x="125" y="41" width="121" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Myriad Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -412,7 +412,7 @@ Given under my hand on:
 					<textFieldExpression><![CDATA[$P{LGA}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement positionType="Float" mode="Transparent" x="0" y="62" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="01614419-029c-486c-ae6b-c5f76f66ab11" positionType="Float" mode="Transparent" x="0" y="62" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -420,7 +420,7 @@ Given under my hand on:
 					<textFieldExpression><![CDATA["State: "]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement mode="Transparent" x="100" y="63" width="151" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="c8fd0163-2db0-425d-95c6-4e8047a01608" mode="Transparent" x="100" y="63" width="151" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Myriad Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -428,7 +428,7 @@ Given under my hand on:
 					<textFieldExpression><![CDATA[$P{STATE}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement positionType="Float" mode="Transparent" x="0" y="81" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="4de46dd6-0a52-4ca0-9506-1db89933191a" positionType="Float" mode="Transparent" x="0" y="81" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -436,7 +436,7 @@ Given under my hand on:
 					<textFieldExpression><![CDATA["Parcel Number: "]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement positionType="Float" mode="Transparent" x="265" y="64" width="65" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="805ccd94-ee66-466e-b6b0-c3805c042a9e" positionType="Float" mode="Transparent" x="265" y="64" width="65" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -444,7 +444,7 @@ Given under my hand on:
 					<textFieldExpression><![CDATA["Location: "]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement positionType="Float" mode="Transparent" x="265" y="42" width="185" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="5af10fb4-88da-43aa-a1aa-b822357845a7" positionType="Float" mode="Transparent" x="265" y="42" width="185" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -452,7 +452,7 @@ Given under my hand on:
 					<textFieldExpression><![CDATA["Approximate Area (in square metres): "]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement positionType="Float" mode="Transparent" x="266" y="85" width="267" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="c0425db4-2069-4b70-956f-757c5ebd9d63" positionType="Float" mode="Transparent" x="266" y="85" width="267" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -460,7 +460,7 @@ Given under my hand on:
 					<textFieldExpression><![CDATA["as more particularly shown on attached Plan"]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement positionType="Float" mode="Transparent" x="100" y="84" width="156" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="13bf5b4e-5675-4809-b079-d2b16aea0471" positionType="Float" mode="Transparent" x="100" y="84" width="156" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Myriad Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -468,7 +468,7 @@ Given under my hand on:
 					<textFieldExpression><![CDATA[$F{nameLastpart}+"/"+ $F{nameFirstpart}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement positionType="Float" mode="Transparent" x="450" y="43" width="101" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="496610e3-0679-4283-b2d3-de3885d081e9" positionType="Float" mode="Transparent" x="450" y="43" width="101" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Myriad Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
 						<paragraph lineSpacing="Single"/>
@@ -476,7 +476,7 @@ Given under my hand on:
 					<textFieldExpression><![CDATA[$P{SIZE}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="true">
-					<reportElement positionType="Float" mode="Transparent" x="330" y="66" width="220" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="c0d4aa03-99bd-474d-b83f-3ff3ca1c96fb" positionType="Float" mode="Transparent" x="330" y="66" width="220" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Myriad Pro" size="10" isBold="true" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -484,7 +484,7 @@ Given under my hand on:
 					<textFieldExpression><![CDATA[$P{PROP_LOCATION}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement positionType="Float" x="180" y="1" width="107" height="16"/>
+					<reportElement uuid="7c5fb97b-c4d4-45c9-8979-9a11b694e4aa" positionType="Float" x="180" y="1" width="107" height="16"/>
 					<textElement>
 						<font fontName="Myriad Pro" size="10" isBold="true"/>
 					</textElement>
@@ -492,7 +492,7 @@ Given under my hand on:
 				</textField>
 			</frame>
 			<staticText>
-				<reportElement x="448" y="539" width="54" height="20"/>
+				<reportElement uuid="6565f25b-76dc-41c5-abdb-e710ec1d5b48" x="448" y="539" width="54" height="20"/>
 				<textElement>
 					<font fontName="Myriad Pro" size="11"/>
 				</textElement>
@@ -501,11 +501,11 @@ Given under my hand on:
 		</band>
 		<band height="842">
 			<image scaleImage="RetainShape" hAlign="Center" vAlign="Top">
-				<reportElement x="0" y="0" width="595" height="842"/>
+				<reportElement uuid="f05afff3-ba91-49fa-9df9-62ae961d4666" x="0" y="0" width="595" height="842"/>
 				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation($P{BACK_IMAGE})]]></imageExpression>
 			</image>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="201" y="78" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="795e5fa7-d00a-456a-905f-48b1d091ede0" mode="Transparent" x="201" y="78" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -513,7 +513,7 @@ Given under my hand on:
 				<textFieldExpression><![CDATA["SECOND SCHEDULE - "]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="299" y="78" width="106" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="e64d3202-fdfd-4f38-85c5-feed7ed6d0a6" mode="Transparent" x="299" y="78" width="106" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single" leftIndent="3"/>
@@ -521,7 +521,7 @@ Given under my hand on:
 				<textFieldExpression><![CDATA["OTHER INTERESTS"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="375" y="54" width="188" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="2ebc6b74-05ea-41a6-888f-4c7db8316ad0" mode="Transparent" x="344" y="54" width="188" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -529,7 +529,7 @@ Given under my hand on:
 				<textFieldExpression><![CDATA[$P{REFNR}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" mode="Opaque" x="52" y="171" width="491" height="273"/>
+				<reportElement uuid="3a90379c-9bdb-44f3-8ee5-c9bbb82b7f90" positionType="Float" mode="Opaque" x="52" y="171" width="491" height="273"/>
 				<textElement textAlignment="Left">
 					<font fontName="Myriad Pro" size="11"/>
 				</textElement>
@@ -558,15 +558,15 @@ Given under my hand on:
 "       Government."]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement key="table" style="table" stretchType="RelativeToBandHeight" x="57" y="98" width="481" height="78"/>
+				<reportElement uuid="bf9d6061-7e74-427e-a69e-cd4421299ab1" key="table" style="table" stretchType="RelativeToBandHeight" x="57" y="98" width="481" height="78"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Notations">
+					<datasetRun subDataset="Notations" uuid="f32a3061-f700-4481-99b2-8bcf93546f49">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{allBaUnitNotationList}.toArray())]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="479">
+					<jr:column uuid="890f09c1-87ae-47a9-8954-ec6f4f07f611" width="479">
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="479" height="20">
+								<reportElement uuid="0407630b-6eb5-4bc8-9a6a-7d5901ae6f4a" x="0" y="0" width="479" height="20">
 									<printWhenExpression><![CDATA[!$F{Notation Text}.equals( "Certificate of Occupancy issued at the completion of systematic land registration titling" )&&($F{Notation Text}.contains( "Mortage")||$F{Notation Text}.contains( "Lease" )||$F{Notation Text}.contains( "Access" )||$F{Notation Text}.contains( "Water" )||$F{Notation Text}.contains( "Caveat" )||$F{Notation Text}.contains( "Road" )||$F{Notation Text}.contains( "Lien" )||$F{Notation Text}.contains( "Occupation" ))]]></printWhenExpression>
 								</reportElement>
 								<textElement>
@@ -580,7 +580,7 @@ Given under my hand on:
 				</jr:table>
 			</componentElement>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Transparent" x="194" y="151" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="752cb0b4-4d42-4a50-94f0-d7a199f46ce0" positionType="Float" mode="Transparent" x="194" y="151" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -588,7 +588,7 @@ Given under my hand on:
 				<textFieldExpression><![CDATA["THIRD SCHEDULE - "]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Transparent" x="239" y="446" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="4925a1e5-b7ce-49be-97be-6088c927df58" positionType="Float" mode="Transparent" x="239" y="446" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -596,7 +596,7 @@ Given under my hand on:
 				<textFieldExpression><![CDATA["REGISTRATION"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Transparent" x="294" y="152" width="106" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="97e9b18c-686e-4970-9070-618358526105" positionType="Float" mode="Transparent" x="294" y="152" width="106" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single" leftIndent="3"/>
@@ -604,7 +604,7 @@ Given under my hand on:
 				<textFieldExpression><![CDATA["STATUTORY CONDITIONS"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Opaque" x="53" y="467" width="490" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="a1dbf2dc-d4ae-49c9-aac0-1fa1e83ff16c" positionType="Float" mode="Opaque" x="53" y="467" width="490" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -612,7 +612,7 @@ Given under my hand on:
 				<textFieldExpression><![CDATA["This instrument was delivered for registration by the Examiner of Deeds on:"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Opaque" x="54" y="484" width="490" height="34" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="61b34cbe-1e27-4fff-8e32-8310ab833efb" positionType="Float" mode="Opaque" x="54" y="484" width="490" height="34" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -622,7 +622,7 @@ Given under my hand on:
 "Date:"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Opaque" x="53" y="520" width="490" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="3ce58ea4-442f-46ce-b057-514dde85d5b8" positionType="Float" mode="Opaque" x="53" y="520" width="490" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -630,7 +630,7 @@ Given under my hand on:
 				<textFieldExpression><![CDATA["This instrument is registered as"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Opaque" x="52" y="535" width="490" height="35" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="3a96e2d4-ba6a-4838-bceb-aeeffbaa05a5" positionType="Float" mode="Opaque" x="52" y="535" width="490" height="35" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -640,7 +640,7 @@ Given under my hand on:
 "Volume:                                                           Folio/Page:"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Opaque" x="53" y="571" width="490" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="b71aa9b6-dbd5-46b6-8249-33dfabf0f2a7" positionType="Float" mode="Opaque" x="53" y="571" width="490" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -648,7 +648,7 @@ Given under my hand on:
 				<textFieldExpression><![CDATA["(Certificate of Occupancy) at the Deeds Registry on:"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Opaque" x="53" y="587" width="309" height="34" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="86257bc5-aded-4c71-a4d1-7585d2f04344" positionType="Float" mode="Opaque" x="53" y="587" width="309" height="34" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -658,7 +658,7 @@ Given under my hand on:
 "Date:"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Transparent" x="418" y="621" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="16964b47-ba0c-49c6-b293-8fe4a7f9b5da" positionType="Float" mode="Transparent" x="418" y="621" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Adobe Caslon Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -666,18 +666,18 @@ Given under my hand on:
 				<textFieldExpression><![CDATA["Deeds Registrar"]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="385" y="620" width="157" height="1"/>
+				<reportElement uuid="891beb89-4dc3-4e2b-98c9-ed0e0f190856" x="385" y="620" width="157" height="1"/>
 			</line>
 			<componentElement>
-				<reportElement key="table 6" style="table 6" positionType="Float" x="39" y="636" width="533" height="167"/>
+				<reportElement uuid="78a09a45-e41b-4132-a6d3-c3a97a3a491d" key="table 6" style="table 6" positionType="Float" x="39" y="636" width="533" height="167"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Table Dataset 1">
+					<datasetRun subDataset="Table Dataset 1" uuid="fcd897b7-79fb-4a70-a00a-75a7d6773c10">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource(1)]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="118">
+					<jr:column uuid="ade9266b-0775-4d4f-9962-69f86e9a8afb" width="118">
 						<jr:detailCell style="table 6_TD" height="161" rowSpan="1">
 							<textField>
-								<reportElement mode="Transparent" x="0" y="0" width="118" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+								<reportElement uuid="75357ea4-f5f9-406c-967b-fa67d0182862" mode="Transparent" x="0" y="0" width="118" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Center" verticalAlignment="Bottom" rotation="None" markup="none">
 									<font fontName="Myriad Pro" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
@@ -686,10 +686,10 @@ Given under my hand on:
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="82">
+					<jr:column uuid="0f7d8d22-653a-414b-8484-9168d7f9039e" width="82">
 						<jr:detailCell style="table 6_TD" height="161" rowSpan="1">
 							<textField>
-								<reportElement mode="Transparent" x="0" y="0" width="82" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+								<reportElement uuid="eb4941f0-f17d-4f87-b384-b03a390451af" mode="Transparent" x="0" y="0" width="82" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Center" verticalAlignment="Bottom" rotation="None" markup="none">
 									<font fontName="Myriad Pro" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
@@ -698,10 +698,10 @@ Given under my hand on:
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="230">
+					<jr:column uuid="9eb4af5e-fd48-4478-8a60-28dd8009efd7" width="230">
 						<jr:detailCell style="table 6_TD" height="161" rowSpan="1">
 							<textField>
-								<reportElement mode="Transparent" x="0" y="0" width="230" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+								<reportElement uuid="6baf58df-5957-4893-a7f2-f1b46ee5b6c5" mode="Transparent" x="0" y="0" width="230" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Center" verticalAlignment="Bottom" rotation="None" markup="none">
 									<font fontName="Myriad Pro" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
@@ -710,10 +710,10 @@ Given under my hand on:
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="97">
+					<jr:column uuid="ec5d8b91-4b77-4041-9a87-86526e5e6494" width="97">
 						<jr:detailCell style="table 6_TD" height="161" rowSpan="1">
 							<textField>
-								<reportElement mode="Transparent" x="0" y="0" width="97" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+								<reportElement uuid="07c8cd4a-1526-4bb4-930a-bbbb904dc4c9" mode="Transparent" x="0" y="0" width="97" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Center" verticalAlignment="Bottom" rotation="None" markup="none">
 									<font fontName="Myriad Pro" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
