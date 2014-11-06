@@ -36,6 +36,7 @@ import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.application.validation.ApplicationCheck;
 import org.sola.clients.beans.applicationlog.ApplicationLogBean;
 import org.sola.clients.beans.cache.CacheManager;
+import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.controls.SolaObservableList;
 import org.sola.clients.beans.converters.TypeConverters;
@@ -139,7 +140,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
     }
 
     public boolean canResubmit() {
-       return isRequisitioned();
+        return isRequisitioned() || isToBeTransferred();
     }
 
     /**
@@ -168,6 +169,10 @@ public class ApplicationBean extends ApplicationSummaryBean {
 
     public boolean canCancel() {
         return isLodged();
+    }
+    
+    public boolean canTransfer() {
+        return isAssigned() && !isToBeTransferred();
     }
 
     public boolean canWithdraw() {
@@ -201,6 +206,9 @@ public class ApplicationBean extends ApplicationSummaryBean {
         return getAssigneeId() != null;
     }
 
+    public boolean isToBeTransferred(){
+        return StatusConstants.TO_BE_TRANSFERRED.equalsIgnoreCase(getStatusCode());
+    }
     /**
      * Indicates whether editing of application is allowed or not
      */
@@ -810,6 +818,17 @@ public class ApplicationBean extends ApplicationSummaryBean {
     }
 
     /**
+     * Marks an application for transfer
+     */
+    public List<ValidationResultBean> transfer() {
+        List<ValidationResultBean> result = TypeConverters.TransferObjectListToBeanList(
+                WSManager.getInstance().getCaseManagementService().applicationActionTransfer(this.getId(), this.getRowVersion()),
+                ValidationResultBean.class, null);
+        this.reload();
+        return result;
+    }
+
+    /**
      * Despatches application
      */
     public List<ValidationResultBean> despatch() {
@@ -975,9 +994,11 @@ public class ApplicationBean extends ApplicationSummaryBean {
         ApplicationTO app = WSManager.getInstance().getCaseManagementService().getApplication(this.getId());
         TypeConverters.TransferObjectToBean(app, ApplicationBean.class, this);
     }
-    
-    /** Returns {@link ApplicationBean} by the given transaction ID. */
-    public static ApplicationBean getApplicationByTransactionId(String transactionId){
+
+    /**
+     * Returns {@link ApplicationBean} by the given transaction ID.
+     */
+    public static ApplicationBean getApplicationByTransactionId(String transactionId) {
         return TypeConverters.TransferObjectToBean(
                 WSManager.getInstance().getCaseManagementService().getApplicationByTransactionId(transactionId),
                 ApplicationBean.class, null);
