@@ -79,17 +79,8 @@ public class ConsolidationConsolidatePanel extends ContentPanel {
                 try {
                     setMessage(MessageUtility.getLocalizedMessageText(
                             ClientMessage.ADMIN_CONSOLIDATION_CONSOLIDATE_UPLOADING_FILE));
-                    System.out.println("FILE TO UPLOAD  "+fileToUpload);
-                    WSManager wsmanager = WSManager.getInstance();
-                    FileStreamingClient filestremingservice = wsmanager.getFileStreamingService();
-//                    String uploadedFile = WSManager.getInstance().getFileStreamingService().upload(
-//                            fileToUpload);
-                    
-                    System.out.println("FILESTREAMING  "+filestremingservice.toString());
-                    
-                    String uploadedFile = filestremingservice.upload(
+                    String uploadedFile = WSManager.getInstance().getFileStreamingService().upload(
                             fileToUpload);
-                    System.out.println("UPLOADED FILE  "+uploadedFile);
                     WSManager.getInstance().getAdminService().setProcessProgress(
                             PROCESS_NAME, WSManager.getInstance().getAdminService().getProcessProgress(
                             PROCESS_NAME, false) + 10);
