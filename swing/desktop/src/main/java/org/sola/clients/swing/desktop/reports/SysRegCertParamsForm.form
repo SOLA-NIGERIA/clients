@@ -87,7 +87,7 @@
         </Property>
       </AccessibilityProperties>
     </Component>
-    <Component class="org.sola.clients.swing.ui.cadastre.LocationSearch" name="cadastreObjectSearch">
+    <Component class="org.sola.clients.swing.ui.cadastre.WorkUnitSearch" name="cadastreObjectSearch">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/sola/clients/swing/desktop/reports/Bundle.properties" key="SysRegCertParamsForm.cadastreObjectSearch.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
