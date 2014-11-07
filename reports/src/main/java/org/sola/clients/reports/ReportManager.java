@@ -600,6 +600,7 @@ public class ReportManager {
         String featureFloatFront ="images/sola/front_float.svg";
         String featureFloatBack = "images/sola/back_float.svg";
         String featureNorthArrow = "images/sola/UN-north-arrow.png";
+        String sltrPlanFront= "images/sola/slrtPlan_kogi.svg"; //Kogi Plan Image for page 3
         String small = "";
         String map = "";
          
@@ -700,9 +701,18 @@ public class ReportManager {
             String page1="images/sola/Page1.svg";
             String page2="images/sola/Page2.svg";
             String page3="images/sola/Page3.svg";
+            featureNorthArrow ="/images/sola/arrow.png";
             inputParameters.put("PAGE1_IMAGE", page1);
             inputParameters.put("PAGE2_IMAGE", page2);
             inputParameters.put("PAGE3_IMAGE", page3);
+            
+            inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
+            inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
+            inputParameters.put("SHEET_NR", sheetNr);
+            inputParameters.put("SURVEYOR", surveyor);
+            inputParameters.put("RANK", rank);
+            inputParameters.put("UN_NORTH_ARROW", ReportManager.class.getResourceAsStream(featureNorthArrow));
+            inputParameters.put("SLTR_PLAN_IMAGE", sltrPlanFront);
         }
         
         if (prefix.contains("Ondo")) {
@@ -723,7 +733,7 @@ public class ReportManager {
         inputParameters.put("LOCATION", location);
         inputParameters.put("AREA", location);
         inputParameters.put("APP_NR", appNr);
-        inputParameters.put("CLIENT_NAME", owners.toUpperCase());
+        inputParameters.put("CLIENT_NAME", owners);
         inputParameters.put("IMAGERY_DATE", imageryDate);
         inputParameters.put("ADDRESS", address);
         inputParameters.put("LODGING_DATE", lodgingDate);
