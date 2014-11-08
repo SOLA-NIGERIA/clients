@@ -375,6 +375,8 @@ System.out.println("QUI 6");
                 && SecurityBean.isInRole(RolesConstants.APPLICATION_WITHDRAW));
         menuWithdraw.setEnabled(appBean.canWithdraw()
                 && SecurityBean.isInRole(RolesConstants.APPLICATION_WITHDRAW));
+        menuTransfer.setEnabled(appBean.canTransfer()
+                && SecurityBean.isInRole(RolesConstants.APPLICATION_TRANSFER));
         btnPrintStatusReport.setEnabled(appBean.getRowVersion() > 0);
 
         if (btnValidate.isEnabled()) {
@@ -1042,6 +1044,7 @@ System.out.println("QUI 6");
         menuResubmit = new javax.swing.JMenuItem();
         menuDispatch = new javax.swing.JMenuItem();
         menuArchive = new javax.swing.JMenuItem();
+        menuTransfer = new javax.swing.JMenuItem();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         landUseTypeListBean1 = new org.sola.clients.beans.referencedata.LandUseTypeListBean();
         partyListBean1 = createPartyList();
@@ -1355,6 +1358,18 @@ System.out.println("QUI 6");
             }
         });
         popupApplicationActions.add(menuArchive);
+
+        menuTransfer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/transfer.png"))); // NOI18N
+        menuTransfer.setText(bundle.getString("ApplicationPanel.menuTransfer.text")); // NOI18N
+        menuTransfer.setLabel(bundle.getString("ApplicationPanel.menuTransfer.label")); // NOI18N
+        menuTransfer.setName(bundle.getString("ApplicationPanel.menuTransfer.name")); // NOI18N
+        menuTransfer.setOpaque(true);
+        menuTransfer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTransferActionPerformed(evt);
+            }
+        });
+        popupApplicationActions.add(menuTransfer);
 
         jFormattedTextField1.setText(bundle.getString("ApplicationPanel.jFormattedTextField1.text")); // NOI18N
         jFormattedTextField1.setName(bundle.getString("ApplicationPanel.jFormattedTextField1.name")); // NOI18N
@@ -3364,6 +3379,10 @@ System.out.println("QUI 6");
         openSysRegCertParamsForm(appBean.getNr(), "parcelPlan");
     }//GEN-LAST:event_btnPlanActionPerformed
 
+    private void menuTransferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTransferActionPerformed
+         transferApplication();
+    }//GEN-LAST:event_menuTransferActionPerformed
+
     
     private void openAutRepForm(final PartySummaryBean partySummaryBean, final boolean isReadOnly) {
         final AutRepFormListener listener = new AutRepFormListener();
@@ -3504,6 +3523,8 @@ System.out.println("QUI 6");
                                 result = appBean.resubmit();
                             } else if (ApplicationActionTypeBean.APPROVE.equals(actionType)) {
                                 result = appBean.approve();
+                            } else if (ApplicationActionTypeBean.TRANSFER.equals(actionType)) {
+                                result = appBean.transfer();
                             }
 
                             if (displayValidationResultFormInSuccess) {
@@ -3793,6 +3814,10 @@ System.out.println("QUI 6");
     private void archiveApplication() {
         takeActionAgainstApplication(ApplicationActionTypeBean.ARCHIVE);
     }
+    
+    private void transferApplication() {
+        takeActionAgainstApplication(ApplicationActionTypeBean.TRANSFER);
+    }
 
     private void dispatchApplication() {
         takeActionAgainstApplication(ApplicationActionTypeBean.DISPATCH);
@@ -4005,6 +4030,7 @@ System.out.println("QUI 6");
     private javax.swing.JMenuItem menuResubmit;
     private javax.swing.JMenuItem menuRevertService;
     private javax.swing.JMenuItem menuStartService;
+    private javax.swing.JMenuItem menuTransfer;
     private javax.swing.JMenuItem menuViewService;
     private javax.swing.JMenuItem menuWithdraw;
     private org.sola.clients.beans.party.PartyListBean partyListBean1;
