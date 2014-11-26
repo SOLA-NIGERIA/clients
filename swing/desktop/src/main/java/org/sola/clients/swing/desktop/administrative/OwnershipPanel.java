@@ -289,9 +289,10 @@ public class OwnershipPanel extends ContentPanel {
 //             rrrBean.getFilteredRrrShareList().get(0).setRightHolderType(rrrBean.getNotation().getNotationText());
 //             System.out.println("RIGHT HOLDER TYPE  "+rrrBean.getFilteredRrrShareList().get(0).getRightHolderType());
 //             
-             rrrBean.getFilteredRrrShareList().get(0).setRightHolderType(this.txtNotationText.getText());
+         if (appService != null && appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){
+                rrrBean.getFilteredRrrShareList().get(0).setRightHolderType(this.txtNotationText.getText());
              System.out.println("RIGHT HOLDER TYPE  "+rrrBean.getFilteredRrrShareList().get(0).getRightHolderType());
-             
+          }   
              
 //        }
     }
@@ -787,11 +788,11 @@ public class OwnershipPanel extends ContentPanel {
     }
 
     private void addShare() {
-        
-        this.rrrBean.getFilteredRrrShareList().get(0).setRightHolderType("Share");
-        System.out.println("LISTA SHARE   "+rrrBean.getFilteredRrrShareList().get(0).getShare());
-        this.txtNotationText.setText(this.rrrBean.DEFINED_SHARES);
-        
+        if (appService != null && appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){
+            this.rrrBean.getFilteredRrrShareList().get(0).setRightHolderType("Share");
+            System.out.println("LISTA SHARE   "+rrrBean.getFilteredRrrShareList().get(0).getShare());
+            this.txtNotationText.setText(this.rrrBean.DEFINED_SHARES);
+        }
         openShareForm(null, RrrBean.RRR_ACTION.NEW);
     }
     
