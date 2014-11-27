@@ -727,7 +727,11 @@ public class ReportManager {
             inputParameters.put("SURVEYOR", surveyor);
             inputParameters.put("RANK", rank);
         }
-        
+        if(prefix.contains("CrossRiver"))
+        {
+            featureFront ="images/sola/front_"+prefix+".svg";
+            featureBack = "images/sola/back_"+prefix+".svg";
+        }
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("LOCATION", location);
