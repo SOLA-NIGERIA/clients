@@ -966,6 +966,7 @@ System.out.println("QUI 6");
 
                 if ((applicationID == null || applicationID.equals(""))) {
                     if (!appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)
+                        && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_REGISTER_SLTR_COFO)     
                         && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_CADASTRE_CHANGE)
                             && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_MAP_EXISTINGPARCEL)
                             && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_DISPUTE))

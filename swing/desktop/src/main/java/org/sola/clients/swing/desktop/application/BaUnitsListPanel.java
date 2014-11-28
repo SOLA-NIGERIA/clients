@@ -77,16 +77,8 @@ public class BaUnitsListPanel extends ContentPanel {
     private void initComponents() {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        headerPanel = new org.sola.clients.swing.ui.HeaderPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-
-        setCloseOnHide(true);
-        setHeaderPanel(headerPanel);
-
-        headerPanel.setName("headerPanel"); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/application/Bundle"); // NOI18N
-        headerPanel.setTitleText(bundle.getString("BaUnitsListPanel.headerPanel.titleText")); // NOI18N
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
@@ -125,7 +117,6 @@ public class BaUnitsListPanel extends ContentPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
@@ -134,8 +125,7 @@ public class BaUnitsListPanel extends ContentPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -150,7 +140,6 @@ public class BaUnitsListPanel extends ContentPanel {
     }//GEN-LAST:event_jTable1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.sola.clients.swing.ui.HeaderPanel headerPanel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
