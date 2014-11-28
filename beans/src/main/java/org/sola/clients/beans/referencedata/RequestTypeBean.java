@@ -66,7 +66,7 @@ public class RequestTypeBean extends AbstractCodeBean {
     public static final String CODE_DISPUTE = "lodgeObjection";
     public static final String CODE_DISPUTE_VIEW = "DisputeView";
     public static final String CODE_MAP_EXISTINGPARCEL = "mapExistingParcel";
-
+    public static final String CODE_REGISTER_SLTR_COFO = "registerSLTRCofO";
     
     public static final String NR_DAYS_TO_COMPLETE_PROPERTY = "nrDaysToComplete";
     public static final String NR_PROPERTIES_REQUIRED_PROPERTY = "nrPropertiesRequired";
@@ -80,6 +80,9 @@ public class RequestTypeBean extends AbstractCodeBean {
     public static final String BASE_FEE_PROPERTY = "baseFee";
     public static final String AREA_BASE_FEE_PROPERTY = "areaBaseFee";
     public static final String VALUE_BASE_FEE_PROPERTY = "valueBaseFee";
+    
+    
+    
     
     private int nrDaysToComplete;
     private int nrPropertiesRequired;
