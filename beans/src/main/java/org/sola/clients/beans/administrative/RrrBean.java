@@ -113,6 +113,7 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String JOINT = "Joint Claimants";
     
     
+    
     private String baUnitId;
     private String nr;
     @Past(message = ClientMessage.CHECK_REGISTRATION_DATE, payload = Localized.class)
