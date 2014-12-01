@@ -14,10 +14,10 @@
 
     <name>Clients Desktop Web Start</name>
 
-  <properties>
+    <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <solaVersion>Customization Release v1.2</solaVersion>
+        <solaVersion>v1408a</solaVersion>
         <webstart.codesigning.keystore>${basedir}/sola.jks</webstart.codesigning.keystore>
         <webstart.codesigning.alias>sola</webstart.codesigning.alias>
         <webstart.codesigning.storepass>FLOSS2011</webstart.codesigning.storepass>
@@ -34,7 +34,7 @@
         <dependency>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>webstart-jnlp-servlet</artifactId>
-            <version>1.0-beta-3</version>
+            <version>1.0-beta-4</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -66,7 +66,7 @@
                 together for easy deployment. These could be packaged separately if necessary. --> 
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>webstart-maven-plugin</artifactId>
-                <version>1.0-beta-3</version>
+                <version>1.0-beta-4</version>
                 <executions>
                     <execution>
                         <phase>process-resources</phase>
@@ -78,18 +78,40 @@
                 <configuration>
                     <outputDirectoryName>webstart</outputDirectoryName>  
                     <templateDirectory>${project.basedir}/template</templateDirectory>
+                    <updateManifestEntries>
+                        <Permissions>all-permissions</Permissions>
+                        <Codebase>*</Codebase>
+                        <Application-Name>SOLA Nigeria</Application-Name>
+                    </updateManifestEntries>
                     <libPath>lib</libPath>
-                    <!-- pack200 has some bugs that should have been fixed. 
-                    See jira.codehaus.org/browse/MWEBSTART-159 for details.
-                    The jnlp-download-servlet supports both pack200 and gzip, 
-                    however as SOLA targets JRE 7, there is no need to use
-                    the gzip format. -->
-                    <pack200>true</pack200>
+                    <!-- 1 Dec 2014 - The pack200 option was updated in version 1.0-beta-4 of the
+                         webstart-maven-plugin however this update appears to break the pack200
+                         download. The miglayout-3.7-swing JAR fails to download as the pack200
+                         post processing incorrectly renames the jar miglayout-swing-3.7. Some 
+                         JARs also fail to pass jar signing verification with pack200 is enabled.
+                         These bugs also exist in beta-5 and beta-6 of the plugin. Also note
+                         that jnlp.packEnabled should be correctly set on the JNLP files as well.
+                    <pack200>
+                       <enabled>true</enabled>
+                    </pack200-->
                     <jnlpFiles>
                         <jnlpFile>
                             <!-- JNLP file for the SOLA Desktop application -->
                             <outputFilename>sola-desktop.jnlp</outputFilename>
                             <templateFilename>sola-desktop-jnlp-template.vm</templateFilename>
+                            <jarResources>
+                                <jarResource>
+                                    <groupId>${project.groupId}.swing</groupId>
+                                    <artifactId>sola-desktop</artifactId>
+                                    <version>${project.version}</version>
+                                    <mainClass>org.sola.clients.swing.desktop.DesktopApplication</mainClass> 
+                                </jarResource>
+                            </jarResources>
+                        </jnlpFile> 
+                        <jnlpFile>
+                            <!-- JNLP file for the SOLA Desktop application test env -->
+                            <outputFilename>sola-desktop-test.jnlp</outputFilename>
+                            <templateFilename>sola-desktop-jnlp-template-test.vm</templateFilename>
                             <jarResources>
                                 <jarResource>
                                     <groupId>${project.groupId}.swing</groupId>
@@ -112,16 +134,31 @@
                                 </jarResource>
                             </jarResources>
                         </jnlpFile>
+                        <jnlpFile>
+                            <!-- JNLP file for the SOLA Admin application test env-->
+                            <outputFilename>sola-admin-test.jnlp</outputFilename>
+                            <templateFilename>sola-admin-jnlp-template-test.vm</templateFilename>
+                            <jarResources>
+                                <jarResource>
+                                    <groupId>${project.groupId}.swing</groupId>
+                                    <artifactId>sola-desktop-admin</artifactId>
+                                    <version>${project.version}</version>
+                                    <mainClass>org.sola.clients.swing.admin.AdminApplication</mainClass> 
+                                </jarResource>
+                            </jarResources>
+                        </jnlpFile>
                     </jnlpFiles>
                     <unsignAlreadySignedJars>true</unsignAlreadySignedJars>
                     <!-- Digital singing is required for Web Start deployment. To speed up the
                     build in order to test the index.jsp web page, this section can be commented out -->
-                   <sign>
+                    <sign>
                         <keystore>${webstart.codesigning.keystore}</keystore>
                         <alias>${webstart.codesigning.alias}</alias>
                         <storepass>${webstart.codesigning.storepass}</storepass>
                         <keypass>${webstart.codesigning.keypass}</keypass>
                     </sign>
+                    <!-- Use verbose setting to monitor progress during build -->
+                    <verbose>true</verbose> 
                 </configuration>
             </plugin>
             <plugin>
