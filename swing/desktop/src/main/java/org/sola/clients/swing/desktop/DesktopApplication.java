@@ -69,7 +69,7 @@ public class DesktopApplication {
             @Override
             public void run() {
                 Thread.setDefaultUncaughtExceptionHandler(new DesktopClientExceptionHandler());
-                LocalizationManager.loadLanguage(DesktopApplication.class);
+                LocalizationManager.loadLanguage();
                 LogUtility.initialize(DesktopApplication.class);
                 LafManager.getInstance().setProperties("green");
                 //LafManager.getInstance().setProperties("autumn");

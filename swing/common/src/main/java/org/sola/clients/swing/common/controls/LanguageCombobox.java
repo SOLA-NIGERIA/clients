@@ -168,7 +168,7 @@ public class LanguageCombobox extends JComboBox {
             }
         }
 
-        String selectedLanguage = LocalizationManager.getLanguage(applicationMainClass);
+        String selectedLanguage = LocalizationManager.getLanguage();
 
         if (selectedLanguage != null && !selectedLanguage.equals("")
                 && languagesMap != null && languagesMap.containsKey(selectedLanguage)) {
@@ -189,13 +189,13 @@ public class LanguageCombobox extends JComboBox {
 //                LocalizationManager.setLanguage(applicationMainClass, "it", "IT");
 //            } else 
             if ("english".equalsIgnoreCase(languageStrings[language])) {
-                LocalizationManager.setLanguage(applicationMainClass, "en", "US");
+                LocalizationManager.setLanguage("en", "US");
             } 
 //            else if ("नेपाली".equalsIgnoreCase(languageStrings[language])) {
 //                LocalizationManager.setLanguage(applicationMainClass, "np", "NP");
 //            }
             if (showMessage) {
-                LocalizationManager.loadLanguage(applicationMainClass);
+                LocalizationManager.loadLanguage();
                 if (! this.confirmedChange){
                   MessageUtility.displayMessage(ClientMessage.GENERAL_UPDATE_LANG);
                   LocalizationManager.restartApplication(applicationMainClass);

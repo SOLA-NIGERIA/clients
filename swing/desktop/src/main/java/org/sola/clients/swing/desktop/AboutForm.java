@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
+ * Copyright (C) 2014 - Food and Agriculture Organization of the United Nations (FAO).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -27,6 +27,10 @@
  */
 package org.sola.clients.swing.desktop;
 
+import org.sola.clients.swing.common.LocalizationManager;
+
+
+
 /** Simple dialog form to display product information */
 public class AboutForm extends javax.swing.JDialog {
 
@@ -34,6 +38,7 @@ public class AboutForm extends javax.swing.JDialog {
         super(parent);
         initComponents();
         getRootPane().setDefaultButton(closeButton);
+        appVersionLabel.setText(LocalizationManager.getVersionNumber());
     }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
