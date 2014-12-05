@@ -601,6 +601,7 @@ public class ReportManager {
         String featureFloatBack = "images/sola/back_float.svg";
         String featureNorthArrow = "images/sola/UN-north-arrow.png";
         String sltrPlanFront= "images/sola/slrtPlan_kogi.svg"; //Kogi Plan Image for page 3
+        String front_image_text="images/sola/front_CrossRiver_text.svg";
         String small = "";
         String map = "";
          
@@ -731,6 +732,7 @@ public class ReportManager {
         {
             featureFront ="images/sola/front_"+prefix+".svg";
             featureBack = "images/sola/back_"+prefix+".svg";
+            inputParameters.put("FRONT_IMAGE_TEXT",front_image_text);
         }
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
