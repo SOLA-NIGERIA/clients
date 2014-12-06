@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO" whenResourceMissingType="Empty">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="208"/>
+	<property name="ireport.y" value="589"/>
 	<style name="table 1">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -341,7 +341,7 @@
 				<textFieldExpression><![CDATA[$P{ADDRESS}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd MMMMM yyyy">
-				<reportElement positionType="Float" x="385" y="302" width="118" height="20" forecolor="#000000"/>
+				<reportElement positionType="Float" x="385" y="301" width="118" height="20" forecolor="#000000"/>
 				<textElement verticalAlignment="Bottom">
 					<font fontName="Myriad Pro" size="10" isBold="true"/>
 				</textElement>
@@ -358,7 +358,7 @@
 				<text><![CDATA[His Excellency]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="108" y="279" width="188" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="108" y="278" width="188" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -387,18 +387,18 @@
 				<text><![CDATA[SENATOR LIYEL IMOKE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="363" y="801" width="200" height="20"/>
+				<reportElement x="363" y="801" width="211" height="20"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Governor, Cross River state of Nigeria]]></text>
+				<text><![CDATA[Governor, Cross River State of Nigeria]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="234" y="445" width="100" height="17"/>
 				<textElement/>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="282" y="280" width="100" height="17"/>
+				<reportElement x="282" y="278" width="100" height="17"/>
 				<textElement verticalAlignment="Bottom">
 					<font fontName="Myriad Pro" isBold="true"/>
 				</textElement>
