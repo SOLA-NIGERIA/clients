@@ -30,7 +30,6 @@
 package org.sola.clients.swing.desktop.reports;
 
 import com.vividsolutions.jts.io.ParseException;
-import java.awt.ComponentOrientation;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -41,13 +40,11 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
-import javax.swing.JTextField;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
-import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import org.geotools.feature.SchemaException;
 import org.geotools.swing.extended.exception.InitializeLayerException;
@@ -56,27 +53,24 @@ import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.operation.TransformException;
 import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.application.ApplicationBean;
+import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.digitalarchive.DocumentBean;
 import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.systematicregistration.SysRegCertificatesBean;
-import org.sola.clients.beans.systematicregistration.SysRegCertificatesListBean;
-import org.sola.clients.beans.validation.ValidationResultBean;
 import org.sola.clients.reports.ReportManager;
 import org.sola.clients.swing.common.controls.CalendarForm;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
-import org.sola.clients.swing.desktop.MainForm;
 import org.sola.clients.swing.desktop.ReportViewerForm;
-import org.sola.clients.swing.desktop.source.DocumentForm;
 import org.sola.clients.swing.gis.imagegenerator.MapImageGeneratorForSelectedParcel;
 import org.sola.clients.swing.gis.imagegenerator.MapImageInformation;
-import org.sola.clients.swing.ui.MainContentPanel;
 import org.sola.common.FileUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.administrative.BaUnitTO;
+import org.sola.webservices.transferobjects.cadastre.CadastreObjectTO;
 import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
 
 
@@ -102,7 +96,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     private Integer rowVersion=0;
     private ReportViewerForm form;
     private String prefix;
-    
+    private CadastreObjectBean cadastreObject;
 
     /**
      * Creates new form SysRegCertParamsForm
@@ -286,7 +280,11 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         ApplicationTO applicationTO = WSManager.getInstance().getCaseManagementService().getApplication(id);
         return TypeConverters.TransferObjectToBean(applicationTO, ApplicationBean.class, null);
     }
-    
+    private CadastreObjectBean getCadastre(String id)
+    {
+        List<CadastreObjectTO> cadastreTo=WSManager.getInstance().getCadastreService().getCadastreObjectByParts(id);
+        return TypeConverters.TransferObjectToBean(cadastreTo.get(0), CadastreObjectBean.class, null);
+    }
     private void generateReport() throws InitializeLayerException {
         
       
@@ -318,6 +316,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         Integer prevCofO = 0;
         int i = 0;
         
+        
                 int imageWidth   = 520;
                 int imageHeight  = 300;
                 int sketchWidth  = 200;
@@ -347,6 +346,8 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 baUnitId = appBaunit.getBaUnitId();
                 appId = appBaunit.getAppId();
                 prevCofO = appBaunit.getCofO();
+                cadastreObject=this.getCadastre(appBaunit.getNameFirstpart());
+                System.out.println(cadastreObject.getSourceReference());
                 this.reportTogenerate = baUnitId + "_" + tmpLocation + "_" + this.reportdate + ".pdf";
                 this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
                 this.reportTogenerate = this.reportTogenerate.replace("/", "_");
@@ -362,6 +363,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 final String featureScalebarFileName = mapImageInfo.getScalebarImageLocation();
                 final Number scale = mapImageInfo.getScale();
                 final Integer srid = mapImageInfo.getSrid();
+                //System.out.println(cadastreObjectBean.getSourceReference().toString());
 //                MapImageInformation mapImageInfoSmall = mapImageSmall.getMapAndScalebarImage(appBaunit.getId());
                 final String featureImageFileNameSmall = mapImageInfo.getSketchMapImageLocation();
                     
@@ -370,12 +372,12 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                     showReport(ParcelPlan, parcelLabel, this.whichReport);
                     jprintlist.add(ParcelPlan);
                 } else if (this.whichReport.contains("title")){  
-                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
+                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall,cadastreObject.getSourceReference());
                     showReport(CofO, parcelLabel, this.whichReport);
                     jprintlist.add(CofO);
                 }
                 else {  
-                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
+                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall,cadastreObject.getSourceReference());
                     showReport(CofO, parcelLabel, "title");
                     ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
                     showReport(ParcelPlan, parcelLabel,"parcelPlan");

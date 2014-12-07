@@ -595,7 +595,7 @@ public class ReportManager {
 //     String  featureFront,String featureBack) {
      
     public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
-       String featureScalebarFileName, Integer srid, Number scale, String  featureFront,String featureBack,String featureImageFileNameSmall) {
+       String featureScalebarFileName, Integer srid, Number scale, String  featureFront,String featureBack,String featureImageFileNameSmall, String sourceReferenceNumber) {
         HashMap inputParameters = new HashMap();
         String featureFloatFront ="images/sola/front_float.svg";
         String featureFloatBack = "images/sola/back_float.svg";
@@ -604,7 +604,7 @@ public class ReportManager {
         String front_image_text="images/sola/front_CrossRiver_text.svg";
         String small = "";
         String map = "";
-         
+        String sourceRef=sourceReferenceNumber;
         
         String cofoReport = null;
         String appNr = null;
@@ -733,6 +733,12 @@ public class ReportManager {
             featureFront ="images/sola/front_"+prefix+".svg";
             featureBack = "images/sola/back_"+prefix+".svg";
             inputParameters.put("FRONT_IMAGE_TEXT",front_image_text);
+            inputParameters.put("UPIN",sourceRef);
+            inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
+            inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
+            inputParameters.put("SHEET_NR", sheetNr);
+            inputParameters.put("SURVEYOR", surveyor);
+            inputParameters.put("RANK", rank);
         }
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
