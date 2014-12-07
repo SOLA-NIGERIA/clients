@@ -314,6 +314,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         String nrTmp = null;
         String appId = null;
         Integer prevCofO = 0;
+        String sourceRef="";
         int i = 0;
         
         
@@ -347,7 +348,12 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 appId = appBaunit.getAppId();
                 prevCofO = appBaunit.getCofO();
                 cadastreObject=this.getCadastre(appBaunit.getNameFirstpart());
-                System.out.println(cadastreObject.getSourceReference());
+                if(cadastreObject!=null)
+                {
+                    System.out.println(cadastreObject.getSourceReference());
+                    sourceRef=cadastreObject.getSourceReference();
+                }
+                else sourceRef="";
                 this.reportTogenerate = baUnitId + "_" + tmpLocation + "_" + this.reportdate + ".pdf";
                 this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
                 this.reportTogenerate = this.reportTogenerate.replace("/", "_");
@@ -372,12 +378,12 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                     showReport(ParcelPlan, parcelLabel, this.whichReport);
                     jprintlist.add(ParcelPlan);
                 } else if (this.whichReport.contains("title")){  
-                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall,cadastreObject.getSourceReference());
+                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall,sourceRef);
                     showReport(CofO, parcelLabel, this.whichReport);
                     jprintlist.add(CofO);
                 }
                 else {  
-                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall,cadastreObject.getSourceReference());
+                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall,sourceRef);
                     showReport(CofO, parcelLabel, "title");
                     ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
                     showReport(ParcelPlan, parcelLabel,"parcelPlan");
