@@ -769,6 +769,7 @@ public class MainForm extends javax.swing.JFrame {
         menuItemMapPublicDisplay = new javax.swing.JMenuItem();
         menuPublicNotification = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        menuSigningList = new javax.swing.JMenuItem();
         menuCertificates = new javax.swing.JMenuItem();
         menuPlan = new javax.swing.JMenuItem();
         menuReports = new javax.swing.JMenu();
@@ -1144,6 +1145,14 @@ public class MainForm extends javax.swing.JFrame {
 
         menuSystematic.add(menuPubDispRep);
 
+        menuSigningList.setText(bundle.getString("MainForm.menuSigningList.text")); // NOI18N
+        menuSigningList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSigningListActionPerformed(evt);
+            }
+        });
+        menuSystematic.add(menuSigningList);
+
         menuCertificates.setText(bundle.getString("MainForm.menuCertificates.text")); // NOI18N
         menuCertificates.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1350,6 +1359,11 @@ public class MainForm extends javax.swing.JFrame {
         ReportViewerForm form = new ReportViewerForm(report);
         form.setVisible(true);
     }
+    
+    private void openSysRegSigningListForm() {
+        SysRegSigningListForm signingGenerator = new SysRegSigningListForm(null, true, "signingList");
+        signingGenerator.setVisible(true);
+    }
 
     private void menuLodgementReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLodgementReportActionPerformed
         openLodgementReportParamsForm();
@@ -1422,6 +1436,10 @@ public class MainForm extends javax.swing.JFrame {
     private void menuPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPlanActionPerformed
          openSysRegCertificatesParamsForm("parcelPlan");
     }//GEN-LAST:event_menuPlanActionPerformed
+
+    private void menuSigningListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSigningListActionPerformed
+        openSysRegSigningListForm();
+    }//GEN-LAST:event_menuSigningListActionPerformed
 
     private void editPassword() {
         showPasswordPanel();
@@ -1514,6 +1532,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenu menuSearch;
     private javax.swing.JMenuItem menuSearchApplication;
     private javax.swing.JMenuItem menuShowMap;
+    private javax.swing.JMenuItem menuSigningList;
     private javax.swing.JMenuItem menuSpatialUnitGroup;
     private javax.swing.JMenuItem menuStatus;
     private javax.swing.JMenu menuSystematic;
