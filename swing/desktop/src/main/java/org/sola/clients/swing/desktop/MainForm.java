@@ -40,13 +40,13 @@ import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 import java.util.logging.Level;
+import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.beans.source.PowerOfAttorneyBean;
-import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.swing.common.DefaultExceptionHandler;
 import org.sola.clients.swing.common.LafManager;
 import org.sola.clients.swing.common.LocalizationManager;
@@ -69,11 +69,11 @@ import org.sola.clients.swing.desktop.reports.SysRegManagementParamsForm;
 import org.sola.clients.swing.desktop.source.DocumentSearchForm;
 import org.sola.clients.swing.desktop.source.PowerOfAttorneyViewForm;
 import org.sola.clients.swing.ui.MainContentPanel;
-import org.sola.clients.swing.bulkoperations.*;
 import org.sola.clients.swing.bulkoperations.sources.LoadSourcesPanel;
 import org.sola.clients.swing.desktop.cadastre.MapSpatialUnitEditPanel;
 import org.sola.clients.swing.desktop.reports.*;
 import org.sola.common.RolesConstants;
+import org.sola.common.WindowUtility;
 import org.sola.common.help.HelpUtility;
 import org.sola.common.logging.LogUtility;
 import org.sola.common.messaging.ClientMessage;
@@ -83,7 +83,11 @@ import org.sola.common.messaging.MessageUtility;
  * Main form of the application.
  */
 public class MainForm extends javax.swing.JFrame {
-
+    
+    public static final String MAIN_FORM_HEIGHT = "mainFormHeight";
+    public static final String MAIN_FORM_WIDTH = "mainFormWitdh";
+    public static final String MAIN_FORM_TOP = "mainFormTop";
+    public static final String MAIN_FORM_LEFT = "mainFormLeft";
     private ApplicationSearchPanel searchApplicationPanel;
     private DocumentSearchForm searchDocPanel;
     private PartySearchPanelForm searchPartyPanel;
@@ -196,10 +200,17 @@ public class MainForm extends javax.swing.JFrame {
         initComponents();
         HelpUtility.getInstance().registerHelpMenu(jmiContextHelp, "overview");
 
+        this.setTitle("SOLA Desktop - " + LocalizationManager.getVersionNumber());
         this.addWindowListener(new java.awt.event.WindowAdapter() {
+
             @Override
             public void windowOpened(WindowEvent e) {
                 postInit();
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                preClose();
             }
         });
 
@@ -218,12 +229,8 @@ public class MainForm extends javax.swing.JFrame {
      * has been opened. It helps to display form with no significant delays.
      */
     private void postInit() {
-        // Set center screen location 
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = ((dim.width) / 2);
-        int y = ((dim.height) / 2);
-
-        this.setLocation(x - (this.getWidth() / 2), y - (this.getHeight() / 2));
+        // Set screen size and location 
+        configureForm();
 
         // Customize buttons
         btnNewApplication.setEnabled(SecurityBean.isInRole(RolesConstants.APPLICATION_CREATE_APPS));
@@ -240,6 +247,59 @@ public class MainForm extends javax.swing.JFrame {
         openDashBoard();
 
         txtUserName.setText(SecurityBean.getCurrentUser().getUserName());
+    }
+    
+    /**
+     * Sets the screen size and location based on the settings stored in the
+     * users preferences.
+     */
+    private void configureForm() {
+
+        int height = this.getHeight();
+        int width = this.getWidth();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = ((dim.width) / 2) - (width / 2);
+        int y = ((dim.height) / 2) - (height / 2);
+
+        if (WindowUtility.hasUserPreferences()) {
+            // Set the size of the screen
+            Preferences prefs = WindowUtility.getUserPreferences();
+            height = Integer.parseInt(prefs.get(MAIN_FORM_HEIGHT, Integer.toString(height)));
+            width = Integer.parseInt(prefs.get(MAIN_FORM_WIDTH, Integer.toString(width)));
+            y = Integer.parseInt(prefs.get(MAIN_FORM_TOP, Integer.toString(y)));
+            x = Integer.parseInt(prefs.get(MAIN_FORM_LEFT, Integer.toString(x)));
+
+            // Check if the screen sizes are within the bounds of the users 
+            // physical screen. e.g. may have been using dual monitor. 
+            if (height > dim.height || height < 50) {
+                height = dim.height - 50 - y;
+            }
+            if (width > dim.width || width < 200) {
+                width = dim.width - 20 - x;
+            }
+            if (y + 10 > dim.height || y + height - 100 < 0) {
+                y = 5;
+            }
+            if (x + 10 > dim.width || x + width - 100 < 0) {
+                x = 10;
+            }
+            this.setSize(width, height);
+        }
+        this.setLocation(x, y);
+    }
+
+    /**
+     * Captures the screen size and location and saves them as the users
+     * preference just before the screen is is closed.
+     */
+    private void preClose() {
+        if (WindowUtility.hasUserPreferences()) {
+            Preferences prefs = WindowUtility.getUserPreferences();
+            prefs.put(MAIN_FORM_HEIGHT, Integer.toString(this.getHeight()));
+            prefs.put(MAIN_FORM_WIDTH, Integer.toString(this.getWidth()));
+            prefs.put(MAIN_FORM_TOP, Integer.toString(this.getY()));
+            prefs.put(MAIN_FORM_LEFT, Integer.toString(this.getX()));
+        }
     }
 
     private void setAllLogLevel() {
@@ -517,7 +577,7 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     private void setLanguage(String code, String country) {
-        LocalizationManager.setLanguage(DesktopApplication.class, code, country);
+        LocalizationManager.setLanguage(code, country);
         MessageUtility.displayMessage(ClientMessage.GENERAL_UPDATE_LANG);
     }
 
@@ -709,6 +769,7 @@ public class MainForm extends javax.swing.JFrame {
         menuItemMapPublicDisplay = new javax.swing.JMenuItem();
         menuPublicNotification = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        menuSigningList = new javax.swing.JMenuItem();
         menuCertificates = new javax.swing.JMenuItem();
         menuPlan = new javax.swing.JMenuItem();
         menuReports = new javax.swing.JMenu();
@@ -1084,6 +1145,14 @@ public class MainForm extends javax.swing.JFrame {
 
         menuSystematic.add(menuPubDispRep);
 
+        menuSigningList.setText(bundle.getString("MainForm.menuSigningList.text")); // NOI18N
+        menuSigningList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSigningListActionPerformed(evt);
+            }
+        });
+        menuSystematic.add(menuSigningList);
+
         menuCertificates.setText(bundle.getString("MainForm.menuCertificates.text")); // NOI18N
         menuCertificates.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1290,6 +1359,11 @@ public class MainForm extends javax.swing.JFrame {
         ReportViewerForm form = new ReportViewerForm(report);
         form.setVisible(true);
     }
+    
+    private void openSysRegSigningListForm() {
+        SysRegSigningListForm signingGenerator = new SysRegSigningListForm(null, true, "signingList");
+        signingGenerator.setVisible(true);
+    }
 
     private void menuLodgementReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLodgementReportActionPerformed
         openLodgementReportParamsForm();
@@ -1362,6 +1436,10 @@ public class MainForm extends javax.swing.JFrame {
     private void menuPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPlanActionPerformed
          openSysRegCertificatesParamsForm("parcelPlan");
     }//GEN-LAST:event_menuPlanActionPerformed
+
+    private void menuSigningListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSigningListActionPerformed
+        openSysRegSigningListForm();
+    }//GEN-LAST:event_menuSigningListActionPerformed
 
     private void editPassword() {
         showPasswordPanel();
@@ -1454,6 +1532,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenu menuSearch;
     private javax.swing.JMenuItem menuSearchApplication;
     private javax.swing.JMenuItem menuShowMap;
+    private javax.swing.JMenuItem menuSigningList;
     private javax.swing.JMenuItem menuSpatialUnitGroup;
     private javax.swing.JMenuItem menuStatus;
     private javax.swing.JMenu menuSystematic;
