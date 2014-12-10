@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO" whenResourceMissingType="Empty">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="710"/>
+	<property name="ireport.y" value="232"/>
 	<style name="table 1">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -241,11 +241,11 @@
 	<parameter name="PLAN_NUMBER" class="java.lang.String">
 		<defaultValueExpression><![CDATA[$P{REFNR}]]></defaultValueExpression>
 	</parameter>
-        <parameter name="MAP_IMAGE" class="java.lang.String"/>
+	<parameter name="MAP_IMAGE" class="java.lang.String"/>
 	<parameter name="IMAGERY_DATE" class="java.lang.String"/>
 	<parameter name="STATE" class="java.lang.String"/>
 	<parameter name="LGA" class="java.lang.String"/>
-        <parameter name="SLTR_PLAN_IMAGE" class="java.lang.String"/>
+	<parameter name="SLTR_PLAN_IMAGE" class="java.lang.String"/>
 	<parameter name="WARD" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -309,11 +309,11 @@
 				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation($P{FRONT_IMAGE})]]></imageExpression>
 			</image>
 			<image hAlign="Center" vAlign="Middle">
-				<reportElement x="36" y="217" width="523" height="552"/>
+				<reportElement x="37" y="205" width="523" height="552"/>
 				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation($P{FRONT_IMAGE_TEXT})]]></imageExpression>
 			</image>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Transparent" x="234" y="424" width="200" height="16" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement positionType="Float" mode="Transparent" x="234" y="408" width="200" height="16" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -321,14 +321,14 @@
 				<textFieldExpression><![CDATA[$P{LAND_USE}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement mode="Transparent" x="152" y="208" width="397" height="20"/>
+				<reportElement mode="Transparent" x="147" y="195" width="397" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
 					<font fontName="Myriad Pro" size="12" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{CLIENT_NAME}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Transparent" x="260" y="306" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement positionType="Float" mode="Transparent" x="267" y="283" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -336,7 +336,7 @@
 				<textFieldExpression><![CDATA[$P{TERM}+" years"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement mode="Transparent" x="275" y="57" width="268" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="275" y="52" width="268" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -344,7 +344,7 @@
 				<textFieldExpression><![CDATA[$P{REFNR}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Transparent" x="234" y="354" width="214" height="16" forecolor="#000000" backcolor="#FFFFFF">
+				<reportElement positionType="Float" mode="Transparent" x="234" y="347" width="214" height="16" forecolor="#000000" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[!$P{GROUND_RENT}.equals( "0" )]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None" markup="none">
@@ -354,31 +354,34 @@
 				<textFieldExpression><![CDATA[$P{GROUND_RENT}+" "+$R{currency}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" isPrintRepeatedValues="false" x="97" y="239" width="320" height="12" forecolor="#000000"/>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="85" y="226" width="320" height="12" forecolor="#000000"/>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
 					<font fontName="Myriad Pro" size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ADDRESS}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd MMMMM yyyy">
-				<reportElement positionType="Float" x="385" y="301" width="118" height="20" forecolor="#000000"/>
+				<reportElement positionType="Float" x="405" y="278" width="118" height="20" forecolor="#000000"/>
 				<textElement verticalAlignment="Bottom">
 					<font fontName="Myriad Pro" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="385" y="771" width="174" height="2"/>
+				<reportElement x="385" y="759" width="174" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="430" y="773" width="72" height="15"/>
+				<reportElement x="430" y="762" width="72" height="15"/>
 				<textElement>
 					<font fontName="Myriad Pro" size="11"/>
 				</textElement>
 				<text><![CDATA[His Excellency]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="108" y="278" width="188" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="109" y="260" width="188" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -386,44 +389,65 @@
 				<textFieldExpression><![CDATA[$P{REFNR}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
-				<reportElement x="234" y="382" width="100" height="14"/>
+				<reportElement x="234" y="371" width="100" height="14"/>
 				<textElement>
 					<font fontName="Myriad Pro" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="234" y="404" width="100" height="14"/>
+				<reportElement x="234" y="391" width="100" height="14"/>
 				<textElement>
 					<font fontName="Myriad Pro" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["5 years"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="391" y="784" width="159" height="20" forecolor="#009966"/>
+				<reportElement x="391" y="776" width="159" height="15" forecolor="#009966"/>
 				<textElement>
-					<font fontName="Times New Roman" size="13" isBold="true"/>
+					<font fontName="Times New Roman" size="13" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[SENATOR LIYEL IMOKE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="363" y="801" width="211" height="20"/>
+				<reportElement x="363" y="792" width="211" height="20"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Governor, Cross River State of Nigeria]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="234" y="445" width="100" height="17"/>
+				<reportElement x="234" y="428" width="100" height="17"/>
 				<textElement/>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="282" y="281" width="100" height="17"/>
+				<reportElement x="301" y="263" width="100" height="17"/>
 				<textElement verticalAlignment="Bottom">
 					<font fontName="Myriad Pro" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{UPIN}]]></textFieldExpression>
 			</textField>
+			<componentElement>
+				<reportElement key="table" style="table" stretchType="RelativeToBandHeight" mode="Transparent" x="40" y="460" width="481" height="14" isRemoveLineWhenBlank="true"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Notations">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{allBaUnitNotationList}.toArray())]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="479">
+						<jr:detailCell style="table_TD" height="16" rowSpan="1">
+							<textField isBlankWhenNull="false">
+								<reportElement x="0" y="0" width="479" height="14">
+									<printWhenExpression><![CDATA[!$F{Notation Text}.equals( "Certificate of Occupancy issued at the completion of systematic land registration titling" )&&($F{Notation Text}.contains( "Mortage")||$F{Notation Text}.contains( "Lease" )||$F{Notation Text}.contains( "Access" )||$F{Notation Text}.contains( "Water" )||$F{Notation Text}.contains( "Caveat" )||$F{Notation Text}.contains( "Road" )||$F{Notation Text}.contains( "Lien" )||$F{Notation Text}.contains( "Occupation" ))]]></printWhenExpression>
+								</reportElement>
+								<textElement>
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA["Other interests - "+$F{Notation Text}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
 		</band>
 		<band height="842" splitType="Stretch">
 			<image hAlign="Center" vAlign="Top">
