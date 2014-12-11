@@ -263,7 +263,7 @@ public class SysRegSigningListForm extends javax.swing.JDialog {
             if (this.report.contentEquals("signingList")) {
                 signingListListBean.passParameter(tmpLocation);
                 if (signingListListBean.getSigningList().isEmpty()) {
-                    MessageUtility.displayMessage(ClientMessage.NO_REPORT_GENERATION);
+                    MessageUtility.displayMessage(ClientMessage.NO_SIGNING_LIST_GENERATION);
                     return;
                 } else {
                     List<ValidationResultBean> result = null;
