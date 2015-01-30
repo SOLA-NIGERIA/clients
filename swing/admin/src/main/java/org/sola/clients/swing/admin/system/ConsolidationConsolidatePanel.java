@@ -39,6 +39,7 @@ import org.sola.clients.swing.ui.FileBrowser;
 import org.sola.common.DateUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
+import org.sola.services.boundary.wsclients.FileStreamingClient;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.services.boundary.wsclients.exception.WebServiceClientException;
 
