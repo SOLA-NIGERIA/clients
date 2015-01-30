@@ -3,7 +3,7 @@
                        xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                        xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd">
 	<NamedLayer>
-     <Name>section</Name>
+     <Name>Work Unit</Name>
     <UserStyle>
    <FeatureTypeStyle>
      <Rule>
@@ -11,7 +11,7 @@
        <MaxScaleDenominator>50000</MaxScaleDenominator>
        <PolygonSymbolizer>
         <Stroke>
-            <CssParameter name="stroke">#ffffff</CssParameter>
+            <CssParameter name="stroke">#ffff33</CssParameter>
             <CssParameter name="stroke-width">1.5</CssParameter>
         </Stroke>
        </PolygonSymbolizer>
@@ -46,7 +46,7 @@
        <PolygonSymbolizer>
          
             <Stroke>
-                <CssParameter name="stroke">#ffffff</CssParameter>
+                <CssParameter name="stroke">#ffff33</CssParameter>
                 <CssParameter name="stroke-width">1</CssParameter>
             </Stroke>
        </PolygonSymbolizer>
@@ -57,7 +57,7 @@
        <PolygonSymbolizer>
         
         <Stroke>
-            <CssParameter name="stroke">#ffffff</CssParameter>
+            <CssParameter name="stroke">#ffff33</CssParameter>
             <CssParameter name="stroke-width">0.2</CssParameter>
         </Stroke>
        </PolygonSymbolizer>
