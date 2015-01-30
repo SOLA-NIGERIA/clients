@@ -51,7 +51,7 @@ public class LocalizationManager {
     // private static final String PRODUCTION_HOST_IP = "46.149.21.37";
     private static final String PRODUCTION_HOST_NAME = "localhost";
     private static final String PRODUCTION_HOST_IP = "127.0.0.1";
-    private static final String SOLA_VERSION = "1412a";
+    private static final String SOLA_VERSION = "1501a";
 
     /**
      * Loads default language and country codes and sets {@link Locale} settings
