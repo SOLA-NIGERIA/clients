@@ -242,7 +242,7 @@
 	<parameter name="STATE" class="java.lang.String"/>
 	<parameter name="LGA" class="java.lang.String"/>
 	<parameter name="WARD" class="java.lang.String"/>
-	<parameter name="SLTR_PLAN_IMAGE" class="java.lang.String"/>
+	<parameter name="SR_PLAN_IMAGE" class="java.lang.String"/>
 	<parameter name="SCALE" class="java.lang.String">
 		<defaultValueExpression><![CDATA[" 1 cm = 20 m (1:2 000) "]]></defaultValueExpression>
 	</parameter>

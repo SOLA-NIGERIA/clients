@@ -52,7 +52,7 @@ import org.sola.clients.swing.admin.system.BrManagementPanel;
 import org.sola.clients.swing.admin.system.ConsolidationConsolidatePanel;
 import org.sola.clients.swing.admin.system.ConsolidationExtractPanel;
 import org.sola.clients.swing.common.DefaultExceptionHandler;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 import org.sola.clients.swing.ui.MainContentPanel;
 //import org.sola.clients.swing.ui.localization.LocalizationManager;
 import org.sola.clients.swing.ui.reports.ReportViewerForm;

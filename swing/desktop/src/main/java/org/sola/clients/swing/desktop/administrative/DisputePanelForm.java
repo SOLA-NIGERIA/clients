@@ -59,7 +59,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JFormattedTextField;
 import org.sola.clients.beans.administrative.*;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 import org.sola.clients.swing.desktop.party.PartyPanelForm;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.swing.ui.administrative.DisputeSearchPanel;

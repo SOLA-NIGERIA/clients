@@ -29,6 +29,7 @@
  */
 package org.sola.clients.swing.desktop;
 
+import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -42,13 +43,15 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+import javax.swing.plaf.ToolBarUI;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.beans.source.PowerOfAttorneyBean;
 import org.sola.clients.swing.common.DefaultExceptionHandler;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 import org.sola.clients.swing.common.LocalizationManager;
 import org.sola.clients.swing.common.controls.LanguageCombobox;
 import org.sola.clients.swing.common.tasks.SolaTask;
@@ -83,7 +86,7 @@ import org.sola.common.messaging.MessageUtility;
  * Main form of the application.
  */
 public class MainForm extends javax.swing.JFrame {
-    
+
     public static final String MAIN_FORM_HEIGHT = "mainFormHeight";
     public static final String MAIN_FORM_WIDTH = "mainFormWitdh";
     public static final String MAIN_FORM_TOP = "mainFormTop";
@@ -93,7 +96,6 @@ public class MainForm extends javax.swing.JFrame {
     private PartySearchPanelForm searchPartyPanel;
     private BaUnitSearchPanel searchBaUnitPanel;
     private DisputeSearchPanel searchDisputePanel;
-    
     // Create a variable holding the listener
     KeyAdapter keyAdapterAppSearch = new KeyAdapter() {
 
@@ -104,8 +106,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         }
     };
-    
-   // Create a variable holding the listener
+    // Create a variable holding the listener
     KeyAdapter keyAdapterDocSearch = new KeyAdapter() {
 
         @Override
@@ -115,8 +116,6 @@ public class MainForm extends javax.swing.JFrame {
             }
         }
     };
-    
-    
     // Create a variable holding the listener
     KeyAdapter keyAdapterBaUnitSearch = new KeyAdapter() {
 
@@ -127,8 +126,6 @@ public class MainForm extends javax.swing.JFrame {
             }
         }
     };
-    
-    
     // Create a variable holding the listener
     KeyAdapter keyAdapterPartySearch = new KeyAdapter() {
 
@@ -171,10 +168,11 @@ public class MainForm extends javax.swing.JFrame {
     public void setSearchPartyPanel(PartySearchPanelForm searchPartyPanel) {
         this.searchPartyPanel = searchPartyPanel;
     }
-     
+
     public void setSearchDisputePanel(DisputeSearchPanel searchDisputePanel) {
         this.searchDisputePanel = searchDisputePanel;
     }
+
     /**
      * Private class to hold singleton instance of the MainForm.
      */
@@ -200,7 +198,7 @@ public class MainForm extends javax.swing.JFrame {
         initComponents();
         HelpUtility.getInstance().registerHelpMenu(jmiContextHelp, "overview");
 
-        this.setTitle("SOLA Desktop - " + LocalizationManager.getVersionNumber());
+        this.setTitle(this.getTitle()+" - " + LocalizationManager.getVersionNumber());
         this.addWindowListener(new java.awt.event.WindowAdapter() {
 
             @Override
@@ -248,7 +246,7 @@ public class MainForm extends javax.swing.JFrame {
 
         txtUserName.setText(SecurityBean.getCurrentUser().getUserName());
     }
-    
+
     /**
      * Sets the screen size and location based on the settings stored in the
      * users preferences.
@@ -286,6 +284,15 @@ public class MainForm extends javax.swing.JFrame {
             this.setSize(width, height);
         }
         this.setLocation(x, y);
+
+        this.applicationsMain.setBackground(Color.white);
+        this.applicationsMain.setUI((ToolBarUI) UIManager.getUI(this.applicationsMain));
+
+        // shift the title text on the right of the Registry Icon Image
+        String pre = "";
+        pre = String.format("%" + 10 + "s", pre);
+        //  put the obtained number of blanks before the title text
+        this.setTitle(pre + this.getTitle());
     }
 
     /**
@@ -347,7 +354,7 @@ public class MainForm extends javax.swing.JFrame {
         };
         TaskManager.getInstance().runTask(t);
     }
-    
+
     private void loadSourcesPanel() {
         SolaTask t = new SolaTask<Void, Void>() {
 
@@ -363,7 +370,6 @@ public class MainForm extends javax.swing.JFrame {
         TaskManager.getInstance().runTask(t);
 
     }
-    
 
     private void openDisputeSearch() {
         SolaTask t = new SolaTask<Void, Void>() {
@@ -389,12 +395,6 @@ public class MainForm extends javax.swing.JFrame {
         TaskManager.getInstance().runTask(t);
     }
 
-    
-    
-    
-    
-    
-    
     private void openMapSpatialUnitGroupEditor() {
         SolaTask t = new SolaTask<Void, Void>() {
 
@@ -424,7 +424,7 @@ public class MainForm extends javax.swing.JFrame {
                     pnlContent.addPanel(searchApplicationPanel, MainContentPanel.CARD_APPSEARCH);
 
                 }
-                
+
                 pnlContent.showPanel(MainContentPanel.CARD_APPSEARCH);
                 return null;
             }
@@ -687,15 +687,15 @@ public class MainForm extends javax.swing.JFrame {
         TaskManager.getInstance().runTask(t);
     }
 
-    private void showRightsExportPanel(){
-        if(getMainContentPanel().isPanelOpened(MainContentPanel.CARD_RIGHT_EXPORT)){
+    private void showRightsExportPanel() {
+        if (getMainContentPanel().isPanelOpened(MainContentPanel.CARD_RIGHT_EXPORT)) {
             getMainContentPanel().showPanel(MainContentPanel.CARD_RIGHT_EXPORT);
         } else {
             RightsExportForm form = new RightsExportForm();
             getMainContentPanel().addPanel(form, MainContentPanel.CARD_RIGHT_EXPORT, true);
         }
     }
-    
+
     /**
      * Opens {@link PowerOfAttorneyViewForm} form and shows provided document.
      *
@@ -1337,18 +1337,19 @@ public class MainForm extends javax.swing.JFrame {
         SysRegManagementParamsForm managementGenerator = new SysRegManagementParamsForm(this, true, whichReport);
         managementGenerator.setVisible(true);
     }
-    
-    
+
     private void openSysRegGenderReport(java.awt.event.ActionEvent evt) {
-       SysRegManagementParamsForm managementGenerator = new SysRegManagementParamsForm(this, true, "sysRegGenderBean");
+        SysRegManagementParamsForm managementGenerator = new SysRegManagementParamsForm(this, true, "sysRegGenderBean");
         managementGenerator.clickView(evt);
     }
+
     private void openSysRegWorkUnit(java.awt.event.ActionEvent evt) {
-       SysRegWorkUnitForm  srwu  = new SysRegWorkUnitForm(null, true);
-       srwu.setVisible(true);
+        SysRegWorkUnitForm srwu = new SysRegWorkUnitForm(null, true);
+        srwu.setVisible(true);
     }
+
     private void openSysRegStatusReport(java.awt.event.ActionEvent evt) {
-       SysRegManagementParamsForm managementGenerator = new SysRegManagementParamsForm(this, true, "sysRegStatusBean");
+        SysRegManagementParamsForm managementGenerator = new SysRegManagementParamsForm(this, true, "sysRegStatusBean");
         managementGenerator.clickView(evt);
     }
 
@@ -1359,7 +1360,7 @@ public class MainForm extends javax.swing.JFrame {
         ReportViewerForm form = new ReportViewerForm(report);
         form.setVisible(true);
     }
-    
+
     private void openSysRegSigningListForm() {
         SysRegSigningListForm signingGenerator = new SysRegSigningListForm(null, true, "signingList");
         signingGenerator.setVisible(true);
@@ -1410,23 +1411,23 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoadSourcesActionPerformed
 
     private void menuLoadScannedDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLoadScannedDocActionPerformed
-         loadSourcesPanel();
+        loadSourcesPanel();
     }//GEN-LAST:event_menuLoadScannedDocActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-          openSysRegManagementParamsForm("sysRegProductionBean");
+        openSysRegManagementParamsForm("sysRegProductionBean");
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        openSysRegGenderReport (evt);
+        openSysRegGenderReport(evt);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        openSysRegWorkUnit (evt);
+        openSysRegWorkUnit(evt);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-         openSysRegListingParamsForm("Owners");
+        openSysRegListingParamsForm("Owners");
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void mnuSpatialUnitEditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSpatialUnitEditorActionPerformed
@@ -1434,7 +1435,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuSpatialUnitEditorActionPerformed
 
     private void menuPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPlanActionPerformed
-         openSysRegCertificatesParamsForm("parcelPlan");
+        openSysRegCertificatesParamsForm("parcelPlan");
     }//GEN-LAST:event_menuPlanActionPerformed
 
     private void menuSigningListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSigningListActionPerformed
@@ -1444,8 +1445,8 @@ public class MainForm extends javax.swing.JFrame {
     private void editPassword() {
         showPasswordPanel();
     }
-    
-        private void openMapSpatialUnitEditor() {
+
+    private void openMapSpatialUnitEditor() {
         SolaTask t = new SolaTask<Void, Void>() {
 
             @Override
@@ -1462,8 +1463,6 @@ public class MainForm extends javax.swing.JFrame {
         TaskManager.getInstance().runTask(t);
     }
 
-    
-    
     /**
      * Shows password panel.
      */

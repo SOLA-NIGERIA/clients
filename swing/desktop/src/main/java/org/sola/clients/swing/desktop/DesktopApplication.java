@@ -31,7 +31,7 @@ package org.sola.clients.swing.desktop;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 import org.sola.clients.swing.common.LocalizationManager;
 import org.sola.clients.swing.ui.DesktopClientExceptionHandler;
 import org.sola.clients.swing.ui.security.LoginForm;
@@ -71,8 +71,14 @@ public class DesktopApplication {
                 Thread.setDefaultUncaughtExceptionHandler(new DesktopClientExceptionHandler());
                 LocalizationManager.loadLanguage();
                 LogUtility.initialize(DesktopApplication.class);
-                LafManager.getInstance().setProperties("green");
-                //LafManager.getInstance().setProperties("autumn");
+                 // Select the Look and Feel Theme based on whether this is 
+                            // the production version or the test version of SOLA. 
+                            if (LocalizationManager.isProductionHost()) {
+                                LafManager.getInstance().setProperties(LafManager.SYSTEMATIC_THEME);
+                            } else {
+                                // Non production host so display the Green Theme
+                                LafManager.getInstance().setProperties(LafManager.GREEN_THEME);
+                            }
 
                 final LoginForm loginForm = new LoginForm(DesktopApplication.class);
                 loginForm.addPropertyChangeListener(new PropertyChangeListener() {

@@ -33,11 +33,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import java.util.Locale;
-import javax.swing.JTable;
-import javax.swing.JViewport;
-import javax.swing.RowSorter;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 import javax.swing.table.TableCellRenderer;
@@ -49,9 +47,11 @@ import javax.swing.table.TableRowSorter;
  */
 public class JTableWithDefaultStyles extends JTable {
 
-    private Color scrollPaneBackgroundColor;
+      private Color scrollPaneBackgroundColor;
     private Color defaultBackground;
     private Color oddRowColor;
+    private Color selectedColor;
+    TableCellRenderer headerRenderer;
 
     /**
      * Class constructor. Initializes default values
@@ -59,50 +59,30 @@ public class JTableWithDefaultStyles extends JTable {
     public JTableWithDefaultStyles() {
         this.setAutoCreateRowSorter(true);
 
-//        defaultBackground = new Color(226, 244, 224);
-//        oddRowColor=new Color(236,247,235);
-//        this.setSelectionBackground(new java.awt.Color(185, 227, 185));
-//        this.setSelectionForeground(new java.awt.Color(0, 102, 51));
-//        this.setGridColor(new java.awt.Color(166, 212, 150));
-
-
-
         Object newFirstRow = "Table.alternateRowColor";
         Color newFRColor = UIManager.getColor(newFirstRow);
         defaultBackground = newFRColor;
 
-//        Object newSecondRow = "Table.background";
-        Object newSecondRow = "PasswordField.background";
+        Object newSecondRow = "Table.alternateRowColor";
         Color newSRColor = UIManager.getColor(newSecondRow);
         oddRowColor = newSRColor;
-//        
-//        
-////        Object newSelectedRow = "Table[Enabled+Selected].textBackground";
-        Object newSelectedRow = "List.background";
+
+        Object newSelectedRow = "paleSolaGrey";
         Color newSelColor = UIManager.getColor(newSelectedRow);
-//        this.setSelectionBackground( UIManager.getColor(newSelectedRow));
         this.setSelectionBackground(newSelColor);
-//        
-////        Object newSelForecolor = "TableSelForeColor";
+        selectedColor = newSelColor;
         Object newSelForecolor = "List.foreground";
         Color newSelFore = UIManager.getColor(newSelForecolor);
-////        this.setSelectionForeground( UIManager.getColor(newSelForecolor));
         this.setSelectionForeground(newSelFore);
         this.setGridColor(newSelFore);
-//
-//        
-//        
-////        Object newGridcolor = "TableGridColor";
+        this.tableHeader.setForeground(UIManager.getColor(newSecondRow));
         Object newGrid = "Table.dropLineColor";
         Color newGridColor = UIManager.getColor(newGrid);
-//        this.setGridColor(UIManager.getColor(newGridcolor));
         this.setGridColor(newSelFore);
-
 
         scrollPaneBackgroundColor = Color.WHITE;
         super.setBackground(defaultBackground);
         this.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
-//        this.setFont(new java.awt.Font("Tahoma", 0, 12));
         Object tableFont = "Table.font";
         Font newTableFont = UIManager.getFont(tableFont);
         this.setFont(newTableFont);
@@ -124,9 +104,12 @@ public class JTableWithDefaultStyles extends JTable {
             @Override
             public void ancestorMoved(AncestorEvent event) {
             }
-        });        
-    }
+        });
 
+        // Remove the input mapping for the Enter key so that it can be used to fire the default button on the form instead. 
+        this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "none");
+    }
+    
     /**
      * Used to color alternative(even) rows.
      */
@@ -140,9 +123,10 @@ public class JTableWithDefaultStyles extends JTable {
                     comp.setBackground(oddRowColor);
                 } else {
                     if (!isCellSelected(Index_row, Index_col)) {
-                        comp.setBackground(defaultBackground);
+                        comp.setBackground(oddRowColor);
                     }
                 }
+
             }
             return comp;
         } catch (Exception e) {

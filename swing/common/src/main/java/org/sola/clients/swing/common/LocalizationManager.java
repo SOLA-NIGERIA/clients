@@ -130,7 +130,7 @@ public class LocalizationManager {
         boolean result = false;
         String host = System.getProperty(WEB_START_HOST_PROP);
         LogUtility.log("Host Name = " + (host == null ? "Unknown" : host));
-        host = null; // Temporary setting so that SOLA Nigeria assumes production host.
+        host = null; // Temporary setting so that SOLA SR assumes production host.
         // If the host variable is not set then this is probably development
         if (host == null || host.equalsIgnoreCase(PRODUCTION_HOST_NAME)
                 || host.equals(PRODUCTION_HOST_IP)) {

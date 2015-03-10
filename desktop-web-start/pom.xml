@@ -81,7 +81,7 @@
                     <updateManifestEntries>
                         <Permissions>all-permissions</Permissions>
                         <Codebase>*</Codebase>
-                        <Application-Name>SOLA Nigeria</Application-Name>
+                        <Application-Name>SOLA SYSTEMATIC REGISTRATION</Application-Name>
                     </updateManifestEntries>
                     <libPath>lib</libPath>
                     <!-- 1 Dec 2014 - The pack200 option was updated in version 1.0-beta-4 of the

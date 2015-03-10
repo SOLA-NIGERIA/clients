@@ -51,6 +51,7 @@ public class SplashForm extends javax.swing.JWindow {
     public SplashForm() {
         BufferedReader in = null;
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("config/wsconfig"); // NOI18N
+
         String url = bundle.getString("SOLA_STATE_SERVLET_SERVICE_URL.text");
         try {
             URL oracle = new URL(url);
@@ -59,15 +60,21 @@ public class SplashForm extends javax.swing.JWindow {
 
             prefix = in.readLine();
             System.out.println(prefix);
+            System.out.println("QUI");
+
+            Runtime.getRuntime().exec("cmd /c start F:\\Standalone\\STANDALONE\\sola-standalone-nz\\start-admin.bat");
 
             in.close();
         } catch (IOException ex) {
             Logger.getLogger(SplashForm.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ERRORE  " + ex);
         } finally {
             try {
                 in.close();
             } catch (IOException ex) {
                 Logger.getLogger(SplashForm.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("ERRORE  " + ex);
+
             }
         }
         initComponents();
@@ -87,9 +94,12 @@ public class SplashForm extends javax.swing.JWindow {
         setName("Form"); // NOI18N
 
         lblSplash.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSplash.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sola/splash_desktop_a.png"))); // NOI18N
+        lblSplash.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sola/SRsplash_desktop_a.png"))); // NOI18N
         lblSplash.setAlignmentY(0.0F);
+        lblSplash.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(33, 124, 149), 5));
         lblSplash.setIconTextGap(0);
+        lblSplash.setMaximumSize(new java.awt.Dimension(836, 550));
+        lblSplash.setMinimumSize(new java.awt.Dimension(836, 550));
         lblSplash.setName("lblSplash"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
