@@ -36,21 +36,21 @@ Fax: +266 2231 0905]]></text>
 			</staticText>
 			<image>
 				<reportElement x="392" y="0" width="163" height="64"/>
-				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["images/sola/laa_logo.png"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement x="0" y="182" width="555" height="20"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[LIST OF PENDING DISPUTES]]></textFieldExpression>
+				<textFieldExpression><![CDATA["LIST OF PENDING DISPUTES"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="217" width="87" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[Period Range :]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Period Range :"]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

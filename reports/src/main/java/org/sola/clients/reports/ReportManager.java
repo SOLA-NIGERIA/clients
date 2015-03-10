@@ -92,7 +92,7 @@ public class ReportManager {
         ApplicationBean[] beans = new ApplicationBean[1];
         beans[0] = appBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
-        inputParameters.put("IMAGE_SCRITTA_GREEN", ReportManager.class.getResourceAsStream("/images/sola/caption_green.png"));
+        inputParameters.put("IMAGE_SCRITTA_GREEN", ReportManager.class.getResourceAsStream(logoImage));
         inputParameters.put("WHICH_CALLER", "N");
 
         try {
@@ -243,7 +243,7 @@ public class ReportManager {
         ApplicationBean[] beans = new ApplicationBean[1];
         beans[0] = appBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
-        inputParameters.put("IMAGE_SCRITTA_GREEN", ReportManager.class.getResourceAsStream("/images/sola/caption_orange.png"));
+        inputParameters.put("IMAGE_SCRITTA_GREEN", ReportManager.class.getResourceAsStream(logoImage));
         inputParameters.put("WHICH_CALLER", "R");
 
         try {
@@ -647,8 +647,6 @@ public class ReportManager {
         String featureFloatFront;
         String featureFloatBack;
         String featureNorthArrow = "images/sola/UN-north-arrow.png";
-//        String SRPlanFront = "images/sola/slrtPlan_kogi.svg"; //Kogi Plan Image for page 3
-//        String front_image_text = "images/sola/front_CrossRiver_text.svg";
         String small = "";
         String map = "";
         String sourceRef = sourceReferenceNumber;
@@ -702,7 +700,6 @@ public class ReportManager {
         String mapImage = featureImageFileName;
         String mapImageSmall = featureImageFileNameSmall;
         String utmZone = srid.toString().substring(srid.toString().length() - 2);
-//        utmZone = "UTM(Zone" + utmZone  +")";
         utmZone = imagerySource + utmZone + "N";
         String scaleLabel = "1: " + scale.intValue();
         String scalebarImageLocation = featureScalebarFileName;
@@ -734,76 +731,7 @@ public class ReportManager {
         featureFront = featureFront + prefix + ".svg";
         featureBack = featureBack + prefix + ".svg";
 
-        System.out.println("FRONT FLOAT   " + featureFloatFront);
-        System.out.println("BACK FLOAT   " + featureFloatBack);
-        System.out.println("FRONT   " + featureFront);
-        System.out.println("BACK   " + featureBack);
 
-//        if (prefix.contains("Jigawa")) {
-//            featureFloatFront ="images/sola/front_float_"+prefix+".svg";
-//            featureFloatBack = "images/sola/back_float_"+prefix+".svg";
-//            featureFront ="images/sola/front_"+prefix+".svg";
-//            featureBack = "images/sola/back_"+prefix+".svg";
-//            featureNorthArrow ="/images/sola/UN-north-arrow_"+prefix+".png";
-//       
-//            inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
-//            inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
-//            inputParameters.put("SHEET_NR", sheetNr);
-//            inputParameters.put("SURVEYOR", surveyor);
-//            inputParameters.put("RANK", rank);
-//            inputParameters.put("UN_NORTH_ARROW", ReportManager.class.getResourceAsStream(featureNorthArrow));
-//        }
-
-
-//        if (prefix.contains("Kogi")) {
-//            String page1="images/sola/Page1.svg";
-//            String page2="images/sola/Page2.svg";
-//            String page3="images/sola/Page3.svg";
-//            featureNorthArrow ="/images/sola/arrow.png";
-//            inputParameters.put("PAGE1_IMAGE", page1);
-//            inputParameters.put("PAGE2_IMAGE", page2);
-//            inputParameters.put("PAGE3_IMAGE", page3);
-//            
-//            inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
-//            inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
-//            inputParameters.put("SHEET_NR", sheetNr);
-//            inputParameters.put("SURVEYOR", surveyor);
-//            inputParameters.put("RANK", rank);
-//            inputParameters.put("UN_NORTH_ARROW", ReportManager.class.getResourceAsStream(featureNorthArrow));
-//            inputParameters.put("SR_PLAN_IMAGE", SRPlanFront);
-//        }
-//        
-//        if (prefix.contains("Ondo")) {
-//            featureFloatFront ="images/sola/front_float_"+prefix+".svg";
-//            featureFloatBack = "images/sola/back_float_"+prefix+".svg";
-//            featureFront ="images/sola/front_"+prefix+".svg";
-//            featureBack = "images/sola/back_"+prefix+".svg";
-//       
-//            inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
-//            inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
-//            inputParameters.put("SHEET_NR", sheetNr);
-//            inputParameters.put("SURVEYOR", surveyor);
-//            inputParameters.put("RANK", rank);
-//        }
-//        if(prefix.contains("CrossRiver"))
-//        {
-//            featureFront ="images/sola/front_"+prefix+".svg";
-//            featureBack = "images/sola/back_"+prefix+".svg";
-//            inputParameters.put("FRONT_IMAGE_TEXT",front_image_text);
-//            inputParameters.put("UPIN",sourceRef);
-//            inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
-//            inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
-//            inputParameters.put("SHEET_NR", sheetNr);
-//            inputParameters.put("SURVEYOR", surveyor);
-//            inputParameters.put("RANK", rank);
-//        }
-
-
-//        inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
-//        inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
-//        inputParameters.put("SHEET_NR", sheetNr);
-//        inputParameters.put("SURVEYOR", surveyor);
-//        inputParameters.put("RANK", rank);
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("LOCATION", location);
@@ -871,9 +799,12 @@ public class ReportManager {
     public static JasperPrint getSysRegSlrtPlanReport(BaUnitBean baUnitBean, String location, ApplicationBean appBean, SysRegCertificatesBean appBaunit, String featureImageFileName,
             String featureScalebarFileName, Integer srid, Number scale, String featureFront, String featureBack, String featureImageFileNameSmall) {
         HashMap inputParameters = new HashMap();
-        String featureFloatFront = "images/sola/front_float_SR.svg";
-        String featureFloatBack = "images/sola/back_float_SR.svg";
-        String SRPlanFront = "images/sola/slrtPlan.svg";
+        String featureFloatFront = "images/sola/front_float_"+ prefix + ".svg";
+        String featureFloatBack = "images/sola/back_float_"+ prefix + ".svg";
+        String SRPlanFront = "images/sola/slrtPlan.svg"+ prefix + ".svg";
+        String featureSltr = "images/sola/sltr_"+ prefix + ".svg";
+        
+        
         String small = "";
         String map = "";
 
@@ -936,8 +867,6 @@ public class ReportManager {
         String mapImage = featureImageFileName;
         String mapImageSmall = featureImageFileNameSmall;
         String utmZone = srid.toString().substring(srid.toString().length() - 2);
-//        utmZone = imagerySource;
-//        utmZone = "WGS84 UTM Zone" + utmZone  +"N";
         utmZone = imagerySource + utmZone + "N";
         String scaleLabel = "1: " + scale.intValue();
         String scalebarImageLocation = featureScalebarFileName;
@@ -973,24 +902,22 @@ public class ReportManager {
         inputParameters.put("REFNR", title);
         inputParameters.put("GROUND_RENT", groundRent);
         inputParameters.put("FRONT_IMAGE", featureFront);
-        inputParameters.put("BACK_IMAGE", featureBack);
+        inputParameters.put("BACK_IMAGE", featureSltr);
         inputParameters.put("FRONT_FLOAT_IMAGE", featureFloatFront);
         inputParameters.put("BACK_FLOAT_IMAGE", featureFloatBack);
         inputParameters.put("LGA", lga);
         inputParameters.put("WARD", ward);
         inputParameters.put("STATE", state);
-        inputParameters.put("SR_PLAN_IMAGE", SRPlanFront);
         inputParameters.put("MAP_IMAGE", mapImage);
-//        inputParameters.put("MAP_IMAGE", map);
         inputParameters.put("SCALE", scaleLabel);
         inputParameters.put("UTM", utmZone);
         inputParameters.put("SCALEBAR", scalebarImageLocation);
         inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
-//        inputParameters.put("MAP_IMAGE_SMALL", small);
         inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
         inputParameters.put("SHEET_NR", sheetNr);
         inputParameters.put("SURVEYOR", surveyor);
         inputParameters.put("RANK", rank);
+
 
 
         BaUnitBean[] beans = new BaUnitBean[1];
@@ -1170,7 +1097,7 @@ public class ReportManager {
         DisputeBean[] beans = new DisputeBean[1];
         beans[0] = dispBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
-        inputParameters.put("IMAGE_SCRITTA_GREEN", ReportManager.class.getResourceAsStream("/images/sola/caption_green.png"));
+        inputParameters.put("IMAGE_SCRITTA_GREEN", ReportManager.class.getResourceAsStream(logoImage));
         inputParameters.put("WHICH_CALLER", "N");
 
         try {

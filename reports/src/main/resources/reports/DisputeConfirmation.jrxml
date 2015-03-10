@@ -229,7 +229,7 @@
 		<band height="317" splitType="Stretch">
 			<image>
 				<reportElement x="153" y="0" width="235" height="64"/>
-				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["images/sola/laa_logo.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="460" y="100" width="95" height="15"/>

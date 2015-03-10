@@ -60,20 +60,19 @@ public class SplashForm extends javax.swing.JWindow {
 
             prefix = in.readLine();
             System.out.println(prefix);
-            System.out.println("QUI");
-
-            Runtime.getRuntime().exec("cmd /c start F:\\Standalone\\STANDALONE\\sola-standalone-nz\\start-admin.bat");
+          
+            Runtime.getRuntime().exec("cmd /c start F:\\Standalone\\STANDALONE\\sola-standalone-nz\\wms-server-start.bat");
 
             in.close();
         } catch (IOException ex) {
             Logger.getLogger(SplashForm.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("ERRORE  " + ex);
+            System.out.println("ERROR  " + ex);
         } finally {
             try {
                 in.close();
             } catch (IOException ex) {
                 Logger.getLogger(SplashForm.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("ERRORE  " + ex);
+                System.out.println("ERROR  " + ex);
 
             }
         }

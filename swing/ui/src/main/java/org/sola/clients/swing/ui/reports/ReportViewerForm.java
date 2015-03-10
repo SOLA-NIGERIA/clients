@@ -30,6 +30,7 @@ package org.sola.clients.swing.ui.reports;
 import java.awt.Dialog;
 import javax.swing.ImageIcon;
 import net.sf.jasperreports.engine.JasperPrint;
+import org.sola.clients.swing.common.LocalizationManager;
 
 /**
  * Displays reports.
@@ -39,6 +40,8 @@ public class ReportViewerForm extends javax.swing.JFrame {
     public ReportViewerForm(JasperPrint jasperPrint) {
         initComponents();
         this.setIconImage(new ImageIcon(ReportViewerForm.class.getResource("/images/sola/logo_icon.jpg")).getImage());
+           // shift the title text on the right of the Registry Icon Image
+      
         postInit(jasperPrint);
     }
     
@@ -55,6 +58,14 @@ public class ReportViewerForm extends javax.swing.JFrame {
         if(reportViewerPanel.getJasperViewer() !=null){
             this.setIconImage(reportViewerPanel.getJasperViewer().getIconImage());
         }
+        
+        this.setIconImage(new ImageIcon(ReportViewerForm.class.getResource("/images/sola/logo_icon.jpg")).getImage());
+           // shift the title text on the right of the Registry Icon Image
+        String pre = "";
+        pre = String.format("%" + 8 + "s", pre);
+        //  put the obtained number of blanks before the title text
+        this.setTitle(pre + this.getTitle()+" - " + LocalizationManager.getVersionNumber());
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -64,8 +75,6 @@ public class ReportViewerForm extends javax.swing.JFrame {
         reportViewerPanel = new org.sola.clients.swing.ui.reports.ReportViewerPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/ui/reports/Bundle"); // NOI18N
-        setTitle(bundle.getString("ReportViewerForm.title")); // NOI18N
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setName("Form"); // NOI18N
 

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO" whenResourceMissingType="Empty">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="5"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table 1">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -287,14 +287,6 @@
 				<reportElement x="0" y="0" width="595" height="842"/>
 				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation($P{FRONT_IMAGE})]]></imageExpression>
 			</image>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Opaque" x="150" y="162" width="295" height="22" backcolor="#FFFFFF"/>
-				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Myriad Pro" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{STATE}+" State"]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement positionType="Float" x="39" y="273" width="533" height="284"/>
 				<textElement>
@@ -328,9 +320,9 @@ Given under my hand on:
 				<textFieldExpression><![CDATA[$P{LAND_USE}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement mode="Transparent" x="47" y="246" width="501" height="20"/>
+				<reportElement mode="Transparent" x="47" y="232" width="501" height="20"/>
 				<textElement textAlignment="Center">
-					<font fontName="Myriad Pro" size="10" isBold="true" isItalic="false"/>
+					<font fontName="Myriad Pro" size="15" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{CLIENT_NAME}.replaceAll(",", "\n ")]]></textFieldExpression>
 			</textField>
@@ -373,14 +365,6 @@ Given under my hand on:
 					<font fontName="Myriad Pro" size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="39" y="230" width="200" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single" leftIndent="5"/>
-				</textElement>
-				<textFieldExpression><![CDATA["This is to certify that:"]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="418" y="537" width="120" height="1"/>

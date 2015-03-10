@@ -29,6 +29,7 @@ package org.sola.clients.swing.desktop;
 
 import javax.swing.ImageIcon;
 import net.sf.jasperreports.engine.JasperPrint;
+import org.sola.clients.swing.common.LocalizationManager;
 
 /**
  * Displays reports.
@@ -54,6 +55,11 @@ public class ReportViewerForm extends javax.swing.JFrame {
         if(reportViewerPanel.getJasperViewer() !=null){
             this.setIconImage(reportViewerPanel.getJasperViewer().getIconImage());
         }
+          String pre = "";
+        pre = String.format("%" + 8 + "s", pre);
+        //  put the obtained number of blanks before the title text
+        this.setTitle(pre + this.getTitle()+" - " + LocalizationManager.getVersionNumber());
+       
     }
 
     @SuppressWarnings("unchecked")
