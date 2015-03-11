@@ -66,14 +66,11 @@ public class SplashForm extends javax.swing.JWindow {
             in.close();
         } catch (IOException ex) {
             Logger.getLogger(SplashForm.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("ERROR  " + ex);
         } finally {
             try {
                 in.close();
             } catch (IOException ex) {
                 Logger.getLogger(SplashForm.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("ERROR  " + ex);
-
             }
         }
         initComponents();
