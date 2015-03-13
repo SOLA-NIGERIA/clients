@@ -700,7 +700,7 @@ public class ReportManager {
         String mapImage = featureImageFileName;
         String mapImageSmall = featureImageFileNameSmall;
         String utmZone = srid.toString().substring(srid.toString().length() - 2);
-        utmZone = imagerySource + utmZone + "N";
+        utmZone = imagerySource + utmZone ;
         String scaleLabel = "1: " + scale.intValue();
         String scalebarImageLocation = featureScalebarFileName;
         String prefix = getPrefix();
