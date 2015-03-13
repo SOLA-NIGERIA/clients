@@ -303,7 +303,6 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         if (nr != null) {
             sysRegCertificatesListBean.passParameterApp(tmpLocation, nr);
         } else {
-            System.out.println("QUI TEMP LOC  "+tmpLocation);
             sysRegCertificatesListBean.passParameter(tmpLocation);
         }
         
@@ -322,10 +321,6 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 int sketchHeight = 200;
                 
         try {
-//            MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(490, 429, 150, 40);
-//            MapImageGeneratorForSelectedParcel mapImageSmall = new MapImageGeneratorForSelectedParcel(225, 225, 150, 40);
-  
-
            
                            
             MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(imageWidth, imageHeight,sketchWidth,sketchHeight,false, 0, 0);
@@ -353,17 +348,12 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 String parcelLabel = tmpLocation + '/' + appBaunit.getNameFirstpart();
                 final String featureFront = null;
                 final String featureBack = null;
-//                MapImageInformation mapImageInfo = mapImage.getMapAndScalebarImage(appBaunit.getId());
-                
                 MapImageInformation mapImageInfo = mapImage.getInformation(appBaunit.getId());
                 final String featureImageFileName = mapImageInfo.getMapImageLocation();
                 final String featureScalebarFileName = mapImageInfo.getScalebarImageLocation();
                 final Number scale = mapImageInfo.getScale();
                 final Integer srid = mapImageInfo.getSrid();
-                //System.out.println(cadastreObjectBean.getSourceReference().toString());
-//                MapImageInformation mapImageInfoSmall = mapImageSmall.getMapAndScalebarImage(appBaunit.getId());
                 final String featureImageFileNameSmall = mapImageInfo.getSketchMapImageLocation();
-                    System.out.println("QUI PRIMA DI FARE  REPORT"+ whichReport  );
                     
                 if (this.whichReport.contains("parcelPlan")){  
                     ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
@@ -375,7 +365,6 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                     jprintlist.add(CofO);
                 }
                 else {  
-                    System.out.println("QUI FA IL REPORT"+ whichReport  );
                     CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall,sourceRef);
                     showReport(CofO, parcelLabel, "title");
                     ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
@@ -397,7 +386,6 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             }
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRPdfExporterParameter.JASPER_PRINT_LIST, jprintlist);
-            System.out.println ("PATH E FILE DA METTERE   "+cachePath +whichFile+ ".pdf");
             OutputStream output = new FileOutputStream(new File(cachePath +whichFile+ ".pdf"));
             exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, output);
             try {
