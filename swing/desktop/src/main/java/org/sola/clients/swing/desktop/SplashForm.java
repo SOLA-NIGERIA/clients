@@ -61,8 +61,7 @@ public class SplashForm extends javax.swing.JWindow {
             prefix = in.readLine();
             System.out.println(prefix);
           
-            Runtime.getRuntime().exec("cmd /c start F:\\Standalone\\STANDALONE\\sola-standalone-nz\\wms-server-start.bat");
-
+           
             in.close();
         } catch (IOException ex) {
             Logger.getLogger(SplashForm.class.getName()).log(Level.SEVERE, null, ex);

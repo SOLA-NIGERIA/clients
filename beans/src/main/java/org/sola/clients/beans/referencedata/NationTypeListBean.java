@@ -32,16 +32,16 @@ import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.controls.SolaCodeList;
 
 /**
- * Holds the list of {@link StateTypeBean} objects and used to bound the
+ * Holds the list of {@link NationTypeBean} objects and used to bound the
  * data in the combobox on the forms.
  */
-public class StateTypeListBean extends AbstractBindingListBean {
+public class NationTypeListBean extends AbstractBindingListBean {
     
-    public static final String SELECTED_STATETYPE_PROPERTY = "selectedStateType";
-    private SolaCodeList<StateTypeBean> stateTypeListBean;
-    private StateTypeBean selectedStateTypeBean;
+    public static final String SELECTED_NationType_PROPERTY = "selectedNationType";
+    private SolaCodeList<NationTypeBean> NationTypeListBean;
+    private NationTypeBean selectedNationTypeBean;
     
-    public StateTypeListBean() {
+    public NationTypeListBean() {
         this(false);
     }
     
@@ -49,7 +49,7 @@ public class StateTypeListBean extends AbstractBindingListBean {
      * Creates object instance.
      * @param createDummy Indicates whether to add empty object on the list.
      */
-    public StateTypeListBean(boolean createDummy) {
+    public NationTypeListBean(boolean createDummy) {
         this(createDummy, (String) null);
     }
     
@@ -58,36 +58,36 @@ public class StateTypeListBean extends AbstractBindingListBean {
      * @param createDummy Indicates whether to add empty object on the list.
      * @param excludedCodes Codes, which should be skipped while filtering.
      */
-    public StateTypeListBean(boolean createDummy, String ... excludedCodes) {
+    public NationTypeListBean(boolean createDummy, String ... excludedCodes) {
         super();
-        stateTypeListBean = new SolaCodeList<StateTypeBean>(excludedCodes);
+        NationTypeListBean = new SolaCodeList<NationTypeBean>(excludedCodes);
         loadList(createDummy);
     }
     
     /** 
-     * Loads list of {@link StateTypeBean}.
+     * Loads list of {@link NationTypeBean}.
      * @param createDummy Indicates whether to add empty object on the list.
      */
     public final void loadList(boolean createDummy) {
-        loadCodeList(StateTypeBean.class, stateTypeListBean, 
-                CacheManager.getStateTypes(), createDummy);
+        loadCodeList(NationTypeBean.class, NationTypeListBean, 
+                CacheManager.getNationTypes(), createDummy);
     }
     
-    public ObservableList<StateTypeBean> getStateTypeList() {
-        return stateTypeListBean.getFilteredList();
+    public ObservableList<NationTypeBean> getNationTypeList() {
+        return NationTypeListBean.getFilteredList();
     }
     
     public void setExcludedCodes(String ... codes){
-        stateTypeListBean.setExcludedCodes(codes);
+        NationTypeListBean.setExcludedCodes(codes);
     }
     
-    public StateTypeBean getSelectedStateType() {
-        return selectedStateTypeBean;
+    public NationTypeBean getSelectedNationType() {
+        return selectedNationTypeBean;
     }
 
-    public void setSelectedStateType(StateTypeBean value) {
-        selectedStateTypeBean = value;
-        propertySupport.firePropertyChange(SELECTED_STATETYPE_PROPERTY, null, value);
+    public void setSelectedNationType(NationTypeBean value) {
+        selectedNationTypeBean = value;
+        propertySupport.firePropertyChange(SELECTED_NationType_PROPERTY, null, value);
     }
 
 }

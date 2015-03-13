@@ -30,17 +30,17 @@ package org.sola.clients.beans.referencedata;
 
 import org.sola.clients.beans.AbstractCodeBean;
 import org.sola.clients.beans.party.PartyBean;
-import org.sola.webservices.transferobjects.referencedata.StateTypeTO;
+import org.sola.webservices.transferobjects.referencedata.NationTypeTO;
 
 /** 
- * Represents reference data object of the <b>State_type</b> table. 
- * Could be populated from the {@link StateTypeTO} object.<br />
+ * Represents reference data object of the <b>nation_type</b> table. 
+ * Could be populated from the {@link NationTypeTO} object.<br />
  * For more information see data dictionary <b>Party</b> schema.
  * <br />This bean is used as a part of {@link PartyBean}.
  */
-public class StateTypeBean extends AbstractCodeBean {
+public class NationTypeBean extends AbstractCodeBean {
     
-    public StateTypeBean() {
+    public NationTypeBean() {
         super();
     }
     

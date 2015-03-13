@@ -86,7 +86,6 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     private String nr;
     private String tmpLocation = "";
     private static String cachePath = System.getProperty("user.home") + "/sola/cache/documents/";
-    private static String svgPath = "images/sola/";
     private String reportdate;
     private String reportTogenerate;
     private Date currentDate;
@@ -304,6 +303,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         if (nr != null) {
             sysRegCertificatesListBean.passParameterApp(tmpLocation, nr);
         } else {
+            System.out.println("QUI TEMP LOC  "+tmpLocation);
             sysRegCertificatesListBean.passParameter(tmpLocation);
         }
         
@@ -326,14 +326,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 //            MapImageGeneratorForSelectedParcel mapImageSmall = new MapImageGeneratorForSelectedParcel(225, 225, 150, 40);
   
 
-            if (prefix.contains("Jigawa")){ 
-                // A3 side by side according to SURCON sample
-                imageWidth   = 200;
-                imageHeight  = 300;
-                sketchWidth  = 200;
-                sketchHeight = 300;   
-            }
-
+           
                            
             MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(imageWidth, imageHeight,sketchWidth,sketchHeight,false, 0, 0);
             
@@ -358,8 +351,8 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 final BaUnitBean baUnit = getBaUnit(baUnitId);
                 final ApplicationBean applicationBean = getApplication(appId);
                 String parcelLabel = tmpLocation + '/' + appBaunit.getNameFirstpart();
-                final String featureFront = this.svgPath + "front.svg";
-                final String featureBack = this.svgPath + "back.svg";
+                final String featureFront = null;
+                final String featureBack = null;
 //                MapImageInformation mapImageInfo = mapImage.getMapAndScalebarImage(appBaunit.getId());
                 
                 MapImageInformation mapImageInfo = mapImage.getInformation(appBaunit.getId());
@@ -370,6 +363,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 //System.out.println(cadastreObjectBean.getSourceReference().toString());
 //                MapImageInformation mapImageInfoSmall = mapImageSmall.getMapAndScalebarImage(appBaunit.getId());
                 final String featureImageFileNameSmall = mapImageInfo.getSketchMapImageLocation();
+                    System.out.println("QUI PRIMA DI FARE  REPORT"+ whichReport  );
                     
                 if (this.whichReport.contains("parcelPlan")){  
                     ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
@@ -381,6 +375,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                     jprintlist.add(CofO);
                 }
                 else {  
+                    System.out.println("QUI FA IL REPORT"+ whichReport  );
                     CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall,sourceRef);
                     showReport(CofO, parcelLabel, "title");
                     ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
@@ -402,6 +397,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             }
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRPdfExporterParameter.JASPER_PRINT_LIST, jprintlist);
+            System.out.println ("PATH E FILE DA METTERE   "+cachePath +whichFile+ ".pdf");
             OutputStream output = new FileOutputStream(new File(cachePath +whichFile+ ".pdf"));
             exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, output);
             try {

@@ -79,17 +79,17 @@ public final class CacheManager {
      */
     public static final String GENDER_TYPES_KEY = GenderTypeBean.class.getName() + LIST_POSTFIX;
     /**
-     * Cache key of the {@link StateTypeBean} collection.
+     * Cache key of the {@link NationTypeBean} collection.
      */
-    public static final String STATE_TYPES_KEY = StateTypeBean.class.getName() + LIST_POSTFIX;
+    public static final String nation_typeS_KEY = NationTypeBean.class.getName() + LIST_POSTFIX;
     /**
      * Cache key of the code/displayValue map based on {@link GenderTypeBean} collection.
      */
     public static final String GENDER_TYPES_MAP_KEY = GenderTypeBean.class.getName() + MAP_POSTFIX;
     /**
-     * Cache key of the code/displayValue map based on {@link StateTypeBean} collection.
+     * Cache key of the code/displayValue map based on {@link NationTypeBean} collection.
      */
-    public static final String STATE_TYPES_MAP_KEY = StateTypeBean.class.getName() + MAP_POSTFIX;
+    public static final String nation_typeS_MAP_KEY = NationTypeBean.class.getName() + MAP_POSTFIX;
     /**
      * Cache key of the {@link SourceTypeBean} collection.
      */
@@ -235,7 +235,7 @@ public final class CacheManager {
     private static final String GET_SOURCE_TYPES = "getSourceTypes";
     private static final String GET_COMMUNICATION_TYPES = "getCommunicationTypes";
     private static final String GET_GENDER_TYPES = "getGenderTypes";
-    private static final String GET_STATE_TYPES = "getStateTypes";
+    private static final String GET_nation_typeS = "getNationTypes";
     private static final String GET_REQUEST_TYPES = "getRequestTypes";
     private static final String GET_APPLICATION_ACTION_TYPES = "getApplicationActionTypes";
     private static final String GET_SERVICE_ACTION_TYPES = "getServiceActionTypes";
@@ -460,10 +460,10 @@ public final class CacheManager {
                 WSManager.getInstance().getReferenceDataService(),
                 GET_GENDER_TYPES, GENDER_TYPES_KEY);
     }
-    public static List<StateTypeBean> getStateTypes() {
-        return getCachedBeanList(StateTypeBean.class,
+    public static List<NationTypeBean> getNationTypes() {
+        return getCachedBeanList(NationTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
-                GET_STATE_TYPES, STATE_TYPES_KEY);
+                GET_nation_typeS, nation_typeS_KEY);
     }
     public static Map getGenderTypesMap() {
         return getCachedMap(
@@ -473,12 +473,12 @@ public final class CacheManager {
                 GENDER_TYPES_MAP_KEY);
     }
     
-    public static Map getStateTypesMap() {
+    public static Map getNationTypesMap() {
         return getCachedMap(
-                getCachedBeanList(StateTypeBean.class,
+                getCachedBeanList(NationTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
-                GET_STATE_TYPES, STATE_TYPES_KEY),
-                STATE_TYPES_MAP_KEY);
+                GET_nation_typeS, nation_typeS_KEY),
+                nation_typeS_MAP_KEY);
     }
     
     public static List<RequestTypeBean> getRequestTypes() {
