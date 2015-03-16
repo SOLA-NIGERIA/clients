@@ -271,9 +271,10 @@ public class LafManager {
                         ret.put("nimbusAlertYellow", new Color(255, 220, 35));
                         ret.put("nimbusDisabledText", new Color(50, 50, 50));
                         ret.put("nimbusFocus", new Color(239, 239, 233));
-                        ret.put("nimbusGreen", new Color(154, 177, 95));
-                        ret.put("nimbusBlueGrey", new Color(154, 177, 95));
-                        ret.put("nimbusInfoBlue", new Color(154, 177, 95));
+//                        ret.put("nimbusGreen", new Color(154, 177, 95));
+                        ret.put("nimbusGreen", new Color(33, 124, 149));
+                        ret.put("nimbusBlueGrey", new Color(33, 124, 149));
+                        ret.put("nimbusInfoBlue", new Color(33, 124, 149));
                         ret.put("nimbusLightBackground", new Color(255, 255, 255));
                         ret.put("nimbusOrange", new Color(140, 192, 220));
 //                        ret.put("nimbusOrange", new Color(33, 124, 149));
@@ -292,8 +293,8 @@ public class LafManager {
                         ret.put("menu", new Color(239, 239, 233));
                         ret.put("menuText", new Color(0, 0, 0));
                         ret.put("nimbusBorder", new Color(255, 255, 255));
-                        ret.put("nimbusSelection", new Color(154, 177, 95));
-                        ret.put("scrollbar", new Color(154, 177, 95));
+                        ret.put("nimbusSelection", new Color(33, 124, 149));
+                        ret.put("scrollbar", new Color(33, 124, 149));
                         ret.put("textBackground", new Color(239, 239, 233));
                         ret.put("textHighlight", new Color(255, 255, 255));
                         ret.put("textHighlightText", new Color(255, 255, 255));
@@ -301,7 +302,7 @@ public class LafManager {
                         ret.put("paleSolaGrey", new Color(239, 239, 233));
                         ret.put("SolaGrey", new Color(181, 181, 150));
                         ret.put("SolaGroup", new Color(181, 181, 150));
-                        ret.put("SolaHeader", new Color(154, 177, 95));
+                        ret.put("SolaHeader", new Color(33, 124, 149));
 
 //      ####  Background/Foreground Colors   #####         
                         ret.put("PasswordField.background", new Color(236, 247, 235));
@@ -310,11 +311,11 @@ public class LafManager {
                         ret.put("Table.dropLineColor", new Color(255, 255, 255));
                         ret.put("MenuItem.background", new Color(255, 255, 255));
                         ret.put("List.foreground", new Color(0, 102, 51));
-                        ret.put("List[Selected].textBackground", new Color(154, 177, 95));
-                        ret.put("TableHeader:\"TableHeader.renderer\"[Enabled].backgroundPainter", new FillPainter(new Color(154, 177, 95)));
+                        ret.put("List[Selected].textBackground", new Color(33, 124, 149));
+                        ret.put("TableHeader:\"TableHeader.renderer\"[Enabled].backgroundPainter", new FillPainter(new Color(33, 124, 149)));
                         ret.put("MenuBar:Menu[Enabled].textForeground", new Color(255, 255, 255));
                         ret.put("MenuBar[Enabled].backgroundPainter", new FillPainter(new Color(181, 181, 150)));
-                        ret.put("MenuBar:Menu[Selected].backgroundPainter", new FillPainter(new Color(154, 177, 95)));
+                        ret.put("MenuBar:Menu[Selected].backgroundPainter", new FillPainter(new Color(33, 124, 149)));
 
 
                         //      #### FONTS  ####   
