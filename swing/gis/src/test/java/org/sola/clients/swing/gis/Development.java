@@ -269,14 +269,14 @@ public class Development {
 
     private HashMap<String, String> getWSConfig() {
         HashMap<String, String> wsConfig = new HashMap<String, String>();
-        wsConfig.put("SOLA_WS_CASE_MANAGEMENT_SERVICE_URL", "http://localhost:8080/sola/webservices/casemanagement-service?wsdl");
-        wsConfig.put("SOLA_WS_REFERENCE_DATA_SERVICE_URL", "http://localhost:8080/sola/webservices/referencedata-service?wsdl");
-        wsConfig.put("SOLA_WS_ADMIN_SERVICE_URL", "http://localhost:8080/sola/webservices/admin-service?wsdl");
-        wsConfig.put("SOLA_WS_CADASTRE_SERVICE_URL", "http://localhost:8080/sola/webservices/cadastre-service?wsdl");
-        wsConfig.put("SOLA_WS_SEARCH_SERVICE_URL", "http://localhost:8080/sola/webservices/search-service?wsdl");
-        wsConfig.put("SOLA_WS_DIGITAL_ARCHIVE_URL", "http://localhost:8080/sola/webservices/digitalarchive-service?wsdl");
-        wsConfig.put("SOLA_WS_SPATIAL_SERVICE_URL", "http://localhost:8080/sola/webservices/spatial-service?wsdl");
-        wsConfig.put("SOLA_WS_ADMINISTRATIVE_SERVICE_URL", "http://localhost:8080/sola/webservices/administrative-service?wsdl");
+        wsConfig.put("SOLA_WS_CASE_MANAGEMENT_SERVICE_URL", "http://localhost:8080/sola_sr/webservices/casemanagement-service?wsdl");
+        wsConfig.put("SOLA_WS_REFERENCE_DATA_SERVICE_URL", "http://localhost:8080/sola_sr/webservices/referencedata-service?wsdl");
+        wsConfig.put("SOLA_WS_ADMIN_SERVICE_URL", "http://localhost:8080/sola_sr/webservices/admin-service?wsdl");
+        wsConfig.put("SOLA_WS_CADASTRE_SERVICE_URL", "http://localhost:8080/sola_sr/webservices/cadastre-service?wsdl");
+        wsConfig.put("SOLA_WS_SEARCH_SERVICE_URL", "http://localhost:8080/sola_sr/webservices/search-service?wsdl");
+        wsConfig.put("SOLA_WS_DIGITAL_ARCHIVE_URL", "http://localhost:8080/sola_sr/webservices/digitalarchive-service?wsdl");
+        wsConfig.put("SOLA_WS_SPATIAL_SERVICE_URL", "http://localhost:8080/sola_sr/webservices/spatial-service?wsdl");
+        wsConfig.put("SOLA_WS_ADMINISTRATIVE_SERVICE_URL", "http://localhost:8080/sola_sr/webservices/administrative-service?wsdl");
         return wsConfig;
     }
     

@@ -5,9 +5,9 @@ $explicitTimestampUTC
     codebase="$$codebase"
     context="$$context"
     href="$$name"
-    version="SOLA Release $solaVersion">
+    version="SOLA SR Release $solaVersion">
     <information>
-        <title>SOLA Desktop Release $solaVersion</title>
+        <title>SOLA SR Desktop Release $solaVersion</title>
         #if($project.Organization.Name)
         <vendor>$project.Organization.Name</vendor>
         #end
@@ -22,7 +22,7 @@ $explicitTimestampUTC
         <!--icon kind="splash" href="../Images/splash.png" width="413" height="314"/-->
         <shortcut>
             <desktop/>
-            <menu submenu="SOLA Release"/>
+            <menu submenu="SOLA SR Release"/>
         </shortcut>
         #if($offlineAllowed)
         <offline-allowed/>

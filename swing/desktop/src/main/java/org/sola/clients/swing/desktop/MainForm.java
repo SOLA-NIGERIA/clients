@@ -192,7 +192,7 @@ public class MainForm extends javax.swing.JFrame {
      * Default constructor.
      */
     private MainForm() {
-        URL imgURL = this.getClass().getResource("/images/sola/logo_icon.jpg");
+        URL imgURL = this.getClass().getResource("/images/sola/sola_icon.png");
         this.setIconImage(new ImageIcon(imgURL).getImage());
 
         initComponents();
