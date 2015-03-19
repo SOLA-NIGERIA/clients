@@ -8,7 +8,7 @@
     </parent>
 
     <groupId>org.sola.clients</groupId>
-    <artifactId>sola-desktop-web-start</artifactId>
+    <artifactId>sola-sr-desktop-web-start</artifactId>
     <version>1502a</version>
     <packaging>war</packaging>
 
@@ -97,8 +97,8 @@
                     <jnlpFiles>
                         <jnlpFile>
                             <!-- JNLP file for the SOLA Desktop application -->
-                            <outputFilename>sola-desktop.jnlp</outputFilename>
-                            <templateFilename>sola-desktop-jnlp-template.vm</templateFilename>
+                            <outputFilename>sola-sr-desktop.jnlp</outputFilename>
+                            <templateFilename>sola-sr-desktop-jnlp-template.vm</templateFilename>
                             <jarResources>
                                 <jarResource>
                                     <groupId>${project.groupId}.swing</groupId>
@@ -110,8 +110,8 @@
                         </jnlpFile> 
                         <jnlpFile>
                             <!-- JNLP file for the SOLA Desktop application test env -->
-                            <outputFilename>sola-desktop-test.jnlp</outputFilename>
-                            <templateFilename>sola-desktop-jnlp-template-test.vm</templateFilename>
+                            <outputFilename>sola-sr-desktop-test.jnlp</outputFilename>
+                            <templateFilename>sola-sr-desktop-jnlp-template-test.vm</templateFilename>
                             <jarResources>
                                 <jarResource>
                                     <groupId>${project.groupId}.swing</groupId>
@@ -123,8 +123,8 @@
                         </jnlpFile> 
                         <jnlpFile>
                             <!-- JNLP file for the SOLA Admin application -->
-                            <outputFilename>sola-admin.jnlp</outputFilename>
-                            <templateFilename>sola-admin-jnlp-template.vm</templateFilename>
+                            <outputFilename>sola-sr-admin.jnlp</outputFilename>
+                            <templateFilename>sola-sr-admin-jnlp-template.vm</templateFilename>
                             <jarResources>
                                 <jarResource>
                                     <groupId>${project.groupId}.swing</groupId>
@@ -136,8 +136,8 @@
                         </jnlpFile>
                         <jnlpFile>
                             <!-- JNLP file for the SOLA Admin application test env-->
-                            <outputFilename>sola-admin-test.jnlp</outputFilename>
-                            <templateFilename>sola-admin-jnlp-template-test.vm</templateFilename>
+                            <outputFilename>sola-sr-admin-test.jnlp</outputFilename>
+                            <templateFilename>sola-sr-admin-jnlp-template-test.vm</templateFilename>
                             <jarResources>
                                 <jarResource>
                                     <groupId>${project.groupId}.swing</groupId>
