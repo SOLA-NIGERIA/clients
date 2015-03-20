@@ -60,9 +60,8 @@
 
                             String desktopJnlp = "/webstart/sola-sr-desktop-test.jnlp";
                             String adminJnlp = "/webstart/sola-sr-admin-test.jnlp";
-                            //if (hostName.equalsIgnoreCase("demo.flossola.org")
-                            //        || hostName.equalsIgnoreCase("<hostname1>")) { // Update hostname as required
-                            if (true) { // 1 DEC 2014 - Short circuit logic so production JNLP files are always served. 
+                            if (hostName.equalsIgnoreCase("demo.flossola.org")
+                                    || hostName.equalsIgnoreCase("flossola.org")) { // Update hostname as required
                                 // This is the production host so use the production
                                 // JNLP files
                                 desktopJnlp = "/webstart/sola-sr-desktop.jnlp";
