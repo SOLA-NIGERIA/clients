@@ -56,7 +56,7 @@ public class ParcelDialog extends javax.swing.JDialog {
         this.readOnly = readOnly;
         this.cadastreObject = cadastreObject;
         initComponents();
-        this.setIconImage(new ImageIcon(ParcelDialog.class.getResource("/images/sola/logo_icon.jpg")).getImage());
+        this.setIconImage(new ImageIcon(ParcelDialog.class.getResource("/images/sola/logo.png")).getImage());
     }
 
     @SuppressWarnings("unchecked")

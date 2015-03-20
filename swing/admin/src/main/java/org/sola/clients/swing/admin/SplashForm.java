@@ -82,7 +82,7 @@ public class SplashForm extends javax.swing.JWindow {
         lblSplash = new javax.swing.JLabel();
 
         lblSplash.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSplash.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sola/splash_admin_a.png"))); // NOI18N
+        lblSplash.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sola/SRsplash_admin_a.png"))); // NOI18N
         lblSplash.setAlignmentY(0.0F);
         lblSplash.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblSplash.setName("lblSplash"); // NOI18N

@@ -45,7 +45,7 @@ public class QuickSearchPartyForm extends javax.swing.JDialog {
     
     public QuickSearchPartyForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-       this.setIconImage(new ImageIcon(QuickSearchPartyForm.class.getResource("/images/sola/logo_icon.jpg")).getImage());
+       this.setIconImage(new ImageIcon(QuickSearchPartyForm.class.getResource("/images/sola/logo.png")).getImage());
     
         initComponents();
     }
@@ -54,7 +54,7 @@ public class QuickSearchPartyForm extends javax.swing.JDialog {
         super(PARENT_FORM, modal);
         
         this.panelForm=panel; 
-        this.setIconImage(new ImageIcon(QuickSearchPartyForm.class.getResource("/images/sola/logo_icon.jpg")).getImage());
+        this.setIconImage(new ImageIcon(QuickSearchPartyForm.class.getResource("/images/sola/logo.png")).getImage());
     
         initComponents();
     }
