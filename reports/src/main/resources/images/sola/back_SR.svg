@@ -7,7 +7,6 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
@@ -1327,10 +1326,4 @@
      id="path4936"
      inkscape:connector-curvature="0"
      d="m 452.68,72.12 c 0,-0.398 0.271,-0.678 0.646,-0.678 0.377,0 0.635,0.279 0.635,0.678 0,0.388 -0.247,0.678 -0.645,0.678 -0.377,0.001 -0.636,-0.29 -0.636,-0.678 z"
-     style="fill:#008080" /></g><image
-   y="25.030556"
-   x="25.401297"
-   id="image4420"
-   xlink:href="file:///C:/Users/rizzom/Desktop/SOLA-SR-PAOLA/code/clients/swing/desktop/src/main/resources/images/sola/logo.png"
-   height="102.83376"
-   width="134.99384" /></svg>
+     style="fill:#008080" /></g></svg>

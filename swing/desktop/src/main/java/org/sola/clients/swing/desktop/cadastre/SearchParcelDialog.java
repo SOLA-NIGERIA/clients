@@ -41,7 +41,7 @@ public class SearchParcelDialog extends javax.swing.JDialog {
     public SearchParcelDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.setIconImage(new ImageIcon(SearchParcelDialog.class.getResource("/images/sola/logo_icon.jpg")).getImage());
+        this.setIconImage(new ImageIcon(SearchParcelDialog.class.getResource("/images/sola/logo.png")).getImage());
     }
 
     @SuppressWarnings("unchecked")

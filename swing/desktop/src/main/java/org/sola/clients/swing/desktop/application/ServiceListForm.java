@@ -49,7 +49,7 @@ public class ServiceListForm extends javax.swing.JDialog {
         this.application = application;
 
         initComponents();
-        this.setIconImage(new ImageIcon(ServiceListForm.class.getResource("/images/sola/logo_icon.jpg")).getImage());
+        this.setIconImage(new ImageIcon(ServiceListForm.class.getResource("/images/sola/logo.png")).getImage());
 
         btnAddService.setEnabled(false);
         requestTypeList.addPropertyChangeListener(new PropertyChangeListener() {

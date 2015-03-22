@@ -38,7 +38,7 @@ public class ReportViewerForm extends javax.swing.JFrame {
 
     public ReportViewerForm(JasperPrint jasperPrint) {
         initComponents();
-        this.setIconImage(new ImageIcon(ReportViewerForm.class.getResource("/images/sola/logo_icon.jpg")).getImage());
+        this.setIconImage(new ImageIcon(ReportViewerForm.class.getResource("/images/sola/logo.png")).getImage());
         postInit(jasperPrint);
     }
     

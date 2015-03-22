@@ -53,7 +53,7 @@ public class CreateParcelDialog extends javax.swing.JDialog {
         super(parent, modal);
         this.cadastreObject = cadastreObject;
         initComponents();
-        this.setIconImage(new ImageIcon(CreateParcelDialog.class.getResource("/images/sola/logo_icon.jpg")).getImage());
+        this.setIconImage(new ImageIcon(CreateParcelDialog.class.getResource("/images/sola/logo.png")).getImage());
     }
 
     @SuppressWarnings("unchecked")

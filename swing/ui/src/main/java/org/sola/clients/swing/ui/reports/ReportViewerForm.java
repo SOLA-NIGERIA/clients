@@ -39,7 +39,7 @@ public class ReportViewerForm extends javax.swing.JFrame {
 
     public ReportViewerForm(JasperPrint jasperPrint) {
         initComponents();
-        this.setIconImage(new ImageIcon(ReportViewerForm.class.getResource("/images/sola/logo_icon.jpg")).getImage());
+        this.setIconImage(new ImageIcon(ReportViewerForm.class.getResource("/images/sola/logo.png")).getImage());
            // shift the title text on the right of the Registry Icon Image
       
         postInit(jasperPrint);
@@ -59,7 +59,7 @@ public class ReportViewerForm extends javax.swing.JFrame {
             this.setIconImage(reportViewerPanel.getJasperViewer().getIconImage());
         }
         
-        this.setIconImage(new ImageIcon(ReportViewerForm.class.getResource("/images/sola/logo_icon.jpg")).getImage());
+        this.setIconImage(new ImageIcon(ReportViewerForm.class.getResource("/images/sola/logo.png")).getImage());
            // shift the title text on the right of the Registry Icon Image
         String pre = "";
         pre = String.format("%" + 8 + "s", pre);
