@@ -112,7 +112,7 @@
                         <jnlpFile>
                             <!-- JNLP file for the SOLA Desktop application test env -->
                             <outputFilename>sola-sr-desktop-test.jnlp</outputFilename>
-                            <templateFilename>sola-desktop-jnlp-template-test.vm</templateFilename>
+                            <templateFilename>sola-sr-desktop-jnlp-template-test.vm</templateFilename>
                             <jarResources>
                                 <jarResource>
                                     <groupId>${project.groupId}.swing</groupId>
@@ -138,7 +138,7 @@
                         <jnlpFile>
                             <!-- JNLP file for the SOLA Admin application test env-->
                             <outputFilename>sola-sr-admin-test.jnlp</outputFilename>
-                            <templateFilename>sola-admin-jnlp-template-test.vm</templateFilename>
+                            <templateFilename>sola-sr-admin-jnlp-template-test.vm</templateFilename>
                             <jarResources>
                                 <jarResource>
                                     <groupId>${project.groupId}.swing</groupId>
