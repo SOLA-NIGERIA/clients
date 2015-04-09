@@ -39,7 +39,7 @@ import org.sola.common.messaging.ClientMessage;
 import org.sola.webservices.transferobjects.administrative.LeaseConditionForRrrTO;
 
 /**
- * Contains properties and methods to manage <b>lease_condition_for_rrr</b>
+ * Contains properties and methods to manage <b>condition_for_rrr</b>
  * object of the domain model. Could be populated from the {@link LeaseConditionForRrrTO}
  * object.
  */
