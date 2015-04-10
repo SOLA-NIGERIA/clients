@@ -174,16 +174,5 @@
             <artifactId>xml-apis-ext</artifactId>
             <version>1.3.04</version>
         </dependency>
-        <dependency>
-            <groupId>com.adobe</groupId>
-            <artifactId>adobecaslon</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.myriad</groupId>
-            <artifactId>myriadpro</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
     </dependencies>
 </project>
