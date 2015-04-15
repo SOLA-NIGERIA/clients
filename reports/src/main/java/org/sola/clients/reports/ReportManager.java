@@ -610,7 +610,6 @@ public class ReportManager {
 
         SigningListListBean[] beans = new SigningListListBean[1];
         beans[0] = signingList;
-        System.out.println("SIGNING LIST " + signingList.getSigningList().get(0).getParcel());
         JRDataSource jds = new JRBeanArrayDataSource(beans);
 
         String pdReport = null;

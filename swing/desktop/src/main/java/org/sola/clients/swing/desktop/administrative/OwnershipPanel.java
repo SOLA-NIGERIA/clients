@@ -28,6 +28,7 @@
 package org.sola.clients.swing.desktop.administrative;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Iterator;
@@ -133,14 +134,9 @@ public class OwnershipPanel extends ContentPanel {
         if (rrrBean == null) {
             rrrBean = new RrrBean();
         }
-//        if (rrrBean.getNotation()!= null && rrrBean.getNotation().getNotationText().contains("Joint")) {
      if (rrrBean.getFilteredRrrShareList()!= null && rrrBean.getFilteredRrrShareList().size()>0) {
                 
              rrrBean.getFilteredRrrShareList().get(0).setRightHolderType(rrrBean.getNotation().getNotationText());
-//             System.out.println("RIGHT HOLDER TYPE  "+rrrBean.getFilteredRrrShareList().get(0).getRightHolderType());
-//             rrrBean.getFilteredRrrShareList().get(0).setRightHolderType(this.txtNotationText.getText());
-             System.out.println("RIGHT HOLDER TYPE IN CREATE RRRBEAN "+rrrBean.getFilteredRrrShareList().get(0).getRightHolderType());
-                        
              
         }
         return rrrBean;
@@ -283,18 +279,10 @@ public class OwnershipPanel extends ContentPanel {
             txtNotationText.setEditable(false);
             cbxIsPrimary.setEnabled(false);
         }
-              System.out.println("NOTATION:::  "+rrrBean.getNotation().getNotationText());
-       
-//        if (rrrBean.getNotation()!= null && rrrBean.getNotation().getNotationText().contains("Joint")) {
-//             rrrBean.getFilteredRrrShareList().get(0).setRightHolderType(rrrBean.getNotation().getNotationText());
-//             System.out.println("RIGHT HOLDER TYPE  "+rrrBean.getFilteredRrrShareList().get(0).getRightHolderType());
-//             
-         if (appService != null && appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){
+          if (appService != null && appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){
                 rrrBean.getFilteredRrrShareList().get(0).setRightHolderType(this.txtNotationText.getText());
-             System.out.println("RIGHT HOLDER TYPE  "+rrrBean.getFilteredRrrShareList().get(0).getRightHolderType());
           }   
              
-//        }
     }
 
     private void openShareForm(RrrShareBean shareBean, RrrBean.RRR_ACTION rrrAction) {
@@ -506,7 +494,7 @@ public class OwnershipPanel extends ContentPanel {
         jLabel1.setName("jLabel1"); // NOI18N
         jToolBar2.add(jLabel1);
 
-        lblStatus.setFont(LafManager.getInstance().getLabFontBold());
+        lblStatus.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         lblStatus.setName("lblStatus"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${status.displayValue}"), lblStatus, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -767,7 +755,6 @@ public class OwnershipPanel extends ContentPanel {
     private void changeShare() {
         
         this.rrrBean.getFilteredRrrShareList().get(0).setRightHolderType("Share");
-        System.out.println("LISTA SHARE   "+rrrBean.getFilteredRrrShareList().get(0).getShare());
         if (this.rrrBean.getFilteredRrrShareList().size()==1 && this.rrrBean.getFilteredRrrShareList().get(0).getShare().contains("1/1")) {
          this.txtNotationText.setText(this.rrrBean.UNDEVIDED_SHARES);
         }
@@ -790,7 +777,6 @@ public class OwnershipPanel extends ContentPanel {
     private void addShare() {
         if (appService != null && appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){
             this.rrrBean.getFilteredRrrShareList().get(0).setRightHolderType("Share");
-            System.out.println("LISTA SHARE   "+rrrBean.getFilteredRrrShareList().get(0).getShare());
             this.txtNotationText.setText(this.rrrBean.DEFINED_SHARES);
         }
         openShareForm(null, RrrBean.RRR_ACTION.NEW);
@@ -798,11 +784,9 @@ public class OwnershipPanel extends ContentPanel {
     
     private void addJoint() { 
         Short numden = 1;
-        System.out.println("LISTA SHARE   "+rrrBean.getFilteredRrrShareList().get(0).getShare());
         rrrBean.getFilteredRrrShareList().get(0).setDenominator(numden);
         rrrBean.getFilteredRrrShareList().get(0).setNominator(numden);
         this.rrrBean.getFilteredRrrShareList().get(0).setRightHolderType("Joint");
-        System.out.println("LISTA SHARE   "+rrrBean.getFilteredRrrShareList().get(0).getShare());
         this.txtNotationText.setText(this.rrrBean.JOINT);
         this.txtNotationText.setEditable(false);
         

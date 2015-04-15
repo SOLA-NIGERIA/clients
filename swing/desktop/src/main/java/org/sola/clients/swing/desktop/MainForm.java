@@ -27,10 +27,7 @@
  */
 package org.sola.clients.swing.desktop;
 
-import java.awt.Color;
-import java.awt.ComponentOrientation;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
@@ -41,6 +38,7 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.UIManager;
 import javax.swing.plaf.ToolBarUI;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -48,10 +46,11 @@ import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.beans.source.PowerOfAttorneyBean;
+import org.sola.clients.beans.system.LanguageBean;
+import org.sola.clients.beans.system.LanguageListBean;
 import org.sola.clients.swing.common.DefaultExceptionHandler;
 import org.sola.clients.swing.common.laf.LafManager;
-import org.sola.clients.swing.common.LocalizationManager;
-import org.sola.clients.swing.common.controls.LanguageCombobox;
+import org.sola.clients.swing.ui.localization.LocalizationManager;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.administrative.BaUnitSearchPanel;
@@ -94,6 +93,8 @@ public class MainForm extends javax.swing.JFrame {
     private PartySearchPanelForm searchPartyPanel;
     private BaUnitSearchPanel searchBaUnitPanel;
     private DisputeSearchPanel searchDisputePanel;
+    private static MainForm INSTANCE;
+   
     // Create a variable holding the listener
     KeyAdapter keyAdapterAppSearch = new KeyAdapter() {
 
@@ -183,8 +184,12 @@ public class MainForm extends javax.swing.JFrame {
      * Returns a singleton instance of {@link MainForm}.
      */
     public static MainForm getInstance() {
-        return MainFormHolder.INSTANCE;
+        if (INSTANCE == null) {
+            INSTANCE = new MainForm();
+        }
+        return INSTANCE;
     }
+
 
     /**
      * Default constructor.
@@ -212,12 +217,7 @@ public class MainForm extends javax.swing.JFrame {
 
     }
 
-    /**
-     * Create combobox with languages
-     */
-    private LanguageCombobox createLanguageCombobox() {
-        return new LanguageCombobox(MainForm.class);
-    }
+   
 
     /**
      * Runs post initialization tasks. Enables or disables toolbar buttons and
@@ -227,7 +227,7 @@ public class MainForm extends javax.swing.JFrame {
     private void postInit() {
         // Set screen size and location 
         configureForm();
-
+        loadLanguages();
         // Customize buttons
         btnNewApplication.setEnabled(SecurityBean.isInRole(RolesConstants.APPLICATION_CREATE_APPS));
         btnOpenMap.setEnabled(SecurityBean.isInRole(RolesConstants.GIS_VIEW_MAP));
@@ -238,7 +238,9 @@ public class MainForm extends javax.swing.JFrame {
         menuSearchApplication.setEnabled(btnSearchApplications.isEnabled());
         menuNewApplication.setEnabled(btnNewApplication.isEnabled());
         menuExportRights.setEnabled(SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_RIGHTS_EXPORT));
-        menuLanguage.setVisible(false);
+        
+//        menuLanguage.setVisible(false);
+        
         // Load dashboard
         openDashBoard();
 
@@ -578,6 +580,66 @@ public class MainForm extends javax.swing.JFrame {
         LocalizationManager.setLanguage(code, country);
         MessageUtility.displayMessage(ClientMessage.GENERAL_UPDATE_LANG);
     }
+    
+     private void loadLanguages() {
+        LanguageListBean langs = new LanguageListBean(false, false);
+        menuLanguage.removeAll();
+        
+        for (LanguageBean lang : langs.getLanguages()) {
+            final String langCode = lang.getLanguageCode();
+            final String localeCode = lang.getCode();
+            
+            JCheckBoxMenuItem menuLang = new JCheckBoxMenuItem();
+            menuLang.setFont(Font.decode(LafManager.getUiFontForLanugage(langCode)));
+            
+            menuLang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flags/" + langCode + ".png")));
+            menuLang.setText(lang.getDisplayValue());
+            if (LocalizationManager.getLanguage().equalsIgnoreCase(langCode)) {
+                menuLang.setSelected(true);
+            }
+            //menuLang.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/confirm.png")));
+            menuLang.addActionListener(new java.awt.event.ActionListener() {
+                
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    ((JCheckBoxMenuItem) evt.getSource()).setSelected(true);
+                    selectLanguage(localeCode);
+                }
+            });
+            menuLanguage.add(menuLang);
+        }
+    }
+    
+    private void selectLanguage(String locale) {
+        if (LocalizationManager.getLocaleCode().equals(locale)) {
+            return;
+        }
+        
+        if (MessageUtility.displayMessage(ClientMessage.CONFIRM_CHANGE_LANGUAGE) == MessageUtility.BUTTON_ONE) {
+            LocalizationManager.setLanguage(LocalizationManager.getLangCode(locale),
+                    LocalizationManager.getCountryCode(locale));
+            reloadMainForm();
+        }
+    }
+     /**
+     * Reloads main form
+     */
+    private void reloadMainForm() {
+        INSTANCE = new MainForm();
+        this.dispose();
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            
+            @Override
+            public void run() {
+                MainForm.getInstance().setVisible(true);
+            }
+        });
+    }
+    
+    
+    
+    
+    
 
     /**
      * Calls {@link AbstractBindingBean#saveStateHash()} method to make a hash
@@ -746,8 +808,12 @@ public class MainForm extends javax.swing.JFrame {
         menuAllLogLevel = new javax.swing.JMenuItem();
         menuDefaultLogLevel = new javax.swing.JMenuItem();
         menuOffLogLevel = new javax.swing.JMenuItem();
+        menuTextSize = new javax.swing.JMenu();
+        menuNormal = new javax.swing.JCheckBoxMenuItem();
+        menuMedium = new javax.swing.JCheckBoxMenuItem();
+        menuLarge = new javax.swing.JCheckBoxMenuItem();
+        menuExtraLarge = new javax.swing.JCheckBoxMenuItem();
         menuLanguage = new javax.swing.JMenu();
-        menuLangEN = new javax.swing.JMenuItem();
         menuApplications = new javax.swing.JMenu();
         menuNewApplication = new javax.swing.JMenuItem();
         menuSearch = new javax.swing.JMenu();
@@ -915,7 +981,7 @@ public class MainForm extends javax.swing.JFrame {
         statusPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         statusPanel.setPreferredSize(new java.awt.Dimension(1024, 24));
 
-        labStatus.setFont(LafManager.getInstance().getLabFontBold());
+        labStatus.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         labStatus.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labStatus.setText(bundle.getString("MainForm.labStatus.text")); // NOI18N
 
@@ -995,17 +1061,43 @@ public class MainForm extends javax.swing.JFrame {
 
         menuView.add(menuLogLevel);
 
-        menuLanguage.setText(bundle.getString("MainForm.menuLanguage.text")); // NOI18N
+        menuTextSize.setText(bundle.getString("MainForm.menuTextSize.text")); // NOI18N
 
-        menuLangEN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flags/en.jpg"))); // NOI18N
-        menuLangEN.setText(bundle.getString("MainForm.menuLangEN.text")); // NOI18N
-        menuLangEN.addActionListener(new java.awt.event.ActionListener() {
+        menuNormal.setText(bundle.getString("MainForm.menuNormal.text")); // NOI18N
+        menuNormal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuLangENActionPerformed(evt);
+                menuNormalActionPerformed(evt);
             }
         });
-        menuLanguage.add(menuLangEN);
+        menuTextSize.add(menuNormal);
 
+        menuMedium.setText(bundle.getString("MainForm.menuMedium.text")); // NOI18N
+        menuMedium.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuMediumActionPerformed(evt);
+            }
+        });
+        menuTextSize.add(menuMedium);
+
+        menuLarge.setText(bundle.getString("MainForm.menuLarge.text")); // NOI18N
+        menuLarge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLargeActionPerformed(evt);
+            }
+        });
+        menuTextSize.add(menuLarge);
+
+        menuExtraLarge.setText(bundle.getString("MainForm.menuExtraLarge.text")); // NOI18N
+        menuExtraLarge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuExtraLargeActionPerformed(evt);
+            }
+        });
+        menuTextSize.add(menuExtraLarge);
+
+        menuView.add(menuTextSize);
+
+        menuLanguage.setText(bundle.getString("MainForm.menuLanguage.text")); // NOI18N
         menuView.add(menuLanguage);
 
         menuBar.add(menuView);
@@ -1308,10 +1400,6 @@ public class MainForm extends javax.swing.JFrame {
         openMap();
     }//GEN-LAST:event_btnOpenMapActionPerformed
 
-    private void menuLangENActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLangENActionPerformed
-        setLanguage("en", "US");
-    }//GEN-LAST:event_menuLangENActionPerformed
-
     private void btnOpenBaUnitSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenBaUnitSearchActionPerformed
         searchBaUnit();
     }//GEN-LAST:event_btnOpenBaUnitSearchActionPerformed
@@ -1440,6 +1528,30 @@ public class MainForm extends javax.swing.JFrame {
         openSysRegSigningListForm();
     }//GEN-LAST:event_menuSigningListActionPerformed
 
+    private void menuNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNormalActionPerformed
+        LafManager.setUiFontSize(LafManager.FONTSIZE_NORMAL);
+        LafManager.getInstance().applyTheme();
+        reloadMainForm();
+    }//GEN-LAST:event_menuNormalActionPerformed
+
+    private void menuMediumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMediumActionPerformed
+        LafManager.setUiFontSize(LafManager.FONTSIZE_MEDIUM);
+        LafManager.getInstance().applyTheme();
+        reloadMainForm();
+    }//GEN-LAST:event_menuMediumActionPerformed
+
+    private void menuLargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLargeActionPerformed
+        LafManager.setUiFontSize(LafManager.FONTSIZE_LARGE);
+        LafManager.getInstance().applyTheme();
+        reloadMainForm();
+    }//GEN-LAST:event_menuLargeActionPerformed
+
+    private void menuExtraLargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExtraLargeActionPerformed
+        LafManager.setUiFontSize(LafManager.FONTSIZE_EXTRA_LARGE);
+        LafManager.getInstance().applyTheme();
+        reloadMainForm();
+    }//GEN-LAST:event_menuExtraLargeActionPerformed
+
     private void editPassword() {
         showPasswordPanel();
     }
@@ -1511,14 +1623,17 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuDefaultLogLevel;
     private javax.swing.JMenuItem menuDocumentSearch;
     private javax.swing.JMenuItem menuExportRights;
+    private javax.swing.JCheckBoxMenuItem menuExtraLarge;
     private javax.swing.JMenuItem menuItemMapPublicDisplay;
-    private javax.swing.JMenuItem menuLangEN;
     private javax.swing.JMenu menuLanguage;
+    private javax.swing.JCheckBoxMenuItem menuLarge;
     private javax.swing.JMenuItem menuLoadScannedDoc;
     private javax.swing.JMenuItem menuLodgementReport;
     private javax.swing.JMenu menuLogLevel;
     private javax.swing.JMenu menuMap;
+    private javax.swing.JCheckBoxMenuItem menuMedium;
     private javax.swing.JMenuItem menuNewApplication;
+    private javax.swing.JCheckBoxMenuItem menuNormal;
     private javax.swing.JMenuItem menuOffLogLevel;
     private javax.swing.JMenuItem menuPersons;
     private javax.swing.JMenuItem menuPlan;
@@ -1533,6 +1648,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuSpatialUnitGroup;
     private javax.swing.JMenuItem menuStatus;
     private javax.swing.JMenu menuSystematic;
+    private javax.swing.JMenu menuTextSize;
     private javax.swing.JMenu menuView;
     private javax.swing.JMenuItem mnuSpatialUnitEditor;
     private org.sola.clients.swing.ui.MainContentPanel pnlContent;

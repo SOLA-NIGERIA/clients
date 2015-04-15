@@ -61,7 +61,7 @@ import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import org.sola.clients.swing.common.laf.LafManager;
-import org.sola.clients.swing.common.LocalizationManager;
+import org.sola.clients.swing.ui.localization.LocalizationManager;
 import org.sola.clients.swing.ui.security.LoginPanel;
 import org.sola.common.WindowUtility;
 import org.sola.common.logging.LogUtility;
@@ -109,7 +109,11 @@ public class AdminApplication {
                 Thread.setDefaultUncaughtExceptionHandler(new DesktopClientExceptionHandler());
                 LocalizationManager.loadLanguage();
                 LogUtility.initialize(AdminApplication.class);
-                LafManager.getInstance().setProperties(LafManager.SYSTEMATIC_THEME);
+                 if (LocalizationManager.isProductionHost()) {
+                    LafManager.getInstance().setTheme(LafManager.ADMIN_THEME);
+                 } else {
+                    LafManager.getInstance().setTheme(LafManager.GREEN_THEME);
+                 }
                 final LoginForm loginForm = new LoginForm(AdminApplication.class);
                 loginForm.addPropertyChangeListener(new PropertyChangeListener() {
 

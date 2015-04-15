@@ -27,7 +27,7 @@
  */
 package org.sola.clients.swing.desktop;
 
-import org.sola.clients.swing.common.LocalizationManager;
+import org.sola.clients.swing.ui.localization.LocalizationManager;
 
 
 

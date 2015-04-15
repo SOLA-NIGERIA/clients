@@ -27,6 +27,7 @@
  */
 package org.sola.clients.swing.ui.party;
 
+import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -433,7 +434,7 @@ public class PartySearchPanel extends JPanel {
         jLabel5.setName(bundle.getString("PartySearchPanel.jLabel5.name")); // NOI18N
         jToolBar1.add(jLabel5);
 
-        lblSearchResultNumber.setFont(LafManager.getInstance().getLabFontBold());
+        lblSearchResultNumber.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         lblSearchResultNumber.setText(bundle.getString("PartySearchPanel.lblSearchResultNumber.text")); // NOI18N
         lblSearchResultNumber.setName(bundle.getString("PartySearchPanel.lblSearchResultNumber.name")); // NOI18N
         jToolBar1.add(lblSearchResultNumber);
@@ -731,7 +732,7 @@ public class PartySearchPanel extends JPanel {
     private javax.swing.JButton btnSelect;
     private javax.swing.JButton btnView;
     private javax.swing.JComboBox cbxPartyTypes;
-    private javax.swing.JComboBox cbxRoles;
+    public javax.swing.JComboBox cbxRoles;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

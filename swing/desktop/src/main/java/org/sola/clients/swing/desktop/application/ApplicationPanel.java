@@ -1,28 +1,30 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2015 - Food and Agriculture Organization of the United Nations (FAO).
- * All rights reserved.
+ * Copyright (C) 2015 - Food and Agriculture Organization of the United Nations
+ * (FAO). All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the name of FAO nor the names of its contributors may be used to endorse or
- *       promote products derived from this software without specific prior written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the name of FAO nor the names of its
+ * contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.swing.desktop.application;
@@ -91,7 +93,6 @@ import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
-
 
 /**
  * This form is used to create new application or edit existing one. <p>The
@@ -163,9 +164,7 @@ public class ApplicationPanel extends ContentPanel {
         }
         return communicationTypes;
     }
-    
-    
-   
+
     /**
      * Default constructor to create new application.
      */
@@ -183,16 +182,14 @@ public class ApplicationPanel extends ContentPanel {
         initComponents();
         postInit();
     }
-    
-    
+
     private GenderTypeListBean createGenderTypes() {
         if (genderTypes == null) {
             genderTypes = new GenderTypeListBean(true);
         }
         return genderTypes;
     }
-    
-    
+
     /**
      * This constructor is used to open existing application for editing.
      *
@@ -201,11 +198,8 @@ public class ApplicationPanel extends ContentPanel {
     public ApplicationPanel(String applicationId, boolean dashBoard) {
         this.applicationID = applicationId;
         this.isDashboard = dashBoard;
-        System.out.println("QUI 0");
         initComponents();
-        System.out.println("QUI 1");
         postInit();
-        System.out.println("QUI DOPO POSTINIT");
     }
 
     /**
@@ -232,12 +226,12 @@ public class ApplicationPanel extends ContentPanel {
     private void postInit() {
         this.btnSearchUpiWardParcel.setVisible(false);
         this.btnCertificate.setEnabled(false);
-        
+
 //        disabled for systematic registration
 //    ----------------------------
         this.btnCalculateFee.setVisible(false);
         this.txtNationality.setVisible(false);
-     
+
         tabbedControlMain.removeTabAt(tabbedControlMain.indexOfComponent(feesPanel));
 //    --------------------            
         appBean.getSourceFilteredList().addObservableListListener(new ObservableListListener() {
@@ -260,7 +254,7 @@ public class ApplicationPanel extends ContentPanel {
             public void listElementPropertyChanged(ObservableList ol, int i) {
             }
         });
-System.out.println("QUI 5");
+
         appBean.getServiceList().addObservableListListener(new ObservableListListener() {
 
             @Override
@@ -268,7 +262,7 @@ System.out.println("QUI 5");
                 if (appBean.getServiceList().get(i).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
                     customizeSysReg();
                 }
-                
+
                 applicationDocumentsHelper.updateCheckList(appBean.getServiceList(), appBean.getSourceList());
             }
 
@@ -305,13 +299,9 @@ System.out.println("QUI 5");
                 }
             }
         });
-System.out.println("QUI 6");
         customizeServicesButtons();
-        System.out.println("QUI 7");
         customizeApplicationForm();
-        System.out.println("QUI 8");
         customizePropertyButtons();
-        System.out.println("QUI 9");
     }
 
     /**
@@ -351,7 +341,7 @@ System.out.println("QUI 6");
             tabbedControlMain.removeTabAt(tabbedControlMain.indexOfComponent(validationPanel));
             btnValidate.setEnabled(false);
 //            this.cbxNationality.setSelectedIndex(168);
-            this.cbxNationality.setSelectedIndex(0); 
+            this.cbxNationality.setSelectedIndex(0);
             this.txtNationality.setText(this.cbxNationality.getItemAt(0).toString());
         }
 
@@ -408,7 +398,7 @@ System.out.println("QUI 6");
             documentsPanel.setAllowEdit(editAllowed);
             btnAddAgent.setEnabled(editAllowed);
             btnSearchUpiWardParcel.setEnabled(editAllowed);
-            if (appBean.getStatusCode().equals(StatusConstants.APPROVED)&&appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
+            if (appBean.getStatusCode().equals(StatusConstants.APPROVED) && appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
                 btnCertificate.setEnabled(true);
                 btnPlan.setEnabled(true);
             } else {
@@ -507,7 +497,7 @@ System.out.println("QUI 6");
         menuCompleteService.setEnabled(btnCompleteService.isEnabled());
         menuRevertService.setEnabled(btnRevertService.isEnabled());
         menuCancelService.setEnabled(btnCancelService.isEnabled());
-      
+
     }
 
     /**
@@ -519,28 +509,29 @@ System.out.println("QUI 6");
             enable = true;
         }
         btnRemoveProperty.setEnabled(enable);
-        btnVerifyProperty.setEnabled(enable); 
+        btnVerifyProperty.setEnabled(enable);
         customizeSysReg();
     }
-     
+
     /**
-     * Disables or enables buttons and fields related to the property list management for systematic registration needs.
+     * Disables or enables buttons and fields related to the property list
+     * management for systematic registration needs.
      */
     private void customizeSysReg() {
-        if (appBean.getServiceList().size()>0&&appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){
-                    this.btnSearchUpiWardParcel.setVisible(true);
-                    this.txtFirstPart.setEditable(false);
-                    this.txtLastPart.setEditable(false);
-                    this.txtFirstPart.setEnabled(false);
-                    this.txtLastPart.setEnabled(false);
-                    if (this.appBean.getPropertyList().size()==1) {
-                        this.jPanel16.setVisible(false);  
-                        this.jPanel17.setVisible(false);  
-                        this.jPanel18.setVisible(false);  
-                    } 
+        if (appBean.getServiceList().size() > 0 && appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
+            this.btnSearchUpiWardParcel.setVisible(true);
+            this.txtFirstPart.setEditable(false);
+            this.txtLastPart.setEditable(false);
+            this.txtFirstPart.setEnabled(false);
+            this.txtLastPart.setEnabled(false);
+            if (this.appBean.getPropertyList().size() == 1) {
+                this.jPanel16.setVisible(false);
+                this.jPanel17.setVisible(false);
+                this.jPanel18.setVisible(false);
+            }
         }
     }
-    
+
     /**
      * This method is used by the form designer to create the list of agents.
      */
@@ -665,8 +656,8 @@ System.out.println("QUI 6");
         if (service != null) {
 
             String requestType = service.getRequestTypeCode();
-                          
-             // Determine what form to start for selected service
+
+            // Determine what form to start for selected service
 
             // Power of attorney or other type document registration
             if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_REG_POWER_OF_ATTORNEY)
@@ -701,7 +692,7 @@ System.out.println("QUI 6");
                 };
                 TaskManager.getInstance().runTask(t);
             } // Dispute
-             else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_DISPUTE)) {
+            else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_DISPUTE)) {
                 SolaTask t = new SolaTask<Void, Void>() {
 
                     @Override
@@ -750,22 +741,22 @@ System.out.println("QUI 6");
                 TaskManager.getInstance().runTask(t);
             } // Cadastre change services
             else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_CADASTRE_CHANGE)
-                    ||requestType.equalsIgnoreCase(RequestTypeBean.CODE_MAP_EXISTINGPARCEL)
+                    || requestType.equalsIgnoreCase(RequestTypeBean.CODE_MAP_EXISTINGPARCEL)
                     || requestType.equalsIgnoreCase(RequestTypeBean.CODE_CADASTRE_REDEFINITION)) {
 
                 if (appBean.getPropertyList().getFilteredList().size() == 1) {
-                        SolaTask t = new SolaTask<Void, Void>() {
+                    SolaTask t = new SolaTask<Void, Void>() {
 
-                            @Override
-                            public Void doTask() {
-                                setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_CADASTRE_CHANGE));
-                                CadastreTransactionMapPanel form = new CadastreTransactionMapPanel(
-                                        appBean, service, appBean.getPropertyList().getFilteredList().get(0));
-                                getMainContentPanel().addPanel(form, MainContentPanel.CARD_CADASTRECHANGE, true);
-                                return null;
-                            }
-                        };
-                        TaskManager.getInstance().runTask(t);
+                        @Override
+                        public Void doTask() {
+                            setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_CADASTRE_CHANGE));
+                            CadastreTransactionMapPanel form = new CadastreTransactionMapPanel(
+                                    appBean, service, appBean.getPropertyList().getFilteredList().get(0));
+                            getMainContentPanel().addPanel(form, MainContentPanel.CARD_CADASTRECHANGE, true);
+                            return null;
+                        }
+                    };
+                    TaskManager.getInstance().runTask(t);
                 } else if (appBean.getPropertyList().getFilteredList().size() > 1) {
                     PropertiesList propertyListForm = new PropertiesList(appBean.getPropertyList());
                     propertyListForm.setLocationRelativeTo(this);
@@ -882,26 +873,26 @@ System.out.println("QUI 6");
     }
 
     private boolean checkApplication() {
-        
+
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/application/Bundle");
 
-        if (this.txtDob.getText() == null || this.txtDob.getText().equals("") ) {
+        if (this.txtDob.getText() == null || this.txtDob.getText().equals("")) {
             MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_FIELDS,
-                            new Object[]{bundle.getString("ApplicationPanel.lbDob.text_1")});
-                return false;  
+                    new Object[]{bundle.getString("ApplicationPanel.lbDob.text_1")});
+            return false;
         }
-        
-        if (this.txtNationality.getText() == null || this.txtNationality.getText().equals("") ) {
+
+        if (this.txtNationality.getText() == null || this.txtNationality.getText().equals("")) {
             MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_FIELDS,
-                            new Object[]{bundle.getString("ApplicationPanel.lbNationality.text")});
-                return false;  
+                    new Object[]{bundle.getString("ApplicationPanel.lbNationality.text")});
+            return false;
         }
-        
+
         if (appBean.validate(true).size() > 0) {
             return false;
         }
-        
-        
+
+
         if (applicationDocumentsHelper.isAllItemsChecked() == false) {
             if (MessageUtility.displayMessage(ClientMessage.APPLICATION_NOTALL_DOCUMENT_REQUIRED) == MessageUtility.BUTTON_TWO) {
                 return false;
@@ -932,8 +923,8 @@ System.out.println("QUI 6");
             }
 //           }
         }
-        
-        
+
+
         return true;
     }
 
@@ -962,13 +953,12 @@ System.out.println("QUI 6");
 
                 if ((applicationID == null || applicationID.equals(""))) {
                     if (!appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)
-                        && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_REGISTER_SR_COFO)     
-                        && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_CADASTRE_CHANGE)
+                            && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_REGISTER_SR_COFO)
+                            && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_CADASTRE_CHANGE)
                             && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_MAP_EXISTINGPARCEL)
-                            && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_DISPUTE))
-                    {
-                     showReport(ReportManager.getLodgementNoticeReport(appBean));
-                     applicationID = appBean.getId();
+                            && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_DISPUTE)) {
+                        showReport(ReportManager.getLodgementNoticeReport(appBean));
+                        applicationID = appBean.getId();
                     }
                 }
                 firePropertyChange(APPLICATION_SAVED_PROPERTY, false, true);
@@ -1386,7 +1376,6 @@ System.out.println("QUI 6");
         jToolBar3.setRollover(true);
         jToolBar3.setName("jToolBar3"); // NOI18N
 
-        LafManager.getInstance().setBtnProperties(btnSave);
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/save.png"))); // NOI18N
         btnSave.setText(bundle.getString("ApplicationPanel.btnSave.text")); // NOI18N
         btnSave.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -1399,7 +1388,6 @@ System.out.println("QUI 6");
         });
         jToolBar3.add(btnSave);
 
-        LafManager.getInstance().setBtnProperties(btnCalculateFee);
         btnCalculateFee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calculate.png"))); // NOI18N
         btnCalculateFee.setText(bundle.getString("ApplicationPanel.btnCalculateFee.text")); // NOI18N
         btnCalculateFee.setName("btnCalculateFee"); // NOI18N
@@ -1510,9 +1498,6 @@ System.out.println("QUI 6");
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appBean, org.jdesktop.beansbinding.ELProperty.create("${contactPerson.name}"), txtFirstName, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        LafManager.getInstance().setTxtProperties(txtFirstName);
-
-        LafManager.getInstance().setLabProperties(labName);
         labName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         labName.setLabelFor(txtFirstName);
         labName.setText(bundle.getString("ApplicationPanel.labName.text")); // NOI18N
@@ -1539,7 +1524,6 @@ System.out.println("QUI 6");
 
         jPanel4.setName("jPanel4"); // NOI18N
 
-        LafManager.getInstance().setLabProperties(labLastName);
         labLastName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         labLastName.setText(bundle.getString("ApplicationPanel.labLastName.text")); // NOI18N
         labLastName.setIconTextGap(1);
@@ -1583,8 +1567,12 @@ System.out.println("QUI 6");
 
         txtAddress.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
         txtAddress.setHorizontalAlignment(JTextField.LEADING);
+        txtAddress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAddressActionPerformed(evt);
+            }
+        });
 
-        LafManager.getInstance().setLabProperties(labAddress);
         labAddress.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         labAddress.setText(bundle.getString("ApplicationPanel.labAddress.text")); // NOI18N
         labAddress.setIconTextGap(1);
@@ -1678,7 +1666,6 @@ System.out.println("QUI 6");
         lbNationality.setText(bundle.getString("ApplicationPanel.lbNationality.text")); // NOI18N
         lbNationality.setName(bundle.getString("ApplicationPanel.lbNationality.name")); // NOI18N
 
-        cbxNationality.setSelectedIndex(-1);
         cbxNationality.setToolTipText(bundle.getString("ApplicationPanel.cbxNationality.toolTipText")); // NOI18N
         cbxNationality.setName(bundle.getString("ApplicationPanel.cbxNationality.name")); // NOI18N
 
@@ -1774,11 +1761,9 @@ System.out.println("QUI 6");
             }
         });
 
-        LafManager.getInstance().setLabProperties(labEmail);
         labEmail.setText(bundle.getString("ApplicationPanel.labEmail.text")); // NOI18N
         labEmail.setName("labEmail"); // NOI18N
 
-        LafManager.getInstance().setLabProperties(labFax);
         labFax.setText(bundle.getString("ApplicationPanel.labFax.text")); // NOI18N
         labFax.setName("labFax"); // NOI18N
 
@@ -1808,11 +1793,9 @@ System.out.println("QUI 6");
             }
         });
 
-        LafManager.getInstance().setLabProperties(labPhone);
         labPhone.setText(bundle.getString("ApplicationPanel.labPhone.text")); // NOI18N
         labPhone.setName("labPhone"); // NOI18N
 
-        LafManager.getInstance().setCmbProperties(cbxCommunicationWay);
         cbxCommunicationWay.setMaximumRowCount(9);
         cbxCommunicationWay.setName("cbxCommunicationWay"); // NOI18N
         cbxCommunicationWay.setRenderer(new SimpleComboBoxRenderer("getDisplayValue"));
@@ -1825,7 +1808,6 @@ System.out.println("QUI 6");
 
         cbxCommunicationWay.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
 
-        LafManager.getInstance().setLabProperties(labPreferredWay);
         labPreferredWay.setText(bundle.getString("ApplicationPanel.labPreferredWay.text")); // NOI18N
         labPreferredWay.setName("labPreferredWay"); // NOI18N
 
@@ -1952,7 +1934,6 @@ System.out.println("QUI 6");
         jPanel13.setName("jPanel13"); // NOI18N
         jPanel13.setRequestFocusEnabled(false);
 
-        LafManager.getInstance().setLabProperties(labDate);
         labDate.setText(bundle.getString("ApplicationPanel.labDate.text")); // NOI18N
         labDate.setName("labDate"); // NOI18N
 
@@ -2017,12 +1998,10 @@ System.out.println("QUI 6");
         jPanel14.setMinimumSize(new java.awt.Dimension(28, 20));
         jPanel14.setName("jPanel14"); // NOI18N
 
-        LafManager.getInstance().setLabProperties(labAgents);
         labAgents.setText(bundle.getString("ApplicationPanel.labAgents.text")); // NOI18N
         labAgents.setIconTextGap(1);
         labAgents.setName("labAgents"); // NOI18N
 
-        LafManager.getInstance().setCmbProperties(cbxAgents);
         cbxAgents.setName("cbxAgents"); // NOI18N
         AutoCompletion.enable(cbxAgents);
         cbxAgents.setRenderer(new SimpleComboBoxRenderer("getFullName"));
@@ -2077,7 +2056,6 @@ System.out.println("QUI 6");
 
         jPanel15.setName("jPanel15"); // NOI18N
 
-        LafManager.getInstance().setLabProperties(labStatus);
         labStatus.setText(bundle.getString("ApplicationPanel.labStatus.text")); // NOI18N
         labStatus.setName("labStatus"); // NOI18N
 
@@ -2421,18 +2399,15 @@ System.out.println("QUI 6");
 
         jPanel16.setName("jPanel16"); // NOI18N
 
-        LafManager.getInstance().setLabProperties(labFirstPart);
         labFirstPart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         labFirstPart.setText(bundle.getString("ApplicationPanel.labFirstPart.text")); // NOI18N
         labFirstPart.setName("labFirstPart"); // NOI18N
 
-        LafManager.getInstance().setTxtProperties(txtFirstPart);
         txtFirstPart.setText(bundle.getString("ApplicationPanel.txtFirstPart.text")); // NOI18N
         txtFirstPart.setName("txtFirstPart"); // NOI18N
         txtFirstPart.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
         txtFirstPart.setHorizontalAlignment(JTextField.LEADING);
 
-        LafManager.getInstance().setLabProperties(labArea);
         labArea.setText(bundle.getString("ApplicationPanel.labArea.text")); // NOI18N
         labArea.setName("labArea"); // NOI18N
 
@@ -2490,12 +2465,10 @@ System.out.println("QUI 6");
         txtLastPart.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
         txtLastPart.setHorizontalAlignment(JTextField.LEADING);
 
-        LafManager.getInstance().setLabProperties(labLastPart);
         labLastPart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         labLastPart.setText(bundle.getString("ApplicationPanel.labLastPart.text")); // NOI18N
         labLastPart.setName("labLastPart"); // NOI18N
 
-        LafManager.getInstance().setLabProperties(labValue);
         labValue.setText(bundle.getString("ApplicationPanel.labValue.text")); // NOI18N
         labValue.setName("labValue"); // NOI18N
 
@@ -2534,7 +2507,6 @@ System.out.println("QUI 6");
 
         jPanel18.setName("jPanel18"); // NOI18N
 
-        LafManager.getInstance().setBtnProperties(btnAddProperty);
         btnAddProperty.setText(bundle.getString("ApplicationPanel.btnAddProperty.text")); // NOI18N
         btnAddProperty.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAddProperty.setName("btnAddProperty"); // NOI18N
@@ -2761,20 +2733,16 @@ System.out.println("QUI 6");
         formTxtFee.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
         formTxtFee.setHorizontalAlignment(JFormattedTextField.LEADING);
 
-        LafManager.getInstance().setLabProperties(labTotalFee2);
         labTotalFee2.setText(bundle.getString("ApplicationPanel.labTotalFee2.text")); // NOI18N
         labTotalFee2.setName("labTotalFee2"); // NOI18N
 
-        LafManager.getInstance().setLabProperties(labTotalFee);
         labTotalFee.setText(bundle.getString("ApplicationPanel.labTotalFee.text")); // NOI18N
         labTotalFee.setName("labTotalFee"); // NOI18N
 
-        LafManager.getInstance().setLabProperties(labTotalFee1);
         labTotalFee1.setText(bundle.getString("ApplicationPanel.labTotalFee1.text")); // NOI18N
         labTotalFee1.setName("labTotalFee1"); // NOI18N
 
         labFixedFee.setBackground(new java.awt.Color(255, 255, 255));
-        LafManager.getInstance().setLabProperties(labFixedFee);
         labFixedFee.setText(bundle.getString("ApplicationPanel.labFixedFee.text")); // NOI18N
         labFixedFee.setName("labFixedFee"); // NOI18N
 
@@ -3046,18 +3014,18 @@ System.out.println("QUI 6");
 }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnAddPropertyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPropertyActionPerformed
-        
-        if (this.appBean.getFilteredPropertyList().size()==1) {
+
+        if (this.appBean.getFilteredPropertyList().size() == 1) {
             MessageUtility.displayMessage(ClientMessage.CHECK_A_PROPERTY_ALREADY_SELECTED);
             return;
         }
-        
+
         if (txtFirstPart.getText() == null || txtFirstPart.getText().equals("")
                 || txtLastPart.getText() == null || txtLastPart.getText().equals("")) {
             MessageUtility.displayMessage(ClientMessage.CHECK_FIRST_LAST_PROPERTY);
             return;
         }
-        
+
         BigDecimal area = null;
         BigDecimal value = null;
 
@@ -3077,13 +3045,13 @@ System.out.println("QUI 6");
             if (this.appBean.getServiceList().get(i).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
                 flagDisableProperty = true;
             }
-        } 
+        }
         if (flagDisableProperty) {
-          this.jPanel16.setVisible(false);  
-          this.jPanel17.setVisible(false);  
-          this.jPanel18.setVisible(false);  
+            this.jPanel16.setVisible(false);
+            this.jPanel17.setVisible(false);
+            this.jPanel18.setVisible(false);
         } else {
-          this.txtFirstPart.requestFocus();
+            this.txtFirstPart.requestFocus();
         }
     }//GEN-LAST:event_btnAddPropertyActionPerformed
 
@@ -3136,7 +3104,7 @@ System.out.println("QUI 6");
     private void historyPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_historyPanelMouseClicked
         cbxAgents.requestFocus(false);
     }//GEN-LAST:event_historyPanelMouseClicked
-  
+
     private void btnCalculateFeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateFeeActionPerformed
         calculateFee();
     }//GEN-LAST:event_btnCalculateFeeActionPerformed
@@ -3273,17 +3241,15 @@ System.out.println("QUI 6");
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNationalityActionPerformed
 
-    
-        private void showCalendar(JFormattedTextField dateField) {
+    private void showCalendar(JFormattedTextField dateField) {
         CalendarForm calendar = new CalendarForm(null, true, dateField);
         calendar.setVisible(true);
     }
 
-    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         showCalendar(txtDob);
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnSearchUpiWardParcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchUpiWardParcelActionPerformed
@@ -3295,15 +3261,15 @@ System.out.println("QUI 6");
     }//GEN-LAST:event_btnAddAgentActionPerformed
 
     private void cbxAgentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxAgentsActionPerformed
-       if (evt.paramString().contains("Button1")) {
-            appBean.addedAgent=false;
-       }
+        if (evt.paramString().contains("Button1")) {
+            appBean.addedAgent = false;
+        }
     }//GEN-LAST:event_cbxAgentsActionPerformed
 
     private void cbxNationalityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxNationalityActionPerformed
-      if (this.cbxNationality.getSelectedIndex()>= 0) {
-       this.txtNationality.setText(this.cbxNationality.getSelectedItem().toString());
-      }
+        if (this.cbxNationality.getSelectedIndex() >= 0) {
+            this.txtNationality.setText(this.cbxNationality.getSelectedItem().toString());
+        }
     }//GEN-LAST:event_cbxNationalityActionPerformed
 
     private void btnPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlanActionPerformed
@@ -3311,10 +3277,13 @@ System.out.println("QUI 6");
     }//GEN-LAST:event_btnPlanActionPerformed
 
     private void menuTransferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTransferActionPerformed
-         transferApplication();
+        transferApplication();
     }//GEN-LAST:event_menuTransferActionPerformed
 
-    
+    private void txtAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAddressActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAddressActionPerformed
+
     private void openAutRepForm(final PartySummaryBean partySummaryBean, final boolean isReadOnly) {
         final AutRepFormListener listener = new AutRepFormListener();
 
@@ -3337,23 +3306,21 @@ System.out.println("QUI 6");
         };
         TaskManager.getInstance().runTask(t);
     }
+
     private class AutRepFormListener implements PropertyChangeListener {
 
         @Override
         public void propertyChange(PropertyChangeEvent evt) {
             if (evt.getPropertyName().equals(PartyPanelForm.PARTY_SAVED)) {
-                appBean.addedAgent=true;
+                appBean.addedAgent = true;
                 appBean.setAgent((PartyBean) ((PartyPanelForm) evt.getSource()).getParty());
             }
         }
     }
-    
-    
-    
-    
+
     private void openSysRegCertParamsForm(String nr, String whichReport) {
-       
-        SysRegCertParamsForm certificateGenerator = new SysRegCertParamsForm(null, true, nr, appBean.getSection(),whichReport);
+
+        SysRegCertParamsForm certificateGenerator = new SysRegCertParamsForm(null, true, nr, appBean.getSection(), whichReport);
 //        certificateGenerator.setVisible(true);
     }
 
@@ -3705,11 +3672,11 @@ System.out.println("QUI 6");
      * Removes selected property object from the properties list. Calls {@link ApplicationBean#removeSelectedProperty()}
      */
     private void removeSelectedProperty() {
-         appBean.removeSelectedProperty();
-          this.jPanel16.setVisible(true);  
-          this.jPanel17.setVisible(true);  
-          this.jPanel18.setVisible(true);  
-        
+        appBean.removeSelectedProperty();
+        this.jPanel16.setVisible(true);
+        this.jPanel17.setVisible(true);
+        this.jPanel18.setVisible(true);
+
     }
 
     /**
@@ -3745,7 +3712,7 @@ System.out.println("QUI 6");
     private void archiveApplication() {
         takeActionAgainstApplication(ApplicationActionTypeBean.ARCHIVE);
     }
-    
+
     private void transferApplication() {
         takeActionAgainstApplication(ApplicationActionTypeBean.TRANSFER);
     }
@@ -3817,22 +3784,21 @@ System.out.println("QUI 6");
         }
         return true;
     }
-    
-    
-     private void SearchUpiWardParcel() {
+
+    private void SearchUpiWardParcel() {
         SearchParcelDialog form = new SearchParcelDialog(null, true);
         WindowUtility.centerForm(form);
         form.addPropertyChangeListener(new PropertyChangeListener() {
-        
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(SearchParcelDialog.SELECTED_PARCEL)) {
 
                     CadastreObjectBean cadastreObject = (CadastreObjectBean) evt.getNewValue();
-                    
-                    setUpiWardParcel(cadastreObject.getNameFirstpart(),cadastreObject.getNameLastpart());
-                         
-             }
+
+                    setUpiWardParcel(cadastreObject.getNameFirstpart(), cadastreObject.getNameLastpart());
+
+                }
             }
         });
         form.setVisible(true);

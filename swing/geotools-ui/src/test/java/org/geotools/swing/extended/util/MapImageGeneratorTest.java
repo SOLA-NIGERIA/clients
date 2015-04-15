@@ -71,7 +71,6 @@ public class MapImageGeneratorTest {
     @Test
     //@Ignore
     public void testGetImageAsFileLocation() throws Exception {
-        System.out.println("getImageAsFileLocation");
         double imageWidth = 600.0;
         double imageHeight = 600.0;
         double scale = 1500.0;
@@ -80,7 +79,6 @@ public class MapImageGeneratorTest {
         MapImageGenerator instance = new MapImageGenerator(this.getMap().getMapContent());
         String result = instance.getImageAsFileLocation(
                 imageWidth, imageHeight, scale, dpi, imageFormat);
-        System.out.print("Map image generated in:" + result);
     }
 
     private Map getMap() throws InitializeMapException, InitializeLayerException {

@@ -107,7 +107,6 @@ public abstract class  SpatialSourceBean extends AbstractCodeBean {
 
     public void setSrid(Integer srid) {
         this.srid = srid;
-        System.out.println(srid);
     }
     
     /**

@@ -30,7 +30,7 @@ package org.sola.clients.swing.ui.reports;
 import java.awt.Dialog;
 import javax.swing.ImageIcon;
 import net.sf.jasperreports.engine.JasperPrint;
-import org.sola.clients.swing.common.LocalizationManager;
+import org.sola.clients.swing.ui.localization.LocalizationManager;
 
 /**
  * Displays reports.

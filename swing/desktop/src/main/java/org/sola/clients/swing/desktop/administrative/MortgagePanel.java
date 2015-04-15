@@ -27,6 +27,7 @@
  */
 package org.sola.clients.swing.desktop.administrative;
 
+import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -291,7 +292,7 @@ public class MortgagePanel extends ContentPanel {
         jLabel14.setName("jLabel14"); // NOI18N
         jToolBar1.add(jLabel14);
 
-        lblStatus.setFont(LafManager.getInstance().getLabFontBold());
+        lblStatus.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         lblStatus.setName("lblStatus"); // NOI18N
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${status.displayValue}"), lblStatus, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -537,7 +538,7 @@ public class MortgagePanel extends ContentPanel {
 
         jPanel8.add(jPanel9);
 
-        jLabel16.setFont(LafManager.getInstance().getLabFontBold());
+        jLabel16.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         jLabel16.setText(bundle.getString("MortgagePanel.jLabel16.text")); // NOI18N
         jLabel16.setName("jLabel16"); // NOI18N

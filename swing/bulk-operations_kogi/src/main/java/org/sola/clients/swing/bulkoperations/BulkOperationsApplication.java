@@ -38,7 +38,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JOptionPane;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.swing.common.laf.LafManager;
-import org.sola.clients.swing.common.LocalizationManager;
+import org.sola.clients.swing.ui.localization.LocalizationManager;
 import org.sola.clients.swing.ui.DesktopClientExceptionHandler;
 import org.sola.clients.swing.ui.security.LoginForm;
 import org.sola.clients.swing.ui.security.LoginPanel;

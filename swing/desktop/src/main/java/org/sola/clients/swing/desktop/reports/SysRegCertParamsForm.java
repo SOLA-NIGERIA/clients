@@ -334,7 +334,6 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 cadastreObject=this.getCadastre(appBaunit.getNameFirstpart());
                 if(cadastreObject!=null)
                 {
-                    System.out.println(cadastreObject.getSourceReference());
                     sourceRef=cadastreObject.getSourceReference();
                 }
                 else sourceRef="";

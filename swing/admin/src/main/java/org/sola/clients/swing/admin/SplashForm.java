@@ -48,14 +48,11 @@ public class SplashForm extends javax.swing.JWindow {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("config/wsconfig"); // NOI18N
         String url = bundle.getString("SOLA_STATE_SERVLET_SERVICE_URL.text");
         try {
-//            URL oracle = new URL("http://localhost:8080/sola_sr/webservices/StateServlet");
             URL oracle = new URL(url);
            in = new BufferedReader(
                     new InputStreamReader(oracle.openStream()));
 
             prefix = in.readLine();
-            System.out.println(prefix);
-
             in.close();
         } catch (IOException ex) {
             Logger.getLogger(SplashForm.class.getName()).log(Level.SEVERE, null, ex);

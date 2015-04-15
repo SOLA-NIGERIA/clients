@@ -38,7 +38,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JOptionPane;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.swing.common.laf.LafManager;
-import org.sola.clients.swing.common.LocalizationManager;
+import org.sola.clients.swing.ui.localization.LocalizationManager;
 import org.sola.clients.swing.ui.DesktopClientExceptionHandler;
 import org.sola.clients.swing.ui.security.LoginForm;
 import org.sola.clients.swing.ui.security.LoginPanel;
@@ -86,7 +86,12 @@ public class BulkOperationsApplication {
                 Thread.setDefaultUncaughtExceptionHandler(new DesktopClientExceptionHandler());
                 LocalizationManager.loadLanguage();
                 LogUtility.initialize(BulkOperationsApplication.class);
-                LafManager.getInstance().setProperties("green");
+//                LafManager.getInstance().setProperties("green");
+                  if (LocalizationManager.isProductionHost()) {
+                    LafManager.getInstance().setTheme(LafManager.GREEN_THEME);
+                 } else {
+                    LafManager.getInstance().setTheme(LafManager.GREEN_THEME);
+                 }
 
                 final LoginForm loginForm = new LoginForm(BulkOperationsApplication.class);
                 loginForm.addPropertyChangeListener(new PropertyChangeListener() {

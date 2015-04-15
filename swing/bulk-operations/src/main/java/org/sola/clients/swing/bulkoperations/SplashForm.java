@@ -61,8 +61,6 @@ public class SplashForm extends javax.swing.JWindow {
                     new InputStreamReader(oracle.openStream()));
 
             prefix = in.readLine();
-            System.out.println(prefix);
-
             in.close();
         } catch (IOException ex) {
             Logger.getLogger(SplashForm.class.getName()).log(Level.SEVERE, null, ex);

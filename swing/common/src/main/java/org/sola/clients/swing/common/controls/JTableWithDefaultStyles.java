@@ -33,19 +33,24 @@ import java.awt.ComponentOrientation;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.util.Locale;
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JTable;
+import javax.swing.JViewport;
+import javax.swing.KeyStroke;
+import javax.swing.UIManager;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import org.sola.clients.swing.common.laf.LafManager;
 
 /**
  * {@link JTable} component with predefined styles
  */
 public class JTableWithDefaultStyles extends JTable {
 
-      private Color scrollPaneBackgroundColor;
+    private Color scrollPaneBackgroundColor;
     private Color defaultBackground;
     private Color oddRowColor;
     private Color selectedColor;
@@ -81,9 +86,6 @@ public class JTableWithDefaultStyles extends JTable {
         scrollPaneBackgroundColor = Color.WHITE;
         super.setBackground(defaultBackground);
         this.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
-        Object tableFont = "Table.font";
-        Font newTableFont = UIManager.getFont(tableFont);
-        this.setFont(newTableFont);
         this.setShowGrid(true);
         this.setRowSelectionAllowed(true);
         this.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);

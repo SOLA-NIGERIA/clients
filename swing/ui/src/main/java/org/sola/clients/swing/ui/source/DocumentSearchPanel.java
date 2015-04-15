@@ -27,6 +27,7 @@
  */
 package org.sola.clients.swing.ui.source;
 
+import java.awt.Font;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.DefaultRowSorter;
@@ -715,7 +716,7 @@ public class DocumentSearchPanel extends javax.swing.JPanel {
         jLabel4.setName("jLabel4"); // NOI18N
         jToolBar1.add(jLabel4);
 
-        lblResults.setFont(LafManager.getInstance().getLabFontBold());
+        lblResults.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         lblResults.setText(bundle.getString("DocumentSearchPanel.lblResults.text")); // NOI18N
         lblResults.setName("lblResults"); // NOI18N
         jToolBar1.add(lblResults);

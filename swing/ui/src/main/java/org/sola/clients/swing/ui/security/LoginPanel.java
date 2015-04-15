@@ -31,7 +31,7 @@ import java.awt.ComponentOrientation;
 import java.awt.event.KeyEvent;
 import java.util.Locale;
 import javax.swing.JRadioButton;
-import org.sola.clients.swing.common.LocalizationManager;
+import org.sola.clients.swing.ui.localization.LocalizationManager;
 import org.sola.clients.swing.common.config.ConfigurationManager;
 import org.sola.clients.swing.common.controls.LanguageCombobox;
 import org.sola.clients.swing.common.tasks.SolaTask;

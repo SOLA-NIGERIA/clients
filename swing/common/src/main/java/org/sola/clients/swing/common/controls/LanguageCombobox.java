@@ -39,7 +39,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
-import org.sola.clients.swing.common.LocalizationManager;
+//import org.sola.clients.swing.ui.localization.LocalizationManager;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
@@ -166,14 +166,14 @@ public class LanguageCombobox extends JComboBox {
             }
         }
 
-        String selectedLanguage = LocalizationManager.getLanguage();
-
-        if (selectedLanguage != null && !selectedLanguage.equals("")
-                && languagesMap != null && languagesMap.containsKey(selectedLanguage)) {
-            showMessage = false;
-            setSelectedIndex(languagesMap.get(selectedLanguage));
-            showMessage = true;
-        }
+//        String selectedLanguage = LocalizationManager.getLanguage();
+//
+//        if (selectedLanguage != null && !selectedLanguage.equals("")
+//                && languagesMap != null && languagesMap.containsKey(selectedLanguage)) {
+//            showMessage = false;
+//            setSelectedIndex(languagesMap.get(selectedLanguage));
+//            showMessage = true;
+//        }
     }
 
     @Override
@@ -187,16 +187,16 @@ public class LanguageCombobox extends JComboBox {
 //                LocalizationManager.setLanguage(applicationMainClass, "it", "IT");
 //            } else 
             if ("english".equalsIgnoreCase(languageStrings[language])) {
-                LocalizationManager.setLanguage("en", "US");
+//                LocalizationManager.setLanguage("en", "US");
             } 
 //            else if ("नेपाली".equalsIgnoreCase(languageStrings[language])) {
 //                LocalizationManager.setLanguage(applicationMainClass, "np", "NP");
 //            }
             if (showMessage) {
-                LocalizationManager.loadLanguage();
+//                LocalizationManager.loadLanguage();
                 if (! this.confirmedChange){
                   MessageUtility.displayMessage(ClientMessage.GENERAL_UPDATE_LANG);
-                  LocalizationManager.restartApplication(applicationMainClass);
+//                  LocalizationManager.restartApplication(applicationMainClass);
                 }
             }
         }

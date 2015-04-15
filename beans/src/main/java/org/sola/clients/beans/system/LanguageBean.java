@@ -32,28 +32,28 @@ import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.webservices.admin.LanguageTO;
 
-/** 
- * Represents language object of the <b>language</b> table.  Could be
- * populated from the {@link LanguageTO} object.<br /> 
+/**
+ * Represents language object of the <b>language</b> table. Could be populated
+ * from the {@link LanguageTO} object.<br />
  * For more information see data dictionary
  * <b>System</b> schema.
  */
 public class LanguageBean extends AbstractBindingBean {
-    
+
     public static final String CODE_PROPERTY = "code";
     public static final String ACTIVE_PROPERTY = "active";
     public static final String IS_DEFAULT_PROPERTY = "isDefault";
     public static final String ITEM_ORDER_PROPERTY = "itemOrder";
     public static final String DISPLAY_VALUE_PROPERTY = "displayValue";
     public static final String delimiter = "::::";
-    
+
     String code;
     String displayValue;
     boolean active;
     boolean isDefault;
     int itemOrder;
-    
-    public LanguageBean(){
+
+    public LanguageBean() {
         super();
     }
 
@@ -106,70 +106,94 @@ public class LanguageBean extends AbstractBindingBean {
         this.itemOrder = itemOrder;
         propertySupport.firePropertyChange(ITEM_ORDER_PROPERTY, oldValue, this.itemOrder);
     }
-    
+
     // Methods
-    
-    /** 
-     * Extracts appropriate value from the string, holding it in different languages. 
+    /**
+     * Returns language code derived from the code value.
+     * @return 
+     */
+    public String getLanguageCode() {
+        String langCode = "";
+        if (getCode() != null) {
+            langCode = getCode();
+            if (langCode.indexOf("-") > 0) {
+                langCode = langCode.substring(0, langCode.indexOf("-"));
+            }
+        }
+        return langCode;
+    }
+
+    /**
+     * Extracts appropriate value from the string, holding it in different
+     * languages.
+     *
      * @param str String containing values for different languages.
      */
-    public static String getLocalizedValue(String str){
+    public static String getLocalizedValue(String str) {
         return getLocalizedValue(str, Locale.getDefault().getLanguage());
     }
-    
-    /** 
-     * Extracts appropriate value from the string, holding it in different languages. 
+
+    /**
+     * Extracts appropriate value from the string, holding it in different
+     * languages.
+     *
      * @param str String containing values for different languages.
      * @param lang Language code to use for extraction.
      */
-    public static String getLocalizedValue(String str, String lang){
-        if(str==null || str.length()<1){
+    public static String getLocalizedValue(String str, String lang) {
+        if (str == null || str.length() < 1) {
             return str;
         }
-        
-        if(lang == null || lang.length()<1){
+
+        if (lang == null || lang.length() < 1) {
             lang = Locale.getDefault().getLanguage();
         }
-        
+
         int langIndex = -1;
         int defaultIndex = 1;
-        
-        for(LanguageBean language : CacheManager.getLanguages()){
-            if(language.getCode()!=null && language.getCode().equals(lang)){
+
+        for (LanguageBean language : CacheManager.getLanguages()) {
+            if (language.getCode() != null && language.getCode().equals(lang)) {
                 langIndex = language.getItemOrder();
             }
-            if(language.isDefault){
+            if (language.isDefault) {
                 defaultIndex = language.getItemOrder();
             }
         }
-        
-        if(langIndex<1){
+
+        if (langIndex < 1) {
             langIndex = defaultIndex;
         }
-        
+
         String[] languages = str.split(delimiter);
-        
-        if(languages.length<langIndex){
+
+        if (languages.length < langIndex) {
             return str;
-        }else{
-            return languages[langIndex-1];
+        } else {
+            return languages[langIndex - 1];
         }
     }
-    
+
     @Override
-    public boolean equals(Object aThat)
-    {
-       if(aThat==null) return  false;
-       if ( this == aThat ) return true;
-       if ( !(LanguageBean.class.isAssignableFrom(aThat.getClass()))) return false;
-       
-       LanguageBean that = (LanguageBean)aThat;
-       
-       if(this.getCode() != null && that.getCode() != null &&
-               this.getCode().equals(that.getCode()))
-           return true;
-       else
-           return false;
+    public boolean equals(Object aThat) {
+        if (aThat == null) {
+            return false;
+        }
+        if (this == aThat) {
+            return true;
+        }
+        if (!(LanguageBean.class.isAssignableFrom(aThat.getClass()))) {
+            return false;
+        }
+
+        LanguageBean that = (LanguageBean) aThat;
+
+        if (this.getCode() != null && that.getCode() != null
+                && this.getCode().equals(that.getCode())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

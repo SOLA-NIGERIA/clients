@@ -27,6 +27,7 @@
  */
 package org.sola.clients.swing.desktop.administrative;
 
+import java.awt.Font;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import org.sola.clients.beans.administrative.RrrBean;
@@ -406,7 +407,7 @@ public class SharePanel extends ContentPanel {
         setHelpTopic(bundle.getString("SharePanel.helpTopic")); // NOI18N
         setName("Form"); // NOI18N
 
-        jLabel1.setFont(LafManager.getInstance().getLabFontBold());
+        jLabel1.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         jLabel1.setText(bundle.getString("SharePanel.jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
