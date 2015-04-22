@@ -241,8 +241,13 @@ public class MainForm extends javax.swing.JFrame {
         
 //        menuLanguage.setVisible(false);
         
-        // Load dashboard
-        openDashBoard();
+          if (SecurityBean.isPasswordChangeReqd(false)) {
+            // Load the user profile page
+            showPasswordPanel(); 
+        } else {
+            // Load dashboard
+            openDashBoard();
+        }
 
         txtUserName.setText(SecurityBean.getCurrentUser().getUserName());
     }

@@ -30,12 +30,15 @@ package org.sola.clients.swing.ui.security;
 import java.awt.ComponentOrientation;
 import java.awt.event.KeyEvent;
 import java.util.Locale;
+import java.util.prefs.Preferences;
 import javax.swing.JRadioButton;
+import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.swing.ui.localization.LocalizationManager;
 import org.sola.clients.swing.common.config.ConfigurationManager;
 import org.sola.clients.swing.common.controls.LanguageCombobox;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
+import org.sola.common.WindowUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
@@ -45,6 +48,8 @@ import org.sola.common.messaging.MessageUtility;
 public class LoginPanel extends javax.swing.JPanel {
 
     public static final String LOGIN_RESULT = "loginResult";
+    public static final String USER_NAME = "defaultUserName";
+   
     private Class<?> mainClass;
     protected JRadioButton previousButton;
 
@@ -99,15 +104,23 @@ public class LoginPanel extends javax.swing.JPanel {
                 return result;
             }
 
-            @Override
+              @Override
             protected void taskDone() {
                 if (result) {
+                    if (WindowUtility.hasUserPreferences()) {
+                        Preferences prefs = WindowUtility.getUserPreferences();
+                        prefs.put(USER_NAME, txtUsername.getText());
+                    }
+                    SecurityBean.isPasswordChangeReqd(true);
                     fireLoginEvent(true);
                 } else {
                     enablePanel(true);
                 }
             }
 
+            
+            
+            
             @Override
             protected void taskFailed(Throwable e) {
                 enablePanel(true);
