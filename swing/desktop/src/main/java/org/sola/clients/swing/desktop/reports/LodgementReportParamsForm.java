@@ -224,7 +224,7 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 42, Short.MAX_VALUE))
-                    .addComponent(labHeader1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 252, Short.MAX_VALUE))
+                    .addComponent(labHeader1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
