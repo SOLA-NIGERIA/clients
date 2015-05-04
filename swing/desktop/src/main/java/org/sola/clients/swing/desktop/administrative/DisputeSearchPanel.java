@@ -90,6 +90,8 @@ public class DisputeSearchPanel   extends ContentPanel {
         disputeSearchPanel1 = new org.sola.clients.swing.ui.administrative.DisputeSearchPanel();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle"); // NOI18N
+        setHelpTopic(bundle.getString("DisputeSearchPanel.helpTopic")); // NOI18N
+        setInheritsPopupMenu(true);
         setName(bundle.getString("DisputeSearchPanel.name")); // NOI18N
         setPreferredSize(new java.awt.Dimension(607, 445));
 

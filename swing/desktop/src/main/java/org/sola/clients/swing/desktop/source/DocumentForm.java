@@ -83,6 +83,9 @@ public class DocumentForm extends ContentPanel {
             }
         }
         headerPanel.setTitleText(headerTitle);
+        
+        setHelpTopic("document_details"); // NOI18N
+        
         documentPanel.setDocument(document);
         documentPanel.setAllowEditing(allowEditing);
         btnSave.setEnabled(allowEditing);
