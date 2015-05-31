@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
+ * Copyright (C) 2015 - Food and Agriculture Organization of the United Nations (FAO).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -87,8 +87,9 @@ public class UserProfileForm extends ContentPanel {
 
         setCloseOnHide(true);
         setHeaderPanel(headerPanel);
-
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/Bundle"); // NOI18N
+        setHelpTopic(bundle.getString("UserProfileForm.helpTopic")); // NOI18N
+
         jPanel1.setName(bundle.getString("UserProfileForm.jPanel1.name")); // NOI18N
         jPanel1.setLayout(new java.awt.GridLayout(2, 2, 2, 2));
 
@@ -224,8 +225,20 @@ public class UserProfileForm extends ContentPanel {
                 md.update(password.getBytes("UTF-8"));
                 byte[] hash = md.digest();
 
-                BigInteger bigInt = new BigInteger(1, hash);
-                hashString = bigInt.toString(16);
+//                BigInteger bigInt = new BigInteger(1, hash);
+//                hashString = bigInt.toString(16);
+                  // Ticket #410 - Fix password encyption. Ensure 0 is prepended
+                // if the hex length is == 1 
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < hash.length; i++) {
+                    String hex = Integer.toHexString(0xff & hash[i]);
+                    if (hex.length() == 1) {
+                        sb.append('0');
+                    }
+                    sb.append(hex);
+                }
+                
+                hashString = sb.toString();
 
             } catch (Exception e) {
                 e.printStackTrace(System.err);

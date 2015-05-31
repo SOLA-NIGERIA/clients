@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
+ * Copyright (C) 2015 - Food and Agriculture Organization of the United Nations (FAO).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -74,9 +74,7 @@ public class PartyPanel extends javax.swing.JPanel {
         readOnly = false;
         initComponents();
         this.txtNationality.setVisible(false);
-        this.txtState.setVisible(false);
         this.cbxNationality.setSelectedIndex(0);
-        this.cbxState.setSelectedIndex(0);
     }
 
     /** 
@@ -104,7 +102,6 @@ public class PartyPanel extends javax.swing.JPanel {
         });
          
         this.txtNationality.setVisible(false);
-        this.txtState.setVisible(false);
         
         customizeAddRoleButton(null);
         customizeRoleButtons(null);
@@ -266,7 +263,6 @@ public class PartyPanel extends javax.swing.JPanel {
             txtEmail.setEnabled(false);
             txtMobile.setEnabled(false);
             cbxNationality.setEnabled(false);
-            cbxState.setEnabled(false);
         
         }
     }
@@ -284,7 +280,6 @@ public class PartyPanel extends javax.swing.JPanel {
         cbxIdType.setSelectedIndex(0);
         cbxCommunicationWay.setSelectedIndex(0);
         cbxNationality.setSelectedIndex(0);
-        cbxState.setSelectedIndex(0);
         partyBean.setPreferredCommunication(null);
         partyBean.setName(null);
         partyBean.setLastName(null);
@@ -408,7 +403,8 @@ public class PartyPanel extends javax.swing.JPanel {
         popupRoles = new javax.swing.JPopupMenu();
         menuRemoveRole = new javax.swing.JMenuItem();
         genderTypes = createGenderTypes();
-        stateTypes = new org.sola.clients.beans.referencedata.StateTypeListBean();
+        nationTypeListBean1 = new org.sola.clients.beans.referencedata.NationTypeListBean();
+        nationTypeBean1 = new org.sola.clients.beans.referencedata.NationTypeBean();
         detailsPanel = new javax.swing.JTabbedPane();
         basicPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -432,10 +428,6 @@ public class PartyPanel extends javax.swing.JPanel {
         lbNationality = new javax.swing.JLabel();
         txtNationality = new javax.swing.JTextField();
         cbxNationality = new javax.swing.JComboBox();
-        jPanel21 = new javax.swing.JPanel();
-        txtState = new javax.swing.JTextField();
-        lbState = new javax.swing.JLabel();
-        cbxState = new javax.swing.JComboBox();
         jPanel9 = new javax.swing.JPanel();
         labAddress = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
@@ -716,10 +708,14 @@ public class PartyPanel extends javax.swing.JPanel {
             }
         });
 
-        cbxNationality.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nigeria", "Afghanistan", "Åland Islands", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua And Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia And Herzegovina", "Botswana", "Bouvet Island", "Brazil", "British Indian Ocean Territory", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Congo", "The Democratic Republic Of The", "Cook Islands", "Costa Rica", "Cote D'ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands (Malvinas)", "Faroe Islands", "Fiji", "Finland", "France", "French Guiana", "French Polynesia", "French Southern Territories", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam", "Guatemala", "Guernsey", "Guinea", "Guinea-bissau", "Guyana", "Haiti", "Heard Island And Mcdonald Islands", "Holy See (Vatican City State)", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Islamic Republic Of", "Iraq", "Ireland", "Isle Of Man", "Israel", "Italy", "Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea", "Democratic People's Republic Of", "Korea", "Republic Of", "Kuwait", "Kyrgyzstan", "Lao People's Democratic Republic", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libyan Arab Jamahiriya", "Liechtenstein", "Lithuania", "Luxembourg", "Macao", "Macedonia", "The Former Yugoslav Republic Of", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "Mexico", "Micronesia", "Federated States Of", "Moldova", "Republic Of", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfolk Island", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau", "Palestinian Territory", "Occupied", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russian Federation", "Rwanda", "Saint Helena", "Saint Kitts And Nevis", "Saint Lucia", "Saint Pierre And Miquelon", "Saint Vincent And The Grenadines", "Samoa", "San Marino", "Sao Tome And Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Georgia And The South Sandwich Islands", "Spain", "Sri Lanka", "Sudan", "Suriname", "Svalbard And Jan Mayen", "Swaziland", "Sweden", "Switzerland", "Syrian Arab Republic", "Taiwan", "Province Of China", "Tajikistan", "Tanzania", "United Republic Of", "Thailand", "Timor-leste", "Togo", "Tokelau", "Tonga", "Trinidad And Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks And Caicos Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "United States Minor Outlying Islands", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Viet Nam", "Virgin Islands", "British", "Virgin Islands", "U.S.", "Wallis And Futuna", "Western Sahara", "Yemen", "Zambia", "Zimbabwe" }));
+        cbxNationality.setSelectedIndex(-1);
+        cbxNationality.setToolTipText(bundle.getString("PartyPanel.cbxNationality.toolTipText")); // NOI18N
         cbxNationality.setName(bundle.getString("PartyPanel.cbxNationality.name")); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${partyBean.nationality}"), cbxNationality, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${nationTypeList}");
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, nationTypeListBean1, eLProperty, cbxNationality);
+        bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${partyBean.nationType}"), cbxNationality, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
         cbxNationality.addActionListener(new java.awt.event.ActionListener() {
@@ -753,53 +749,6 @@ public class PartyPanel extends javax.swing.JPanel {
         );
 
         jPanel10.add(jPanel20);
-
-        jPanel21.setName(bundle.getString("PartyPanel.jPanel21.name")); // NOI18N
-
-        txtState.setName(bundle.getString("PartyPanel.txtState.name")); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${partyBean.nationality}"), txtState, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        lbState.setText(bundle.getString("PartyPanel.lbState.text")); // NOI18N
-        lbState.setName(bundle.getString("PartyPanel.lbState.name")); // NOI18N
-
-        cbxState.setName(bundle.getString("PartyPanel.cbxState.name")); // NOI18N
-
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${stateTypeList}");
-        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, stateTypes, eLProperty, cbxState);
-        bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${partyBean.stateType}"), cbxState, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
-
-        cbxState.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxStateActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
-        jPanel21.setLayout(jPanel21Layout);
-        jPanel21Layout.setHorizontalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtState, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addComponent(lbState)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(cbxState, 0, 181, Short.MAX_VALUE)
-        );
-        jPanel21Layout.setVerticalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addComponent(lbState)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
-                .addComponent(txtState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
-
-        jPanel10.add(jPanel21);
 
         jPanel9.setName("jPanel9"); // NOI18N
 
@@ -1403,21 +1352,6 @@ public class PartyPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_cbxNationalityActionPerformed
 
-    private void cbxStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxStateActionPerformed
-        if (this.cbxState.getSelectedIndex() >= 0) {
-            if (partyBean != null && !partyBean.isNew()) {
-                if (evt.getModifiers() == 0) {
-                    for (int i = 0, n = this.cbxState.getItemCount(); i < n; i++) {
-                        if (this.cbxState.getItemAt(i).toString().contains(this.txtState.getText())) {
-                            this.cbxState.setSelectedIndex(i);
-                        }
-                    }
-                }
-            }
-            this.txtState.setText(this.cbxState.getSelectedItem().toString());
-        }
-    }//GEN-LAST:event_cbxStateActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel basicPanel;
     private javax.swing.JButton btnAddRole;
@@ -1430,7 +1364,6 @@ public class PartyPanel extends javax.swing.JPanel {
     public javax.swing.JComboBox cbxIdType;
     private javax.swing.JComboBox cbxNationality;
     public javax.swing.JComboBox cbxPartyRoleTypes;
-    private javax.swing.JComboBox cbxState;
     private org.sola.clients.beans.referencedata.CommunicationTypeListBean communicationTypes;
     private javax.swing.JTabbedPane detailsPanel;
     private javax.swing.JScrollPane docTableScrollPanel;
@@ -1458,7 +1391,6 @@ public class PartyPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1483,13 +1415,13 @@ public class PartyPanel extends javax.swing.JPanel {
     private javax.swing.JLabel labPreferredWay;
     private javax.swing.JLabel lbDob;
     private javax.swing.JLabel lbNationality;
-    private javax.swing.JLabel lbState;
     private javax.swing.JLabel lblGender;
     private javax.swing.JMenuItem menuRemoveRole;
+    private org.sola.clients.beans.referencedata.NationTypeBean nationTypeBean1;
+    private org.sola.clients.beans.referencedata.NationTypeListBean nationTypeListBean1;
     public org.sola.clients.beans.referencedata.PartyRoleTypeListBean partyRoleTypes;
     private javax.swing.JPopupMenu popupRoles;
     public javax.swing.JScrollPane roleTableScrollPanel;
-    private org.sola.clients.beans.referencedata.StateTypeListBean stateTypes;
     public org.sola.clients.swing.common.controls.JTableWithDefaultStyles tablePartyRole;
     public javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtAlias;
@@ -1504,7 +1436,6 @@ public class PartyPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtMobile;
     private javax.swing.JTextField txtNationality;
     public javax.swing.JTextField txtPhone;
-    private javax.swing.JTextField txtState;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 

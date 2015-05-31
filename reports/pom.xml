@@ -5,11 +5,11 @@
     <parent>
         <artifactId>sola-clients</artifactId>
         <groupId>org.sola</groupId>
-        <version>1501a</version>
+        <version>sr_1503a</version>
     </parent>
     <groupId>org.sola.clients</groupId>
     <artifactId>clients-reports</artifactId>
-    <version>1501a</version>
+    <version>sr_1503a</version>
     <name>Clients Reports</name>
     <url>http://maven.apache.org</url>
     <properties>
@@ -174,16 +174,5 @@
             <artifactId>xml-apis-ext</artifactId>
             <version>1.3.04</version>
         </dependency>
-        <dependency>
-            <groupId>com.adobe</groupId>
-            <artifactId>adobecaslon</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.myriad</groupId>
-            <artifactId>myriadpro</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
     </dependencies>
 </project>

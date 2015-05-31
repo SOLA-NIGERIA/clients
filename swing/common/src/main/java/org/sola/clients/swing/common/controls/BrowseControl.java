@@ -1,30 +1,28 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations
- * (FAO). All rights reserved.
+ * Copyright (C) 2015 - Food and Agriculture Organization of the United Nations (FAO).
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice,this
- * list of conditions and the following disclaimer. 2. Redistributions in binary
- * form must reproduce the above copyright notice,this list of conditions and
- * the following disclaimer in the documentation and/or other materials provided
- * with the distribution. 3. Neither the name of FAO nor the names of its
- * contributors may be used to endorse or promote products derived from this
- * software without specific prior written permission.
+ *    1. Redistributions of source code must retain the above copyright notice,this list
+ *       of conditions and the following disclaimer.
+ *    2. Redistributions in binary form must reproduce the above copyright notice,this list
+ *       of conditions and the following disclaimer in the documentation and/or other
+ *       materials provided with the distribution.
+ *    3. Neither the name of FAO nor the names of its contributors may be used to endorse or
+ *       promote products derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
- * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.swing.common.controls;
@@ -42,7 +40,7 @@ import java.awt.font.TextAttribute;
 import java.awt.geom.Rectangle2D;
 import java.text.AttributedString;
 import javax.swing.*;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 
 /**
  * Browse control has view of text field with browse button to pickup values.
@@ -79,17 +77,17 @@ public class BrowseControl extends JTextField {
      */
     public BrowseControl() {
         super();
-        this.setBackground(UIManager.getColor(LafManager.getInstance().getTxtFieldBg()));
-        this.setBorder(javax.swing.BorderFactory.createLineBorder(UIManager.getColor(LafManager.getInstance().getBtnDarkShadow())));
+        this.setBackground(UIManager.getColor(LafManager.UI_PROP_TEXT_FIELD_BACKGROUND));
+        this.setBorder(javax.swing.BorderFactory.createLineBorder(UIManager.getColor(LafManager.UI_PROP_BTN_DARK_SHADOW)));
         this.setPreferredSize(new Dimension(185, 23));
 
         deleteButtonIcon = new ImageIcon(BrowseControl.class.getResource("/org/sola/clients/swing/common/controls/resources/delete_icon.gif"));
         textBox = new Rectangle();
         deleteButtonBox = new Rectangle();
         browseBtnBox = new Rectangle();
-        browseBtnOffColor = UIManager.getColor(LafManager.getInstance().getBtnBackground());
+        browseBtnOffColor = UIManager.getColor(LafManager.UI_PROP_BTN_BACKGROUND);
         browseBtnOnColor = new Color(150, 150, 150);
-        browseBtnClickColor = UIManager.getColor(LafManager.getInstance().getBtnShadow());
+        browseBtnClickColor = UIManager.getColor(LafManager.UI_PROP_BTN_SHADOW);
 
 
         browseBtnCurrentColor = browseBtnOffColor;
@@ -337,7 +335,7 @@ public class BrowseControl extends JTextField {
         int textY = (btnRect.getBounds().height / 2) + (getFontMetrics(labelFont).getHeight() / 2) - getFontMetrics(getFont()).getDescent();
         int textX = btnRect.getBounds().x + (btnRect.getBounds().width / 2 - getFontMetrics(labelFont).stringWidth(labelText) / 2);
 
-        g.setPaint(UIManager.getColor(LafManager.getInstance().getBtnForeground()));
+        g.setPaint(UIManager.getColor(LafManager.UI_PROP_BTN_FOREGROUND));
         AttributedString as = new AttributedString(labelText);
         as.addAttribute(TextAttribute.FONT, labelFont);
         g.drawString(as.getIterator(), textX, textY);

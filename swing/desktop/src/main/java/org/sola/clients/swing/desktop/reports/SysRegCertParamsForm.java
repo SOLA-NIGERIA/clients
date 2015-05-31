@@ -1,30 +1,28 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations
- * (FAO). All rights reserved.
+ * Copyright (C) 2015 - Food and Agriculture Organization of the United Nations (FAO).
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice,this
- * list of conditions and the following disclaimer. 2. Redistributions in binary
- * form must reproduce the above copyright notice,this list of conditions and
- * the following disclaimer in the documentation and/or other materials provided
- * with the distribution. 3. Neither the name of FAO nor the names of its
- * contributors may be used to endorse or promote products derived from this
- * software without specific prior written permission.
+ *    1. Redistributions of source code must retain the above copyright notice,this list
+ *       of conditions and the following disclaimer.
+ *    2. Redistributions in binary form must reproduce the above copyright notice,this list
+ *       of conditions and the following disclaimer in the documentation and/or other
+ *       materials provided with the distribution.
+ *    3. Neither the name of FAO nor the names of its contributors may be used to endorse or
+ *       promote products derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
- * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.swing.desktop.reports;
@@ -82,11 +80,10 @@ import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
 public class SysRegCertParamsForm extends javax.swing.JDialog {
     
     private String location;
-    private String title = "SLTR Document(s) for Work Unit ";
+    private String title = "SR Document(s) for Work Unit ";
     private String nr;
     private String tmpLocation = "";
     private static String cachePath = System.getProperty("user.home") + "/sola/cache/documents/";
-    private static String svgPath = "images/sola/";
     private String reportdate;
     private String reportTogenerate;
     private Date currentDate;
@@ -219,8 +216,8 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         sysRegCertificatesBean = new org.sola.clients.beans.systematicregistration.SysRegCertificatesBean();
         sysRegCertificatesListBean = new org.sola.clients.beans.systematicregistration.SysRegCertificatesListBean();
         btnGenCertificate = new javax.swing.JButton();
-        labHeader = new javax.swing.JLabel();
         cadastreObjectSearch = new org.sola.clients.swing.ui.cadastre.WorkUnitSearch();
+        labHeader = new org.sola.clients.swing.ui.GroupPanel();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/reports/Bundle"); // NOI18N
         btnGenCertificate.setText(bundle.getString("SysRegCertParamsForm.btnGenCertificate.text")); // NOI18N
@@ -230,13 +227,10 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             }
         });
 
-        labHeader.setBackground(new java.awt.Color(255, 153, 0));
-        labHeader.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        labHeader.setForeground(new java.awt.Color(255, 255, 255));
-        labHeader.setText(bundle.getString("SysRegCertParamsForm.labHeader.text")); // NOI18N
-        labHeader.setOpaque(true);
-
         cadastreObjectSearch.setText(bundle.getString("SysRegCertParamsForm.cadastreObjectSearch.text")); // NOI18N
+
+        labHeader.setTitleText(bundle.getString("SysRegCertParamsForm.labHeader.titleText")); // NOI18N
+        labHeader.setVerifyInputWhenFocusTarget(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -245,25 +239,26 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
-                    .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGenCertificate)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnGenCertificate))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 22, Short.MAX_VALUE)
+                        .addComponent(labHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(labHeader)
-                .addGap(34, 34, 34)
+                .addContainerGap()
+                .addComponent(labHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGenCertificate)
                     .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(203, Short.MAX_VALUE))
         );
-
-        labHeader.getAccessibleContext().setAccessibleName(bundle.getString("SysRegCertParamsForm.labHeader.text")); // NOI18N
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -324,18 +319,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 int sketchHeight = 200;
                 
         try {
-//            MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(490, 429, 150, 40);
-//            MapImageGeneratorForSelectedParcel mapImageSmall = new MapImageGeneratorForSelectedParcel(225, 225, 150, 40);
-  
-
-            if (prefix.contains("Jigawa")){ 
-                // A3 side by side according to SURCON sample
-                imageWidth   = 200;
-                imageHeight  = 300;
-                sketchWidth  = 200;
-                sketchHeight = 300;   
-            }
-
+           
                            
             MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(imageWidth, imageHeight,sketchWidth,sketchHeight,false, 0, 0);
             
@@ -350,7 +334,6 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 cadastreObject=this.getCadastre(appBaunit.getNameFirstpart());
                 if(cadastreObject!=null)
                 {
-                    System.out.println(cadastreObject.getSourceReference());
                     sourceRef=cadastreObject.getSourceReference();
                 }
                 else sourceRef="";
@@ -360,17 +343,13 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 final BaUnitBean baUnit = getBaUnit(baUnitId);
                 final ApplicationBean applicationBean = getApplication(appId);
                 String parcelLabel = tmpLocation + '/' + appBaunit.getNameFirstpart();
-                final String featureFront = this.svgPath + "front.svg";
-                final String featureBack = this.svgPath + "back.svg";
-//                MapImageInformation mapImageInfo = mapImage.getMapAndScalebarImage(appBaunit.getId());
-                
+                final String featureFront = null;
+                final String featureBack = null;
                 MapImageInformation mapImageInfo = mapImage.getInformation(appBaunit.getId());
                 final String featureImageFileName = mapImageInfo.getMapImageLocation();
                 final String featureScalebarFileName = mapImageInfo.getScalebarImageLocation();
                 final Number scale = mapImageInfo.getScale();
                 final Integer srid = mapImageInfo.getSrid();
-                //System.out.println(cadastreObjectBean.getSourceReference().toString());
-//                MapImageInformation mapImageInfoSmall = mapImageSmall.getMapAndScalebarImage(appBaunit.getId());
                 final String featureImageFileNameSmall = mapImageInfo.getSketchMapImageLocation();
                     
                 if (this.whichReport.contains("parcelPlan")){  
@@ -480,7 +459,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     private javax.swing.JButton btnGenCertificate;
     private org.sola.clients.beans.cadastre.CadastreObjectBean cadastreObjectBean;
     private org.sola.clients.swing.ui.cadastre.WorkUnitSearch cadastreObjectSearch;
-    private javax.swing.JLabel labHeader;
+    private org.sola.clients.swing.ui.GroupPanel labHeader;
     private org.sola.clients.beans.systematicregistration.SysRegCertificatesBean sysRegCertificatesBean;
     private org.sola.clients.beans.systematicregistration.SysRegCertificatesListBean sysRegCertificatesListBean;
     // End of variables declaration//GEN-END:variables

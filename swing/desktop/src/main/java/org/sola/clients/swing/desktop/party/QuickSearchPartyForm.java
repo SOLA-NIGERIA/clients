@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
+ * Copyright (C) 2015 - Food and Agriculture Organization of the United Nations (FAO).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -45,7 +45,7 @@ public class QuickSearchPartyForm extends javax.swing.JDialog {
     
     public QuickSearchPartyForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-       this.setIconImage(new ImageIcon(QuickSearchPartyForm.class.getResource("/images/sola/logo_icon.jpg")).getImage());
+       this.setIconImage(new ImageIcon(QuickSearchPartyForm.class.getResource("/images/sola/logo.png")).getImage());
     
         initComponents();
     }
@@ -54,7 +54,7 @@ public class QuickSearchPartyForm extends javax.swing.JDialog {
         super(PARENT_FORM, modal);
         
         this.panelForm=panel; 
-        this.setIconImage(new ImageIcon(QuickSearchPartyForm.class.getResource("/images/sola/logo_icon.jpg")).getImage());
+        this.setIconImage(new ImageIcon(QuickSearchPartyForm.class.getResource("/images/sola/logo.png")).getImage());
     
         initComponents();
     }

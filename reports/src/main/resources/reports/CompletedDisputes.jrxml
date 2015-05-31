@@ -36,7 +36,7 @@ Maseru 100]]></text>
 			</staticText>
 			<image>
 				<reportElement x="392" y="0" width="163" height="64"/>
-				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["images/sola/laa_logo.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="0" y="179" width="555" height="20"/>

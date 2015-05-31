@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
+ * Copyright (C) 2015 - Food and Agriculture Organization of the United Nations (FAO).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -76,7 +76,6 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
 
         lodgementBean1 = new org.sola.clients.beans.application.LodgementBean();
         searchParams = new org.sola.clients.beans.application.LodgementViewParamsBean();
-        jLabel1 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         labFrom = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -88,20 +87,14 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
         txtToDate = new javax.swing.JFormattedTextField();
         labTo = new javax.swing.JLabel();
         viewReport = new javax.swing.JButton();
+        labHeader1 = new org.sola.clients.swing.ui.GroupPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setBackground(new java.awt.Color(255, 153, 0));
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/reports/Bundle"); // NOI18N
-        jLabel1.setText(bundle.getString("LodgementReportParamsForm.jLabel1.text")); // NOI18N
-        jLabel1.setOpaque(true);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/application/Bundle"); // NOI18N
+        labFrom.setText(bundle.getString("ApplicationSearchPanel.labFrom.text")); // NOI18N
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/application/Bundle"); // NOI18N
-        labFrom.setText(bundle1.getString("ApplicationSearchPanel.labFrom.text")); // NOI18N
-
-        btnShowCalendarFrom.setText(bundle1.getString("ApplicationSearchPanel.btnShowCalendarFrom.text")); // NOI18N
+        btnShowCalendarFrom.setText(bundle.getString("ApplicationSearchPanel.btnShowCalendarFrom.text")); // NOI18N
         btnShowCalendarFrom.setBorder(null);
         btnShowCalendarFrom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,7 +104,8 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
 
         txtFromDate.setFont(new java.awt.Font("Tahoma", 0, 12));
         txtFromDate.setFormatterFactory(FormattersFactory.getInstance().getDateFormatterFactory());
-        txtFromDate.setToolTipText(bundle.getString("LodgementReportParamsForm.txtFromDate.toolTipText")); // NOI18N
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/reports/Bundle"); // NOI18N
+        txtFromDate.setToolTipText(bundle1.getString("LodgementReportParamsForm.txtFromDate.toolTipText")); // NOI18N
         txtFromDate.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
         txtFromDate.setHorizontalAlignment(JTextField.LEADING);
 
@@ -132,7 +126,7 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
                 .addComponent(btnShowCalendarFrom))
         );
 
-        btnShowCalendarTo.setText(bundle1.getString("ApplicationSearchPanel.btnShowCalendarTo.text")); // NOI18N
+        btnShowCalendarTo.setText(bundle.getString("ApplicationSearchPanel.btnShowCalendarTo.text")); // NOI18N
         btnShowCalendarTo.setBorder(null);
         btnShowCalendarTo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,7 +136,7 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
 
         txtToDate.setFont(new java.awt.Font("Tahoma", 0, 12));
         txtToDate.setFormatterFactory(FormattersFactory.getInstance().getDateFormatterFactory());
-        txtToDate.setToolTipText(bundle.getString("LodgementReportParamsForm.txtToDate.toolTipText")); // NOI18N
+        txtToDate.setToolTipText(bundle1.getString("LodgementReportParamsForm.txtToDate.toolTipText")); // NOI18N
         txtToDate.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
         txtToDate.setHorizontalAlignment(JTextField.LEADING);
 
@@ -165,7 +159,7 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        labTo.setText(bundle1.getString("ApplicationSearchPanel.labTo.text")); // NOI18N
+        labTo.setText(bundle.getString("ApplicationSearchPanel.labTo.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -186,7 +180,7 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        viewReport.setText(bundle.getString("LodgementReportParamsForm.viewReport.text")); // NOI18N
+        viewReport.setText(bundle1.getString("LodgementReportParamsForm.viewReport.text")); // NOI18N
         viewReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewReportActionPerformed(evt);
@@ -218,6 +212,8 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        labHeader1.setTitleText(bundle1.getString("LodgementReportParamsForm.labHeader1.titleText")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -225,16 +221,18 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 42, Short.MAX_VALUE))
+                    .addComponent(labHeader1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(40, Short.MAX_VALUE))
         );
@@ -289,12 +287,12 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnShowCalendarFrom;
     private javax.swing.JButton btnShowCalendarTo;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JLabel labFrom;
+    private org.sola.clients.swing.ui.GroupPanel labHeader1;
     private javax.swing.JLabel labTo;
     private org.sola.clients.beans.application.LodgementBean lodgementBean1;
     private org.sola.clients.beans.application.LodgementViewParamsBean searchParams;

@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
+ * Copyright (C) 2015 - Food and Agriculture Organization of the United Nations (FAO).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -39,7 +39,7 @@ public class ReportViewerForm extends javax.swing.JFrame {
 
     public ReportViewerForm(JasperPrint jasperPrint) {
         initComponents();
-        this.setIconImage(new ImageIcon(ReportViewerForm.class.getResource("/images/sola/logo_icon.jpg")).getImage());
+        this.setIconImage(new ImageIcon(ReportViewerForm.class.getResource("/images/sola/logo.png")).getImage());
       
         postInit(jasperPrint);
     }

@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
+ * Copyright (C) 2015 - Food and Agriculture Organization of the United Nations (FAO).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -27,6 +27,7 @@
  */
 package org.sola.clients.swing.ui.validation;
 
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 import org.jdesktop.observablecollections.ObservableCollections;
@@ -34,7 +35,7 @@ import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.swing.ui.renderers.TableCellTextAreaRenderer;
 import org.sola.clients.swing.ui.renderers.ViolationCellRenderer;
 import org.sola.clients.beans.validation.ValidationResultBean;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 
 /**
  * Display result of changing status of application or service.
@@ -170,7 +171,7 @@ public class ValidationResultForm extends javax.swing.JDialog {
         tableValidations.getColumnModel().getColumn(2).setCellRenderer(new ViolationCellRenderer());
 
         lblMessage.setBackground(new java.awt.Color(153, 255, 153));
-        lblMessage.setFont(LafManager.getInstance().getLabFontBold());
+        lblMessage.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         lblMessage.setForeground(new java.awt.Color(0, 102, 0));
         lblMessage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/ball_green.png"))); // NOI18N
         lblMessage.setText(bundle.getString("ValidationResultForm.lblMessage.text")); // NOI18N

@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
+ * Copyright (C) 2015 - Food and Agriculture Organization of the United Nations (FAO).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -66,11 +66,11 @@ public class PartyBean extends PartySummaryBean {
     public static final String PHONE_PROPERTY = "phone";
     public static final String MOBILE_PROPERTY = "mobile";
     public static final String GENDER_TYPE_CODE_PROPERTY = "genderTypeCode";
-    public static final String STATE_TYPE_CODE_PROPERTY = "stateTypeCode";
+    public static final String nation_type_CODE_PROPERTY = "NationTypeCode";
     public static final String ID_TYPE_CODE_PROPERTY = "idTypeCode";
     public static final String SELECTED_ROLE_PROPERTY = "selectedRole";
     public static final String GENDER_TYPE_PROPERTY = "genderType";
-    public static final String STATE_TYPE_PROPERTY = "stateType";
+    public static final String nation_type_PROPERTY = "NationType";
     public static final String ID_TYPE_PROPERTY = "idType";
     public static final String IDNUMBER_PROPERTY = "idNumber";
     public static final String FAX_PROPERTY = "fax";
@@ -102,7 +102,7 @@ public class PartyBean extends PartySummaryBean {
     private transient PartyRoleBean selectedRole;
     private Date dob;
     private String state;
-    private StateTypeBean stateTypeBean;
+    private NationTypeBean NationTypeBean;
    
     private String nationality;
     
@@ -251,16 +251,16 @@ public class PartyBean extends PartySummaryBean {
         this.setJointRefDataBean(getGenderType(), genderTypeBean, GENDER_TYPE_PROPERTY);
     }
     
-    public StateTypeBean getStateType() {
-        if (stateTypeBean == null) {
-            stateTypeBean = new StateTypeBean();
+    public NationTypeBean getNationType() {
+        if (NationTypeBean == null) {
+            NationTypeBean = new NationTypeBean();
         }
-        stateTypeBean.setDisplayValue(getState());
-        return stateTypeBean;
+        NationTypeBean.setDisplayValue(getState());
+        return NationTypeBean;
     }
 
-    public void setStateType(StateTypeBean stateTypeBean) {
-        this.setState(stateTypeBean.getDisplayValue());
+    public void setNationType(NationTypeBean NationTypeBean) {
+        this.setState(NationTypeBean.getDisplayValue());
     }
 
     public String getGenderCode() {

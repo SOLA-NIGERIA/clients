@@ -6,14 +6,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="Css/style.css" rel="stylesheet" type="text/css" />
-        <title>SOLA Desktop and SOLA Admin Download Page</title>
+        <title>SOLA SR Desktop and SOLA Admin Download Page</title>
     </head>
     <body>
 
         <table width="80%" cellspacing="0" cellpadding="3">
             <tr>
                 <td colspan="2">  
-                    <h1><img src="Images/SolaLogo.png"/>Welcome to the download for the SOLA Web Start applications.</h1>
+                    <h1><img src="Images/SolaLogo.png"/>Welcome to the download for the SOLA Systematic Registration Web Start.</h1>
                 </td>
             </tr>
             <tr>
@@ -21,7 +21,7 @@
                 <td> <br><br>
                     Solutions for Open Land Administration (SOLA) is an open source software system that aims to make computerized cadastre and registration systems more affordable and more sustainable in developing countries.
                     <br><br>
-                    This page will guide you through the installation of the SOLA Web Start applications which includes the SOLA Desktop Web Start and SOLA Admin Web Start. The installation package for both applications is approximately 100Mb.
+                    This page will guide you through the installation of the SOLA SR Web Start applications which includes the SOLA Desktop Web Start and SOLA Admin Web Start. The installation package for both applications is approximately 100Mb.
                     <br><br> 
                 </td>
             </tr>
@@ -33,7 +33,7 @@
             <tr>
                 <td width="20%"></td>   
                 <td>     
-                    The  Java SE Runtime Environment 7 is required for the SOLA Web Start applications. Java 7 can be downloaded from <a href="http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html#jre-7u21-oth-JPR" target="_blank" >here</a>.
+                    The  Java SE Runtime Environment 7 is required for the SOLA SR Web Start applications. Java 7 can be downloaded from <a href="http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html#jre-7u21-oth-JPR" target="_blank" >here</a>.
                     <ol>
                         <li>    You will need to accept the Oracle Binary Code License Agreement for Java SE before downloading Java 7.</li>
                         <li>    Download the product appropriate for your operating system. Note that the Windows x86 products are for Windows 32bit operating systems and the Windows x64 product is for Windows 64bit operating systems.</li>
@@ -58,24 +58,23 @@
                             // test jnlp files
                             String hostName = request.getServerName();
 
-                            String desktopJnlp = "/webstart/sola-desktop-test.jnlp";
-                            String adminJnlp = "/webstart/sola-admin-test.jnlp";
-                            //if (hostName.equalsIgnoreCase("demo.flossola.org")
-                            //        || hostName.equalsIgnoreCase("<hostname1>")) { // Update hostname as required
-                            if (true) { // 1 DEC 2014 - Short circuit logic so production JNLP files are always served. 
+                            String desktopJnlp = "/webstart/sola-sr-desktop-test.jnlp";
+                            String adminJnlp = "/webstart/sola-sr-admin-test.jnlp";
+                            if (hostName.equalsIgnoreCase("demo.flossola.org")
+                                    || hostName.equalsIgnoreCase("flossola.org")) { // Update hostname as required
                                 // This is the production host so use the production
                                 // JNLP files
-                                desktopJnlp = "/webstart/sola-desktop.jnlp";
-                                adminJnlp = "/webstart/sola-admin.jnlp";
+                                desktopJnlp = "/webstart/sola-sr-desktop.jnlp";
+                                adminJnlp = "/webstart/sola-sr-admin.jnlp";
                             }
                             String desktopLocation = request.getContextPath() + desktopJnlp;
                             String adminLocation = request.getContextPath() + adminJnlp;
                         %> 
-                        <li>To install the <b>SOLA Desktop</b> web start application, right click this link <a href=" <%=desktopLocation%> " target=_blank>SOLA Desktop</a> and choose Save link as... and save the sola-desktop.jnlp file to a known location on your local file system.</li>
-                        <li>To install the <b>SOLA Admin</b> web start, right click this link <a href=" <%=adminLocation%> " target=_blank>SOLA Admin</a> and choose Save link as... and save the sola-admin.jnlp file to a known location on your local file system.</li>
+                        <li>To install the <b>SOLA SR Desktop</b> web start application, right click this link <a href=" <%=desktopLocation%> " target=_blank>SOLA SR Desktop</a> and choose Save link as... and save the sola-sr-desktop.jnlp file to a known location on your local file system.</li>
+                        <li>To install the <b>SOLA SR Admin</b> web start, right click this link <a href=" <%=adminLocation%> " target=_blank>SOLA SR Admin</a> and choose Save link as... and save the sola-sr-admin.jnlp file to a known location on your local file system.</li>
                         <li>Once one or both of the files have been saved on your file system, locate the appropriate jnlp file using Windows Explorer or equivalent and double click the file. You should see a Java 7 splash displayed followed by the Starting application... dialog. </li>
                         <li>When prompted with the digital signature security warning, tick Always trust content from this publisher and choose Run. </li>
-                        <li>The web start application you have selected will start automatically. At the login screen, enter your SOLA username and password. </li>
+                        <li>The web start application you have selected will start automatically. At the login screen, enter your SOLA SR username and password. </li>
                     </ol>
                 </td>
             </tr> 

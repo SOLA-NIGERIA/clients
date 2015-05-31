@@ -1,36 +1,35 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations
- * (FAO). All rights reserved.
+ * Copyright (C) 2015 - Food and Agriculture Organization of the United Nations (FAO).
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice,this
- * list of conditions and the following disclaimer. 2. Redistributions in binary
- * form must reproduce the above copyright notice,this list of conditions and
- * the following disclaimer in the documentation and/or other materials provided
- * with the distribution. 3. Neither the name of FAO nor the names of its
- * contributors may be used to endorse or promote products derived from this
- * software without specific prior written permission.
+ *    1. Redistributions of source code must retain the above copyright notice,this list
+ *       of conditions and the following disclaimer.
+ *    2. Redistributions in binary form must reproduce the above copyright notice,this list
+ *       of conditions and the following disclaimer in the documentation and/or other
+ *       materials provided with the distribution.
+ *    3. Neither the name of FAO nor the names of its contributors may be used to endorse or
+ *       promote products derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
- * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.swing.desktop.administrative;
 
 import org.sola.clients.swing.desktop.cadastre.CreateParcelDialog;
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.math.BigDecimal;
@@ -51,7 +50,7 @@ import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.source.SourceListBean;
 import org.sola.clients.reports.ReportManager;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 import org.sola.clients.swing.common.controls.CalendarForm;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
@@ -108,8 +107,6 @@ public class PropertyPanel extends ContentPanel {
     private PropertyChangeListener newPropertyWizardListener;
     public BaUnitBean whichBaUnitSelected;
     private boolean isBtnNext = false;
-//    TERM ALL OVER NIGERIA = 99
-//    private Integer term = 0;
     private Integer term = 99;
             
 
@@ -147,8 +144,6 @@ public class PropertyPanel extends ContentPanel {
     }
 
     private void getTerm() {
-        //    TERM ALL OVER NIGERIA = 99
-//        Integer term=0;
         Integer term=0;
         String textTerm;
         if (applicationService.getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){    
@@ -156,15 +151,7 @@ public class PropertyPanel extends ContentPanel {
             this.landUse = this.baUnitBean1.getLandUseType().getCode();
             String nationality = this.applicationBean.getContactPerson().getNationality().toString();
 
-//            if (landUse.startsWith("res")&& nationality.contains("Nigeria")) {
-//                term=99;
-//            } 
-//            else if (landUse.startsWith("bus")&& nationality.contains("Nigeria")) {
-//                term = 40;
-//            }
-//            else  {
                 term = this.term;
-//            }
 
             if (this.landUse != null && term != null ) {
                         textTerm =term.toString();
@@ -2763,7 +2750,7 @@ public class PropertyPanel extends ContentPanel {
         jToolBar6.setRollover(true);
         jToolBar6.setName("jToolBar6"); // NOI18N
 
-        jLabel6.setFont(LafManager.getInstance().getLabFontBold());
+        jLabel6.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         jLabel6.setText(bundle.getString("PropertyPanel.jLabel6.text")); // NOI18N
         jLabel6.setName("jLabel6"); // NOI18N
         jToolBar6.add(jLabel6);
@@ -2872,7 +2859,7 @@ public class PropertyPanel extends ContentPanel {
         jToolBar7.setRollover(true);
         jToolBar7.setName("jToolBar7"); // NOI18N
 
-        jLabel3.setFont(LafManager.getInstance().getLabFontBold());
+        jLabel3.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         jLabel3.setText(bundle.getString("PropertyPanel.jLabel3.text")); // NOI18N
         jLabel3.setName("jLabel3"); // NOI18N
         jToolBar7.add(jLabel3);

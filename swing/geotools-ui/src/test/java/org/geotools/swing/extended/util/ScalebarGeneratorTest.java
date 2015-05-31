@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2014 - Food and Agriculture Organization of the United Nations (FAO).
+ * Copyright (C) 2015 - Food and Agriculture Organization of the United Nations (FAO).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -57,12 +57,10 @@ public class ScalebarGeneratorTest {
     @Test
     //@Ignore
     public void testGetImageAsFileLocation() throws Exception {
-        System.out.println("getImageAsFileLocation");
         double imageWidth = 200.0;
         double scale = 1500.0;
         int dpi = 96;
         ScalebarGenerator instance = new ScalebarGenerator();
         String result = instance.getImageAsFileLocation(scale, imageWidth, dpi);
-        System.out.print("Map image generated in:" + result);
     }
 }

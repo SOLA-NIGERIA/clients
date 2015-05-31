@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
+ * Copyright (C) 2015 - Food and Agriculture Organization of the United Nations (FAO).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -54,7 +54,7 @@ public class PropertiesList extends javax.swing.JDialog {
         super((Frame)null, true);
         this.propertyList = propertyList;
         initComponents();
-        this.setIconImage(new ImageIcon(PropertiesList.class.getResource("/images/sola/logo_icon.jpg")).getImage());
+        this.setIconImage(new ImageIcon(PropertiesList.class.getResource("/images/sola/logo.png")).getImage());
     }
     
     public ObservableList<ApplicationPropertyBean> getPropertyList() {

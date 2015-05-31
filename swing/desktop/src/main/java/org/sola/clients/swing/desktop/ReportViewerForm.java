@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
+ * Copyright (C) 2015 - Food and Agriculture Organization of the United Nations (FAO).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -29,6 +29,7 @@ package org.sola.clients.swing.desktop;
 
 import javax.swing.ImageIcon;
 import net.sf.jasperreports.engine.JasperPrint;
+import org.sola.clients.swing.ui.localization.LocalizationManager;
 
 /**
  * Displays reports.
@@ -37,7 +38,7 @@ public class ReportViewerForm extends javax.swing.JFrame {
 
     public ReportViewerForm(JasperPrint jasperPrint) {
         initComponents();
-        this.setIconImage(new ImageIcon(ReportViewerForm.class.getResource("/images/sola/logo_icon.jpg")).getImage());
+        this.setIconImage(new ImageIcon(ReportViewerForm.class.getResource("/images/sola/logo.png")).getImage());
         postInit(jasperPrint);
     }
     
@@ -54,6 +55,11 @@ public class ReportViewerForm extends javax.swing.JFrame {
         if(reportViewerPanel.getJasperViewer() !=null){
             this.setIconImage(reportViewerPanel.getJasperViewer().getIconImage());
         }
+          String pre = "";
+        pre = String.format("%" + 8 + "s", pre);
+        //  put the obtained number of blanks before the title text
+        this.setTitle(pre + this.getTitle()+" - " + LocalizationManager.getVersionNumber());
+       
     }
 
     @SuppressWarnings("unchecked")

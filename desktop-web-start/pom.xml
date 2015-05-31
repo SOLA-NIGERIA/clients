@@ -4,12 +4,12 @@
     <parent>
         <artifactId>sola-clients</artifactId>
         <groupId>org.sola</groupId>
-        <version>1501a</version>
+        <version>sr_1503a</version>
     </parent>
 
     <groupId>org.sola.clients</groupId>
     <artifactId>sola-desktop-web-start</artifactId>
-    <version>1501a</version>
+    <version>sr_1503a</version>
     <packaging>war</packaging>
 
     <name>Clients Desktop Web Start</name>
@@ -17,7 +17,7 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <solaVersion>v1501a</solaVersion>
+        <solaVersion>v1503a</solaVersion>
         <webstart.codesigning.keystore>${basedir}/sola.jks</webstart.codesigning.keystore>
         <webstart.codesigning.alias>sola</webstart.codesigning.alias>
         <webstart.codesigning.storepass>FLOSS2011</webstart.codesigning.storepass>
@@ -80,8 +80,9 @@
                     <templateDirectory>${project.basedir}/template</templateDirectory>
                     <updateManifestEntries>
                         <Permissions>all-permissions</Permissions>
-                        <Codebase>*</Codebase>
-                        <Application-Name>SOLA Nigeria</Application-Name>
+                        <Codebase>*.localhost *.flossola.org</Codebase>
+                        <Application-Name>SOLA Systematic Registration</Application-Name>
+                        <Application-Library-Allowable-Codebase>*.localhost *.flossola.org</Application-Library-Allowable-Codebase>
                     </updateManifestEntries>
                     <libPath>lib</libPath>
                     <!-- 1 Dec 2014 - The pack200 option was updated in version 1.0-beta-4 of the
@@ -97,8 +98,8 @@
                     <jnlpFiles>
                         <jnlpFile>
                             <!-- JNLP file for the SOLA Desktop application -->
-                            <outputFilename>sola-desktop.jnlp</outputFilename>
-                            <templateFilename>sola-desktop-jnlp-template.vm</templateFilename>
+                            <outputFilename>sola-sr-desktop.jnlp</outputFilename>
+                            <templateFilename>sola-sr-desktop-jnlp-template.vm</templateFilename>
                             <jarResources>
                                 <jarResource>
                                     <groupId>${project.groupId}.swing</groupId>
@@ -110,8 +111,8 @@
                         </jnlpFile> 
                         <jnlpFile>
                             <!-- JNLP file for the SOLA Desktop application test env -->
-                            <outputFilename>sola-desktop-test.jnlp</outputFilename>
-                            <templateFilename>sola-desktop-jnlp-template-test.vm</templateFilename>
+                            <outputFilename>sola-sr-desktop-test.jnlp</outputFilename>
+                            <templateFilename>sola-sr-desktop-jnlp-template-test.vm</templateFilename>
                             <jarResources>
                                 <jarResource>
                                     <groupId>${project.groupId}.swing</groupId>
@@ -123,8 +124,8 @@
                         </jnlpFile> 
                         <jnlpFile>
                             <!-- JNLP file for the SOLA Admin application -->
-                            <outputFilename>sola-admin.jnlp</outputFilename>
-                            <templateFilename>sola-admin-jnlp-template.vm</templateFilename>
+                            <outputFilename>sola-sr-admin.jnlp</outputFilename>
+                            <templateFilename>sola-sr-admin-jnlp-template.vm</templateFilename>
                             <jarResources>
                                 <jarResource>
                                     <groupId>${project.groupId}.swing</groupId>
@@ -136,8 +137,8 @@
                         </jnlpFile>
                         <jnlpFile>
                             <!-- JNLP file for the SOLA Admin application test env-->
-                            <outputFilename>sola-admin-test.jnlp</outputFilename>
-                            <templateFilename>sola-admin-jnlp-template-test.vm</templateFilename>
+                            <outputFilename>sola-sr-admin-test.jnlp</outputFilename>
+                            <templateFilename>sola-sr-admin-jnlp-template-test.vm</templateFilename>
                             <jarResources>
                                 <jarResource>
                                     <groupId>${project.groupId}.swing</groupId>
@@ -196,7 +197,7 @@
                 </executions>
             </plugin>
         </plugins>
-        <finalName>desktop-web-start</finalName>
+        <finalName>desktop-sr-web-start</finalName>
     </build>
 
 </project>

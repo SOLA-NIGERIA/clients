@@ -317,7 +317,9 @@
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="createGenderTypes()"/>
       </AuxValues>
     </Component>
-    <Component class="org.sola.clients.beans.referencedata.StateTypeListBean" name="stateTypes">
+    <Component class="org.sola.clients.beans.referencedata.NationTypeListBean" name="nationTypeListBean1">
+    </Component>
+    <Component class="org.sola.clients.beans.referencedata.NationTypeBean" name="nationTypeBean1">
     </Component>
   </NonVisualComponents>
   <Properties>
@@ -394,7 +396,6 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnSave">
           <Properties>
-            <Property name="font" postCode="LafManager.getInstance().setBtnProperties(btnSave);"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/images/common/save.png"/>
             </Property>
@@ -413,7 +414,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnCalculateFee">
           <Properties>
-            <Property name="font" postCode="LafManager.getInstance().setBtnProperties(btnCalculateFee);"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/images/common/calculate.png"/>
             </Property>
@@ -700,13 +700,11 @@
                             <BindingProperty name="text" source="appBean" sourcePath="${contactPerson.name}" target="txtFirstName" targetPath="text" updateStrategy="0" immediately="false"/>
                           </BindingProperties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="LafManager.getInstance().setTxtProperties(txtFirstName);"/>
                             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                           </AuxValues>
                         </Component>
                         <Component class="javax.swing.JLabel" name="labName">
                           <Properties>
-                            <Property name="font" postCode="LafManager.getInstance().setLabProperties(labName);"/>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                               <Image iconType="3" name="/images/common/red_asterisk.gif"/>
                             </Property>
@@ -756,7 +754,6 @@
                       <SubComponents>
                         <Component class="javax.swing.JLabel" name="labLastName">
                           <Properties>
-                            <Property name="font" postCode="LafManager.getInstance().setLabProperties(labLastName);"/>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                               <Image iconType="3" name="/images/common/red_asterisk.gif"/>
                             </Property>
@@ -819,6 +816,9 @@
                               <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
                             </BindingProperty>
                           </BindingProperties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAddressActionPerformed"/>
+                          </Events>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtAddress.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));&#xa;txtAddress.setHorizontalAlignment(JTextField.LEADING);"/>
                             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -826,7 +826,6 @@
                         </Component>
                         <Component class="javax.swing.JLabel" name="labAddress">
                           <Properties>
-                            <Property name="font" postCode="LafManager.getInstance().setLabProperties(labAddress);"/>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                               <Image iconType="3" name="/images/common/red_asterisk.gif"/>
                             </Property>
@@ -877,8 +876,6 @@
                                       <Component id="jPanel19" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -888,21 +885,16 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="jPanel1" alignment="0" max="-2" attributes="0"/>
-                                          <Component id="jPanel19" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jPanel20" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="labPreferredWay" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="labEmail" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="jPanel1" alignment="0" max="-2" attributes="0"/>
+                                  <Component id="jPanel19" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jPanel20" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="labPreferredWay" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -1058,273 +1050,16 @@
                         </Component>
                         <Component class="javax.swing.JComboBox" name="cbxNationality">
                           <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="257">
-                                <StringItem index="0" value="Nigeria"/>
-                                <StringItem index="1" value="Afghanistan"/>
-                                <StringItem index="2" value="&#xc5;land Islands"/>
-                                <StringItem index="3" value="Albania"/>
-                                <StringItem index="4" value="Algeria"/>
-                                <StringItem index="5" value="American Samoa"/>
-                                <StringItem index="6" value="Andorra"/>
-                                <StringItem index="7" value="Angola"/>
-                                <StringItem index="8" value="Anguilla"/>
-                                <StringItem index="9" value="Antarctica"/>
-                                <StringItem index="10" value="Antigua And Barbuda"/>
-                                <StringItem index="11" value="Argentina"/>
-                                <StringItem index="12" value="Armenia"/>
-                                <StringItem index="13" value="Aruba"/>
-                                <StringItem index="14" value="Australia"/>
-                                <StringItem index="15" value="Austria"/>
-                                <StringItem index="16" value="Azerbaijan"/>
-                                <StringItem index="17" value="Bahamas"/>
-                                <StringItem index="18" value="Bahrain"/>
-                                <StringItem index="19" value="Bangladesh"/>
-                                <StringItem index="20" value="Barbados"/>
-                                <StringItem index="21" value="Belarus"/>
-                                <StringItem index="22" value="Belgium"/>
-                                <StringItem index="23" value="Belize"/>
-                                <StringItem index="24" value="Benin"/>
-                                <StringItem index="25" value="Bermuda"/>
-                                <StringItem index="26" value="Bhutan"/>
-                                <StringItem index="27" value="Bolivia"/>
-                                <StringItem index="28" value="Bosnia And Herzegovina"/>
-                                <StringItem index="29" value="Botswana"/>
-                                <StringItem index="30" value="Bouvet Island"/>
-                                <StringItem index="31" value="Brazil"/>
-                                <StringItem index="32" value="British Indian Ocean Territory"/>
-                                <StringItem index="33" value="Brunei Darussalam"/>
-                                <StringItem index="34" value="Bulgaria"/>
-                                <StringItem index="35" value="Burkina Faso"/>
-                                <StringItem index="36" value="Burundi"/>
-                                <StringItem index="37" value="Cambodia"/>
-                                <StringItem index="38" value="Cameroon"/>
-                                <StringItem index="39" value="Canada"/>
-                                <StringItem index="40" value="Cape Verde"/>
-                                <StringItem index="41" value="Cayman Islands"/>
-                                <StringItem index="42" value="Central African Republic"/>
-                                <StringItem index="43" value="Chad"/>
-                                <StringItem index="44" value="Chile"/>
-                                <StringItem index="45" value="China"/>
-                                <StringItem index="46" value="Christmas Island"/>
-                                <StringItem index="47" value="Cocos (Keeling) Islands"/>
-                                <StringItem index="48" value="Colombia"/>
-                                <StringItem index="49" value="Comoros"/>
-                                <StringItem index="50" value="Congo"/>
-                                <StringItem index="51" value="Congo"/>
-                                <StringItem index="52" value="The Democratic Republic Of The"/>
-                                <StringItem index="53" value="Cook Islands"/>
-                                <StringItem index="54" value="Costa Rica"/>
-                                <StringItem index="55" value="Cote D&apos;ivoire"/>
-                                <StringItem index="56" value="Croatia"/>
-                                <StringItem index="57" value="Cuba"/>
-                                <StringItem index="58" value="Cyprus"/>
-                                <StringItem index="59" value="Czech Republic"/>
-                                <StringItem index="60" value="Denmark"/>
-                                <StringItem index="61" value="Djibouti"/>
-                                <StringItem index="62" value="Dominica"/>
-                                <StringItem index="63" value="Dominican Republic"/>
-                                <StringItem index="64" value="Ecuador"/>
-                                <StringItem index="65" value="Egypt"/>
-                                <StringItem index="66" value="El Salvador"/>
-                                <StringItem index="67" value="Equatorial Guinea"/>
-                                <StringItem index="68" value="Eritrea"/>
-                                <StringItem index="69" value="Estonia"/>
-                                <StringItem index="70" value="Ethiopia"/>
-                                <StringItem index="71" value="Falkland Islands (Malvinas)"/>
-                                <StringItem index="72" value="Faroe Islands"/>
-                                <StringItem index="73" value="Fiji"/>
-                                <StringItem index="74" value="Finland"/>
-                                <StringItem index="75" value="France"/>
-                                <StringItem index="76" value="French Guiana"/>
-                                <StringItem index="77" value="French Polynesia"/>
-                                <StringItem index="78" value="French Southern Territories"/>
-                                <StringItem index="79" value="Gabon"/>
-                                <StringItem index="80" value="Gambia"/>
-                                <StringItem index="81" value="Georgia"/>
-                                <StringItem index="82" value="Germany"/>
-                                <StringItem index="83" value="Ghana"/>
-                                <StringItem index="84" value="Gibraltar"/>
-                                <StringItem index="85" value="Greece"/>
-                                <StringItem index="86" value="Greenland"/>
-                                <StringItem index="87" value="Grenada"/>
-                                <StringItem index="88" value="Guadeloupe"/>
-                                <StringItem index="89" value="Guam"/>
-                                <StringItem index="90" value="Guatemala"/>
-                                <StringItem index="91" value="Guernsey"/>
-                                <StringItem index="92" value="Guinea"/>
-                                <StringItem index="93" value="Guinea-bissau"/>
-                                <StringItem index="94" value="Guyana"/>
-                                <StringItem index="95" value="Haiti"/>
-                                <StringItem index="96" value="Heard Island And Mcdonald Islands"/>
-                                <StringItem index="97" value="Holy See (Vatican City State)"/>
-                                <StringItem index="98" value="Honduras"/>
-                                <StringItem index="99" value="Hong Kong"/>
-                                <StringItem index="100" value="Hungary"/>
-                                <StringItem index="101" value="Iceland"/>
-                                <StringItem index="102" value="India"/>
-                                <StringItem index="103" value="Indonesia"/>
-                                <StringItem index="104" value="Iran"/>
-                                <StringItem index="105" value="Islamic Republic Of"/>
-                                <StringItem index="106" value="Iraq"/>
-                                <StringItem index="107" value="Ireland"/>
-                                <StringItem index="108" value="Isle Of Man"/>
-                                <StringItem index="109" value="Israel"/>
-                                <StringItem index="110" value="Italy"/>
-                                <StringItem index="111" value="Jamaica"/>
-                                <StringItem index="112" value="Japan"/>
-                                <StringItem index="113" value="Jersey"/>
-                                <StringItem index="114" value="Jordan"/>
-                                <StringItem index="115" value="Kazakhstan"/>
-                                <StringItem index="116" value="Kenya"/>
-                                <StringItem index="117" value="Kiribati"/>
-                                <StringItem index="118" value="Korea"/>
-                                <StringItem index="119" value="Democratic People&apos;s Republic Of"/>
-                                <StringItem index="120" value="Korea"/>
-                                <StringItem index="121" value="Republic Of"/>
-                                <StringItem index="122" value="Kuwait"/>
-                                <StringItem index="123" value="Kyrgyzstan"/>
-                                <StringItem index="124" value="Lao People&apos;s Democratic Republic"/>
-                                <StringItem index="125" value="Latvia"/>
-                                <StringItem index="126" value="Lebanon"/>
-                                <StringItem index="127" value="Lesotho"/>
-                                <StringItem index="128" value="Liberia"/>
-                                <StringItem index="129" value="Libyan Arab Jamahiriya"/>
-                                <StringItem index="130" value="Liechtenstein"/>
-                                <StringItem index="131" value="Lithuania"/>
-                                <StringItem index="132" value="Luxembourg"/>
-                                <StringItem index="133" value="Macao"/>
-                                <StringItem index="134" value="Macedonia"/>
-                                <StringItem index="135" value="The Former Yugoslav Republic Of"/>
-                                <StringItem index="136" value="Madagascar"/>
-                                <StringItem index="137" value="Malawi"/>
-                                <StringItem index="138" value="Malaysia"/>
-                                <StringItem index="139" value="Maldives"/>
-                                <StringItem index="140" value="Mali"/>
-                                <StringItem index="141" value="Malta"/>
-                                <StringItem index="142" value="Marshall Islands"/>
-                                <StringItem index="143" value="Martinique"/>
-                                <StringItem index="144" value="Mauritania"/>
-                                <StringItem index="145" value="Mauritius"/>
-                                <StringItem index="146" value="Mayotte"/>
-                                <StringItem index="147" value="Mexico"/>
-                                <StringItem index="148" value="Micronesia"/>
-                                <StringItem index="149" value="Federated States Of"/>
-                                <StringItem index="150" value="Moldova"/>
-                                <StringItem index="151" value="Republic Of"/>
-                                <StringItem index="152" value="Monaco"/>
-                                <StringItem index="153" value="Mongolia"/>
-                                <StringItem index="154" value="Montenegro"/>
-                                <StringItem index="155" value="Montserrat"/>
-                                <StringItem index="156" value="Morocco"/>
-                                <StringItem index="157" value="Mozambique"/>
-                                <StringItem index="158" value="Myanmar"/>
-                                <StringItem index="159" value="Namibia"/>
-                                <StringItem index="160" value="Nauru"/>
-                                <StringItem index="161" value="Nepal"/>
-                                <StringItem index="162" value="Netherlands"/>
-                                <StringItem index="163" value="Netherlands Antilles"/>
-                                <StringItem index="164" value="New Caledonia"/>
-                                <StringItem index="165" value="New Zealand"/>
-                                <StringItem index="166" value="Nicaragua"/>
-                                <StringItem index="167" value="Niger"/>
-                                <StringItem index="168" value="Nigeria"/>
-                                <StringItem index="169" value="Niue"/>
-                                <StringItem index="170" value="Norfolk Island"/>
-                                <StringItem index="171" value="Northern Mariana Islands"/>
-                                <StringItem index="172" value="Norway"/>
-                                <StringItem index="173" value="Oman"/>
-                                <StringItem index="174" value="Pakistan"/>
-                                <StringItem index="175" value="Palau"/>
-                                <StringItem index="176" value="Palestinian Territory"/>
-                                <StringItem index="177" value="Occupied"/>
-                                <StringItem index="178" value="Panama"/>
-                                <StringItem index="179" value="Papua New Guinea"/>
-                                <StringItem index="180" value="Paraguay"/>
-                                <StringItem index="181" value="Peru"/>
-                                <StringItem index="182" value="Philippines"/>
-                                <StringItem index="183" value="Pitcairn"/>
-                                <StringItem index="184" value="Poland"/>
-                                <StringItem index="185" value="Portugal"/>
-                                <StringItem index="186" value="Puerto Rico"/>
-                                <StringItem index="187" value="Qatar"/>
-                                <StringItem index="188" value="Reunion"/>
-                                <StringItem index="189" value="Romania"/>
-                                <StringItem index="190" value="Russian Federation"/>
-                                <StringItem index="191" value="Rwanda"/>
-                                <StringItem index="192" value="Saint Helena"/>
-                                <StringItem index="193" value="Saint Kitts And Nevis"/>
-                                <StringItem index="194" value="Saint Lucia"/>
-                                <StringItem index="195" value="Saint Pierre And Miquelon"/>
-                                <StringItem index="196" value="Saint Vincent And The Grenadines"/>
-                                <StringItem index="197" value="Samoa"/>
-                                <StringItem index="198" value="San Marino"/>
-                                <StringItem index="199" value="Sao Tome And Principe"/>
-                                <StringItem index="200" value="Saudi Arabia"/>
-                                <StringItem index="201" value="Senegal"/>
-                                <StringItem index="202" value="Serbia"/>
-                                <StringItem index="203" value="Seychelles"/>
-                                <StringItem index="204" value="Sierra Leone"/>
-                                <StringItem index="205" value="Singapore"/>
-                                <StringItem index="206" value="Slovakia"/>
-                                <StringItem index="207" value="Slovenia"/>
-                                <StringItem index="208" value="Solomon Islands"/>
-                                <StringItem index="209" value="Somalia"/>
-                                <StringItem index="210" value="South Africa"/>
-                                <StringItem index="211" value="South Georgia And The South Sandwich Islands"/>
-                                <StringItem index="212" value="Spain"/>
-                                <StringItem index="213" value="Sri Lanka"/>
-                                <StringItem index="214" value="Sudan"/>
-                                <StringItem index="215" value="Suriname"/>
-                                <StringItem index="216" value="Svalbard And Jan Mayen"/>
-                                <StringItem index="217" value="Swaziland"/>
-                                <StringItem index="218" value="Sweden"/>
-                                <StringItem index="219" value="Switzerland"/>
-                                <StringItem index="220" value="Syrian Arab Republic"/>
-                                <StringItem index="221" value="Taiwan"/>
-                                <StringItem index="222" value="Province Of China"/>
-                                <StringItem index="223" value="Tajikistan"/>
-                                <StringItem index="224" value="Tanzania"/>
-                                <StringItem index="225" value="United Republic Of"/>
-                                <StringItem index="226" value="Thailand"/>
-                                <StringItem index="227" value="Timor-leste"/>
-                                <StringItem index="228" value="Togo"/>
-                                <StringItem index="229" value="Tokelau"/>
-                                <StringItem index="230" value="Tonga"/>
-                                <StringItem index="231" value="Trinidad And Tobago"/>
-                                <StringItem index="232" value="Tunisia"/>
-                                <StringItem index="233" value="Turkey"/>
-                                <StringItem index="234" value="Turkmenistan"/>
-                                <StringItem index="235" value="Turks And Caicos Islands"/>
-                                <StringItem index="236" value="Tuvalu"/>
-                                <StringItem index="237" value="Uganda"/>
-                                <StringItem index="238" value="Ukraine"/>
-                                <StringItem index="239" value="United Arab Emirates"/>
-                                <StringItem index="240" value="United Kingdom"/>
-                                <StringItem index="241" value="United States"/>
-                                <StringItem index="242" value="United States Minor Outlying Islands"/>
-                                <StringItem index="243" value="Uruguay"/>
-                                <StringItem index="244" value="Uzbekistan"/>
-                                <StringItem index="245" value="Vanuatu"/>
-                                <StringItem index="246" value="Venezuela"/>
-                                <StringItem index="247" value="Viet Nam"/>
-                                <StringItem index="248" value="Virgin Islands"/>
-                                <StringItem index="249" value="British"/>
-                                <StringItem index="250" value="Virgin Islands"/>
-                                <StringItem index="251" value="U.S."/>
-                                <StringItem index="252" value="Wallis And Futuna"/>
-                                <StringItem index="253" value="Western Sahara"/>
-                                <StringItem index="254" value="Yemen"/>
-                                <StringItem index="255" value="Zambia"/>
-                                <StringItem index="256" value="Zimbabwe"/>
-                              </StringArray>
+                            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.cbxNationality.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                               <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.cbxNationality.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                           </Properties>
                           <BindingProperties>
-                            <BindingProperty name="selectedItem" source="appBean" sourcePath="${contactPerson.nationality}" target="cbxNationality" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+                            <BindingProperty name="elements" source="nationTypeListBean1" sourcePath="${nationTypeList}" target="cbxNationality" targetPath="elements" updateStrategy="0" immediately="false"/>
+                            <BindingProperty name="selectedItem" source="appBean" sourcePath="${contactPerson.nationType}" target="cbxNationality" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
                           </BindingProperties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxNationalityActionPerformed"/>
@@ -1343,78 +1078,6 @@
                           </BindingProperties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNationalityActionPerformed"/>
-                          </Events>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JPanel" name="jPanel7">
-                      <Properties>
-                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[26, 51]"/>
-                        </Property>
-                        <Property name="name" type="java.lang.String" value="jPanel7" noResource="true"/>
-                      </Properties>
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="cbxState" alignment="1" pref="242" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                                  <Component id="lbState" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="txtState" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lbState" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="cbxState" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtState" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JTextField" name="txtState">
-                          <Properties>
-                            <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.txtState.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </Property>
-                          </Properties>
-                          <BindingProperties>
-                            <BindingProperty name="text" source="appBean" sourcePath="${contactPerson.state}" target="txtState" targetPath="text" updateStrategy="0" immediately="false">
-                              <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
-                            </BindingProperty>
-                          </BindingProperties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="lbState">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.lbState.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </Property>
-                            <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.lbState.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </Property>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JComboBox" name="cbxState">
-                          <Properties>
-                            <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.cbxState.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </Property>
-                          </Properties>
-                          <BindingProperties>
-                            <BindingProperty name="elements" source="stateTypes" sourcePath="${stateTypeList}" target="cbxState" targetPath="elements" updateStrategy="0" immediately="false"/>
-                            <BindingProperty name="selectedItem" source="appBean" sourcePath="${contactPerson.stateType}" target="cbxState" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
-                          </BindingProperties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxStateActionPerformed"/>
                           </Events>
                         </Component>
                       </SubComponents>
@@ -1504,7 +1167,6 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="labEmail">
                       <Properties>
-                        <Property name="font" postCode="LafManager.getInstance().setLabProperties(labEmail);"/>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.labEmail.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
@@ -1513,7 +1175,6 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="labFax">
                       <Properties>
-                        <Property name="font" postCode="LafManager.getInstance().setLabProperties(labFax);"/>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.labFax.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
@@ -1556,7 +1217,6 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="labPhone">
                       <Properties>
-                        <Property name="font" postCode="LafManager.getInstance().setLabProperties(labPhone);"/>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.labPhone.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
@@ -1565,7 +1225,6 @@
                     </Component>
                     <Component class="javax.swing.JComboBox" name="cbxCommunicationWay">
                       <Properties>
-                        <Property name="font" postCode="LafManager.getInstance().setCmbProperties(cbxCommunicationWay);"/>
                         <Property name="maximumRowCount" type="int" value="9"/>
                         <Property name="name" type="java.lang.String" value="cbxCommunicationWay" noResource="true"/>
                         <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -1583,7 +1242,6 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="labPreferredWay">
                       <Properties>
-                        <Property name="font" postCode="LafManager.getInstance().setLabProperties(labPreferredWay);"/>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.labPreferredWay.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
@@ -1723,7 +1381,6 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="labDate">
                       <Properties>
-                        <Property name="font" postCode="LafManager.getInstance().setLabProperties(labDate);"/>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.labDate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
@@ -1847,7 +1504,6 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="labAgents">
                       <Properties>
-                        <Property name="font" postCode="LafManager.getInstance().setLabProperties(labAgents);"/>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.labAgents.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
@@ -1857,7 +1513,6 @@
                     </Component>
                     <Component class="javax.swing.JComboBox" name="cbxAgents">
                       <Properties>
-                        <Property name="font" postCode="LafManager.getInstance().setCmbProperties(cbxAgents);"/>
                         <Property name="name" type="java.lang.String" value="cbxAgents" noResource="true" postCode="AutoCompletion.enable(cbxAgents);"/>
                         <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="new SimpleComboBoxRenderer(&quot;getFullName&quot;)" type="code"/>
@@ -1922,7 +1577,6 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="labStatus">
                       <Properties>
-                        <Property name="font" postCode="LafManager.getInstance().setLabProperties(labStatus);"/>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.labStatus.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
@@ -1982,7 +1636,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="tbServices" min="-2" pref="25" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollFeeDetails1" pref="480" max="32767" attributes="0"/>
+                      <Component id="scrollFeeDetails1" pref="499" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -2271,7 +1925,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="scrollPropertyDetails" alignment="0" max="32767" attributes="1"/>
                           <Component id="tbPropertyDetails" alignment="0" max="32767" attributes="0"/>
-                          <Component id="propertypartPanel" alignment="0" pref="888" max="32767" attributes="2"/>
+                          <Component id="propertypartPanel" alignment="0" max="32767" attributes="2"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -2285,7 +1939,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="tbPropertyDetails" min="-2" pref="25" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPropertyDetails" pref="321" max="32767" attributes="1"/>
+                      <Component id="scrollPropertyDetails" pref="354" max="32767" attributes="1"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -2468,7 +2122,7 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="labArea" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="7" max="32767" attributes="0"/>
+                                      <EmptySpace pref="87" max="32767" attributes="0"/>
                                       <Component id="btnSearchUpiWardParcel" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -2489,7 +2143,7 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtArea" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="22" max="32767" attributes="0"/>
+                              <EmptySpace pref="44" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -2497,7 +2151,6 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="labFirstPart">
                       <Properties>
-                        <Property name="font" postCode="LafManager.getInstance().setLabProperties(labFirstPart);"/>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/images/common/red_asterisk.gif"/>
                         </Property>
@@ -2509,7 +2162,6 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtFirstPart">
                       <Properties>
-                        <Property name="font" postCode="LafManager.getInstance().setTxtProperties(txtFirstPart);"/>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.txtFirstPart.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
@@ -2521,7 +2173,6 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="labArea">
                       <Properties>
-                        <Property name="font" postCode="LafManager.getInstance().setLabProperties(labArea);"/>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.labArea.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
@@ -2584,7 +2235,7 @@
                               <Component id="labValue" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtValue" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="24" max="32767" attributes="0"/>
+                              <EmptySpace pref="48" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -2603,7 +2254,6 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="labLastPart">
                       <Properties>
-                        <Property name="font" postCode="LafManager.getInstance().setLabProperties(labLastPart);"/>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/images/common/red_asterisk.gif"/>
                         </Property>
@@ -2615,7 +2265,6 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="labValue">
                       <Properties>
-                        <Property name="font" postCode="LafManager.getInstance().setLabProperties(labValue);"/>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.labValue.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
@@ -2645,7 +2294,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="btnAddProperty" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="159" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="189" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -2662,7 +2311,6 @@
                   <SubComponents>
                     <Component class="javax.swing.JButton" name="btnAddProperty">
                       <Properties>
-                        <Property name="font" postCode="LafManager.getInstance().setBtnProperties(btnAddProperty);"/>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.btnAddProperty.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
@@ -2705,7 +2353,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                      <Component id="documentsPanel" pref="647" max="32767" attributes="0"/>
+                      <Component id="documentsPanel" pref="642" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="scrollDocRequired" alignment="1" min="-2" pref="236" max="-2" attributes="1"/>
@@ -2847,12 +2495,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="918" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="908" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="546" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="552" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -2886,7 +2534,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="209" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="252" max="32767" attributes="0"/>
                           </Group>
                           <Component id="scrollFeeDetails" max="32767" attributes="0"/>
                       </Group>
@@ -2898,7 +2546,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollFeeDetails" pref="442" max="32767" attributes="0"/>
+                      <Component id="scrollFeeDetails" pref="461" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel2" min="-2" pref="63" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -3130,7 +2778,6 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="labTotalFee2">
                   <Properties>
-                    <Property name="font" postCode="LafManager.getInstance().setLabProperties(labTotalFee2);"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                       <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.labTotalFee2.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
@@ -3139,7 +2786,6 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="labTotalFee">
                   <Properties>
-                    <Property name="font" postCode="LafManager.getInstance().setLabProperties(labTotalFee);"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                       <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.labTotalFee.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
@@ -3148,7 +2794,6 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="labTotalFee1">
                   <Properties>
-                    <Property name="font" postCode="LafManager.getInstance().setLabProperties(labTotalFee1);"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                       <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.labTotalFee1.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
@@ -3160,7 +2805,6 @@
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="font" postCode="LafManager.getInstance().setLabProperties(labFixedFee);"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                       <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.labFixedFee.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
@@ -3274,7 +2918,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="validationsPanel" pref="514" max="32767" attributes="0"/>
+                      <Component id="validationsPanel" pref="530" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -3389,7 +3033,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="actionLogPanel" pref="514" max="32767" attributes="0"/>
+                      <Component id="actionLogPanel" pref="530" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>

@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
+ * Copyright (C) 2015 - Food and Agriculture Organization of the United Nations (FAO).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -66,7 +66,7 @@ public class RequestTypeBean extends AbstractCodeBean {
     public static final String CODE_DISPUTE = "lodgeObjection";
     public static final String CODE_DISPUTE_VIEW = "DisputeView";
     public static final String CODE_MAP_EXISTINGPARCEL = "mapExistingParcel";
-    public static final String CODE_REGISTER_SLTR_COFO = "registerSLTRCofO";
+    public static final String CODE_REGISTER_SR_COFO = "registerSRCofO";
     
     public static final String NR_DAYS_TO_COMPLETE_PROPERTY = "nrDaysToComplete";
     public static final String NR_PROPERTIES_REQUIRED_PROPERTY = "nrPropertiesRequired";

@@ -177,7 +177,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="20" pdfFontName="Times-Roman"/>
 				</textElement>
-				<text><![CDATA[SLTR
+				<text><![CDATA[SR
                 ]]></text>
 			</staticText>
 			<staticText>

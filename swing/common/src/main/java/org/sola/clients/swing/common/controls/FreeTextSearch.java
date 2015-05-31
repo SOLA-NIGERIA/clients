@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations
+ * Copyright (C) 2015 - Food and Agriculture Organization of the United Nations
  * (FAO). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,7 +39,7 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.utils.LocalizationTools;
 import org.sola.common.StringUtility;
 
 /**
@@ -62,7 +62,7 @@ public class FreeTextSearch extends JTextField {
     private Color originalTextColor = Color.BLACK;
     private Color defaultTextColor = Color.gray;
     public final static String ELEMENT_SELECTED = "elementSelected";
-    
+
     public FreeTextSearch() {
         this.addKeyListener(
                 new java.awt.event.KeyAdapter() {
@@ -85,10 +85,10 @@ public class FreeTextSearch extends JTextField {
                 setDefaultText();
             }
         });
-        
+
         this.list = new JList(new DefaultListModel());
         this.list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        LafManager.getInstance().setListProperties(list);
+        LocalizationTools.setOrientation(list);
         this.list.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
 
             @Override
@@ -113,47 +113,56 @@ public class FreeTextSearch extends JTextField {
         setText("");
     }
 
-    private void setDefaultText(){
-        if(StringUtility.isEmpty(getText()) && getDefaultText() != null){
+    private void setDefaultText() {
+        if (StringUtility.isEmpty(getText()) && getDefaultText() != null) {
             defaultTextIsSet = true;
             originalTextColor = getForeground();
             setForeground(defaultTextColor);
             setText(getDefaultText());
         }
     }
-    
-    private void removeDefaultText(){
-        if(defaultTextIsSet && StringUtility.empty(getText()).equals(getDefaultText())){
+
+    private void removeDefaultText() {
+        if (defaultTextIsSet && StringUtility.empty(getText()).equals(getDefaultText())) {
             defaultTextIsSet = false;
             setForeground(originalTextColor);
             setText("");
         }
     }
 
-    /** Returns default text color. */
+    /**
+     * Returns default text color.
+     */
     public Color getDefaultTextColor() {
         return defaultTextColor;
     }
 
-    /** Sets default text color. */
+    /**
+     * Sets default text color.
+     */
     public void setDefaultTextColor(Color defaultTextColor) {
         this.defaultTextColor = defaultTextColor;
     }
 
-    /** Returns default text to display in the text field, when the field is empty. */
+    /**
+     * Returns default text to display in the text field, when the field is
+     * empty.
+     */
     public String getDefaultText() {
         return defaultText;
     }
 
-    /** Sets default text to display in the text field, when the field is empty. */
+    /**
+     * Sets default text to display in the text field, when the field is empty.
+     */
     public void setDefaultText(String defaultText) {
         this.defaultText = defaultText;
         setDefaultText();
     }
-    
+
     private void processInput(java.awt.event.KeyEvent evt) {
         JTextField tmp = (JTextField) evt.getSource();
-        LafManager.getInstance().setTxtProperties(tmp);
+        LocalizationTools.setOrientation(tmp);
 
         String tmpSearchString = tmp.getText();
         if (tmpSearchString.length() < this.minimalSearchStringLength

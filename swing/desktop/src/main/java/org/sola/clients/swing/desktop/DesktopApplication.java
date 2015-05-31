@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations
+ * Copyright (C) 2015 - Food and Agriculture Organization of the United Nations
  * (FAO). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,8 +31,8 @@ package org.sola.clients.swing.desktop;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import org.sola.clients.swing.common.LafManager;
-import org.sola.clients.swing.common.LocalizationManager;
+import org.sola.clients.swing.common.laf.LafManager;
+import org.sola.clients.swing.ui.localization.LocalizationManager;
 import org.sola.clients.swing.ui.DesktopClientExceptionHandler;
 import org.sola.clients.swing.ui.security.LoginForm;
 import org.sola.clients.swing.ui.security.LoginPanel;
@@ -43,15 +43,16 @@ import org.sola.common.logging.LogUtility;
  * The main class of the application.
  */
 public class DesktopApplication {
+
     /**
      * Main method to run the application.
      *
      * @param args Array of input parameters.
      */
     public static void main(String[] args) {
-    // Set class to record user preferences for
+        // Set class to record user preferences for
         WindowUtility.setMainAppClass(DesktopApplication.class);
-    // Show splash screen
+        // Show splash screen
         SplashForm splash = new SplashForm();
         WindowUtility.centerForm(splash);
         splash.setVisible(true);
@@ -71,8 +72,13 @@ public class DesktopApplication {
                 Thread.setDefaultUncaughtExceptionHandler(new DesktopClientExceptionHandler());
                 LocalizationManager.loadLanguage();
                 LogUtility.initialize(DesktopApplication.class);
-                LafManager.getInstance().setProperties("green");
-                //LafManager.getInstance().setProperties("autumn");
+                // Select the Look and Feel Theme based on whether this is 
+                // the production version or the test version of SOLA. 
+                if (LocalizationManager.isProductionHost()) {
+                    LafManager.getInstance().setTheme(LafManager.ADMIN_THEME);
+                } else {
+                    LafManager.getInstance().setTheme(LafManager.GREEN_THEME);
+                }
 
                 final LoginForm loginForm = new LoginForm(DesktopApplication.class);
                 loginForm.addPropertyChangeListener(new PropertyChangeListener() {
