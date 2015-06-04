@@ -38,6 +38,7 @@ import org.geotools.geometry.jts.Geometries;
 import org.opengis.feature.simple.SimpleFeature;
 import org.geotools.swing.extended.util.Messaging;
 
+
 /**
  * This feature collection is used from the 
  * {@see org.sola.clients.geotools.ui.layers.ExtendedLayerGraphics}. 

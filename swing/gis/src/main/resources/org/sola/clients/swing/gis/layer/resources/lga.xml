@@ -11,7 +11,7 @@
                     <MaxScaleDenominator>50000</MaxScaleDenominator>
                     <PolygonSymbolizer>
                          <Fill>
-                            <CssParameter name="fill">#ffffff</CssParameter>
+                            <CssParameter name="fill">#000000</CssParameter>
                             <CssParameter name="fill-opacity">0.0</CssParameter>
                         </Fill>
                        <Stroke>
@@ -48,7 +48,7 @@
                     <MaxScaleDenominator>625000</MaxScaleDenominator>   
                     <PolygonSymbolizer>
                           <Fill>
-                            <CssParameter name="fill">#ffffff</CssParameter>
+                            <CssParameter name="fill">#000000</CssParameter>
                             <CssParameter name="fill-opacity">0.0</CssParameter>
                         </Fill>
                        <Stroke>
@@ -62,7 +62,7 @@
                     <MinScaleDenominator>625000</MinScaleDenominator>
                     <PolygonSymbolizer>
                           <Fill>
-                            <CssParameter name="fill">#ffffff</CssParameter>
+                            <CssParameter name="fill">#000000</CssParameter>
                             <CssParameter name="fill-opacity">0.0</CssParameter>
                         </Fill>
                        <Stroke>

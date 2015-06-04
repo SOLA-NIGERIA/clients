@@ -64,7 +64,7 @@
         <dependency>
             <groupId>org.geotools.xsd</groupId>
             <artifactId>gt-xsd-kml</artifactId>
-            <version>${geotools.version}</version>
+            <version>8.7</version>
         </dependency>
         <dependency>
             <groupId>org.geotools</groupId>
