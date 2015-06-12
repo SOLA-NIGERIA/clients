@@ -374,15 +374,19 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 final String featureImageFileNameSmall = mapImageInfo.getSketchMapImageLocation();
                     
                 if (this.whichReport.contains("parcelPlan")){  
+                    System.out.println("QUI::::   parcelPlan");
                     ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
                     showReport(ParcelPlan, parcelLabel, this.whichReport);
                     jprintlist.add(ParcelPlan);
                 } else if (this.whichReport.contains("title")){  
+                    System.out.println("QUI::::  title");
                     CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall,sourceRef);
                     showReport(CofO, parcelLabel, this.whichReport);
                     jprintlist.add(CofO);
                 }
                 else {  
+                    System.out.println("QUI::::  else");
+                    
                     CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall,sourceRef);
                     showReport(CofO, parcelLabel, "title");
                     ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
@@ -393,11 +397,13 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                  
                  i = i + 1;
             }
-
-         if (this.nr == "" || this.nr == null) {         
+                 
+         if (this.nr == "" || this.nr == null) {     
+             System.out.println("QUI::::  FA TOTAL");
+                    
             whichFile= "TOTAL_"+this.whichReport+"-"+ this.location.replace('/', '-');
             for(int c=0; c<whichFile.length(); c++){
-                if (!Character.isLetterOrDigit(whichFile.charAt(c)))
+                if ((!Character.isLetterOrDigit(whichFile.charAt(c)))&& (!Character.isSpaceChar(whichFile.charAt(c))))
                 {
                     whichFile = whichFile.replace(whichFile.charAt(c),'-');
                 }
