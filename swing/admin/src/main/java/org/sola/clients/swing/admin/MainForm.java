@@ -30,6 +30,7 @@
 package org.sola.clients.swing.admin;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -52,7 +53,7 @@ import org.sola.clients.swing.admin.system.BrManagementPanel;
 import org.sola.clients.swing.admin.system.ConsolidationConsolidatePanel;
 import org.sola.clients.swing.admin.system.ConsolidationExtractPanel;
 import org.sola.clients.swing.common.DefaultExceptionHandler;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 import org.sola.clients.swing.ui.MainContentPanel;
 //import org.sola.clients.swing.ui.localization.LocalizationManager;
 import org.sola.clients.swing.ui.reports.ReportViewerForm;
@@ -428,7 +429,7 @@ public class MainForm extends javax.swing.JFrame {
 
         taskPanel1.setName("taskPanel1"); // NOI18N
 
-        jLabel1.setFont(LafManager.getInstance().getLabFontBold());
+        jLabel1.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         jLabel1.setText(bundle.getString("MainForm.jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 

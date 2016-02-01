@@ -28,6 +28,7 @@
 package org.sola.clients.swing.desktop.administrative;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Iterator;
@@ -44,7 +45,7 @@ import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.beans.referencedata.RequestTypeBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.beans.source.SourceBean;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 import org.sola.clients.swing.desktop.MainForm;
 import org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel;
 import org.sola.clients.swing.ui.ContentPanel;
@@ -506,7 +507,7 @@ public class OwnershipPanel extends ContentPanel {
         jLabel1.setName("jLabel1"); // NOI18N
         jToolBar2.add(jLabel1);
 
-        lblStatus.setFont(LafManager.getInstance().getLabFontBold());
+        lblStatus.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         lblStatus.setName("lblStatus"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${status.displayValue}"), lblStatus, org.jdesktop.beansbinding.BeanProperty.create("text"));

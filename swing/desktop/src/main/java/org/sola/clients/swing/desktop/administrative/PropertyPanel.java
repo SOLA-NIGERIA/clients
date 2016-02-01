@@ -31,6 +31,7 @@ package org.sola.clients.swing.desktop.administrative;
 
 import org.sola.clients.swing.desktop.cadastre.CreateParcelDialog;
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.math.BigDecimal;
@@ -51,7 +52,7 @@ import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.source.SourceListBean;
 import org.sola.clients.reports.ReportManager;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 import org.sola.clients.swing.common.controls.CalendarForm;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
@@ -2763,7 +2764,7 @@ public class PropertyPanel extends ContentPanel {
         jToolBar6.setRollover(true);
         jToolBar6.setName("jToolBar6"); // NOI18N
 
-        jLabel6.setFont(LafManager.getInstance().getLabFontBold());
+        jLabel6.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         jLabel6.setText(bundle.getString("PropertyPanel.jLabel6.text")); // NOI18N
         jLabel6.setName("jLabel6"); // NOI18N
         jToolBar6.add(jLabel6);
@@ -2872,7 +2873,7 @@ public class PropertyPanel extends ContentPanel {
         jToolBar7.setRollover(true);
         jToolBar7.setName("jToolBar7"); // NOI18N
 
-        jLabel3.setFont(LafManager.getInstance().getLabFontBold());
+        jLabel3.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         jLabel3.setText(bundle.getString("PropertyPanel.jLabel3.text")); // NOI18N
         jLabel3.setName("jLabel3"); // NOI18N
         jToolBar7.add(jLabel3);

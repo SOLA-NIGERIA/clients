@@ -29,13 +29,14 @@
  */
 package org.sola.clients.swing.ui.administrative;
 
+import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.BaUnitSearchResultBean;
 import org.sola.clients.beans.administrative.BaUnitSearchResultListBean;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.ui.renderers.CellDelimitedListRenderer;
@@ -300,7 +301,7 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
         lblSearchResult.setName("lblSearchResult"); // NOI18N
         jToolBar1.add(lblSearchResult);
 
-        lblSearchResultCount.setFont(LafManager.getInstance().getLabFontBold());
+        lblSearchResultCount.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         lblSearchResultCount.setText(bundle.getString("BaUnitSearchPanel.lblSearchResultCount.text")); // NOI18N
         lblSearchResultCount.setName("lblSearchResultCount"); // NOI18N
         jToolBar1.add(lblSearchResultCount);

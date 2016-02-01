@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations
+ * Copyright (C) 2014 - Food and Agriculture Organization of the United Nations
  * (FAO). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,8 +31,11 @@ package org.sola.clients.swing.desktop;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import org.sola.clients.swing.common.LafManager;
-import org.sola.clients.swing.common.LocalizationManager;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.sola.clients.swing.common.laf.LafManager;
+import org.sola.clients.swing.ui.localization.LocalizationManager;
 import org.sola.clients.swing.ui.DesktopClientExceptionHandler;
 import org.sola.clients.swing.ui.security.LoginForm;
 import org.sola.clients.swing.ui.security.LoginPanel;
@@ -43,15 +46,18 @@ import org.sola.common.logging.LogUtility;
  * The main class of the application.
  */
 public class DesktopApplication {
+
     /**
      * Main method to run the application.
      *
      * @param args Array of input parameters.
      */
     public static void main(String[] args) {
-    // Set class to record user preferences for
+
+      
+        // #321 Set class to record user preferences for
         WindowUtility.setMainAppClass(DesktopApplication.class);
-    // Show splash screen
+        // Show splash screen
         SplashForm splash = new SplashForm();
         WindowUtility.centerForm(splash);
         splash.setVisible(true);
@@ -63,33 +69,45 @@ public class DesktopApplication {
 
         splash.setVisible(false);
         splash.dispose();
+        try {
+            //        java.awt.EventQueue.invokeLater(new Runnable() {
+            java.awt.EventQueue.invokeAndWait(new Runnable() {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    Thread.setDefaultUncaughtExceptionHandler(new DesktopClientExceptionHandler());
+                    LocalizationManager.loadLanguage();
+                    LogUtility.initialize(DesktopApplication.class);
 
-            @Override
-            public void run() {
-                Thread.setDefaultUncaughtExceptionHandler(new DesktopClientExceptionHandler());
-                LocalizationManager.loadLanguage();
-                LogUtility.initialize(DesktopApplication.class);
-                LafManager.getInstance().setProperties("green");
-                //LafManager.getInstance().setProperties("autumn");
+                            // Select the Look and Feel Theme based on whether this is 
+                    // the production version or the test version of SOLA. 
+//                            if (LocalizationManager.isProductionHost()) {
+                    LafManager.getInstance().setProperties(LafManager.SYSTEMATIC_THEME);
+//                            } else {
+                    // Non production host so display the Green Theme
+//                                LafManager.getInstance().setProperties(LafManager.GREEN_THEME);
+//                            }
 
-                final LoginForm loginForm = new LoginForm(DesktopApplication.class);
-                loginForm.addPropertyChangeListener(new PropertyChangeListener() {
-
-                    @Override
-                    public void propertyChange(PropertyChangeEvent evt) {
-                        if (evt.getPropertyName().equals(LoginPanel.LOGIN_RESULT)) {
-                            if (((Boolean) evt.getNewValue())) {
-                                loginForm.dispose();
-                                MainForm.getInstance().setVisible(true);
+                    final LoginForm loginForm = new LoginForm();
+                    loginForm.addPropertyChangeListener(new PropertyChangeListener() {
+                        @Override
+                        public void propertyChange(PropertyChangeEvent evt) {
+                            if (evt.getPropertyName().equals(LoginPanel.LOGIN_RESULT)) {
+                                if (((Boolean) evt.getNewValue())) {
+                                    loginForm.dispose();
+                                    MainForm.getInstance().setVisible(true);
+                                }
                             }
                         }
-                    }
-                });
-                WindowUtility.centerForm(loginForm);
-                loginForm.setVisible(true);
-            }
-        });
+                    });
+                    WindowUtility.centerForm(loginForm);
+                    loginForm.setVisible(true);
+                }
+            });
+        } catch (InterruptedException ex) {
+            Logger.getLogger(DesktopApplication.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvocationTargetException ex) {
+            Logger.getLogger(DesktopApplication.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

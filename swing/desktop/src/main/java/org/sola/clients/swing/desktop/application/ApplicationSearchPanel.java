@@ -30,6 +30,7 @@
 package org.sola.clients.swing.desktop.application;
 
 import java.awt.ComponentOrientation;
+import java.awt.Font;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Locale;
@@ -41,7 +42,7 @@ import org.sola.clients.beans.application.ApplicationSearchResultBean;
 import org.sola.clients.beans.application.ApplicationSearchResultsListBean;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.security.SecurityBean;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 import org.sola.clients.swing.common.controls.CalendarForm;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
@@ -268,7 +269,7 @@ public class ApplicationSearchPanel extends ContentPanel {
         jSeparator1.setName("jSeparator1"); // NOI18N
         jToolBar1.add(jSeparator1);
 
-        lblSearchResults.setFont(LafManager.getInstance().getLabFontBold());
+        lblSearchResults.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         lblSearchResults.setText(bundle.getString("ApplicationSearchPanel.lblSearchResults.text")); // NOI18N
         lblSearchResults.setName("lblSearchResults"); // NOI18N
         jToolBar1.add(lblSearchResults);

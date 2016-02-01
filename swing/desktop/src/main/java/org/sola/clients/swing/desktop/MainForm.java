@@ -29,8 +29,10 @@
  */
 package org.sola.clients.swing.desktop;
 
+import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -42,13 +44,15 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+import javax.swing.plaf.ToolBarUI;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.beans.source.PowerOfAttorneyBean;
 import org.sola.clients.swing.common.DefaultExceptionHandler;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 import org.sola.clients.swing.common.LocalizationManager;
 import org.sola.clients.swing.common.controls.LanguageCombobox;
 import org.sola.clients.swing.common.tasks.SolaTask;
@@ -286,6 +290,14 @@ public class MainForm extends javax.swing.JFrame {
             this.setSize(width, height);
         }
         this.setLocation(x, y);
+        this.applicationsMain.setBackground(Color.white);
+        this.applicationsMain.setUI((ToolBarUI) UIManager.getUI(this.applicationsMain));
+
+        // shift the title text on the right of the Registry Icon Image
+        String pre = "";
+        pre = String.format("%" + 8 + "s", pre);
+       //  put the obtained number of blanks before the title text
+        this.setTitle(pre+this.getTitle());
     }
 
     /**
@@ -917,7 +929,7 @@ public class MainForm extends javax.swing.JFrame {
         statusPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         statusPanel.setPreferredSize(new java.awt.Dimension(1024, 24));
 
-        labStatus.setFont(LafManager.getInstance().getLabFontBold());
+        labStatus.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         labStatus.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labStatus.setText(bundle.getString("MainForm.labStatus.text")); // NOI18N
 

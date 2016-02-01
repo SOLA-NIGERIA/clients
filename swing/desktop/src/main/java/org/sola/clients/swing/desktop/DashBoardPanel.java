@@ -30,6 +30,7 @@
 package org.sola.clients.swing.desktop;
 
 import java.awt.ComponentOrientation;
+import java.awt.Font;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
@@ -43,7 +44,7 @@ import org.sola.clients.swing.desktop.application.ApplicationPanel;
 import org.sola.clients.beans.application.ApplicationSearchResultBean;
 import org.sola.clients.beans.application.ApplicationSearchResultsListBean;
 import org.sola.clients.beans.security.SecurityBean;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.application.ApplicationAssignmentDialog;
@@ -445,7 +446,7 @@ public class DashBoardPanel extends ContentPanel {
         tbUnassignedApplications.setRollover(true);
         tbUnassignedApplications.setName("tbUnassignedApplications"); // NOI18N
 
-        jLabel1.setFont(LafManager.getInstance().getLabFontBold());
+        jLabel1.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         jLabel1.setText(bundle.getString("DashBoardPanel.jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
         tbUnassignedApplications.add(jLabel1);
@@ -516,7 +517,7 @@ public class DashBoardPanel extends ContentPanel {
         tbAssignedApplications.setRollover(true);
         tbAssignedApplications.setName("tbAssignedApplications"); // NOI18N
 
-        jLabel2.setFont(LafManager.getInstance().getLabFontBold());
+        jLabel2.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         jLabel2.setText(bundle.getString("DashBoardPanel.jLabel2.text")); // NOI18N
         jLabel2.setName("jLabel2"); // NOI18N
         tbAssignedApplications.add(jLabel2);

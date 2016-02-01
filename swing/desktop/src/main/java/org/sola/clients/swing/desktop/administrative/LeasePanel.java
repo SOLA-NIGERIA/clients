@@ -27,6 +27,7 @@
  */
 package org.sola.clients.swing.desktop.administrative;
 
+import java.awt.Font;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JOptionPane;
@@ -43,7 +44,7 @@ import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.beans.referencedata.LeaseConditionListBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.reports.ReportManager;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.MainForm;
@@ -702,7 +703,7 @@ public class LeasePanel extends ContentPanel {
         jLabel1.setText(bundle.getString("SimpleOwhershipPanel.jLabel1.text")); // NOI18N
         jToolBar1.add(jLabel1);
 
-        lblStatus.setFont(LafManager.getInstance().getLabFontBold());
+        lblStatus.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         lblStatus.setText(bundle.getString("SimpleOwhershipPanel.lblStatus.text")); // NOI18N
         jToolBar1.add(lblStatus);
 

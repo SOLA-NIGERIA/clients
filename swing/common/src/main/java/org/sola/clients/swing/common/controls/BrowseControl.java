@@ -42,7 +42,7 @@ import java.awt.font.TextAttribute;
 import java.awt.geom.Rectangle2D;
 import java.text.AttributedString;
 import javax.swing.*;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 
 /**
  * Browse control has view of text field with browse button to pickup values.
@@ -446,7 +446,7 @@ public class BrowseControl extends JTextField {
     public void setDeleteButtonIcon(Icon icon) {
         this.deleteButtonIcon = icon;
     }
-
+    
     /**
      * Returns browse button tooltip.
      */

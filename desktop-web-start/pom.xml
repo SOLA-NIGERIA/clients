@@ -4,12 +4,12 @@
     <parent>
         <artifactId>sola-clients</artifactId>
         <groupId>org.sola</groupId>
-        <version>1501a</version>
+        <version>1601</version>
     </parent>
 
     <groupId>org.sola.clients</groupId>
     <artifactId>sola-desktop-web-start</artifactId>
-    <version>1501a</version>
+    <version>1601</version>
     <packaging>war</packaging>
 
     <name>Clients Desktop Web Start</name>
@@ -17,7 +17,7 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <solaVersion>v1501a</solaVersion>
+        <solaVersion>v1601</solaVersion>
         <webstart.codesigning.keystore>${basedir}/sola.jks</webstart.codesigning.keystore>
         <webstart.codesigning.alias>sola</webstart.codesigning.alias>
         <webstart.codesigning.storepass>FLOSS2011</webstart.codesigning.storepass>
@@ -80,10 +80,11 @@
                     <templateDirectory>${project.basedir}/template</templateDirectory>
                     <updateManifestEntries>
                         <Permissions>all-permissions</Permissions>
-                        <Codebase>*</Codebase>
+                        <Codebase>*.localhost *.flossola.org *.solaproduction *.solatest</Codebase>
                         <Application-Name>SOLA Nigeria</Application-Name>
+                        <Application-Library-Allowable-Codebase>*.localhost *.flossola.org *.solaproduction *.solatest</Application-Library-Allowable-Codebase>
                     </updateManifestEntries>
-                    <libPath>lib</libPath>
+               <libPath>lib</libPath>
                     <!-- 1 Dec 2014 - The pack200 option was updated in version 1.0-beta-4 of the
                          webstart-maven-plugin however this update appears to break the pack200
                          download. The miglayout-3.7-swing JAR fails to download as the pack200

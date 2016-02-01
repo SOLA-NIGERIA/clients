@@ -10,7 +10,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JOptionPane;
 import org.sola.clients.beans.security.SecurityBean;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 import org.sola.clients.swing.common.LocalizationManager;
 import org.sola.clients.swing.ui.DesktopClientExceptionHandler;
 import org.sola.clients.swing.ui.security.LoginForm;
@@ -59,9 +59,9 @@ public class BulkOperationsApplication {
                 Thread.setDefaultUncaughtExceptionHandler(new DesktopClientExceptionHandler());
                 LocalizationManager.loadLanguage();
                 LogUtility.initialize(BulkOperationsApplication.class);
-                LafManager.getInstance().setProperties("green");
+                LafManager.getInstance().setProperties(LafManager.SYSTEMATIC_THEME);
 
-                final LoginForm loginForm = new LoginForm(BulkOperationsApplication.class);
+                final LoginForm loginForm = new LoginForm();
                 loginForm.addPropertyChangeListener(new PropertyChangeListener() {
 
                     @Override
@@ -82,7 +82,8 @@ public class BulkOperationsApplication {
                         }
                     }
                 });
-                loginForm.setLocation(x - (loginForm.getWidth() / 2), y - (loginForm.getHeight() / 2));
+//                loginForm.setLocation(x - (loginForm.getWidth() / 2), y - (loginForm.getHeight() / 2));
+                WindowUtility.centerForm(loginForm);
                 loginForm.setVisible(true);
             }
         });

@@ -29,13 +29,14 @@
  */
 package org.sola.clients.swing.desktop.administrative;
 
+import java.awt.Font;
 import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
 import org.sola.clients.beans.referencedata.RequestTypeBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 import org.sola.clients.swing.desktop.MainForm;
 import org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel;
 import org.sola.clients.swing.ui.ContentPanel;
@@ -279,7 +280,7 @@ public class SimpleRightPanel extends ContentPanel {
         jLabel1.setName("jLabel1"); // NOI18N
         jToolBar1.add(jLabel1);
 
-        jLabel2.setFont(LafManager.getInstance().getLabFontBold());
+        jLabel2.setFont(LafManager.getUiFont().deriveFont(Font.BOLD));
         jLabel2.setName("jLabel2"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${status.displayValue}"), jLabel2, org.jdesktop.beansbinding.BeanProperty.create("text"));

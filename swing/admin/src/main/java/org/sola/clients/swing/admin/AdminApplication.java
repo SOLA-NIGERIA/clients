@@ -58,7 +58,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import org.sola.clients.swing.common.LafManager;
+import org.sola.clients.swing.common.laf.LafManager;
 import org.sola.clients.swing.common.LocalizationManager;
 import org.sola.clients.swing.ui.security.LoginPanel;
 import org.sola.common.WindowUtility;
@@ -101,15 +101,20 @@ public class AdminApplication {
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                 int x = ((dim.width) / 2);
                 int y = ((dim.height) / 2);
-
-                Thread.setDefaultUncaughtExceptionHandler(new DesktopClientExceptionHandler());
-                LocalizationManager.loadLanguage();
+ Thread.setDefaultUncaughtExceptionHandler(new DesktopClientExceptionHandler());
+                org.sola.clients.swing.ui.localization.LocalizationManager.loadLanguage();
                 LogUtility.initialize(AdminApplication.class);
-                LafManager.getInstance().setProperties("green");
 
-                final LoginForm loginForm = new LoginForm(AdminApplication.class);
+                // Select the Look and Feel Theme based on whether this is 
+                // the production version or the test version of SOLA. 
+                if (org.sola.clients.swing.ui.localization.LocalizationManager.isProductionHost()) {
+                    LafManager.getInstance().setProperties(LafManager.ADMIN_THEME);
+                } else {
+                    LafManager.getInstance().setProperties(LafManager.GREEN_THEME);
+                }
+
+                final LoginForm loginForm = new LoginForm();
                 loginForm.addPropertyChangeListener(new PropertyChangeListener() {
-
                     @Override
                     public void propertyChange(PropertyChangeEvent evt) {
                         if (evt.getPropertyName().equals(LoginPanel.LOGIN_RESULT)) {
