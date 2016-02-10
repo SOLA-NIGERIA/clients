@@ -94,10 +94,10 @@ import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
 
-
 /**
- * This form is used to create new application or edit existing one. <p>The
- * following list of beans is used to bind the data on the form:<br />
+ * This form is used to create new application or edit existing one.
+ * <p>
+ * The following list of beans is used to bind the data on the form:<br />
  * {@link ApplicationBean}, <br />{@link RequestTypeListBean}, <br />
  * {@link PartySummaryListBean}, <br />{@link CommunicationTypeListBean}, <br />
  * {@link SourceTypeListBean}, <br />{@link ApplicationDocumentsHelperBean}</p>
@@ -112,9 +112,9 @@ public class ApplicationPanel extends ContentPanel {
     ApplicationPropertyBean property;
 
     /**
-     * This method is used by the form designer to create {@link ApplicationBean}.
-     * It uses
-     * <code>applicationId</code> parameter passed to the form constructor.<br
+     * This method is used by the form designer to create
+     * {@link ApplicationBean}. It uses <code>applicationId</code> parameter
+     * passed to the form constructor.<br
      * />
      * <code>applicationId</code> should be initialized before
      * {@link ApplicationForm#initComponents} method call.
@@ -165,9 +165,7 @@ public class ApplicationPanel extends ContentPanel {
         }
         return communicationTypes;
     }
-    
-    
-   
+
     /**
      * Default constructor to create new application.
      */
@@ -185,16 +183,14 @@ public class ApplicationPanel extends ContentPanel {
         initComponents();
         postInit();
     }
-    
-    
+
     private GenderTypeListBean createGenderTypes() {
         if (genderTypes == null) {
             genderTypes = new GenderTypeListBean(true);
         }
         return genderTypes;
     }
-    
-    
+
     /**
      * This constructor is used to open existing application for editing.
      *
@@ -264,7 +260,7 @@ public class ApplicationPanel extends ContentPanel {
             public void listElementPropertyChanged(ObservableList ol, int i) {
             }
         });
-System.out.println("QUI 5");
+        System.out.println("QUI 5");
         appBean.getServiceList().addObservableListListener(new ObservableListListener() {
 
             @Override
@@ -272,7 +268,7 @@ System.out.println("QUI 5");
                 if (appBean.getServiceList().get(i).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
                     customizeSysReg();
                 }
-                
+
                 applicationDocumentsHelper.updateCheckList(appBean.getServiceList(), appBean.getSourceList());
             }
 
@@ -309,7 +305,7 @@ System.out.println("QUI 5");
                 }
             }
         });
-System.out.println("QUI 6");
+        System.out.println("QUI 6");
         customizeServicesButtons();
         System.out.println("QUI 7");
         customizeApplicationForm();
@@ -348,6 +344,15 @@ System.out.println("QUI 6");
                     this.cbxState.setSelectedIndex(i);
                 }
             }
+
+            if (!appBean.getSourceList().isEmpty() && appBean.getSourceList().size() > 0) {
+                for (SourceBean sourceObject : appBean.getSourceList()) {
+                    if (sourceObject.getSourceType().getCode().contentEquals("claimForm")){
+                        this.txtClaimName.setText(sourceObject.getDescription());
+                    }
+                }
+            }
+
         } else {
             cbxAgents.requestFocus(true);
             cbxAgents.setSelectedIndex(-1);
@@ -355,7 +360,7 @@ System.out.println("QUI 6");
             tabbedControlMain.removeTabAt(tabbedControlMain.indexOfComponent(validationPanel));
             btnValidate.setEnabled(false);
             this.cbxNationality.setSelectedIndex(168);
-            this.cbxState.setSelectedIndex(0); 
+            this.cbxState.setSelectedIndex(0);
             this.txtState.setText(this.cbxState.getItemAt(0).toString());
         }
 
@@ -412,7 +417,7 @@ System.out.println("QUI 6");
             documentsPanel.setAllowEdit(editAllowed);
             btnAddAgent.setEnabled(editAllowed);
             btnSearchUpiWardParcel.setEnabled(editAllowed);
-            if (appBean.getStatusCode().equals(StatusConstants.APPROVED)&&appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
+            if (appBean.getStatusCode().equals(StatusConstants.APPROVED) && appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
                 btnCertificate.setEnabled(true);
                 btnPlan.setEnabled(true);
             } else {
@@ -511,7 +516,7 @@ System.out.println("QUI 6");
         menuCompleteService.setEnabled(btnCompleteService.isEnabled());
         menuRevertService.setEnabled(btnRevertService.isEnabled());
         menuCancelService.setEnabled(btnCancelService.isEnabled());
-      
+
     }
 
     /**
@@ -523,28 +528,29 @@ System.out.println("QUI 6");
             enable = true;
         }
         btnRemoveProperty.setEnabled(enable);
-        btnVerifyProperty.setEnabled(enable); 
+        btnVerifyProperty.setEnabled(enable);
         customizeSysReg();
     }
-     
+
     /**
-     * Disables or enables buttons and fields related to the property list management for systematic registration needs.
+     * Disables or enables buttons and fields related to the property list
+     * management for systematic registration needs.
      */
     private void customizeSysReg() {
-        if (appBean.getServiceList().size()>0&&appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)){
-                    this.btnSearchUpiWardParcel.setVisible(true);
-                    this.txtFirstPart.setEditable(false);
-                    this.txtLastPart.setEditable(false);
-                    this.txtFirstPart.setEnabled(false);
-                    this.txtLastPart.setEnabled(false);
-                    if (this.appBean.getPropertyList().size()==1) {
-                        this.jPanel16.setVisible(false);  
-                        this.jPanel17.setVisible(false);  
-                        this.jPanel18.setVisible(false);  
-                    } 
+        if (appBean.getServiceList().size() > 0 && appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
+            this.btnSearchUpiWardParcel.setVisible(true);
+            this.txtFirstPart.setEditable(false);
+            this.txtLastPart.setEditable(false);
+            this.txtFirstPart.setEnabled(false);
+            this.txtLastPart.setEnabled(false);
+            if (this.appBean.getPropertyList().size() == 1) {
+                this.jPanel16.setVisible(false);
+                this.jPanel17.setVisible(false);
+                this.jPanel18.setVisible(false);
+            }
         }
     }
-    
+
     /**
      * This method is used by the form designer to create the list of agents.
      */
@@ -669,9 +675,8 @@ System.out.println("QUI 6");
         if (service != null) {
 
             String requestType = service.getRequestTypeCode();
-                          
-             // Determine what form to start for selected service
 
+             // Determine what form to start for selected service
             // Power of attorney or other type document registration
             if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_REG_POWER_OF_ATTORNEY)
                     || requestType.equalsIgnoreCase(RequestTypeBean.CODE_REG_STANDARD_DOCUMENT)
@@ -705,7 +710,7 @@ System.out.println("QUI 6");
                 };
                 TaskManager.getInstance().runTask(t);
             } // Dispute
-             else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_DISPUTE)) {
+            else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_DISPUTE)) {
                 SolaTask t = new SolaTask<Void, Void>() {
 
                     @Override
@@ -754,22 +759,22 @@ System.out.println("QUI 6");
                 TaskManager.getInstance().runTask(t);
             } // Cadastre change services
             else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_CADASTRE_CHANGE)
-                    ||requestType.equalsIgnoreCase(RequestTypeBean.CODE_MAP_EXISTINGPARCEL)
+                    || requestType.equalsIgnoreCase(RequestTypeBean.CODE_MAP_EXISTINGPARCEL)
                     || requestType.equalsIgnoreCase(RequestTypeBean.CODE_CADASTRE_REDEFINITION)) {
 
                 if (appBean.getPropertyList().getFilteredList().size() == 1) {
-                        SolaTask t = new SolaTask<Void, Void>() {
+                    SolaTask t = new SolaTask<Void, Void>() {
 
-                            @Override
-                            public Void doTask() {
-                                setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_CADASTRE_CHANGE));
-                                CadastreTransactionMapPanel form = new CadastreTransactionMapPanel(
-                                        appBean, service, appBean.getPropertyList().getFilteredList().get(0));
-                                getMainContentPanel().addPanel(form, MainContentPanel.CARD_CADASTRECHANGE, true);
-                                return null;
-                            }
-                        };
-                        TaskManager.getInstance().runTask(t);
+                        @Override
+                        public Void doTask() {
+                            setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_CADASTRE_CHANGE));
+                            CadastreTransactionMapPanel form = new CadastreTransactionMapPanel(
+                                    appBean, service, appBean.getPropertyList().getFilteredList().get(0));
+                            getMainContentPanel().addPanel(form, MainContentPanel.CARD_CADASTRECHANGE, true);
+                            return null;
+                        }
+                    };
+                    TaskManager.getInstance().runTask(t);
                 } else if (appBean.getPropertyList().getFilteredList().size() > 1) {
                     PropertiesList propertyListForm = new PropertiesList(appBean.getPropertyList());
                     propertyListForm.setLocationRelativeTo(this);
@@ -780,8 +785,8 @@ System.out.println("QUI 6");
                         public void propertyChange(PropertyChangeEvent evt) {
                             if (evt.getPropertyName().equals(PropertiesList.SELECTED_PROPERTY)
                                     && evt.getNewValue() != null) {
-                                final ApplicationPropertyBean property =
-                                        (ApplicationPropertyBean) evt.getNewValue();
+                                final ApplicationPropertyBean property
+                                        = (ApplicationPropertyBean) evt.getNewValue();
                                 ((JDialog) evt.getSource()).dispose();
 
                                 SolaTask t = new SolaTask<Void, Void>() {
@@ -886,26 +891,25 @@ System.out.println("QUI 6");
     }
 
     private boolean checkApplication() {
-        
+
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/application/Bundle");
 
-        if (this.txtDob.getText() == null || this.txtDob.getText().equals("") ) {
+        if (this.txtDob.getText() == null || this.txtDob.getText().equals("")) {
             MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_FIELDS,
-                            new Object[]{bundle.getString("ApplicationPanel.lbDob.text_1")});
-                return false;  
+                    new Object[]{bundle.getString("ApplicationPanel.lbDob.text_1")});
+            return false;
         }
-        
-        if (this.txtNationality.getText() == null || this.txtNationality.getText().equals("") ) {
+
+        if (this.txtNationality.getText() == null || this.txtNationality.getText().equals("")) {
             MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_FIELDS,
-                            new Object[]{bundle.getString("ApplicationPanel.lbNationality.text")});
-                return false;  
+                    new Object[]{bundle.getString("ApplicationPanel.lbNationality.text")});
+            return false;
         }
-        
+
         if (appBean.validate(true).size() > 0) {
             return false;
         }
-        
-        
+
         if (applicationDocumentsHelper.isAllItemsChecked() == false) {
             if (MessageUtility.displayMessage(ClientMessage.APPLICATION_NOTALL_DOCUMENT_REQUIRED) == MessageUtility.BUTTON_TWO) {
                 return false;
@@ -936,8 +940,7 @@ System.out.println("QUI 6");
             }
 //           }
         }
-        
-        
+
         return true;
     }
 
@@ -966,13 +969,12 @@ System.out.println("QUI 6");
 
                 if ((applicationID == null || applicationID.equals(""))) {
                     if (!appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)
-                        && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_REGISTER_SLTR_COFO)     
-                        && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_CADASTRE_CHANGE)
+                            && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_REGISTER_SLTR_COFO)
+                            && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_CADASTRE_CHANGE)
                             && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_MAP_EXISTINGPARCEL)
-                            && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_DISPUTE))
-                    {
-                     showReport(ReportManager.getLodgementNoticeReport(appBean));
-                     applicationID = appBean.getId();
+                            && !appBean.getServiceList().get(0).getRequestTypeCode().contains(RequestTypeBean.CODE_DISPUTE)) {
+                        showReport(ReportManager.getLodgementNoticeReport(appBean));
+                        applicationID = appBean.getId();
                     }
                 }
                 firePropertyChange(APPLICATION_SAVED_PROPERTY, false, true);
@@ -1119,6 +1121,9 @@ System.out.println("QUI 6");
         jPanel15 = new javax.swing.JPanel();
         labStatus = new javax.swing.JLabel();
         txtStatus = new javax.swing.JTextField();
+        jPanel8 = new javax.swing.JPanel();
+        labClaimName = new javax.swing.JLabel();
+        txtClaimName = new javax.swing.JTextField();
         servicesPanel = new javax.swing.JPanel();
         scrollFeeDetails1 = new javax.swing.JScrollPane();
         tabServices = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
@@ -1715,7 +1720,7 @@ System.out.println("QUI 6");
             .addComponent(txtNationality)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(lbNationality)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(cbxNationality, 0, 266, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -1762,7 +1767,7 @@ System.out.println("QUI 6");
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(lbState)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(txtState)
         );
         jPanel7Layout.setVerticalGroup(
@@ -1908,7 +1913,7 @@ System.out.println("QUI 6");
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1954,7 +1959,7 @@ System.out.println("QUI 6");
             .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 178, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2163,20 +2168,54 @@ System.out.println("QUI 6");
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel8.setName("jPanel8"); // NOI18N
+
+        labClaimName.setText(bundle.getString("ApplicationPanel.labClaimName.text_1")); // NOI18N
+        labClaimName.setName("labClaimName"); // NOI18N
+
+        txtClaimName.setEditable(false);
+        txtClaimName.setText(bundle.getString("ApplicationPanel.txtClaimName.text")); // NOI18N
+        txtClaimName.setEnabled(false);
+        txtClaimName.setName("txtClaimName"); // NOI18N
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(labClaimName, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(txtClaimName)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labClaimName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtClaimName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
         jPanel25Layout.setHorizontalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel25Layout.createSequentialGroup()
-                .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15)
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
-                .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel25Layout.createSequentialGroup()
-                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel25Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(75, 75, 75))
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2185,10 +2224,12 @@ System.out.println("QUI 6");
                     .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -2249,13 +2290,15 @@ System.out.println("QUI 6");
         bindingGroup.addBinding(binding);
 
         scrollFeeDetails1.setViewportView(tabServices);
-        tabServices.getColumnModel().getColumn(0).setMinWidth(70);
-        tabServices.getColumnModel().getColumn(0).setPreferredWidth(70);
-        tabServices.getColumnModel().getColumn(0).setMaxWidth(70);
-        tabServices.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails1.columnModel.title0")); // NOI18N
-        tabServices.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails1.columnModel.title1")); // NOI18N
-        tabServices.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ApplicationPanel.tabServices.columnModel.title3")); // NOI18N
-        tabServices.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails1.columnModel.title2")); // NOI18N
+        if (tabServices.getColumnModel().getColumnCount() > 0) {
+            tabServices.getColumnModel().getColumn(0).setMinWidth(70);
+            tabServices.getColumnModel().getColumn(0).setPreferredWidth(70);
+            tabServices.getColumnModel().getColumn(0).setMaxWidth(70);
+            tabServices.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails1.columnModel.title0")); // NOI18N
+            tabServices.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails1.columnModel.title1")); // NOI18N
+            tabServices.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ApplicationPanel.tabServices.columnModel.title3")); // NOI18N
+            tabServices.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails1.columnModel.title2")); // NOI18N
+        }
 
         tbServices.setFloatable(false);
         tbServices.setRollover(true);
@@ -2379,8 +2422,8 @@ System.out.println("QUI 6");
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, servicesPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(servicesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(scrollFeeDetails1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
-                    .addComponent(tbServices, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE))
+                    .addComponent(scrollFeeDetails1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 973, Short.MAX_VALUE)
+                    .addComponent(tbServices, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 973, Short.MAX_VALUE))
                 .addContainerGap())
         );
         servicesPanelLayout.setVerticalGroup(
@@ -2389,7 +2432,7 @@ System.out.println("QUI 6");
                 .addContainerGap()
                 .addComponent(tbServices, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollFeeDetails1, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
+                .addComponent(scrollFeeDetails1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2460,14 +2503,16 @@ System.out.println("QUI 6");
         bindingGroup.addBinding(binding);
 
         scrollPropertyDetails.setViewportView(tabPropertyDetails);
-        tabPropertyDetails.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title0")); // NOI18N
-        tabPropertyDetails.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title1")); // NOI18N
-        tabPropertyDetails.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title2")); // NOI18N
-        tabPropertyDetails.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title3")); // NOI18N
-        tabPropertyDetails.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title6")); // NOI18N
-        tabPropertyDetails.getColumnModel().getColumn(4).setCellRenderer(new ExistingObjectCellRenderer());
-        tabPropertyDetails.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title4")); // NOI18N
-        tabPropertyDetails.getColumnModel().getColumn(5).setCellRenderer(new ExistingObjectCellRenderer());
+        if (tabPropertyDetails.getColumnModel().getColumnCount() > 0) {
+            tabPropertyDetails.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title0")); // NOI18N
+            tabPropertyDetails.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title1")); // NOI18N
+            tabPropertyDetails.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title2")); // NOI18N
+            tabPropertyDetails.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title3")); // NOI18N
+            tabPropertyDetails.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title6")); // NOI18N
+            tabPropertyDetails.getColumnModel().getColumn(4).setCellRenderer(new ExistingObjectCellRenderer());
+            tabPropertyDetails.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title4")); // NOI18N
+            tabPropertyDetails.getColumnModel().getColumn(5).setCellRenderer(new ExistingObjectCellRenderer());
+        }
 
         propertypartPanel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         propertypartPanel.setName("propertypartPanel"); // NOI18N
@@ -2517,7 +2562,7 @@ System.out.println("QUI 6");
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addComponent(labArea)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
                         .addComponent(btnSearchUpiWardParcel)))
                 .addContainerGap())
         );
@@ -2533,7 +2578,7 @@ System.out.println("QUI 6");
                     .addComponent(btnSearchUpiWardParcel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         propertypartPanel.add(jPanel16);
@@ -2563,14 +2608,14 @@ System.out.println("QUI 6");
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtLastPart, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+            .addComponent(txtLastPart, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addComponent(labLastPart)
-                .addContainerGap(204, Short.MAX_VALUE))
+                .addContainerGap(232, Short.MAX_VALUE))
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addComponent(labValue)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(txtValue, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+            .addComponent(txtValue, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2605,12 +2650,12 @@ System.out.println("QUI 6");
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addComponent(btnAddProperty)
-                .addGap(0, 189, Short.MAX_VALUE))
+                .addGap(0, 217, Short.MAX_VALUE))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap(81, Short.MAX_VALUE)
+                .addContainerGap(105, Short.MAX_VALUE)
                 .addComponent(btnAddProperty)
                 .addContainerGap())
         );
@@ -2637,7 +2682,7 @@ System.out.println("QUI 6");
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tbPropertyDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPropertyDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                .addComponent(scrollPropertyDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2683,12 +2728,14 @@ System.out.println("QUI 6");
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         scrollDocRequired.setViewportView(tblDocTypesHelper);
-        tblDocTypesHelper.getColumnModel().getColumn(0).setMinWidth(20);
-        tblDocTypesHelper.getColumnModel().getColumn(0).setPreferredWidth(20);
-        tblDocTypesHelper.getColumnModel().getColumn(0).setMaxWidth(20);
-        tblDocTypesHelper.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ApplicationPanel.tblDocTypesHelper.columnModel.title0_1")); // NOI18N
-        tblDocTypesHelper.getColumnModel().getColumn(0).setCellRenderer(new BooleanCellRenderer());
-        tblDocTypesHelper.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ApplicationPanel.tblDocTypesHelper.columnModel.title1_1")); // NOI18N
+        if (tblDocTypesHelper.getColumnModel().getColumnCount() > 0) {
+            tblDocTypesHelper.getColumnModel().getColumn(0).setMinWidth(20);
+            tblDocTypesHelper.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tblDocTypesHelper.getColumnModel().getColumn(0).setMaxWidth(20);
+            tblDocTypesHelper.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ApplicationPanel.tblDocTypesHelper.columnModel.title0_1")); // NOI18N
+            tblDocTypesHelper.getColumnModel().getColumn(0).setCellRenderer(new BooleanCellRenderer());
+            tblDocTypesHelper.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ApplicationPanel.tblDocTypesHelper.columnModel.title1_1")); // NOI18N
+        }
 
         documentsPanel.setName(bundle.getString("ApplicationPanel.documentsPanel.name")); // NOI18N
 
@@ -2698,7 +2745,7 @@ System.out.println("QUI 6");
             documentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(documentPanelLayout.createSequentialGroup()
                 .addGap(2, 2, 2)
-                .addComponent(documentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
+                .addComponent(documentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 727, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(documentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollDocRequired, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2711,7 +2758,7 @@ System.out.println("QUI 6");
                 .addContainerGap()
                 .addComponent(labDocRequired, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollDocRequired, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                .addComponent(scrollDocRequired, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(documentPanelLayout.createSequentialGroup()
                 .addComponent(documentsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2726,11 +2773,11 @@ System.out.println("QUI 6");
         mapPanel.setLayout(mapPanelLayout);
         mapPanelLayout.setHorizontalGroup(
             mapPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 908, Short.MAX_VALUE)
+            .addGap(0, 993, Short.MAX_VALUE)
         );
         mapPanelLayout.setVerticalGroup(
             mapPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 552, Short.MAX_VALUE)
+            .addGap(0, 546, Short.MAX_VALUE)
         );
 
         tabbedControlMain.addTab(bundle.getString("ApplicationPanel.mapPanel.TabConstraints.tabTitle"), mapPanel); // NOI18N
@@ -2776,11 +2823,13 @@ System.out.println("QUI 6");
         jTableBinding.bind();
         scrollFeeDetails.setViewportView(tabFeeDetails);
         tabFeeDetails.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tabFeeDetails.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails.columnModel.title0")); // NOI18N
-        tabFeeDetails.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails.columnModel.title1_1")); // NOI18N
-        tabFeeDetails.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails.columnModel.title2_2")); // NOI18N
-        tabFeeDetails.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails.columnModel.title3")); // NOI18N
-        tabFeeDetails.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails.columnModel.title4")); // NOI18N
+        if (tabFeeDetails.getColumnModel().getColumnCount() > 0) {
+            tabFeeDetails.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails.columnModel.title0")); // NOI18N
+            tabFeeDetails.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails.columnModel.title1_1")); // NOI18N
+            tabFeeDetails.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails.columnModel.title2_2")); // NOI18N
+            tabFeeDetails.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails.columnModel.title3")); // NOI18N
+            tabFeeDetails.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails.columnModel.title4")); // NOI18N
+        }
 
         jPanel2.setName("jPanel2"); // NOI18N
 
@@ -2934,7 +2983,7 @@ System.out.println("QUI 6");
                 .addGroup(feesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(feesPanelLayout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 252, Short.MAX_VALUE))
+                        .addGap(0, 337, Short.MAX_VALUE))
                     .addComponent(scrollFeeDetails))
                 .addContainerGap())
         );
@@ -2942,7 +2991,7 @@ System.out.println("QUI 6");
             feesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, feesPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollFeeDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
+                .addComponent(scrollFeeDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -2977,15 +3026,17 @@ System.out.println("QUI 6");
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         validationsPanel.setViewportView(tabValidations);
-        tabValidations.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ApplicationPanel.tabValidations.columnModel.title1")); // NOI18N
-        tabValidations.getColumnModel().getColumn(0).setCellRenderer(new TableCellTextAreaRenderer());
-        tabValidations.getColumnModel().getColumn(1).setPreferredWidth(100);
-        tabValidations.getColumnModel().getColumn(1).setMaxWidth(100);
-        tabValidations.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ApplicationPanel.tabValidations.columnModel.title2")); // NOI18N
-        tabValidations.getColumnModel().getColumn(2).setPreferredWidth(45);
-        tabValidations.getColumnModel().getColumn(2).setMaxWidth(45);
-        tabValidations.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ApplicationPanel.tabValidations.columnModel.title3")); // NOI18N
-        tabValidations.getColumnModel().getColumn(2).setCellRenderer(new ViolationCellRenderer());
+        if (tabValidations.getColumnModel().getColumnCount() > 0) {
+            tabValidations.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ApplicationPanel.tabValidations.columnModel.title1")); // NOI18N
+            tabValidations.getColumnModel().getColumn(0).setCellRenderer(new TableCellTextAreaRenderer());
+            tabValidations.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tabValidations.getColumnModel().getColumn(1).setMaxWidth(100);
+            tabValidations.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ApplicationPanel.tabValidations.columnModel.title2")); // NOI18N
+            tabValidations.getColumnModel().getColumn(2).setPreferredWidth(45);
+            tabValidations.getColumnModel().getColumn(2).setMaxWidth(45);
+            tabValidations.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ApplicationPanel.tabValidations.columnModel.title3")); // NOI18N
+            tabValidations.getColumnModel().getColumn(2).setCellRenderer(new ViolationCellRenderer());
+        }
         tabValidations.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
 
         javax.swing.GroupLayout validationPanelLayout = new javax.swing.GroupLayout(validationPanel);
@@ -2994,14 +3045,14 @@ System.out.println("QUI 6");
             validationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(validationPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(validationsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
+                .addComponent(validationsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 973, Short.MAX_VALUE)
                 .addContainerGap())
         );
         validationPanelLayout.setVerticalGroup(
             validationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(validationPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(validationsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+                .addComponent(validationsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -3043,11 +3094,13 @@ System.out.println("QUI 6");
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         actionLogPanel.setViewportView(tabActionLog);
-        tabActionLog.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ApplicationPanel.tabActionLog.columnModel.title0")); // NOI18N
-        tabActionLog.getColumnModel().getColumn(0).setCellRenderer(new DateTimeRenderer());
-        tabActionLog.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ApplicationPanel.tabActionLog.columnModel.title1_1")); // NOI18N
-        tabActionLog.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ApplicationPanel.tabActionLog.columnModel.title2_1")); // NOI18N
-        tabActionLog.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("ApplicationPanel.tabActionLog.columnModel.title3_1")); // NOI18N
+        if (tabActionLog.getColumnModel().getColumnCount() > 0) {
+            tabActionLog.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ApplicationPanel.tabActionLog.columnModel.title0")); // NOI18N
+            tabActionLog.getColumnModel().getColumn(0).setCellRenderer(new DateTimeRenderer());
+            tabActionLog.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ApplicationPanel.tabActionLog.columnModel.title1_1")); // NOI18N
+            tabActionLog.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ApplicationPanel.tabActionLog.columnModel.title2_1")); // NOI18N
+            tabActionLog.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("ApplicationPanel.tabActionLog.columnModel.title3_1")); // NOI18N
+        }
         tabActionLog.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
 
         javax.swing.GroupLayout historyPanelLayout = new javax.swing.GroupLayout(historyPanel);
@@ -3056,14 +3109,14 @@ System.out.println("QUI 6");
             historyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(historyPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(actionLogPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
+                .addComponent(actionLogPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 973, Short.MAX_VALUE)
                 .addContainerGap())
         );
         historyPanelLayout.setVerticalGroup(
             historyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(historyPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(actionLogPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+                .addComponent(actionLogPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -3073,8 +3126,8 @@ System.out.println("QUI 6");
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 923, Short.MAX_VALUE)
-            .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 923, Short.MAX_VALUE)
+            .addComponent(pnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE)
+            .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(tabbedControlMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -3086,7 +3139,7 @@ System.out.println("QUI 6");
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tabbedControlMain, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+                .addComponent(tabbedControlMain, javax.swing.GroupLayout.PREFERRED_SIZE, 580, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -3094,25 +3147,26 @@ System.out.println("QUI 6");
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Validates user's data input and calls save operation on the {@link ApplicationBean}.
+     * Validates user's data input and calls save operation on the
+     * {@link ApplicationBean}.
      */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         saveApplication(false);
 }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnAddPropertyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPropertyActionPerformed
-        
-        if (this.appBean.getFilteredPropertyList().size()==1) {
+
+        if (this.appBean.getFilteredPropertyList().size() == 1) {
             MessageUtility.displayMessage(ClientMessage.CHECK_A_PROPERTY_ALREADY_SELECTED);
             return;
         }
-        
+
         if (txtFirstPart.getText() == null || txtFirstPart.getText().equals("")
                 || txtLastPart.getText() == null || txtLastPart.getText().equals("")) {
             MessageUtility.displayMessage(ClientMessage.CHECK_FIRST_LAST_PROPERTY);
             return;
         }
-        
+
         BigDecimal area = null;
         BigDecimal value = null;
 
@@ -3132,13 +3186,13 @@ System.out.println("QUI 6");
             if (this.appBean.getServiceList().get(i).getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
                 flagDisableProperty = true;
             }
-        } 
+        }
         if (flagDisableProperty) {
-          this.jPanel16.setVisible(false);  
-          this.jPanel17.setVisible(false);  
-          this.jPanel18.setVisible(false);  
+            this.jPanel16.setVisible(false);
+            this.jPanel17.setVisible(false);
+            this.jPanel18.setVisible(false);
         } else {
-          this.txtFirstPart.requestFocus();
+            this.txtFirstPart.requestFocus();
         }
     }//GEN-LAST:event_btnAddPropertyActionPerformed
 
@@ -3191,7 +3245,7 @@ System.out.println("QUI 6");
     private void historyPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_historyPanelMouseClicked
         cbxAgents.requestFocus(false);
     }//GEN-LAST:event_historyPanelMouseClicked
-  
+
     private void btnCalculateFeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateFeeActionPerformed
         calculateFee();
     }//GEN-LAST:event_btnCalculateFeeActionPerformed
@@ -3328,17 +3382,16 @@ System.out.println("QUI 6");
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNationalityActionPerformed
 
-    
-        private void showCalendar(JFormattedTextField dateField) {
+    private void showCalendar(JFormattedTextField dateField) {
         CalendarForm calendar = new CalendarForm(null, true, dateField);
         calendar.setVisible(true);
     }
 
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         showCalendar(txtDob);
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnSearchUpiWardParcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchUpiWardParcelActionPerformed
@@ -3350,30 +3403,30 @@ System.out.println("QUI 6");
     }//GEN-LAST:event_btnAddAgentActionPerformed
 
     private void cbxAgentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxAgentsActionPerformed
-       if (evt.paramString().contains("Button1")) {
-            appBean.addedAgent=false;
-       }
+        if (evt.paramString().contains("Button1")) {
+            appBean.addedAgent = false;
+        }
     }//GEN-LAST:event_cbxAgentsActionPerformed
 
     private void cbxNationalityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxNationalityActionPerformed
-      if (this.cbxNationality.getSelectedIndex()>= 0) {
-       this.txtNationality.setText(this.cbxNationality.getSelectedItem().toString());
-      }
+        if (this.cbxNationality.getSelectedIndex() >= 0) {
+            this.txtNationality.setText(this.cbxNationality.getSelectedItem().toString());
+        }
     }//GEN-LAST:event_cbxNationalityActionPerformed
 
     private void cbxStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxStateActionPerformed
-        if (this.cbxState.getSelectedIndex()>= 0) {
-         if (appBean != null && !appBean.isNew()) {
-         if (evt.getModifiers()== 0) {   
-             for (int i = 0, n = this.cbxState.getItemCount(); i < n; i++) {
-                 if (this.cbxState.getItemAt(i).toString().contains(this.txtState.getText())) {
-                     this.cbxState.setSelectedIndex(i);
-                 }
-             }
-         }    
-        } 
-         this.txtState.setText(this.cbxState.getSelectedItem().toString());
-       }
+        if (this.cbxState.getSelectedIndex() >= 0) {
+            if (appBean != null && !appBean.isNew()) {
+                if (evt.getModifiers() == 0) {
+                    for (int i = 0, n = this.cbxState.getItemCount(); i < n; i++) {
+                        if (this.cbxState.getItemAt(i).toString().contains(this.txtState.getText())) {
+                            this.cbxState.setSelectedIndex(i);
+                        }
+                    }
+                }
+            }
+            this.txtState.setText(this.cbxState.getSelectedItem().toString());
+        }
     }//GEN-LAST:event_cbxStateActionPerformed
 
     private void btnPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlanActionPerformed
@@ -3381,10 +3434,9 @@ System.out.println("QUI 6");
     }//GEN-LAST:event_btnPlanActionPerformed
 
     private void menuTransferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTransferActionPerformed
-         transferApplication();
+        transferApplication();
     }//GEN-LAST:event_menuTransferActionPerformed
 
-    
     private void openAutRepForm(final PartySummaryBean partySummaryBean, final boolean isReadOnly) {
         final AutRepFormListener listener = new AutRepFormListener();
 
@@ -3407,23 +3459,21 @@ System.out.println("QUI 6");
         };
         TaskManager.getInstance().runTask(t);
     }
+
     private class AutRepFormListener implements PropertyChangeListener {
 
         @Override
         public void propertyChange(PropertyChangeEvent evt) {
             if (evt.getPropertyName().equals(PartyPanelForm.PARTY_SAVED)) {
-                appBean.addedAgent=true;
+                appBean.addedAgent = true;
                 appBean.setAgent((PartyBean) ((PartyPanelForm) evt.getSource()).getParty());
             }
         }
     }
-    
-    
-    
-    
+
     private void openSysRegCertParamsForm(String nr, String whichReport) {
-       
-        SysRegCertParamsForm certificateGenerator = new SysRegCertParamsForm(null, true, nr, appBean.getSection(),whichReport);
+
+        SysRegCertParamsForm certificateGenerator = new SysRegCertParamsForm(null, true, nr, appBean.getSection(), whichReport);
 //        certificateGenerator.setVisible(true);
     }
 
@@ -3497,8 +3547,8 @@ System.out.println("QUI 6");
                 return;
             }
 
-            SolaTask<List<ValidationResultBean>, List<ValidationResultBean>> t =
-                    new SolaTask<List<ValidationResultBean>, List<ValidationResultBean>>() {
+            SolaTask<List<ValidationResultBean>, List<ValidationResultBean>> t
+                    = new SolaTask<List<ValidationResultBean>, List<ValidationResultBean>>() {
 
                         @Override
                         public List<ValidationResultBean> doTask() {
@@ -3588,7 +3638,8 @@ System.out.println("QUI 6");
     }
 
     /**
-     * Moves selected application service down in the services list. Calls {@link ApplicationBean#moveServiceDown()}
+     * Moves selected application service down in the services list. Calls
+     * {@link ApplicationBean#moveServiceDown()}
      */
     private void moveServiceDown() {
         ApplicationServiceBean asb = appBean.getSelectedService();
@@ -3772,18 +3823,20 @@ System.out.println("QUI 6");
     }
 
     /**
-     * Removes selected property object from the properties list. Calls {@link ApplicationBean#removeSelectedProperty()}
+     * Removes selected property object from the properties list. Calls
+     * {@link ApplicationBean#removeSelectedProperty()}
      */
     private void removeSelectedProperty() {
-         appBean.removeSelectedProperty();
-          this.jPanel16.setVisible(true);  
-          this.jPanel17.setVisible(true);  
-          this.jPanel18.setVisible(true);  
-        
+        appBean.removeSelectedProperty();
+        this.jPanel16.setVisible(true);
+        this.jPanel17.setVisible(true);
+        this.jPanel18.setVisible(true);
+
     }
 
     /**
-     * Verifies selected property object to check existence. Calls {@link ApplicationBean#verifyProperty()}
+     * Verifies selected property object to check existence. Calls
+     * {@link ApplicationBean#verifyProperty()}
      */
     private void verifySelectedProperty() {
         if (appBean.getSelectedProperty() == null) {
@@ -3815,7 +3868,7 @@ System.out.println("QUI 6");
     private void archiveApplication() {
         takeActionAgainstApplication(ApplicationActionTypeBean.ARCHIVE);
     }
-    
+
     private void transferApplication() {
         takeActionAgainstApplication(ApplicationActionTypeBean.TRANSFER);
     }
@@ -3837,7 +3890,8 @@ System.out.println("QUI 6");
     }
 
     /**
-     * Calculates fee for the application. Calls {@link ApplicationBean#calculateFee()}
+     * Calculates fee for the application. Calls
+     * {@link ApplicationBean#calculateFee()}
      */
     private void calculateFee() {
         SolaTask t = new SolaTask<Void, Void>() {
@@ -3887,22 +3941,21 @@ System.out.println("QUI 6");
         }
         return true;
     }
-    
-    
-     private void SearchUpiWardParcel() {
+
+    private void SearchUpiWardParcel() {
         SearchParcelDialog form = new SearchParcelDialog(null, true);
         WindowUtility.centerForm(form);
         form.addPropertyChangeListener(new PropertyChangeListener() {
-        
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(SearchParcelDialog.SELECTED_PARCEL)) {
 
                     CadastreObjectBean cadastreObject = (CadastreObjectBean) evt.getNewValue();
-                    
-                    setUpiWardParcel(cadastreObject.getNameFirstpart(),cadastreObject.getNameLastpart());
-                         
-             }
+
+                    setUpiWardParcel(cadastreObject.getNameFirstpart(), cadastreObject.getNameLastpart());
+
+                }
             }
         });
         form.setVisible(true);
@@ -3981,6 +4034,7 @@ System.out.println("QUI 6");
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
@@ -3992,6 +4046,7 @@ System.out.println("QUI 6");
     private javax.swing.JLabel labAddress;
     private javax.swing.JLabel labAgents;
     private javax.swing.JLabel labArea;
+    private javax.swing.JLabel labClaimName;
     private javax.swing.JLabel labDate;
     private javax.swing.JLabel labDocRequired;
     private javax.swing.JLabel labEmail;
@@ -4058,6 +4113,7 @@ System.out.println("QUI 6");
     public javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtAppNumber;
     private javax.swing.JTextField txtArea;
+    private javax.swing.JTextField txtClaimName;
     private javax.swing.JFormattedTextField txtCompleteBy;
     private javax.swing.JFormattedTextField txtDate;
     private javax.swing.JFormattedTextField txtDob;
