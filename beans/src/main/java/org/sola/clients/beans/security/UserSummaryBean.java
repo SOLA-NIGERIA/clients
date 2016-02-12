@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
+ * Copyright (C) 2014 - Food and Agriculture Organization of the United Nations (FAO).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -27,6 +27,7 @@
  */
 package org.sola.clients.beans.security;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.sola.clients.beans.AbstractIdBean;
 import org.sola.clients.beans.validation.Localized;
@@ -44,10 +45,13 @@ public class UserSummaryBean extends AbstractIdBean {
     public final static String LASTNAME_PROPERTY = "lastName";
     public final static String FIRSTNAME_PROPERTY = "firstName";
     
+    @Length(max = 255, message = ClientMessage.CHECK_FIELD_INVALID_LENGTH_DESCRIPTION, payload = Localized.class)
     private String description;
     @NotEmpty(message= ClientMessage.CHECK_NOTNULL_FIRSTNAME, payload=Localized.class)
+    @Length(max = 30, message = ClientMessage.CHECK_FIELD_INVALID_LENGTH_FIRSTNAME, payload = Localized.class)
     private String firstName;
     @NotEmpty(message= ClientMessage.CHECK_NOTNULL_LASTNAME, payload=Localized.class)
+    @Length(max = 30, message = ClientMessage.CHECK_FIELD_INVALID_LENGTH_LASTNAME, payload = Localized.class)
     private String lastName;
 
     public UserSummaryBean() {

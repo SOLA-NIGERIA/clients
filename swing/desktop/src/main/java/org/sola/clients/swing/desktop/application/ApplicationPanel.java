@@ -347,8 +347,8 @@ public class ApplicationPanel extends ContentPanel {
 
             if (!appBean.getSourceList().isEmpty() && appBean.getSourceList().size() > 0) {
                 for (SourceBean sourceObject : appBean.getSourceList()) {
-                    if (sourceObject.getSourceType().getCode().contentEquals("claimForm")){
-                        this.txtClaimName.setText(sourceObject.getDescription());
+                    if (sourceObject.getSourceType().getCode().contentEquals("systematicRegn")){
+                        this.txtClaimName.setText(sourceObject.getContent());
                     }
                 }
             }
