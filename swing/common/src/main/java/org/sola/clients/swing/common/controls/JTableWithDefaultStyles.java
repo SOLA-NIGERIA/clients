@@ -33,13 +33,17 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import java.util.Locale;
+import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.JViewport;
+import javax.swing.KeyStroke;
 import javax.swing.RowSorter;
 import javax.swing.UIManager;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -48,7 +52,25 @@ import javax.swing.table.TableRowSorter;
  * {@link JTable} component with predefined styles
  */
 public class JTableWithDefaultStyles extends JTable {
+     
+	 
+	 private static class HeaderRenderer implements TableCellRenderer {
+        DefaultTableCellRenderer renderer;
 
+        public HeaderRenderer(JTable table) {
+            renderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
+            renderer.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int col) {
+            return renderer.getTableCellRendererComponent(
+                    table, value, isSelected, hasFocus, row, col);
+        }
+    } 
+	 
     private Color scrollPaneBackgroundColor;
     private Color defaultBackground;
     private Color oddRowColor;
@@ -59,26 +81,16 @@ public class JTableWithDefaultStyles extends JTable {
     public JTableWithDefaultStyles() {
         this.setAutoCreateRowSorter(true);
 
-//        defaultBackground = new Color(226, 244, 224);
-//        oddRowColor=new Color(236,247,235);
-//        this.setSelectionBackground(new java.awt.Color(185, 227, 185));
-//        this.setSelectionForeground(new java.awt.Color(0, 102, 51));
-//        this.setGridColor(new java.awt.Color(166, 212, 150));
-
-
-
         Object newFirstRow = "Table.alternateRowColor";
         Color newFRColor = UIManager.getColor(newFirstRow);
         defaultBackground = newFRColor;
 
-//        Object newSecondRow = "Table.background";
         Object newSecondRow = "PasswordField.background";
         Color newSRColor = UIManager.getColor(newSecondRow);
         oddRowColor = newSRColor;
-//        
-//        
-////        Object newSelectedRow = "Table[Enabled+Selected].textBackground";
-        Object newSelectedRow = "List.background";
+
+		   Object newSelectedRow = "paleSolaGrey";
+//         Object newSelectedRow = "List.background";
         Color newSelColor = UIManager.getColor(newSelectedRow);
 //        this.setSelectionBackground( UIManager.getColor(newSelectedRow));
         this.setSelectionBackground(newSelColor);
@@ -97,6 +109,8 @@ public class JTableWithDefaultStyles extends JTable {
         Color newGridColor = UIManager.getColor(newGrid);
 //        this.setGridColor(UIManager.getColor(newGridcolor));
         this.setGridColor(newSelFore);
+        this.tableHeader.setForeground(UIManager.getColor(newSecondRow));
+        this.tableHeader.setDefaultRenderer(new HeaderRenderer(this));
 
 
         scrollPaneBackgroundColor = Color.WHITE;
@@ -124,7 +138,10 @@ public class JTableWithDefaultStyles extends JTable {
             @Override
             public void ancestorMoved(AncestorEvent event) {
             }
-        });        
+        });    
+	// Remove the input mapping for the Enter key so that it can be used to fire the default button on the form instead. 
+        this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "none");
+   		
     }
 
     /**

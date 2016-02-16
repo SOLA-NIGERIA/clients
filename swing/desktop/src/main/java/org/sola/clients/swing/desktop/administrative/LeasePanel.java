@@ -34,14 +34,14 @@ import javax.swing.JOptionPane;
 import javax.validation.groups.Default;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.sola.clients.beans.administrative.BaUnitBean;
-import org.sola.clients.beans.administrative.LeaseConditionForRrrBean;
+import org.sola.clients.beans.administrative.ConditionForRrrBean;
 import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.administrative.RrrReportBean;
 import org.sola.clients.beans.administrative.validation.LeaseValidationGroup;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
 import org.sola.clients.beans.party.PartySummaryBean;
-import org.sola.clients.beans.referencedata.LeaseConditionListBean;
+import org.sola.clients.beans.referencedata.RrrConditionListBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.reports.ReportManager;
 import org.sola.clients.swing.common.laf.LafManager;
@@ -115,14 +115,14 @@ public class LeasePanel extends ContentPanel {
     private void postInit(){
         // Populate lease conditions list with standard conditions for new RrrBean
         if(rrrAction == RrrBean.RRR_ACTION.NEW){
-            rrrBean.addLeaseConditions(leaseConditions.getLeaseConditionList());
+            rrrBean.addRrrConditions(RrrConditions.getRrrConditionList());
         }
         
-        leaseConditions.addPropertyChangeListener(new PropertyChangeListener() {
+        RrrConditions.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if(evt.getPropertyName().equals(LeaseConditionListBean.SELECTED_LEASE_CONDITION_PROPERTY)){
+                if(evt.getPropertyName().equals(RrrConditionListBean.SELECTED_LEASE_CONDITION_PROPERTY)){
                     customizeAddStandardConditionButton();
                 }
             }
@@ -133,7 +133,7 @@ public class LeasePanel extends ContentPanel {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if(evt.getPropertyName().equals(RrrBean.SELECTED_LEASE_CONDITION_PROPERTY)){
-                    customizeLeaseConditionsButtons();
+                    customizeRrrConditionsButtons();
                 }
             }
         });
@@ -141,16 +141,16 @@ public class LeasePanel extends ContentPanel {
         customizeForm();
         customizeOwnerButtons(null);
         customizeAddStandardConditionButton();
-        customizeLeaseConditionsButtons();
+        customizeRrrConditionsButtons();
         saveRrrState();
     }
 
-    private void customizeLeaseConditionsButtons(){
-        boolean enabled = rrrBean.getSelectedLeaseCondition()!=null && rrrAction != RrrBean.RRR_ACTION.VIEW;
+    private void customizeRrrConditionsButtons(){
+        boolean enabled = rrrBean.getSelectedRrrCondition()!=null && rrrAction != RrrBean.RRR_ACTION.VIEW;
         
         btnRemoveCondition.setEnabled(enabled);
         if(enabled){
-            btnEditCondition.setEnabled(rrrBean.getSelectedLeaseCondition().isCustomCondition());
+            btnEditCondition.setEnabled(rrrBean.getSelectedRrrCondition().isCustomCondition());
         } else {
             btnEditCondition.setEnabled(enabled);
         }
@@ -162,7 +162,7 @@ public class LeasePanel extends ContentPanel {
         if(rrrAction != RrrBean.RRR_ACTION.VIEW){
             return;
         }
-        btnAddStandardCondition.setEnabled(leaseConditions.getSelectedLeaseCondition()!=null);
+        btnAddStandardCondition.setEnabled(RrrConditions.getSelectedRrrCondition()!=null);
     }
     
     private void customizeForm() {
@@ -352,15 +352,15 @@ public class LeasePanel extends ContentPanel {
     }
 
     private void addCustomCondition(){
-        CustomLeaseConditionDialog form = new CustomLeaseConditionDialog(null, MainForm.getInstance(), true);
+        CustomRrrConditionDialog form = new CustomRrrConditionDialog(null, MainForm.getInstance(), true);
         WindowUtility.centerForm(form);
         
         form.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if(evt.getPropertyName().equals(CustomLeaseConditionDialog.LEASE_CONDITION_SAVED)){
-                    rrrBean.addLeaseCondition((LeaseConditionForRrrBean)evt.getNewValue());
+                if(evt.getPropertyName().equals(CustomRrrConditionDialog.LEASE_CONDITION_SAVED)){
+                    rrrBean.addRrrCondition((ConditionForRrrBean)evt.getNewValue());
                 }
             }
         });
@@ -368,8 +368,8 @@ public class LeasePanel extends ContentPanel {
     }
     
     private void editCustomCondition(){
-        CustomLeaseConditionDialog form = new CustomLeaseConditionDialog(
-                (LeaseConditionForRrrBean)rrrBean.getSelectedLeaseCondition().copy(), 
+        CustomRrrConditionDialog form = new CustomRrrConditionDialog(
+                (ConditionForRrrBean)rrrBean.getSelectedRrrCondition().copy(), 
                 MainForm.getInstance(), true);
         WindowUtility.centerForm(form);
         
@@ -377,9 +377,9 @@ public class LeasePanel extends ContentPanel {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if(evt.getPropertyName().equals(CustomLeaseConditionDialog.LEASE_CONDITION_SAVED)){
-                    LeaseConditionForRrrBean cond = (LeaseConditionForRrrBean)evt.getNewValue();
-                    rrrBean.getSelectedLeaseCondition().setCustomConditionText(cond.getCustomConditionText());
+                if(evt.getPropertyName().equals(CustomRrrConditionDialog.LEASE_CONDITION_SAVED)){
+                    ConditionForRrrBean cond = (ConditionForRrrBean)evt.getNewValue();
+                    rrrBean.getSelectedRrrCondition().setCustomConditionText(cond.getCustomConditionText());
                 }
             }
         });
@@ -387,11 +387,11 @@ public class LeasePanel extends ContentPanel {
     }
     
     private void addStandardCondition(){
-        rrrBean.addLeaseCondition(leaseConditions.getSelectedLeaseCondition());
+        rrrBean.addRrrCondition(RrrConditions.getSelectedRrrCondition());
     }
     
     private void removeCondition(){
-        rrrBean.removeSelectedLeaseCondition();
+        rrrBean.removeSelectedRrrCondition();
     }
     
     private RrrReportBean prepareReportBean(){
@@ -493,8 +493,8 @@ public class LeasePanel extends ContentPanel {
         menuEditOwner = new javax.swing.JMenuItem();
         menuRemoveOwner = new javax.swing.JMenuItem();
         menuViewOwner = new javax.swing.JMenuItem();
-        leaseConditions = new org.sola.clients.beans.referencedata.LeaseConditionListBean();
-        leaseConditionsPopUp = new javax.swing.JPopupMenu();
+        RrrConditions = new org.sola.clients.beans.referencedata.RrrConditionListBean();
+        RrrConditionsPopUp = new javax.swing.JPopupMenu();
         menuAddCustomCondition = new javax.swing.JMenuItem();
         menuEditCondition = new javax.swing.JMenuItem();
         menuRemoveCondition = new javax.swing.JMenuItem();
@@ -553,7 +553,7 @@ public class LeasePanel extends ContentPanel {
         documentsManagementPanel = createDocumentsPanel();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tableLeaseConditions = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
+        tableRrrConditions = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
         jToolBar3 = new javax.swing.JToolBar();
         btnAddCustomCondition = new javax.swing.JButton();
         btnEditCondition = new javax.swing.JButton();
@@ -608,7 +608,7 @@ public class LeasePanel extends ContentPanel {
                 menuAddCustomConditionActionPerformed(evt);
             }
         });
-        leaseConditionsPopUp.add(menuAddCustomCondition);
+        RrrConditionsPopUp.add(menuAddCustomCondition);
 
         menuEditCondition.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/pencil.png"))); // NOI18N
         menuEditCondition.setText(bundle.getString("LeasePanel.menuEditCondition.text")); // NOI18N
@@ -617,7 +617,7 @@ public class LeasePanel extends ContentPanel {
                 menuEditConditionActionPerformed(evt);
             }
         });
-        leaseConditionsPopUp.add(menuEditCondition);
+        RrrConditionsPopUp.add(menuEditCondition);
 
         menuRemoveCondition.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/remove.png"))); // NOI18N
         menuRemoveCondition.setText(bundle.getString("LeasePanel.menuRemoveCondition.text")); // NOI18N
@@ -626,7 +626,7 @@ public class LeasePanel extends ContentPanel {
                 menuRemoveConditionActionPerformed(evt);
             }
         });
-        leaseConditionsPopUp.add(menuRemoveCondition);
+        RrrConditionsPopUp.add(menuRemoveCondition);
 
         setHeaderPanel(headerPanel);
 
@@ -1039,10 +1039,10 @@ public class LeasePanel extends ContentPanel {
 
         jTabbedPane1.addTab(bundle.getString("LeasePanel.jPanel11.TabConstraints.tabTitle"), jPanel11); // NOI18N
 
-        tableLeaseConditions.setComponentPopupMenu(leaseConditionsPopUp);
+        tableRrrConditions.setComponentPopupMenu(RrrConditionsPopUp);
 
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${leaseConditionFilteredList}");
-        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, eLProperty, tableLeaseConditions);
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${RrrConditionFilteredList}");
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, eLProperty, tableRrrConditions);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${conditionText}"));
         columnBinding.setColumnName("Condition Text");
         columnBinding.setColumnClass(String.class);
@@ -1052,16 +1052,16 @@ public class LeasePanel extends ContentPanel {
         columnBinding.setColumnClass(Boolean.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${selectedLeaseCondition}"), tableLeaseConditions, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${selectedRrrCondition}"), tableRrrConditions, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
 
-        jScrollPane2.setViewportView(tableLeaseConditions);
-        tableLeaseConditions.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("LeasePanel.tableLeaseConditions.columnModel.title0_1")); // NOI18N
-        tableLeaseConditions.getColumnModel().getColumn(0).setCellRenderer(new org.sola.clients.swing.ui.renderers.TableCellTextAreaRenderer());
-        tableLeaseConditions.getColumnModel().getColumn(1).setPreferredWidth(55);
-        tableLeaseConditions.getColumnModel().getColumn(1).setMaxWidth(55);
-        tableLeaseConditions.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("LeasePanel.tableLeaseConditions.columnModel.title1_1")); // NOI18N
-        tableLeaseConditions.getColumnModel().getColumn(1).setCellRenderer(new BooleanCellRenderer2());
+        jScrollPane2.setViewportView(tableRrrConditions);
+        tableRrrConditions.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("LeasePanel.tableRrrConditions.columnModel.title0_1")); // NOI18N
+        tableRrrConditions.getColumnModel().getColumn(0).setCellRenderer(new org.sola.clients.swing.ui.renderers.TableCellTextAreaRenderer());
+        tableRrrConditions.getColumnModel().getColumn(1).setPreferredWidth(55);
+        tableRrrConditions.getColumnModel().getColumn(1).setMaxWidth(55);
+        tableRrrConditions.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("LeasePanel.tableRrrConditions.columnModel.title1_1")); // NOI18N
+        tableRrrConditions.getColumnModel().getColumn(1).setCellRenderer(new BooleanCellRenderer2());
 
         jToolBar3.setFloatable(false);
         jToolBar3.setRollover(true);
@@ -1098,10 +1098,10 @@ public class LeasePanel extends ContentPanel {
         jToolBar3.add(jSeparator5);
         jToolBar3.add(filler3);
 
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${leaseConditionList}");
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, leaseConditions, eLProperty, cbxStandardConditions);
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${RrrConditionList}");
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, RrrConditions, eLProperty, cbxStandardConditions);
         bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, leaseConditions, org.jdesktop.beansbinding.ELProperty.create("${selectedLeaseCondition}"), cbxStandardConditions, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, RrrConditions, org.jdesktop.beansbinding.ELProperty.create("${selectedRrrCondition}"), cbxStandardConditions, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
         jToolBar3.add(cbxStandardConditions);
@@ -1311,8 +1311,8 @@ public class LeasePanel extends ContentPanel {
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JToolBar jToolBar3;
     private javax.swing.JLabel lblStatus;
-    private org.sola.clients.beans.referencedata.LeaseConditionListBean leaseConditions;
-    private javax.swing.JPopupMenu leaseConditionsPopUp;
+    private org.sola.clients.beans.referencedata.RrrConditionListBean RrrConditions;
+    private javax.swing.JPopupMenu RrrConditionsPopUp;
     private javax.swing.JMenuItem menuAddCustomCondition;
     private javax.swing.JMenuItem menuAddOwner;
     private javax.swing.JMenuItem menuEditCondition;
@@ -1322,7 +1322,7 @@ public class LeasePanel extends ContentPanel {
     private javax.swing.JMenuItem menuViewOwner;
     private javax.swing.JPopupMenu popUpOwners;
     private org.sola.clients.beans.administrative.RrrBean rrrBean;
-    private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableLeaseConditions;
+    private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableRrrConditions;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableOwners;
     private javax.swing.JFormattedTextField txtDueDate;
     private javax.swing.JFormattedTextField txtExpirationDate;

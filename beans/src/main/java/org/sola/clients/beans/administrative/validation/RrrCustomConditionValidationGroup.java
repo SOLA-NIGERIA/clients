@@ -13,17 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sola.clients.beans.referencedata;
+package org.sola.clients.beans.administrative.validation;
 
-import org.sola.clients.beans.AbstractCodeBean;
-
-/**
- * Represents reference data object of the <b>lease_condition</b> table.
- * Could be populated from the {@link LeaseConditionTO} object.<br /> For more
- * information see data dictionary <b>Administrative</b> schema.
- */
-public class LeaseConditionBean extends AbstractCodeBean {
-    public LeaseConditionBean(){
-        super();
-    }
+public interface RrrCustomConditionValidationGroup {
+    
 }

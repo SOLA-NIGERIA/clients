@@ -15,6 +15,6 @@
  */
 package org.sola.clients.beans.administrative.validation;
 
-public interface LeaseCustomConditionValidationGroup {
+public interface RrrConditionValidationGroup {
     
 }

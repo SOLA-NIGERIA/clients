@@ -18,38 +18,38 @@ package org.sola.clients.beans.administrative;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.sola.clients.beans.AbstractIdBean;
-import org.sola.clients.beans.administrative.validation.LeaseConditionValidationGroup;
-import org.sola.clients.beans.administrative.validation.LeaseCustomConditionValidationGroup;
+import org.sola.clients.beans.administrative.validation.RrrConditionValidationGroup;
+import org.sola.clients.beans.administrative.validation.RrrCustomConditionValidationGroup;
 import org.sola.clients.beans.cache.CacheManager;
-import org.sola.clients.beans.referencedata.LeaseConditionBean;
+import org.sola.clients.beans.referencedata.RrrConditionBean;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
-import org.sola.webservices.transferobjects.administrative.LeaseConditionForRrrTO;
+import org.sola.webservices.transferobjects.administrative.ConditionForRrrTO;
 
 /**
  * Contains properties and methods to manage <b>lease_condition_for_rrr</b>
- * object of the domain model. Could be populated from the {@link LeaseConditionForRrrTO}
+ * object of the domain model. Could be populated from the {@link ConditionForRrrTO}
  * object.
  */
-public class LeaseConditionForRrrBean extends AbstractIdBean {
+public class ConditionForRrrBean extends AbstractIdBean {
 
-    public static final String LEASE_CONDITION_PROPERTY = "leaseCondition";
-    public static final String LEASE_CONDITION_CODE_PROPERTY = "leaseConditionCode";
+    public static final String LEASE_CONDITION_PROPERTY = "RrrCondition";
+    public static final String LEASE_CONDITION_CODE_PROPERTY = "RrrConditionCode";
     public static final String CUSTOM_CONDITION_TEXT_PROPERTY = "customConditionText";
     public static final String CONDITION_TEXT_PROPERTY = "conditionText";
     
     public static final String RRR_ID_PROPERTY = "rrrId";
     
-    @NotNull(groups=LeaseConditionValidationGroup.class, 
+    @NotNull(groups=RrrConditionValidationGroup.class, 
             message=ClientMessage.BAUNIT_LEASE_CONDITION_EMPTY, payload=Localized.class)
-    private LeaseConditionBean leaseCondition;
+    private RrrConditionBean RrrCondition;
     
-    @NotEmpty(groups=LeaseCustomConditionValidationGroup.class, 
+    @NotEmpty(groups=RrrCustomConditionValidationGroup.class, 
             message=ClientMessage.BAUNIT_CUSTOM_LEASE_CONDITION_EMTY, payload=Localized.class)
     private String customConditionText;
     private String rrrId;
     
-    public LeaseConditionForRrrBean() {
+    public ConditionForRrrBean() {
         super();
     }
 
@@ -76,7 +76,7 @@ public class LeaseConditionForRrrBean extends AbstractIdBean {
 
     /** Returns true if lease condition is custom. */
     public boolean isCustomCondition(){
-        if(getLeaseConditionCode()==null || getLeaseConditionCode().isEmpty()){
+        if(getRrrConditionCode()==null || getRrrConditionCode().isEmpty()){
             return true;
         }
         return false;
@@ -84,38 +84,38 @@ public class LeaseConditionForRrrBean extends AbstractIdBean {
     
     /** 
      * Returns either standard or custom lease condition text. 
-     * If lease condition code is present the description text of {@link LeaseConditionBean} will be returned.
+     * If lease condition code is present the description text of {@link RrrConditionBean} will be returned.
      * If there is no code, custom condition text will be returned instead.
      */
     public String getConditionText(){
         if(isCustomCondition()){
             return getCustomConditionText();
         } else {
-            return getLeaseCondition().getDescription();
+            return getRrrCondition().getDescription();
         }
     }
     
-    public String getLeaseConditionCode() {
-        if (getLeaseCondition() == null) {
+    public String getRrrConditionCode() {
+        if (getRrrCondition() == null) {
             return null;
         }
-        return getLeaseCondition().getCode();
+        return getRrrCondition().getCode();
     }
 
-    public void setLeaseConditionCode(String leaseConditionCode) {
-        String oldValue = getLeaseConditionCode();
-        setLeaseCondition(CacheManager.getBeanByCode(CacheManager.getLeaseConditions(), leaseConditionCode));
-        propertySupport.firePropertyChange(LEASE_CONDITION_CODE_PROPERTY, oldValue, leaseConditionCode);
+    public void setRrrConditionCode(String RrrConditionCode) {
+        String oldValue = getRrrConditionCode();
+        setRrrCondition(CacheManager.getBeanByCode(CacheManager.getRrrConditions(), RrrConditionCode));
+        propertySupport.firePropertyChange(LEASE_CONDITION_CODE_PROPERTY, oldValue, RrrConditionCode);
     }
 
-    public LeaseConditionBean getLeaseCondition() {
-        return leaseCondition;
+    public RrrConditionBean getRrrCondition() {
+        return RrrCondition;
     }
 
-    public void setLeaseCondition(LeaseConditionBean leaseCondition) {
-        LeaseConditionBean oldValue = this.leaseCondition;
-        this.leaseCondition = leaseCondition;
-        propertySupport.firePropertyChange(LEASE_CONDITION_PROPERTY, oldValue, this.leaseCondition);
+    public void setRrrCondition(RrrConditionBean RrrCondition) {
+        RrrConditionBean oldValue = this.RrrCondition;
+        this.RrrCondition = RrrCondition;
+        propertySupport.firePropertyChange(LEASE_CONDITION_PROPERTY, oldValue, this.RrrCondition);
         propertySupport.firePropertyChange(CONDITION_TEXT_PROPERTY, null, getConditionText());
     }
 }

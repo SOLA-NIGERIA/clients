@@ -203,9 +203,9 @@ public final class CacheManager {
      */
     public static final String LAND_USE_TYPE_CODES_KEY = LandUseTypeBean.class.getName() + LIST_POSTFIX;
     /**
-     * Cache key of the {@link LeaseConditionBean} collection.
+     * Cache key of the {@link RrrConditionBean} collection.
      */
-    public static final String LEASE_CONDITION_CODES_KEY = LeaseConditionBean.class.getName() + LIST_POSTFIX;
+    public static final String LEASE_CONDITION_CODES_KEY = RrrConditionBean.class.getName() + LIST_POSTFIX;
     
      /*
      * DISPUTE
@@ -260,7 +260,7 @@ public final class CacheManager {
     private static final String GET_BR_VALIDATION_TARGET_TYPES = "getBrValidationTargetTypes";
     private static final String GET_BA_UNIT_REL_TYPES = "getBaUnitRelTypes";
     private static final String GET_LAND_USE_TYPES = "getLandUseTypes";
-    private static final String GET_LEASE_CONDITIONS = "getLeaseConditions";
+    private static final String GET_LEASE_CONDITIONS = "getRrrConditions";
     private static final String GET_DISPUTE_CATEGORY = "getDisputeCategory";
     private static final String GET_DISPUTE_STATUS = "getDisputeStatus";
     private static final String GET_DISPUTE_TYPE = "getDisputeType";
@@ -377,8 +377,8 @@ public final class CacheManager {
                 GET_ID_TYPES, ID_TYPE_CODES_KEY);
     }
 
-    public static List<LeaseConditionBean> getLeaseConditions() {
-        return getCachedBeanList(LeaseConditionBean.class,
+    public static List<RrrConditionBean> getRrrConditions() {
+        return getCachedBeanList(RrrConditionBean.class,
                 WSManager.getInstance().getReferenceDataService(),
                 GET_LEASE_CONDITIONS, LEASE_CONDITION_CODES_KEY);
     }

@@ -21,16 +21,16 @@ import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.controls.SolaCodeList;
 
 /**
- * Holds the list of {@link LeaseConditionBean} objects and used to bound the
+ * Holds the list of {@link RrrConditionBean} objects and used to bound the
  * data in the combobox on the forms.
  */
-public class LeaseConditionListBean extends AbstractBindingListBean {
+public class RrrConditionListBean extends AbstractBindingListBean {
     
-    public static final String SELECTED_LEASE_CONDITION_PROPERTY = "selectedLeaseCondition";
-    private SolaCodeList<LeaseConditionBean> leaseConditionList;
-    private LeaseConditionBean selectedLeaseCondition;
+    public static final String SELECTED_LEASE_CONDITION_PROPERTY = "selectedRrrCondition";
+    private SolaCodeList<RrrConditionBean> RrrConditionList;
+    private RrrConditionBean selectedRrrCondition;
     
-    public LeaseConditionListBean(){
+    public RrrConditionListBean(){
         this(false);
     }
 
@@ -38,7 +38,7 @@ public class LeaseConditionListBean extends AbstractBindingListBean {
      * Creates object instance.
      * @param createDummy Indicates whether to add empty object on the list.
      */
-    public LeaseConditionListBean(boolean createDummy) {
+    public RrrConditionListBean(boolean createDummy) {
         this(createDummy, (String) null);
     }
     
@@ -47,34 +47,34 @@ public class LeaseConditionListBean extends AbstractBindingListBean {
      * @param createDummy Indicates whether to add empty object on the list.
      * @param excludedCodes Codes, which should be skipped while filtering.
      */
-    public LeaseConditionListBean(boolean createDummy, String ... excludedCodes) {
+    public RrrConditionListBean(boolean createDummy, String ... excludedCodes) {
         super();
-        leaseConditionList = new SolaCodeList<LeaseConditionBean>(excludedCodes);
+        RrrConditionList = new SolaCodeList<RrrConditionBean>(excludedCodes);
         loadList(createDummy);
     }
     
     /** 
-     * Loads list of {@link LeaseConditionBean}.
+     * Loads list of {@link RrrConditionBean}.
      * @param createDummy Indicates whether to add empty object on the list.
      */
     public final void loadList(boolean createDummy) {
-        loadCodeList(LeaseConditionBean.class, leaseConditionList, 
-                CacheManager.getLeaseConditions(), createDummy);
+        loadCodeList(RrrConditionBean.class, RrrConditionList, 
+                CacheManager.getRrrConditions(), createDummy);
     }
     
-    public ObservableList<LeaseConditionBean> getLeaseConditionList() {
-        return leaseConditionList.getFilteredList();
+    public ObservableList<RrrConditionBean> getRrrConditionList() {
+        return RrrConditionList.getFilteredList();
     }
 
     public void setExcludedCodes(String ... codes){
-        leaseConditionList.setExcludedCodes(codes);
+        RrrConditionList.setExcludedCodes(codes);
     }
     
-    public LeaseConditionBean getSelectedLeaseCondition() {
-        return selectedLeaseCondition;
+    public RrrConditionBean getSelectedRrrCondition() {
+        return selectedRrrCondition;
     }
 
-    public void setSelectedLeaseCondition(LeaseConditionBean selectedLeaseCondition) {
-        this.selectedLeaseCondition = selectedLeaseCondition;
+    public void setSelectedRrrCondition(RrrConditionBean selectedRrrCondition) {
+        this.selectedRrrCondition = selectedRrrCondition;
     }
 }
