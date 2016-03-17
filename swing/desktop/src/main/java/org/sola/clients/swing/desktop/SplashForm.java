@@ -49,30 +49,30 @@ public class SplashForm extends javax.swing.JWindow {
     private String prefix = null;
 
     public SplashForm() {
-        BufferedReader in = null;
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("config/wsconfig"); // NOI18N
-        String url = bundle.getString("SOLA_STATE_SERVLET_SERVICE_URL.text");
-        try {
-            URL oracle = new URL(url);
-            in = new BufferedReader(
-                    new InputStreamReader(oracle.openStream()));
-
-            prefix = in.readLine();
-            System.out.println(prefix);
-
-            in.close();
-        } catch (IOException ex) {
-            Logger.getLogger(SplashForm.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                in.close();
-            } catch (IOException ex) {
-                Logger.getLogger(SplashForm.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//        BufferedReader in = null;
+//        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("config/wsconfig"); // NOI18N
+//        String url = bundle.getString("SOLA_STATE_SERVLET_SERVICE_URL.text");
+//        try {
+//            URL oracle = new URL(url);
+//            in = new BufferedReader(
+//                    new InputStreamReader(oracle.openStream()));
+//
+//            prefix = in.readLine();
+//            System.out.println(prefix);
+//
+//            in.close();
+//        } catch (IOException ex) {
+//            Logger.getLogger(SplashForm.class.getName()).log(Level.SEVERE, null, ex);
+//        } finally {
+//            try {
+//                in.close();
+//            } catch (IOException ex) {
+//                Logger.getLogger(SplashForm.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
         initComponents();
         imageSplash = new ImageIcon(SplashForm.class.getResource(
-                "/images/sola/" + prefix + "splash_desktop_a.png"));
+                "/images/sola/splash_desktop_a.png"));
         lblSplash.setIcon(imageSplash);
 
     }

@@ -13,7 +13,7 @@
         <table width="80%" cellspacing="0" cellpadding="3">
             <tr>
                 <td colspan="2">  
-                    <h1><img src="Images/SolaLogo.png"/>Welcome to the download for the SOLA Web Start applications.</h1>
+                    <h1><img src="Images/SolaLogo.png"/> Welcome to the download for the SOLA Web Start applications.</h1>
                 </td>
             </tr>
             <tr>
