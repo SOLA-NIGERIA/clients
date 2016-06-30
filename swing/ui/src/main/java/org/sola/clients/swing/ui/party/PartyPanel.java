@@ -409,6 +409,9 @@ public class PartyPanel extends javax.swing.JPanel {
         menuRemoveRole = new javax.swing.JMenuItem();
         genderTypes = createGenderTypes();
         stateTypes = new org.sola.clients.beans.referencedata.StateTypeListBean();
+        entityButton = new javax.swing.JRadioButton();
+        individualButton = new javax.swing.JRadioButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
         detailsPanel = new javax.swing.JTabbedPane();
         basicPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -485,8 +488,6 @@ public class PartyPanel extends javax.swing.JPanel {
         labPreferredWay = new javax.swing.JLabel();
         cbxCommunicationWay = new javax.swing.JComboBox();
         groupPanel2 = new org.sola.clients.swing.ui.GroupPanel();
-        entityButton = new javax.swing.JRadioButton();
-        individualButton = new javax.swing.JRadioButton();
 
         buttonGroup1.add(individualButton);
         buttonGroup1.add(entityButton);
@@ -506,6 +507,28 @@ public class PartyPanel extends javax.swing.JPanel {
 
         setMinimumSize(new java.awt.Dimension(300, 200));
         setName("Form"); // NOI18N
+
+        buttonGroup1.add(entityButton);
+        entityButton.setText(bundle.getString("PartyPanel.entityButton.text")); // NOI18N
+        entityButton.setActionCommand(bundle.getString("PartyPanel.entityButton.actionCommand")); // NOI18N
+        entityButton.setName("entityButton"); // NOI18N
+        entityButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                entityButtonActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(individualButton);
+        individualButton.setText(bundle.getString("PartyPanel.individualButton.text")); // NOI18N
+        individualButton.setActionCommand(bundle.getString("PartyPanel.individualButton.actionCommand")); // NOI18N
+        individualButton.setName("individualButton"); // NOI18N
+        individualButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                individualButtonActionPerformed(evt);
+            }
+        });
+
+        jScrollPane1.setName("jScrollPane1"); // NOI18N
 
         detailsPanel.setFont(new java.awt.Font("Thaoma", 0, 12));
         detailsPanel.setName("detailsPanel"); // NOI18N
@@ -530,7 +553,9 @@ public class PartyPanel extends javax.swing.JPanel {
         bindingGroup.addBinding(binding);
 
         roleTableScrollPanel.setViewportView(tablePartyRole);
-        tablePartyRole.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("PartyPanel.tablePartyRole.columnModel.title0_1")); // NOI18N
+        if (tablePartyRole.getColumnModel().getColumnCount() > 0) {
+            tablePartyRole.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("PartyPanel.tablePartyRole.columnModel.title0_1")); // NOI18N
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -568,8 +593,8 @@ public class PartyPanel extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labName, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-            .addComponent(txtFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+            .addComponent(labName, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+            .addComponent(txtFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -600,8 +625,8 @@ public class PartyPanel extends javax.swing.JPanel {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-            .addComponent(txtLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+            .addComponent(labLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+            .addComponent(txtLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -635,8 +660,8 @@ public class PartyPanel extends javax.swing.JPanel {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblGender, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-            .addComponent(cbxGender, 0, 181, Short.MAX_VALUE)
+            .addComponent(lblGender, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+            .addComponent(cbxGender, 0, 171, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -679,7 +704,7 @@ public class PartyPanel extends javax.swing.JPanel {
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel19Layout.createSequentialGroup()
                         .addComponent(lbDob)
-                        .addGap(0, 96, Short.MAX_VALUE))
+                        .addGap(0, 86, Short.MAX_VALUE))
                     .addGroup(jPanel19Layout.createSequentialGroup()
                         .addComponent(txtDob)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -736,9 +761,9 @@ public class PartyPanel extends javax.swing.JPanel {
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel20Layout.createSequentialGroup()
                         .addComponent(lbNationality)
-                        .addGap(0, 106, Short.MAX_VALUE))
+                        .addGap(0, 96, Short.MAX_VALUE))
                     .addComponent(txtNationality, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbxNationality, javax.swing.GroupLayout.Alignment.LEADING, 0, 171, Short.MAX_VALUE))
+                    .addComponent(cbxNationality, javax.swing.GroupLayout.Alignment.LEADING, 0, 161, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel20Layout.setVerticalGroup(
@@ -782,11 +807,11 @@ public class PartyPanel extends javax.swing.JPanel {
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtState, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+            .addComponent(txtState, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addComponent(lbState)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(cbxState, 0, 181, Short.MAX_VALUE)
+            .addComponent(cbxState, 0, 171, Short.MAX_VALUE)
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -818,8 +843,8 @@ public class PartyPanel extends javax.swing.JPanel {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-            .addComponent(txtAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+            .addComponent(labAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+            .addComponent(txtAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -851,8 +876,8 @@ public class PartyPanel extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labIdType, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-            .addComponent(cbxIdType, 0, 181, Short.MAX_VALUE)
+            .addComponent(labIdType, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+            .addComponent(cbxIdType, 0, 171, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -879,8 +904,8 @@ public class PartyPanel extends javax.swing.JPanel {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labIdref, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-            .addComponent(txtIdref, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+            .addComponent(labIdref, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+            .addComponent(txtIdref, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1032,8 +1057,8 @@ public class PartyPanel extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(labFatherFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
-            .addComponent(txtFatherFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addContainerGap(46, Short.MAX_VALUE))
+            .addComponent(txtFatherFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1062,8 +1087,8 @@ public class PartyPanel extends javax.swing.JPanel {
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addComponent(labFatherLastName)
-                .addContainerGap(100, Short.MAX_VALUE))
-            .addComponent(txtFatherLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addContainerGap(90, Short.MAX_VALUE))
+            .addComponent(txtFatherLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1092,8 +1117,8 @@ public class PartyPanel extends javax.swing.JPanel {
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addComponent(labAlias)
-                .addContainerGap(159, Short.MAX_VALUE))
-            .addComponent(txtAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addContainerGap(149, Short.MAX_VALUE))
+            .addComponent(txtAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1129,8 +1154,8 @@ public class PartyPanel extends javax.swing.JPanel {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addComponent(labPhone)
-                .addContainerGap(151, Short.MAX_VALUE))
-            .addComponent(txtPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addContainerGap(141, Short.MAX_VALUE))
+            .addComponent(txtPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1159,8 +1184,8 @@ public class PartyPanel extends javax.swing.JPanel {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addComponent(labMobile)
-                .addContainerGap(151, Short.MAX_VALUE))
-            .addComponent(txtMobile, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addContainerGap(141, Short.MAX_VALUE))
+            .addComponent(txtMobile, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1192,8 +1217,8 @@ public class PartyPanel extends javax.swing.JPanel {
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addComponent(labFax)
-                .addContainerGap(163, Short.MAX_VALUE))
-            .addComponent(txtFax, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addContainerGap(153, Short.MAX_VALUE))
+            .addComponent(txtFax, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1225,8 +1250,8 @@ public class PartyPanel extends javax.swing.JPanel {
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addComponent(labEmail)
-                .addContainerGap(153, Short.MAX_VALUE))
-            .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addContainerGap(143, Short.MAX_VALUE))
+            .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1262,7 +1287,7 @@ public class PartyPanel extends javax.swing.JPanel {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addComponent(labPreferredWay)
-                .addGap(0, 62, Short.MAX_VALUE))
+                .addGap(0, 52, Short.MAX_VALUE))
             .addComponent(cbxCommunicationWay, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
@@ -1306,36 +1331,21 @@ public class PartyPanel extends javax.swing.JPanel {
 
         detailsPanel.addTab(bundle.getString("PartyPanel.fullPanel.TabConstraints.tabTitle"), fullPanel); // NOI18N
 
-        buttonGroup1.add(entityButton);
-        entityButton.setText(bundle.getString("PartyPanel.entityButton.text")); // NOI18N
-        entityButton.setActionCommand(bundle.getString("PartyPanel.entityButton.actionCommand")); // NOI18N
-        entityButton.setName("entityButton"); // NOI18N
-        entityButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                entityButtonActionPerformed(evt);
-            }
-        });
-
-        buttonGroup1.add(individualButton);
-        individualButton.setText(bundle.getString("PartyPanel.individualButton.text")); // NOI18N
-        individualButton.setActionCommand(bundle.getString("PartyPanel.individualButton.actionCommand")); // NOI18N
-        individualButton.setName("individualButton"); // NOI18N
-        individualButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                individualButtonActionPerformed(evt);
-            }
-        });
+        jScrollPane1.setViewportView(detailsPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(individualButton)
-                .addGap(10, 10, 10)
-                .addComponent(entityButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(individualButton)
+                        .addGap(10, 10, 10)
+                        .addComponent(entityButton)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
-            .addComponent(detailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1344,7 +1354,7 @@ public class PartyPanel extends javax.swing.JPanel {
                     .addComponent(individualButton)
                     .addComponent(entityButton))
                 .addGap(7, 7, 7)
-                .addComponent(detailsPanel))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
@@ -1466,6 +1476,7 @@ public class PartyPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar4;
     private javax.swing.JLabel labAddress;
