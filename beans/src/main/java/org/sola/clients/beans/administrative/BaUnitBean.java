@@ -214,7 +214,7 @@ public class BaUnitBean extends BaUnitSummaryBean {
     private boolean isDeveloped;
     private Integer yearsForDev;
     private BigDecimal valueToImp;
-    private Integer term;
+    private Integer term = 99;
     private LandUseTypeBean landUseType;
     private String landUse;
     private String location;
