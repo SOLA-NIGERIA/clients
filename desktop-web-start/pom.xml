@@ -80,9 +80,9 @@
                     <templateDirectory>${project.basedir}/template</templateDirectory>
                     <updateManifestEntries>
                         <Permissions>all-permissions</Permissions>
-                        <Codebase>*.localhost *.flossola.org *.solaproduction *.solatest</Codebase>
+                        <Codebase>*.localhost *.flossola.org *.solaproduction *.solatest *.solaproduction- *.192.168.0.8</Codebase>
                         <Application-Name>SOLA Nigeria</Application-Name>
-                        <Application-Library-Allowable-Codebase>*.localhost *.flossola.org *.solaproduction *.solatest</Application-Library-Allowable-Codebase>
+                        <Application-Library-Allowable-Codebase>*.localhost *.flossola.org *.solaproduction *.solatest *.solaproduction- *.192.168.0.8</Application-Library-Allowable-Codebase>
                     </updateManifestEntries>
                <libPath>lib</libPath>
                     <!-- 1 Dec 2014 - The pack200 option was updated in version 1.0-beta-4 of the
