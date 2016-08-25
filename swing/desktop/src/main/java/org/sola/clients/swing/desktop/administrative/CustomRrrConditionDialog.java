@@ -58,30 +58,32 @@ public class CustomRrrConditionDialog extends javax.swing.JDialog {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jToolBar1 = new javax.swing.JToolBar();
-        btnSave = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle"); // NOI18N
-        setTitle(bundle.getString("CustomRrrConditionDialog.title")); // NOI18N
+        setTitle(bundle.getString("CustomLeaseConditionDialog.title")); // NOI18N
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/save.png"))); // NOI18N
-        btnSave.setText(bundle.getString("CustomRrrConditionDialog.btnSave.text")); // NOI18N
-        btnSave.setFocusable(false);
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/save.png"))); // NOI18N
+        jButton1.setText(bundle.getString("CustomRrrConditionDialog.jButton1.text")); // NOI18N
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnSave);
+        jToolBar1.add(jButton1);
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${RrrCondition.customConditionText}"), jTextArea1, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${leaseCondition.customConditionText}"), jTextArea1, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
         jScrollPane2.setViewportView(jTextArea1);
@@ -110,12 +112,12 @@ public class CustomRrrConditionDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         save();
-    }//GEN-LAST:event_btnSaveActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSave;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JToolBar jToolBar1;

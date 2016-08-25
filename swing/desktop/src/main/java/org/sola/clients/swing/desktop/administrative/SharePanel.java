@@ -72,6 +72,7 @@ public class SharePanel extends ContentPanel {
     private RrrBean.RRR_ACTION rrrAction;
     public static final String UPDATED_RRR_SHARE = "updatedRrrShare";
     public String address = "";
+    private ApplicationBean applicationBean;
     public SharePanel(RrrShareBean rrrShareBean, RrrBean.RRR_ACTION rrrAction) {
         this.rrrAction = rrrAction;
         prepareRrrShareBean(rrrShareBean);
@@ -100,6 +101,7 @@ public class SharePanel extends ContentPanel {
 
     public SharePanel(RrrShareBean rrrShareBean, RrrBean.RRR_ACTION rrrAction, ApplicationServiceBean applicationService, ApplicationBean applicationBean, RrrBean rrrBean) {
         this.rrrAction = rrrAction;
+        this.applicationBean = applicationBean;
         prepareRrrShareBean(rrrShareBean);
         this.address = applicationBean.getContactPerson().getAddress().getDescription().toString();
         initComponents();
@@ -127,6 +129,7 @@ public class SharePanel extends ContentPanel {
         saveRrrShareState();
     }
     public SharePanel(RrrShareBean rrrShareBean, RrrBean.RRR_ACTION rrrAction, ApplicationServiceBean applicationService, ApplicationBean applicationBean, RrrBean rrrBean, String ShareType) {
+        this.applicationBean = applicationBean;
         this.rrrAction = rrrAction;
         prepareRrrShareBean(rrrShareBean);
         this.address = applicationBean.getContactPerson().getAddress().getDescription().toString();
@@ -262,6 +265,7 @@ public class SharePanel extends ContentPanel {
     private void openRightHolderForm(final PartySummaryBean partySummaryBean, final boolean isReadOnly) {
         final RightHolderFormListener listener = new RightHolderFormListener();
         final String address = this.address;
+        final ApplicationBean application = this.applicationBean;
         SolaTask t = new SolaTask<Void, Void>() {
 
             @Override
@@ -270,9 +274,9 @@ public class SharePanel extends ContentPanel {
                 PartyPanelForm partyForm;
 
                 if (partySummaryBean != null) {
-                    partyForm = new PartyPanelForm(true, partySummaryBean, isReadOnly, true);
+                    partyForm = new PartyPanelForm(true, partySummaryBean, isReadOnly, true, application);
                 } else {
-                    partyForm = new PartyPanelForm(true, null, isReadOnly, true, true, address);
+                    partyForm = new PartyPanelForm(true, null, isReadOnly, true, true, address, application);
                 }
                 partyForm.addPropertyChangeListener(listener);
                 getMainContentPanel().addPanel(partyForm, MainContentPanel.CARD_PERSON, true);

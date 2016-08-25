@@ -200,7 +200,7 @@
 					<font fontName="Myriad Pro" size="16" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA["The area of the land in red above is approximately "+$P{SIZE}+" square metres"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["The area of the land in red above is "+$P{SIZE}+" square metres"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement mode="Transparent" x="0" y="453" width="595" height="20" forecolor="#000000" backcolor="#FFFFFF"/>

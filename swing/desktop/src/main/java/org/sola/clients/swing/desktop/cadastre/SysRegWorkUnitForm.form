@@ -18,6 +18,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -149,7 +150,7 @@
           <Properties>
             <Property name="floatable" type="boolean" value="false"/>
             <Property name="rollover" type="boolean" value="true"/>
-            <Property name="name" type="java.lang.String" value="srwuToolBar"/>
+            <Property name="name" type="java.lang.String" value="srwuToolBar" noResource="true"/>
           </Properties>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
@@ -226,7 +227,7 @@
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Sltr Office">
+                        <TitledBorder title="SLTR Office">
                           <Color PropertyName="color" blue="80" green="80" id="gray" palette="1" red="80" type="palette"/>
                         </TitledBorder>
                       </Border>
@@ -633,7 +634,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel11">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Completed PD"/>
+                    <Property name="text" type="java.lang.String" value="Completed SLTR Claims"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtGeneratedCofO">

@@ -26,6 +26,7 @@
                             <CssParameter name="font-size">13</CssParameter>
                             <CssParameter name="font-style">normal</CssParameter>
                             <CssParameter name="font-weight">normal</CssParameter>
+                            <CssParameter name="font-color">#FF7F50</CssParameter>
                         </Font>
                         <LabelPlacement>
                             <PointPlacement>
@@ -36,7 +37,7 @@
                             </PointPlacement>
                         </LabelPlacement>
                         <Fill>
-                            <CssParameter name="fill">#000000</CssParameter>
+                            <CssParameter name="fill">#FF7F50</CssParameter>
                         </Fill>
                     </TextSymbolizer>
                 </Rule>

@@ -97,7 +97,11 @@ public class LeasePanel extends ContentPanel {
         }
         return rrrBean;
     }
-    
+
+    public LeasePanel(BaUnitBean baUnit, RrrBean rrrBean, RrrBean.RRR_ACTION rrrAction) {
+        this(baUnit, rrrBean, null, null, rrrAction);
+    }
+
     /**
      * Creates new form SimpleOwhershipPanel
      */
@@ -304,7 +308,7 @@ public class LeasePanel extends ContentPanel {
     
     private void openRightHolderForm(final PartySummaryBean partySummaryBean, final boolean isReadOnly) {
         final RightHolderFormListener listener = new RightHolderFormListener();
-
+        final ApplicationBean application = this.applicationBean;
         SolaTask t = new SolaTask<Void, Void>() {
             @Override
             public Void doTask() {
@@ -312,9 +316,9 @@ public class LeasePanel extends ContentPanel {
                 PartyPanelForm partyForm;
 
                 if (partySummaryBean != null) {
-                    partyForm = new PartyPanelForm(true, partySummaryBean, isReadOnly, true);
+                    partyForm = new PartyPanelForm(true, partySummaryBean, isReadOnly, true, application);
                 } else {
-                    partyForm = new PartyPanelForm(true, null, isReadOnly, true);
+                    partyForm = new PartyPanelForm(true, null, isReadOnly, true, application);
                 }
                 partyForm.addPropertyChangeListener(listener);
                 getMainContentPanel().addPanel(partyForm, MainContentPanel.CARD_PERSON, true);

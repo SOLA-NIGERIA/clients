@@ -30,6 +30,7 @@
 package org.sola.clients.swing.desktop.party;
 
 import java.util.ResourceBundle;
+import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.beans.referencedata.PartyRoleTypeBean;
@@ -54,6 +55,7 @@ public class PartyPanelForm extends ContentPanel {
     private PartyBean partyBean;
     private ResourceBundle resourceBundle;
     private String address="";
+    public ApplicationBean applicationBean;
 
     /**
      * Default form constructor.
@@ -158,10 +160,11 @@ public class PartyPanelForm extends ContentPanel {
      * takes place.
      */
     public PartyPanelForm(boolean savePartyOnAction, PartySummaryBean partySummaryBean,
-            boolean readOnly, boolean closeOnSave) {
+            boolean readOnly, boolean closeOnSave, ApplicationBean application) {
         this.savePartyOnAction = savePartyOnAction;
         this.closeOnSave = closeOnSave;
         this.readOnly = readOnly;
+        this.applicationBean = application;
         resourceBundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/party/Bundle");
         if (partySummaryBean != null) {
             this.partyBean = partySummaryBean.getPartyBean();
@@ -188,7 +191,8 @@ public class PartyPanelForm extends ContentPanel {
      * takes place.
      */
     public PartyPanelForm(boolean savePartyOnAction, PartySummaryBean partySummaryBean,
-            boolean readOnly, boolean closeOnSave, boolean importAddress, String address) {
+            boolean readOnly, boolean closeOnSave, boolean importAddress, String address, ApplicationBean application) {
+        this.applicationBean = application;
         this.savePartyOnAction = savePartyOnAction;
         this.closeOnSave = closeOnSave;
         this.readOnly = readOnly;
@@ -242,7 +246,7 @@ public class PartyPanelForm extends ContentPanel {
 
     private org.sola.clients.swing.ui.party.PartyPanel createPartyPanel() {
         org.sola.clients.swing.ui.party.PartyPanel panel;
-        panel = new org.sola.clients.swing.ui.party.PartyPanel(partyBean, readOnly);
+        panel = new org.sola.clients.swing.ui.party.PartyPanel(partyBean, readOnly, this.applicationBean);
         return panel;
     }
 
