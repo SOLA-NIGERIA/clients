@@ -173,7 +173,7 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
         jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Public Display area Details");
+        setTitle("Public Display Area Details");
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/reports/Bundle"); // NOI18N
         cadastreObjectSearch.setText(bundle.getString("SysRegListingParamsForm.cadastreObjectSearch.text")); // NOI18N
@@ -216,7 +216,7 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
 
         srwuToolBar.setFloatable(false);
         srwuToolBar.setRollover(true);
-        srwuToolBar.setName("srwuToolBar");
+        srwuToolBar.setName("srwuToolBar"); // NOI18N
 
         btnSave1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnSave1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -235,7 +235,7 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
 
         panelManuallyEntered.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        panelSltrOffice.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sltr Office", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.gray));
+        panelSltrOffice.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "SLTR Office", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.gray));
 
         jLabel7.setText("Scanned Demarcation");
 
@@ -428,7 +428,7 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
 
         txtCompletedPD.setEnabled(false);
 
-        jLabel11.setText("Completed PD");
+        jLabel11.setText("Completed SLTR Claims");
 
         txtGeneratedCofO.setEnabled(false);
 

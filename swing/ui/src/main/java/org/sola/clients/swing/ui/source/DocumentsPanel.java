@@ -126,6 +126,7 @@ public class DocumentsPanel extends javax.swing.JPanel {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(SourceListBean.SELECTED_SOURCE_PROPERTY)) {
+                    System.out.println("QUI evt.getNewValue() in DOCUMENTSPANEL  "+evt.getNewValue());
                     firePropertyChange(SELECTED_SOURCE, null, evt.getNewValue());
                 }
             }
@@ -260,16 +261,18 @@ public class DocumentsPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tableDocuments);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/ui/source/Bundle"); // NOI18N
-        tableDocuments.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("DocumentsPanel.tableDocuments.columnModel.title0_1")); // NOI18N
-        tableDocuments.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("DocumentsPanel.tableDocuments.columnModel.title1_1")); // NOI18N
-        tableDocuments.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("DocumentsPanel.tableDocuments.columnModel.title3_1")); // NOI18N
-        tableDocuments.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("DocumentsPanel.tableDocuments.columnModel.title2_1")); // NOI18N
-        tableDocuments.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("DocumentsPanel.tableDocuments.columnModel.title4")); // NOI18N
-        tableDocuments.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("DocumentsPanel.tableDocuments.columnModel.title5")); // NOI18N
-        tableDocuments.getColumnModel().getColumn(6).setPreferredWidth(30);
-        tableDocuments.getColumnModel().getColumn(6).setMaxWidth(30);
-        tableDocuments.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("DocumentsPanel.tableDocuments.columnModel.title6")); // NOI18N
-        tableDocuments.getColumnModel().getColumn(6).setCellRenderer(new AttachedDocumentCellRenderer());
+        if (tableDocuments.getColumnModel().getColumnCount() > 0) {
+            tableDocuments.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("DocumentsPanel.tableDocuments.columnModel.title0_1")); // NOI18N
+            tableDocuments.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("DocumentsPanel.tableDocuments.columnModel.title1_1")); // NOI18N
+            tableDocuments.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("DocumentsPanel.tableDocuments.columnModel.title3_1")); // NOI18N
+            tableDocuments.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("DocumentsPanel.tableDocuments.columnModel.title2_1")); // NOI18N
+            tableDocuments.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("DocumentsPanel.tableDocuments.columnModel.title4")); // NOI18N
+            tableDocuments.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("DocumentsPanel.tableDocuments.columnModel.title5")); // NOI18N
+            tableDocuments.getColumnModel().getColumn(6).setPreferredWidth(30);
+            tableDocuments.getColumnModel().getColumn(6).setMaxWidth(30);
+            tableDocuments.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("DocumentsPanel.tableDocuments.columnModel.title6")); // NOI18N
+            tableDocuments.getColumnModel().getColumn(6).setCellRenderer(new AttachedDocumentCellRenderer());
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

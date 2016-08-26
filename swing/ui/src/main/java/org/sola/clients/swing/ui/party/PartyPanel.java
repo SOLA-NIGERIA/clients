@@ -66,7 +66,7 @@ public class PartyPanel extends javax.swing.JPanel {
     private boolean readOnly = false;
     private AddDocumentForm applicationDocumentsForm;
     private ApplicationBean applicationBean;
-    
+    public static final String VIEW_DOCUMENT = "viewDocument";
    
 
     /** Default form constructor. */
@@ -109,6 +109,40 @@ public class PartyPanel extends javax.swing.JPanel {
         customizeAddRoleButton(null);
         customizeRoleButtons(null);
     }
+    
+    
+      /** 
+     * Form constructor. 
+     * @param savePartyOnAction Boolean flag to indicate whether to save party 
+     * when Save button is clicked.
+     * @param partyBean {@link PartyBean} instance to display.
+     * @param readOnly Indicates whether to allow any changes on the form.
+     */
+    public PartyPanel(PartyBean partyBean, boolean readOnly, ApplicationBean application) {
+        this.applicationBean = application;
+        this.partyBean = partyBean;
+        this.readOnly = readOnly;
+        initComponents();
+        setupPartyBean(partyBean);
+       
+        this.partyRoleTypes.addPropertyChangeListener(new PropertyChangeListener() {
+
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals(PartyRoleTypeListBean.SELECTED_PARTYROLETYPE_PROPERTY)) {
+                    customizeAddRoleButton((PartyRoleTypeBean) evt.getNewValue());
+                }
+            }
+        });
+         
+        this.txtNationality.setVisible(false);
+        this.txtState.setVisible(false);
+        
+        customizeAddRoleButton(null);
+        customizeRoleButtons(null);
+    }
+  
+    
     
        /**
      * Enables or disables paper title buttons, depending on the form state.
@@ -342,8 +376,21 @@ public class PartyPanel extends javax.swing.JPanel {
         } else {
             panel = new DocumentsPanel();
         }
+//         panel.getSourceListBean().addPropertyChangeListener(new PropertyChangeListener() {
+//            @Override
+//            public void propertyChange(PropertyChangeEvent evt) {
+//                System.out.println("QUI evt.getNewValue() in PARTYPANEL  "+evt.getPropertyName());
+//                    
+//                if(evt.getPropertyName().equals(SourceListBean.SELECTED_SOURCE_PROPERTY)){
+////                    customizeButtons((SourceBean)evt.getNewValue());
+//                }
+//            }
+//        });
+        
+        
         return panel;
     }
+    
     
      /**
      * Links document as a paper title on the BaUnit object.
@@ -370,28 +417,44 @@ public class PartyPanel extends javax.swing.JPanel {
                         && e.getNewValue() != null) {
                     document = (SourceBean) e.getNewValue();
                     partyBean.createPaperTitle(document);
+                    attachDocument(e);
                 }
+                
+                if(e.getPropertyName().equals(VIEW_DOCUMENT)) {
+                   final SourceBean source = (SourceBean) e.getNewValue(); 
+                   source.openDocument();  
+                }
+                
             }
         };
-        
+                    
+                    
         applicationDocumentsForm = new AddDocumentForm(applicationBean, null, true);
         applicationDocumentsForm.setLocationRelativeTo(this);
-        applicationDocumentsForm.addPropertyChangeListener(
-                SourceListBean.SELECTED_SOURCE_PROPERTY, listener);
+        applicationDocumentsForm.addPropertyChangeListener(SourceListBean.SELECTED_SOURCE_PROPERTY, listener);
         applicationDocumentsForm.setVisible(true);
-        applicationDocumentsForm.removePropertyChangeListener(
-                SourceListBean.SELECTED_SOURCE_PROPERTY, listener);
+        applicationDocumentsForm.allowAddingOfNewDocuments(true);
+        applicationDocumentsForm.removePropertyChangeListener(SourceListBean.SELECTED_SOURCE_PROPERTY, listener);
     }
 
-    
+     /** Attach file to the selected source. */
+    private void attachDocument(PropertyChangeEvent e) {
+        SourceBean document = null;
+        if (e.getPropertyName().equals(AddDocumentForm.SELECTED_SOURCE)
+                && e.getNewValue() != null) {
+            document = (SourceBean) e.getNewValue();
+            documentsPanel1.addDocument(document);
+        }
+    }
     
      /**
      * Opens paper title attachment.
      */
     private void viewDocument() {
-        
         if (documentsPanel1.getSourceListBean().getSelectedSource() != null) {
-            documentsPanel1.getSourceListBean().getSelectedSource().openDocument();
+//            documentsPanel1.getSourceListBean().getSelectedSource().openDocument();
+            documentsPanel1.viewAttachment();
+//            firePropertyChange(VIEW_DOCUMENT, null, documentsPanel1.getSourceListBean().getSelectedSource());
         }
     }
     

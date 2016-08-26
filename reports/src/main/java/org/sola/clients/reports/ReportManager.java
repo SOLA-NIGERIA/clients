@@ -472,7 +472,7 @@ public class ReportManager {
         
         location = location.substring(location.indexOf("/")+1);
         String tmpLocation =  location.substring(location.indexOf("/")+1);
-        String lga = location.replace("/"+tmpLocation, " Lga");
+        String lga = location.replace("/"+tmpLocation, " LGA");
         String section = tmpLocation.substring(tmpLocation.indexOf("/")+1);
         String ward = tmpLocation.replace("/"+section, ", ");
         location = "PD Area "+section+", Ward "+ward+lga+" ( "+upiCode+" )";
@@ -515,7 +515,7 @@ public class ReportManager {
 //        String logoImage = "/images/sola/logoMinistry.png";
         location = location.substring(location.indexOf("/")+1);
         String tmpLocation =  location.substring(location.indexOf("/")+1);
-        String lga = location.replace("/"+tmpLocation, " Lga");
+        String lga = location.replace("/"+tmpLocation, " LGA");
         String section = tmpLocation.substring(tmpLocation.indexOf("/")+1);
         String ward = tmpLocation.replace("/"+section, ", ");
         location = "PD Area "+section+", Ward "+ward+lga+" ( "+upiCode+" )";
@@ -596,7 +596,7 @@ public class ReportManager {
         Integer i = signingList.getSigningList().size();
         location = upiCode.substring(upiCode.indexOf("/")+1);
         String tmpLocation =  location.substring(location.indexOf("/")+1);
-        String lga = location.replace("/"+tmpLocation, " Lga");
+        String lga = location.replace("/"+tmpLocation, " LGA");
         String section = tmpLocation.substring(tmpLocation.indexOf("/")+1);
         String ward = tmpLocation.replace("/"+section, ", ");
         location = "Section "+section+", Ward "+ward+lga+" ( "+upiCode+" )";
@@ -608,7 +608,7 @@ public class ReportManager {
         inputParameters.put("LOCATION", location);
         inputParameters.put("MINISTRY_LOGO", ReportManager.class.getResourceAsStream(logoImage));
         inputParameters.put("STATE", getPrefix ());
-        inputParameters.put("LGA", lga.replace("Lga", ""));
+        inputParameters.put("LGA", lga.replace("LGA", ""));
         inputParameters.put("WARD", ward);
         inputParameters.put("SECTION", section);
         inputParameters.put("RECORDS", i);
@@ -619,7 +619,8 @@ public class ReportManager {
         JRDataSource jds = new JRBeanArrayDataSource(beans);
         
         String pdReport = null;
-        pdReport = "/reports/SysRegSigningList.jasper"; 
+        pdReport = "/"+getPrefix ()+"/SysRegSigningList.jasper"; 
+//        pdReport = "/reports/SysRegSigningList.jasper"; 
       
         
         try {

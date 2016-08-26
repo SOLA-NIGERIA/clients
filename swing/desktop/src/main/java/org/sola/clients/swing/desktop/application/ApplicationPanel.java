@@ -3439,7 +3439,7 @@ public class ApplicationPanel extends ContentPanel {
 
     private void openAutRepForm(final PartySummaryBean partySummaryBean, final boolean isReadOnly) {
         final AutRepFormListener listener = new AutRepFormListener();
-
+        final ApplicationBean application = this.appBean;
         SolaTask t = new SolaTask<Void, Void>() {
 
             @Override
@@ -3448,7 +3448,7 @@ public class ApplicationPanel extends ContentPanel {
                 PartyPanelForm partyForm;
 
                 if (partySummaryBean != null) {
-                    partyForm = new PartyPanelForm(true, partySummaryBean, isReadOnly, true);
+                    partyForm = new PartyPanelForm(true, partySummaryBean, isReadOnly, true, application);
                 } else {
                     partyForm = new PartyPanelForm(true, null, isReadOnly, true, PartyRoleTypeBean.DISP_AUTH_REP);
                 }

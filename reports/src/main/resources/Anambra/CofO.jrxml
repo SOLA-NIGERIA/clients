@@ -449,7 +449,7 @@ Given under my hand on:
 						<font fontName="Myriad Pro" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Approximate Area (in square metres): "]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Area (in square metres): "]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
 					<reportElement positionType="Float" mode="Transparent" x="266" y="85" width="267" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -567,7 +567,7 @@ Given under my hand on:
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
 								<reportElement x="0" y="0" width="479" height="20">
-									<printWhenExpression><![CDATA[!$F{Notation Text}.equals( "Certificate of Occupancy issued at the completion of systematic land registration titling" )&&($F{Notation Text}.contains( "Mortage")||$F{Notation Text}.contains( "Lease" )||$F{Notation Text}.contains( "Access" )||$F{Notation Text}.contains( "Water" )||$F{Notation Text}.contains( "Caveat" )||$F{Notation Text}.contains( "Road" )||$F{Notation Text}.contains( "Lien" )||$F{Notation Text}.contains( "Occupation" ))]]></printWhenExpression>
+									<printWhenExpression><![CDATA[!$F{Notation Text}.equals( "Certificate of Occupancy issued at the completion of Systematic Land Title Registration" )&&($F{Notation Text}.contains( "Mortage")||$F{Notation Text}.contains( "Lease" )||$F{Notation Text}.contains( "Access" )||$F{Notation Text}.contains( "Water" )||$F{Notation Text}.contains( "Caveat" )||$F{Notation Text}.contains( "Road" )||$F{Notation Text}.contains( "Lien" )||$F{Notation Text}.contains( "Occupation" ))]]></printWhenExpression>
 								</reportElement>
 								<textElement>
 									<font fontName="Myriad Pro" size="11"/>

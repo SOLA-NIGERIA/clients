@@ -251,6 +251,7 @@ public class SimpleRightholderPanel extends ContentPanel {
     }
     
     private void openRightHolderForm(final PartySummaryBean partySummaryBean, final boolean isReadOnly) {
+        final ApplicationBean application = this.applicationBean;
         final RightHolderFormListener listener = new RightHolderFormListener();
 
         SolaTask t = new SolaTask<Void, Void>() {
@@ -260,9 +261,9 @@ public class SimpleRightholderPanel extends ContentPanel {
                 PartyPanelForm partyForm;
 
                 if (partySummaryBean != null) {
-                    partyForm = new PartyPanelForm(true, partySummaryBean, isReadOnly, true);
+                    partyForm = new PartyPanelForm(true, partySummaryBean, isReadOnly, true, application);
                 } else {
-                    partyForm = new PartyPanelForm(true, null, isReadOnly, true);
+                    partyForm = new PartyPanelForm(true, null, isReadOnly, true, application);
                 }
                 partyForm.addPropertyChangeListener(listener);
                 getMainContentPanel().addPanel(partyForm, MainContentPanel.CARD_PERSON, true);
