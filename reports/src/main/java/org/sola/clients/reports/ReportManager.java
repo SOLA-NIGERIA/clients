@@ -1212,4 +1212,9 @@ public class ReportManager {
         }
     }
     
+    public static String getSettingValue(String setting) {
+        String settingValue;
+        settingValue = WSManager.getInstance().getInstance().getAdminService().getSetting(setting, "");
+        return settingValue;
+    }
 }

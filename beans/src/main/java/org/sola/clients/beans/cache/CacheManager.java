@@ -45,6 +45,7 @@ import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.AbstractWSClient;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.AbstractTO;
+import org.sola.clients.beans.administrative.LeaseConditionsTemplateSearchResultsBean;
 
 public final class CacheManager {
 
@@ -202,10 +203,8 @@ public final class CacheManager {
      * Cache key of the {@link LandUseTypeBean} collection.
      */
     public static final String LAND_USE_TYPE_CODES_KEY = LandUseTypeBean.class.getName() + LIST_POSTFIX;
-    /**
-     * Cache key of the {@link RrrConditionBean} collection.
-     */
-    public static final String LEASE_CONDITION_CODES_KEY = RrrConditionBean.class.getName() + LIST_POSTFIX;
+    
+    public static final String COFO_TYPE_CODES_KEY = CofoTypeBean.class.getName() + LIST_POSTFIX;
     
      /*
      * DISPUTE
@@ -230,6 +229,16 @@ public final class CacheManager {
      * Cache key of the {@link OtherAuthoritiesBean} collection.
      */
     public static final String OTHER_AUTHORITIES_CODES_KEY = OtherAuthoritiesBean.class.getName() + LIST_POSTFIX;
+    /**
+     * Cache key of the {@link LgaTypeBean} collection.
+     */
+    public static final String LGA_TYPE_CODES_KEY = LgaTypeBean.class.getName() + LIST_POSTFIX;
+    /**
+     * Cache key of the {@link ZoneTypeBean} collection.
+     */
+    public static final String ZONE_TYPE_CODES_KEY = ZoneTypeBean.class.getName() + LIST_POSTFIX;
+    
+    public static final String ROT_TYPE_CODES_KEY = RotTypeBean.class.getName() + LIST_POSTFIX;
     
     private static final String GET_APPLICATION_STATUS_TYPES = "getApplicationStatusTypes";
     private static final String GET_SOURCE_TYPES = "getSourceTypes";
@@ -260,15 +269,23 @@ public final class CacheManager {
     private static final String GET_BR_VALIDATION_TARGET_TYPES = "getBrValidationTargetTypes";
     private static final String GET_BA_UNIT_REL_TYPES = "getBaUnitRelTypes";
     private static final String GET_LAND_USE_TYPES = "getLandUseTypes";
-    private static final String GET_LEASE_CONDITIONS = "getRrrConditions";
     private static final String GET_DISPUTE_CATEGORY = "getDisputeCategory";
     private static final String GET_DISPUTE_STATUS = "getDisputeStatus";
     private static final String GET_DISPUTE_TYPE = "getDisputeType";
     private static final String GET_DISPUTE_ROLE_TYPE = "getDisputeRoleType";
     private static final String GET_OTHER_AUTHORITIES = "getOtherAuthorities";
     private static final String GET_HIERARCHY_LEVELS = "getHierarchyLevels";
-
-            
+    private static final String GET_COFO_TYPES = "getCofoTypes";
+    private static final String GET_LGA_TYPES = "getLgaTypes";
+    private static final String GET_ZONE_TYPES = "getZoneTypes";
+    private static final String GET_ROT_TYPES = "getRotTypes";
+    
+    public static List<CofoTypeBean> getCofoTypes() {
+        return getCachedBeanList(CofoTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_COFO_TYPES, COFO_TYPE_CODES_KEY);
+    }
+    
     public static List<BrValidationTargetTypeBean> getBrValidationTargetTypes() {
         return getCachedBeanList(BrValidationTargetTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
@@ -375,12 +392,6 @@ public final class CacheManager {
         return getCachedBeanList(IdTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
                 GET_ID_TYPES, ID_TYPE_CODES_KEY);
-    }
-
-    public static List<RrrConditionBean> getRrrConditions() {
-        return getCachedBeanList(RrrConditionBean.class,
-                WSManager.getInstance().getReferenceDataService(),
-                GET_LEASE_CONDITIONS, LEASE_CONDITION_CODES_KEY);
     }
     
     public static List<PartyTypeBean> getPartyTypes() {
@@ -671,5 +682,22 @@ public final class CacheManager {
                 WSManager.getInstance().getReferenceDataService(),
                 GET_OTHER_AUTHORITIES, OTHER_AUTHORITIES_CODES_KEY);
     }
+    
+    public static List<LgaTypeBean> getLgaTypes() {
+        return getCachedBeanList(LgaTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_LGA_TYPES, LGA_TYPE_CODES_KEY);
+    }
+
+    public static List<ZoneTypeBean> getZoneTypes() {
+        return getCachedBeanList(ZoneTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_ZONE_TYPES, ZONE_TYPE_CODES_KEY);
+    }
    
+    public static List<RotTypeBean> getRotTypes() {
+        return getCachedBeanList(RotTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_ROT_TYPES, ROT_TYPE_CODES_KEY);
+    }
 }
