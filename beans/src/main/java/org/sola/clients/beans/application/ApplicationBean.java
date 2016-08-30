@@ -102,8 +102,17 @@ public class ApplicationBean extends ApplicationSummaryBean {
     private String assigneeId;
     private ApplicationStatusTypeBean statusBean;
     public boolean addedAgent = false;
-     private String section;
+    private String section;
+    private String sltrStatus;
 
+    public String getSltrStatus() {
+        return sltrStatus;
+    }
+
+    public void setSltrStatus(String sltrStatus) {
+        this.sltrStatus = sltrStatus;
+    }
+    
     public String getSection() {
         return section;
     }

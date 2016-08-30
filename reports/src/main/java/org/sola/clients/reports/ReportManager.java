@@ -32,6 +32,8 @@ package org.sola.clients.reports;
 import java.io.*;
 import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,18 +41,26 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import org.sola.clients.beans.administrative.BaUnitAreaBean;
 import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.DisputeBean;
 import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.administrative.RrrReportBean;
 import org.sola.clients.beans.application.*;
+import org.sola.clients.beans.cadastre.CadastreObjectBean;
+import org.sola.clients.beans.converters.TypeConverters;
+import org.sola.clients.beans.digitalarchive.DocumentBean;
 import org.sola.clients.beans.system.BrReportBean;
 import org.sola.clients.beans.security.SecurityBean;
+import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.system.BrListBean;
 import org.sola.clients.beans.systematicregistration.*;
+import org.sola.common.logging.LogUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
+import org.sola.webservices.transferobjects.administrative.BaUnitAreaTO;
+import org.sola.webservices.transferobjects.digitalarchive.DocumentBinaryTO;
 
 
 /**
@@ -60,7 +70,8 @@ public class ReportManager {
      private static String strconfFile = System.getProperty("user.home") + "/sola/configuration.properties";
      public static String prefix = "reports";
      private static String logoImage = "/images/sola/"+ getPrefix ()+"logoMinistry.png";
-     
+     private static String cachePath = System.getProperty("user.home") + "\\sola\\cache\\documents\\";
+ 
       
      
      public static String getPrefix () {
@@ -697,7 +708,8 @@ public class ReportManager {
         landUse = appBaunit.getLandUse();
         lga = appBaunit.getPropLocation();
         ward = appBaunit.getWard();
-        state = appBaunit.getState();propAddress = baUnitBean.getLocation();
+        state = appBaunit.getState();
+        propAddress = baUnitBean.getLocation();
         //Special addition for generating image
         imageryResolution=appBaunit.getImageryResolution();
         imagerySource=appBaunit.getImagerySource();        
@@ -793,36 +805,160 @@ public class ReportManager {
             inputParameters.put("SURVEYOR", surveyor);
             inputParameters.put("RANK", rank);
         }
+        
+        if (prefix.contains("Anambra"))
+        {
+            String diagramImage = null;
+            String photoImage = null;
+            String cOfOnumber = "";
+            String regNr = "";
+            String certificateType = "";
+            String annualRent = "Yearly Rent : ";
+            String rentReviewPeriod = "Review Period : ";
+            String advPayment = "";
+            String addressNotices = "Notices to: ";
+            String conditions = "";
+            String premium = groundRent;
+            String parcelNumber = "";
+            String parcelDescriptor = "";
+            String commencingDateStr = "";
+            landUse = "Permitted Land Use: " + landUse;
+            lga = "Local Government Area: " + lga;
+            String area = "Area: ";
+        
+            
+            parcelNumber = appBaunit.getNameFirstpart();
+            parcelDescriptor = appBaunit.getNameLastpart();
+
+            
+            
+        SimpleDateFormat regnFormat = new SimpleDateFormat("dd MMMMM yyyy");
+        DecimalFormat intFormat = new DecimalFormat("###,##0");
+        DecimalFormat hectareFormat = new DecimalFormat("###,###.###");
+   
+        BaUnitAreaTO baUnitAreaTO = WSManager.getInstance().getAdministrative().getBaUnitAreas(baUnitBean.getId());
+        BaUnitAreaBean baUnitAreaBean = TypeConverters.TransferObjectToBean(baUnitAreaTO, BaUnitAreaBean.class, null);
+        if (baUnitAreaBean.getSize() !=null){
+            if (baUnitAreaBean.getSize().intValue() < 1000) {
+                area = area + intFormat.format(baUnitAreaBean.getSize()).toString()+ " square metres";
+                } else {
+                double hectare = (baUnitAreaBean.getSize().doubleValue() / 10000);                       
+                area = area + hectareFormat.format(hectare).toString()+ " hectare";                       
+            }    
+        }
+        
+        if (baUnitBean.getAddressNotice()!=null) {
+            addressNotices = addressNotices + baUnitBean.getAddressNotice();
+        }
+
+        for (Iterator<RrrBean> it = baUnitBean.getRrrList().iterator(); it.hasNext();) {
+            RrrBean rrrDetail = it.next();          
+            if (rrrDetail.isPrimary() && !rrrDetail.getCOfO().equalsIgnoreCase(null) && !rrrDetail.getCOfO().equalsIgnoreCase("")) {
+                if (rrrDetail.getDateCommenced()!=null){
+                 commencingDateStr = regnFormat.format(rrrDetail.getDateCommenced()).toString();
+                }
+                if (rrrDetail.getTerm()!=null){
+                     term = rrrDetail.getTerm().toString() + " years";
+                }
+                 if (rrrDetail.getYearlyRent()!=null){
+                     annualRent = annualRent + intFormat.format(rrrDetail.getYearlyRent()).toString() + " Naira";
+                 }
+                 if (rrrDetail.getDateCommenced()!=null){
+                     rentReviewPeriod = rentReviewPeriod + rrrDetail.getReviewPeriod().toString() + " years";
+                 }
+                 if (rrrDetail.getLeaseConditions()!=null){
+                     conditions = rrrDetail.getLeaseConditions();
+                 }               
+                 if (rrrDetail.getCOfO()!=null){
+                     cOfOnumber = rrrDetail.getCOfO();
+                 }
+                 if (rrrDetail.getAdvancePayment()!=null){
+                     advPayment = intFormat.format(rrrDetail.getAdvancePayment()).toString() + " Naira";
+                 }
+                 if (rrrDetail.getCofoType()!=null){
+                     certificateType = rrrDetail.getCofoType().substring(0,1).toUpperCase() + rrrDetail.getCofoType().substring(1);
+ //                  NEED TO SUBSTITUTE FOR DISPLAY VALUE OF CofOType
+                 }
+                 for (Iterator<SourceBean> itsor =  rrrDetail.getSourceList().iterator(); itsor.hasNext();) {
+                     SourceBean rrrSource = itsor.next();
+                     if (rrrSource.getTypeCode().equalsIgnoreCase("cadastralSurvey")) {
+                         diagramImage = cachePath + rrrSource.getArchiveDocument().getFileName();
+                         File f = new File(diagramImage);
+                         if(!f.exists()){
+                             // Preload file
+                             DocumentBinaryTO doc = DocumentBean.getDocument(rrrSource.getArchiveDocument().getId());
+                         }
+                     }
+                     if (rrrSource.getTypeCode().equalsIgnoreCase("personPhoto")) {
+                         photoImage = cachePath + rrrSource.getArchiveDocument().getFileName();
+                         File g = new File(photoImage);
+                         if(!g.exists()){
+                             // Preload file
+                             DocumentBinaryTO photo = DocumentBean.getDocument(rrrSource.getArchiveDocument().getId());
+                         }
+                     }                  
+                 }
+             }
+        }
+        
+        
+    
+        
+//        inputParameters.put("REPORT_LOCALE", Locale.getDefault());
+//        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
+        inputParameters.put("EMBLEM", ReportManager.class.getResourceAsStream("/images/sola/Coat_of_Arms_of_Nigeria.png"));
+//        inputParameters.put("STATE", getSettingValue("state"));
+//        inputParameters.put("REFNR", cOfOnumber);
+        inputParameters.put("CERTIFICATE_TYPE", certificateType);
+        inputParameters.put("PHOTO_IMAGE", photoImage);
+//        inputParameters.put("COMMENCING_DATE", commencingDate);
+//        inputParameters.put("TERM", term);
+        inputParameters.put("ANNUAL_RENT", annualRent);
+        inputParameters.put("REVIEW_PERIOD", rentReviewPeriod);
+        inputParameters.put("ADVANCE_PAYMENT", advPayment);
+        inputParameters.put("ADDRESS_NOTICES", addressNotices);
+        inputParameters.put("PARCEL", parcelNumber + "/" + parcelDescriptor);
+        inputParameters.put("AREA_SQ_METRES", area);
+        inputParameters.put("LAND_USE", landUse);
+        inputParameters.put("LOCATION", propAddress);
+        inputParameters.put("CONDITIONS", conditions);
+        inputParameters.put("DIAGRAM_IMAGE", diagramImage);
+        inputParameters.put("COMMENCING_DATE", commencingDateStr);
+        inputParameters.put("PREMIUM", premium);
+        } else {
+            inputParameters.put("MAP_IMAGE", mapImage);
+            inputParameters.put("SCALE", scaleLabel);
+            inputParameters.put("UTM", utmZone);
+            inputParameters.put("SCALEBAR", scalebarImageLocation);
+            inputParameters.put("PROP_LOCATION", propAddress);
+            inputParameters.put("LOCATION", location);
+            inputParameters.put("SIZE", size);
+            inputParameters.put("AREA", location);
+            inputParameters.put("APP_NR", appNr);
+            inputParameters.put("CLIENT_NAME", owners);
+            inputParameters.put("IMAGERY_DATE", imageryDate);
+            inputParameters.put("ADDRESS", address);
+            inputParameters.put("LODGING_DATE", lodgingDate);
+            inputParameters.put("FRONT_IMAGE", featureFront);
+            inputParameters.put("BACK_IMAGE", featureBack);
+            inputParameters.put("FRONT_FLOAT_IMAGE", featureFloatFront);
+            inputParameters.put("BACK_FLOAT_IMAGE", featureFloatBack);
+            inputParameters.put("COMMENCING_DATE", commencingDate);
+            inputParameters.put("GROUND_RENT", groundRent);
+        }
+        
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
-        inputParameters.put("LOCATION", location);
-        inputParameters.put("AREA", location);
-        inputParameters.put("APP_NR", appNr);
-        inputParameters.put("CLIENT_NAME", owners);
-        inputParameters.put("IMAGERY_DATE", imageryDate);
-        inputParameters.put("ADDRESS", address);
-        inputParameters.put("LODGING_DATE", lodgingDate);
-        inputParameters.put("COMMENCING_DATE", commencingDate);
         inputParameters.put("TIME_DEVELOP", timeToDevelop);
         inputParameters.put("VALUE_IMPROV", valueForImprov);
         inputParameters.put("TERM", term);
         inputParameters.put("LAND_USE", landUse);
-        inputParameters.put("PROP_LOCATION", propAddress);
-        inputParameters.put("SIZE", size);
         inputParameters.put("REFNR", title);
-        inputParameters.put("GROUND_RENT", groundRent);
-        inputParameters.put("FRONT_IMAGE", featureFront);
-        inputParameters.put("BACK_IMAGE", featureBack);
-        inputParameters.put("FRONT_FLOAT_IMAGE", featureFloatFront);
-        inputParameters.put("BACK_FLOAT_IMAGE", featureFloatBack);
         inputParameters.put("LGA", lga);
         inputParameters.put("WARD", ward);
         inputParameters.put("STATE", state);
-        inputParameters.put("MAP_IMAGE", mapImage);
-        inputParameters.put("SCALE", scaleLabel);
-        inputParameters.put("UTM", utmZone);
-        inputParameters.put("SCALEBAR", scalebarImageLocation);
         
+                        
 
          
         BaUnitBean[] beans = new BaUnitBean[1];
@@ -850,6 +986,11 @@ public class ReportManager {
        
     }
       
+    
+
+    
+    
+    
       /**
      * Generates and displays <b>Systematic registration Certificates
      * report</b>.

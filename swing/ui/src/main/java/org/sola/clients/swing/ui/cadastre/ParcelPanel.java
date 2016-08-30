@@ -1,28 +1,30 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2014 - Food and Agriculture Organization of the United Nations (FAO).
- * All rights reserved.
+ * Copyright (C) 2014 - Food and Agriculture Organization of the United Nations
+ * (FAO). All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the name of FAO nor the names of its contributors may be used to endorse or
- *       promote products derived from this software without specific prior written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the name of FAO nor the names of its
+ * contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.swing.ui.cadastre;
@@ -41,29 +43,29 @@ import org.sola.common.WindowUtility;
  */
 public class ParcelPanel extends javax.swing.JPanel {
 
-    private CadastreObjectBean createCadastreBean(){
-        if(cadastreObjectBean1==null){
+    private CadastreObjectBean createCadastreBean() {
+        if (cadastreObjectBean1 == null) {
             cadastreObjectBean1 = new CadastreObjectBean();
         }
         return cadastreObjectBean1;
     }
-    
+
     public ParcelPanel() {
         this(null);
     }
-    
+
     public ParcelPanel(CadastreObjectBean cadastreObject) {
         cadastreObjectBean1 = cadastreObject;
         initComponents();
         postInit();
     }
-    
-    private void postInit(){
+
+    private void postInit() {
         cadastreObjectBean1.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if(evt.getPropertyName().equals(CadastreObjectBean.SELECTED_ADDRESS_PROPERTY)){
+                if (evt.getPropertyName().equals(CadastreObjectBean.SELECTED_ADDRESS_PROPERTY)) {
                     customizeAddressButtons();
                 }
             }
@@ -72,59 +74,59 @@ public class ParcelPanel extends javax.swing.JPanel {
         this.jPanel3.setVisible(false);
         customizeAddressButtons();
     }
- 
-    private void customizeAddressButtons(){
-        boolean enabled = cadastreObjectBean1.getSelectedAddress()!=null;
+
+    private void customizeAddressButtons() {
+        boolean enabled = cadastreObjectBean1.getSelectedAddress() != null;
         btnEdit1.setEnabled(enabled);
         btnRemove1.setEnabled(enabled);
         menuAdd1.setEnabled(enabled);
         menuRemove1.setEnabled(enabled);
     }
-    
-    public CadastreObjectBean getCadastreObject(){
+
+    public CadastreObjectBean getCadastreObject() {
         return cadastreObjectBean1;
     }
-    
-    private void addAddress(){
+
+    private void addAddress() {
         AddressDialog form = new AddressDialog(null, null, true);
         WindowUtility.centerForm(form);
         form.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if(evt.getPropertyName().equals(AddressDialog.ADDRESS_SAVED)){
-                    cadastreObjectBean1.addAddress((AddressBean)evt.getNewValue());
+                if (evt.getPropertyName().equals(AddressDialog.ADDRESS_SAVED)) {
+                    cadastreObjectBean1.addAddress((AddressBean) evt.getNewValue());
                 }
             }
         });
         form.setVisible(true);
     }
-    
-    private void editAddress(){
-        if(cadastreObjectBean1.getSelectedAddress()==null){
+
+    private void editAddress() {
+        if (cadastreObjectBean1.getSelectedAddress() == null) {
             return;
         }
-        
+
         AddressDialog form = new AddressDialog(
-                (AddressBean)cadastreObjectBean1.getSelectedAddress().copy(), 
+                (AddressBean) cadastreObjectBean1.getSelectedAddress().copy(),
                 null, true);
         WindowUtility.centerForm(form);
         form.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if(evt.getPropertyName().equals(AddressDialog.ADDRESS_SAVED)){
-                    cadastreObjectBean1.getSelectedAddress().copyFromObject((AddressBean)evt.getNewValue());
+                if (evt.getPropertyName().equals(AddressDialog.ADDRESS_SAVED)) {
+                    cadastreObjectBean1.getSelectedAddress().copyFromObject((AddressBean) evt.getNewValue());
                 }
             }
         });
         form.setVisible(true);
     }
-    
-    private void removeAddress(){
+
+    private void removeAddress() {
         cadastreObjectBean1.removeSelectedAddress();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -623,7 +625,8 @@ public class ParcelPanel extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 173, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();

@@ -211,5 +211,21 @@ public class DocumentBean extends AbstractIdBean {
             FileUtility.openFile(fileName);
         }
     }
+    
+     /**
+     * Loads document from the digital archive. This method will not check the
+     * local documents cache before retrieving the document.
+     *
+     * @param Id The ID of the document to fetch.
+     * @return
+     * @see #openDocument(java.lang.String, java.lang.String)
+     */
+    public static DocumentBinaryTO getDocument(String Id) {
+        if (Id != null) {
+            return WSManager.getInstance().getDigitalArchive().getDocument(Id);
+        } else {
+            throw new SOLAException(ClientMessage.SOURCE_NO_DOCUMENT);
+        }
+    }
 }
 
