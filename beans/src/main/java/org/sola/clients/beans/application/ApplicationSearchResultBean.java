@@ -48,7 +48,15 @@ public class ApplicationSearchResultBean extends ApplicationSummaryBean {
     
     private String parcel;
     private String section;
-   
+    private String sltrStatus;
+
+    public String getSltrStatus() {
+        return sltrStatus;
+    }
+
+    public void setSltrStatus(String sltrStatus) {
+        this.sltrStatus = sltrStatus;
+    }
     public ApplicationSearchResultBean(){
         super();
     }

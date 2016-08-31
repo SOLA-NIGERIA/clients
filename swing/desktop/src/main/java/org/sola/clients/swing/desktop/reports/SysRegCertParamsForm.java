@@ -82,7 +82,7 @@ import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
 public class SysRegCertParamsForm extends javax.swing.JDialog {
     
     private String location;
-    private String title = "SLTR Document(s) for Work Unit ";
+    private String title = " ";
     private String nr;
     private String tmpLocation = "";
     private static String cachePath = System.getProperty("user.home") + "/sola/cache/documents/";
@@ -108,7 +108,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         this.whichReport = whichReport;
         this.nr = nr;
         if (nr != null) {
-            this.title = " (Application: "+nr+") "+this.title ;
+            this.title = " (Application: "+nr+") "+whichReport ;
         }
         this.setTitle(this.title);
         this.document = new SourceBean();
@@ -196,7 +196,8 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
     
     private void showDocMessage(String fileName, String prevCofO) {
         
-        String params = this.title + ":  " + fileName;
+//        String params = this.title + ":  " + fileName;
+        String params = this.title;
         MessageUtility.displayMessage(ClientMessage.SOURCE_SYS_REP_GENERATED, new Object[]{params, prevCofO});
         
     }
