@@ -645,31 +645,24 @@ public class ReportManager {
      * report.
      *
      */
-//     public static JasperPrint getSysRegSlrtPlanReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
-//   public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
-//     String  featureFront,String featureBack) {
-    public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean appBean, SysRegCertificatesBean appBaunit, String featureImageFileName,
-            String featureScalebarFileName, Integer srid, Number scale, String featureFront, String featureBack, String featureImageFileNameSmall, String sourceReferenceNumber) {
+     
+    public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
+       String featureScalebarFileName, Integer srid, Number scale, String  featureFront,String featureBack,String featureImageFileNameSmall, String sourceReferenceNumber) {
         HashMap inputParameters = new HashMap();
-        String featureFloatFront = "images/sola/front_float.svg";
+        String featureFloatFront ="images/sola/front_float.svg";
         String featureFloatBack = "images/sola/back_float.svg";
-        String featureNorthArrow = "images/sola/UN-north-arrow.png";
-        String sltrPlanFront = "images/sola/slrtPlan_kogi.svg"; //Kogi Plan Image for page 3
-        String front_image_text = "images/sola/front_CrossRiver_text.svg";
         String small = "";
         String map = "";
-        String sourceRef = sourceReferenceNumber;
-
+        String sourceRef=sourceReferenceNumber;
         String cofoReport = null;
         String appNr = null;
         String claimant = null;
-        String imageryDate = null;
         String owners = null;
         String title = null;
         String address = null;
         Date lodgingDate = null;
         String timeToDevelop = null;
-        String valueForImprov = null;
+        String valueForImprov = null;       
         String term = null;
         Date commencingDate = null;
         String landUse = null;
@@ -679,18 +672,21 @@ public class ReportManager {
         String state = null;
         BigDecimal size = null;
         String groundRent = null;
+        
+        String featureNorthArrow = "images/sola/UN-north-arrow.png";
+        String imageryDate = null;
         String imageryResolution = "50 cm";
         String sheetNr = "";
         String imagerySource = "";
         String surveyor = "";
         String rank = "";
-        appNr = appBaunit.getNr();
+        
+        appNr =    appBaunit.getNr();
         claimant = appBean.getContactPerson().getFullName();
-        imageryDate = appBaunit.getImageryDate();
-
-        address = appBean.getContactPerson().getAddress().getDescription();
+        imageryDate = appBaunit.getImageryDate();       
+        address =  appBean.getContactPerson().getAddress().getDescription();
         owners = appBaunit.getOwners();
-        title = appBaunit.getTitle();
+        title  =  appBaunit.getTitle();
         lodgingDate = appBean.getLodgingDatetime();
         commencingDate = appBaunit.getCommencingDate();
         size = appBaunit.getSize();
@@ -699,281 +695,310 @@ public class ReportManager {
         ward = appBaunit.getWard();
         state = appBaunit.getState();
         propAddress = baUnitBean.getLocation();
-        //Special addition for generating image
-        imageryResolution = appBaunit.getImageryResolution();
-        imagerySource = appBaunit.getImagerySource();
-        sheetNr = appBaunit.getSheetNr();
-        surveyor = appBaunit.getSurveyor();
-        rank = appBaunit.getRank();
-        String mapImage = featureImageFileName;
-        String mapImageSmall = featureImageFileNameSmall;
-        String utmZone = srid.toString().substring(srid.toString().length() - 2);
-//        utmZone = "UTM(Zone" + utmZone  +")";
-        utmZone = imagerySource + utmZone + "N";
-        String scaleLabel = "1: " + scale.intValue();
-        String scalebarImageLocation = featureScalebarFileName;
+        //Parcel Plan
+        imageryResolution=appBaunit.getImageryResolution();
+        imagerySource=appBaunit.getImagerySource();        
+        sheetNr=appBaunit.getSheetNr();
+        surveyor=appBaunit.getSurveyor();
+        rank=appBaunit.getRank();   
+        String mapImage = featureImageFileName;  
+        String mapImageSmall = featureImageFileNameSmall;  
+        String utmZone = srid.toString().substring(srid.toString().length()-2);
+        utmZone = imagerySource + utmZone  +"N";
+        String scaleLabel = "1: "+scale.intValue();
+        String scalebarImageLocation =featureScalebarFileName;
+        
         String prefix = getPrefix();
-        cofoReport = prefix + "/CofO.jasper";
-
-        if (!baUnitBean.isIsDeveloped()) {
-            if (baUnitBean.getYearsForDev() != null) {
-                timeToDevelop = baUnitBean.getYearsForDev().toString();
-            }
-            if (baUnitBean.getValueToImp() != null) {
-                valueForImprov = baUnitBean.getValueToImp().toString();
-            }
+        cofoReport = prefix+"/CofO.jasper"; 
+        cofoReport = prefix+"/newCofO.jasper"; 
+               
+        if (! baUnitBean.isIsDeveloped()) {
+          if (baUnitBean.getYearsForDev()!=null) {
+           timeToDevelop = baUnitBean.getYearsForDev().toString();
+          }
+          if (baUnitBean.getValueToImp()!=null) {
+           valueForImprov = baUnitBean.getValueToImp().toString();
+          } 
         }
-        if (baUnitBean.getTerm() != null) {
-            term = baUnitBean.getTerm().toString();
+        if (baUnitBean.getTerm()!=null) {
+           term = baUnitBean.getTerm().toString();
         }
-        groundRent = appBaunit.getGroundRent().toString();
-
-        featureFloatFront = getSvg("featureFloatFront");
+               
+        featureFloatFront =getSvg("featureFloatFront");
         featureFloatBack = getSvg("featureFloatBack");
-        featureFront = getSvg("featureFront");
+        featureFront =getSvg("featureFront");
         featureBack = getSvg("featureBack");
+        
+        inputParameters.put("REPORT_LOCALE", Locale.getDefault());
+        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
 
+        inputParameters.put("EMBLEM", ReportManager.class.getResourceAsStream("/images/sola/Coat_of_Arms_of_Nigeria.png"));
+        inputParameters.put("FRONT_IMAGE", featureFront);
+        inputParameters.put("BACK_IMAGE", featureBack);
+        inputParameters.put("FRONT_FLOAT_IMAGE", featureFloatFront);
+        inputParameters.put("BACK_FLOAT_IMAGE", featureFloatBack);
+
+        inputParameters.put("MAP_IMAGE", mapImage);
+        inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
+        inputParameters.put("SCALE", scaleLabel);
+        inputParameters.put("UTM", utmZone);
+        inputParameters.put("SCALEBAR", scalebarImageLocation);
+        inputParameters.put("IMAGERY_DATE", imageryDate);
+        inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
+        inputParameters.put("SHEET_NR", sheetNr);
+        inputParameters.put("SURVEYOR", surveyor);
+        inputParameters.put("RANK", rank);
+        inputParameters.put("UN_NORTH_ARROW", ReportManager.class.getResourceAsStream(featureNorthArrow));
+
+        inputParameters.put("PROP_LOCATION", propAddress);
+        inputParameters.put("LOCATION", location);
+        inputParameters.put("SIZE", size);
+        inputParameters.put("AREA", location);
+        inputParameters.put("APP_NR", appNr);
+        inputParameters.put("CLIENT_NAME", owners);
+        inputParameters.put("ADDRESS", address);
+        inputParameters.put("LODGING_DATE", lodgingDate);
+        inputParameters.put("COMMENCING_DATE", commencingDate);
+        inputParameters.put("GROUND_RENT", groundRent);        
+        inputParameters.put("TIME_DEVELOP", timeToDevelop);
+        inputParameters.put("VALUE_IMPROV", valueForImprov);
+        inputParameters.put("TERM", term);
+        inputParameters.put("LAND_USE", landUse);
+        inputParameters.put("REFNR", title);
+        inputParameters.put("LGA", lga);
+        inputParameters.put("WARD", ward);
+        inputParameters.put("STATE", state);
+        
         if (prefix.contains("Jigawa")) {
-            featureFloatFront = "images/sola/front_float_" + prefix + ".svg";
-            featureFloatBack = "images/sola/back_float_" + prefix + ".svg";
-            featureFront = "images/sola/front_" + prefix + ".svg";
-            featureBack = "images/sola/back_" + prefix + ".svg";
-            featureNorthArrow = "/images/sola/UN-north-arrow_" + prefix + ".png";
-
-            inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
-            inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
-            inputParameters.put("SHEET_NR", sheetNr);
-            inputParameters.put("SURVEYOR", surveyor);
-            inputParameters.put("RANK", rank);
-            inputParameters.put("UN_NORTH_ARROW", ReportManager.class.getResourceAsStream(featureNorthArrow));
+            featureFloatFront ="images/sola/front_float_"+prefix+".svg";
+            featureFloatBack = "images/sola/back_float_"+prefix+".svg";
+            featureFront ="images/sola/front_"+prefix+".svg";
+            featureBack = "images/sola/back_"+prefix+".svg";
+            featureNorthArrow ="/images/sola/UN-north-arrow_"+prefix+".png";      
         }
-
-        if (prefix.contains("Kogi")) {
-            String page1 = "images/sola/Page1.svg";
-            String page2 = "images/sola/Page2.svg";
-            String page3 = "images/sola/Page3.svg";
-            featureNorthArrow = "/images/sola/arrow.png";
+                                
+        if (prefix.contains("Kogi")) {         
+            String sltrPlanFront= "images/sola/slrtPlan_kogi.svg"; //Kogi Plan Image for page 3
+            String page1="images/sola/Page1.svg";
+            String page2="images/sola/Page2.svg";
+            String page3="images/sola/Page3.svg";
+            featureNorthArrow ="/images/sola/arrow.png";
             inputParameters.put("PAGE1_IMAGE", page1);
             inputParameters.put("PAGE2_IMAGE", page2);
-            inputParameters.put("PAGE3_IMAGE", page3);
-
-            inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
-            inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
-            inputParameters.put("SHEET_NR", sheetNr);
-            inputParameters.put("SURVEYOR", surveyor);
-            inputParameters.put("RANK", rank);
-            inputParameters.put("UN_NORTH_ARROW", ReportManager.class.getResourceAsStream(featureNorthArrow));
+            inputParameters.put("PAGE3_IMAGE", page3);           
             inputParameters.put("SLTR_PLAN_IMAGE", sltrPlanFront);
         }
-
+        
         if (prefix.contains("Ondo")) {
-            featureFloatFront = "images/sola/front_float_" + prefix + ".svg";
-            featureFloatBack = "images/sola/back_float_" + prefix + ".svg";
-            featureFront = "images/sola/front_" + prefix + ".svg";
-            featureBack = "images/sola/back_" + prefix + ".svg";
-
-            inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
-            inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
-            inputParameters.put("SHEET_NR", sheetNr);
-            inputParameters.put("SURVEYOR", surveyor);
-            inputParameters.put("RANK", rank);
+            featureFloatFront ="images/sola/front_float_"+prefix+".svg";
+            featureFloatBack = "images/sola/back_float_"+prefix+".svg";
+            featureFront ="images/sola/front_"+prefix+".svg";
+            featureBack = "images/sola/back_"+prefix+".svg";
         }
-        if (prefix.contains("CrossRiver")) {
-            featureFront = "images/sola/front_" + prefix + ".svg";
-            featureBack = "images/sola/back_" + prefix + ".svg";
-            inputParameters.put("FRONT_IMAGE_TEXT", front_image_text);
-            inputParameters.put("UPIN", sourceRef);
-            inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
-            inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
-            inputParameters.put("SHEET_NR", sheetNr);
-            inputParameters.put("SURVEYOR", surveyor);
-            inputParameters.put("RANK", rank);
+        if(prefix.contains("CrossRiver"))
+        {
+            String front_image_text="images/sola/front_CrossRiver_text.svg";
+            featureFront ="images/sola/front_"+prefix+".svg";
+            featureBack = "images/sola/back_"+prefix+".svg";
+            inputParameters.put("FRONT_IMAGE_TEXT",front_image_text);
+            inputParameters.put("UPIN",sourceRef);
         }
-
-        if (prefix.contains("Anambra")) {
+        
+        if (prefix.contains("Anambra"))
+        {
+            String stampDuty = "";
+            String area = "Area: ";
+            String reviewPeriod = "Review Period: ";
+            String conditions = "";
+            String cOfOtype = "";
+            String premium = "";
+            String purpose = "Permitted Purpose: ";
+            String governor = "";
             String diagramImage = null;
             String photoImage1 = null;
             String photoImage2 = null;
-            String cOfOnumber = "";
-            String regNr = "";
+//            String cOfOnumber = "";
+//            String regNr = "";
             String certificateType = "";
-            String annualRent = "Yearly Rent : ";
+            String annualRent = "";
             String rentReviewPeriod = "Review Period : ";
-            String advPayment = "";
             String addressNotices = "Notices to: ";
-            String conditions = "";
-            String premium = groundRent;
-            int intPremium = Integer.parseInt(premium);
-            String percStampDuty = getSettingValue("percStampDuty");
-            double intPercStampDuty = Double.valueOf(percStampDuty);
-            String stampDuty = String.valueOf(intPremium * intPercStampDuty);
-            String governor = getSettingValue("governor");
             String parcelNumber = "";
             String parcelDescriptor = "";
             String commencingDateStr = "";
-            landUse = "Permitted Land Use: " + landUse;
-            String purpose = landUse;
+            
+            Integer numberOfOwners = 0;
             
             lga = "Local Government Area: " + lga;
-            String area = "Area: ";
-            
+                 
             parcelNumber = appBaunit.getNameFirstpart();
             parcelDescriptor = appBaunit.getNameLastpart();
-
+       
             SimpleDateFormat regnFormat = new SimpleDateFormat("dd MMMMM yyyy");
             DecimalFormat intFormat = new DecimalFormat("###,##0");
             DecimalFormat hectareFormat = new DecimalFormat("###,###.###");
 
             BaUnitAreaTO baUnitAreaTO = WSManager.getInstance().getAdministrative().getBaUnitAreas(baUnitBean.getId());
             BaUnitAreaBean baUnitAreaBean = TypeConverters.TransferObjectToBean(baUnitAreaTO, BaUnitAreaBean.class, null);
-            if (baUnitAreaBean.getSize() != null) {
-                if (baUnitAreaBean.getSize().intValue() < 1000) {
-                    area = area + intFormat.format(baUnitAreaBean.getSize()).toString() + " square metres";
+            if (appBaunit.getSize() != null) {
+                if (appBaunit.getSize().intValue() < 1000 ) {
+                    area = area + intFormat.format(appBaunit.getSize()).toString() + " square metres";
                 } else {
-                    double hectare = (baUnitAreaBean.getSize().doubleValue() / 10000);
+                    double hectare = (appBaunit.getSize().doubleValue() / 10000);
                     area = area + hectareFormat.format(hectare).toString() + " hectare";
                 }
             }
-
-            if (baUnitBean.getAddressNotice() != null) {
-                addressNotices = addressNotices + baUnitBean.getAddressNotice();
+            addressNotices = "Notices to: ";
+            if (appBean.getContactPerson().getAddress().getDescription() !=null) {
+                address = address + appBean.getContactPerson().getAddress().getDescription();
+            }
+            propAddress = "Location: ";
+            if (baUnitBean.getLocation() !=null) {
+                propAddress = propAddress + baUnitBean.getLocation();
             }
 
+            commencingDateStr = "";
+            if (appBaunit.getCommencingDate() !=null) {
+                commencingDateStr = regnFormat.format(appBaunit.getCommencingDate()).toString();
+            }
+            
+            term = "Term: ";
+            if (baUnitBean.getTerm() !=null) {
+                term = term + baUnitBean.getTerm().toString() + " years";
+            }
+            
+            purpose = "Permitted Purpose: ";
+//            if (appBaunit.getPurpose() !=null) {
+//                purpose = purpose + appBaunit.getPurpose();
+//            }
+            
+            premium = "Improvement Premium: ";
+//            if (appBaunit.getPremium()!=null) {
+//                premium = premium + "N " + intFormat.format(appBaunit.getPremium().toString()) + " Naira";
+//            }
+            
+            stampDuty = "";
+//            if (appBaunit.getStampDuty()!=null) {
+//                stampDuty = stampDuty + "N " + intFormat.format(appBaunit.getStampDuty().toString()) + " Naira";
+//            }
+//
+            annualRent = "Annual Rent: ";
+//            if (appBaunit.getRent() !=null) {
+//                annualRent = annualRent + appBaunit.getRent();
+//            }
+            
+            governor = governor + getSettingValue("governorName");
+            
             for (Iterator<RrrBean> it = baUnitBean.getRrrList().iterator(); it.hasNext();) {
                 RrrBean rrrDetail = it.next();
-//                if (rrrDetail.isPrimary() && !rrrDetail.getCOfO().equalsIgnoreCase(null) && !rrrDetail.getCOfO().equalsIgnoreCase("")) {
-                    if (rrrDetail.getDateCommenced() != null) {
-                        commencingDateStr = regnFormat.format(rrrDetail.getDateCommenced()).toString();
+                numberOfOwners = numberOfOwners + rrrDetail.getRightHolderList().size();
+                if (rrrDetail.isPrimary() && !rrrDetail.getCOfO().equalsIgnoreCase(null) && !rrrDetail.getCOfO().equalsIgnoreCase("")) {
+                    reviewPeriod = "Review Period: ";
+                    if (rrrDetail.getReviewPeriod()!=null) {
+                        reviewPeriod = reviewPeriod + rrrDetail.getReviewPeriod().toString() + " years";
                     }
-                    if (rrrDetail.getTerm() != null) {
-                        term = rrrDetail.getTerm().toString() + " years";
-                    }
-                    if (rrrDetail.getYearlyRent() != null) {
-                        annualRent = annualRent + intFormat.format(rrrDetail.getYearlyRent()).toString() + " Naira";
-                    }
-                    if (rrrDetail.getDateCommenced() != null) {
-                        rentReviewPeriod = rentReviewPeriod + rrrDetail.getReviewPeriod().toString() + " years";
-                    }
-                    if (rrrDetail.getLeaseConditions() != null) {
+
+                    conditions = ""; 
+                    if (rrrDetail.getLeaseConditions() !=null) {
                         conditions = rrrDetail.getLeaseConditions();
                     }
-                    if (rrrDetail.getCOfO() != null) {
-                        cOfOnumber = rrrDetail.getCOfO();
-                    }
-                    if (rrrDetail.getAdvancePayment() != null) {
-                        advPayment = intFormat.format(rrrDetail.getAdvancePayment()).toString() + " Naira";
-                    }
-                    if (rrrDetail.getCofoType() != null) {
-                        certificateType = rrrDetail.getCofoType().substring(0, 1).toUpperCase() + rrrDetail.getCofoType().substring(1);
-                        //                  NEED TO SUBSTITUTE FOR DISPLAY VALUE OF CofOType
-                    }
-                    for (Iterator<SourceBean> itsor = rrrDetail.getSourceList().iterator(); itsor.hasNext();) {
-                        int i = 1;
-                        SourceBean rrrSource = itsor.next();
-                        if (rrrSource.getTypeCode().equalsIgnoreCase("cadastralSurvey")) {
-                            diagramImage = cachePath + rrrSource.getArchiveDocument().getFileName();
-                            File f = new File(diagramImage);
-                            if (!f.exists()) {
-                                // Preload file
-                                DocumentBinaryTO doc = DocumentBean.getDocument(rrrSource.getArchiveDocument().getId());
-                            }
-                        }
-                        if (rrrSource.getTypeCode().equalsIgnoreCase("personPhoto")) {
-                            if (i==1) {
-                            photoImage1 = cachePath + rrrSource.getArchiveDocument().getFileName();
-                            }
-                            if (i==2) {
-                            photoImage2 = cachePath + rrrSource.getArchiveDocument().getFileName();
-                            }
-                            File g = new File(photoImage1);
-                            if (!g.exists()) {
-                                // Preload file
-                                DocumentBinaryTO photo = DocumentBean.getDocument(rrrSource.getArchiveDocument().getId());
-                            }
-                            i = i + 1;
-                        }
-                    }
-                }
-//            }
 
-            inputParameters.put("EMBLEM", ReportManager.class.getResourceAsStream("/images/sola/Coat_of_Arms_of_Nigeria.png"));
+                    cOfOtype = "building";
+                    if (rrrDetail.getCofoType() !=null) {
+                        cOfOtype = rrrDetail.getCofoType();
+                    }
+
+                    for (int i = 0; i < rrrDetail.getSourceList().size(); i++) {
+                        SourceBean rrrSource = rrrDetail.getSourceList().get(i);
+                         if (rrrSource.getTypeCode().equalsIgnoreCase("cadastralSurvey")) {
+                             diagramImage = cachePath + rrrSource.getArchiveDocument().getFileName();
+                             File f = new File(diagramImage);
+                             if(!f.exists()){
+                                 // Preload file
+                                 DocumentBinaryTO doc = DocumentBean.getDocument(rrrSource.getArchiveDocument().getId());
+                             }
+                         }
+                         if (rrrSource.getTypeCode().equalsIgnoreCase("personPhoto") && numberOfOwners < 3) {
+                             switch(i) {
+                                 case 0: {
+                                     photoImage1 = cachePath + rrrSource.getArchiveDocument().getFileName();
+                                     File g = new File(photoImage1);
+                                     if(!g.exists()){
+                                         // Preload file
+                                         DocumentBinaryTO photo1 = DocumentBean.getDocument(rrrSource.getArchiveDocument().getId());
+                                     }                                    
+                                 }
+                                 case 1: {
+                                    if (photoImage1 != null) {
+                                        photoImage2 = cachePath + rrrSource.getArchiveDocument().getFileName();
+                                        File h = new File(photoImage2);
+                                        if(!h.exists()){
+                                             // Preload file
+                                            DocumentBinaryTO photo2 = DocumentBean.getDocument(rrrSource.getArchiveDocument().getId());                   
+                                        }
+                                    }
+                                 }
+                                 case 2: {
+                                    if (photoImage2 == null) {
+                                        photoImage2 = cachePath + rrrSource.getArchiveDocument().getFileName();
+                                        File h = new File(photoImage2);
+                                        if(!h.exists()){
+                                             // Preload file
+                                            DocumentBinaryTO photo2 = DocumentBean.getDocument(rrrSource.getArchiveDocument().getId());                   
+                                        }
+                                    }                                   
+                                 }
+                             }
+                         }
+                     }
+                }  
+            }
+            inputParameters.put("AREA", area);
+            inputParameters.put("STAMP_DUTY",stampDuty);
+            inputParameters.put("IMPROVEMENT_PREMIUM",premium);
+            inputParameters.put("PERMITTED_PURPOSE",purpose);
+            inputParameters.put("GOVERNOR", governor);
+            inputParameters.put("CERTIFICATE_TYPE", certificateType);
+            inputParameters.put("PHOTO_IMAGE1", photoImage1);
+            inputParameters.put("PHOTO_IMAGE2", photoImage2);
             inputParameters.put("ANNUAL_RENT", annualRent);
             inputParameters.put("REVIEW_PERIOD", rentReviewPeriod);
-            inputParameters.put("ADVANCE_PAYMENT", advPayment);
             inputParameters.put("ADDRESS_NOTICES", addressNotices);
             inputParameters.put("PARCEL", parcelNumber + "/" + parcelDescriptor);
-//        inputParameters.put("AREA_SQ_METRES", area);
             inputParameters.put("AREA", area);
-//        inputParameters.put("LAND_USE", landUse);
             inputParameters.put("LOCATION", propAddress);
             inputParameters.put("CONDITIONS", conditions);
             inputParameters.put("DIAGRAM_IMAGE", diagramImage);
             inputParameters.put("COMMENCING_DATE", commencingDateStr);
-            
-            inputParameters.put("STAMP_DUTY", stampDuty);
-            inputParameters.put("IMPROVEMENT_PREMIUM", premium);
-            inputParameters.put("PERMITTED_PURPOSE", purpose);
-            inputParameters.put("GOVERNOR", governor);
-            inputParameters.put("PHOTO_IMAGE1", photoImage1);
-            inputParameters.put("PHOTO_IMAGE2", photoImage2);
-            inputParameters.put("REFNR", cOfOnumber);
-            inputParameters.put("CERTIFICATE_TYPE", certificateType);
-
-        } else {
-            inputParameters.put("MAP_IMAGE", mapImage);
-            inputParameters.put("SCALE", scaleLabel);
-            inputParameters.put("UTM", utmZone);
-            inputParameters.put("SCALEBAR", scalebarImageLocation);
-            inputParameters.put("PROP_LOCATION", propAddress);
-            inputParameters.put("LOCATION", location);
-            inputParameters.put("SIZE", size);
-            inputParameters.put("AREA", location);
-            inputParameters.put("APP_NR", appNr);
-            inputParameters.put("CLIENT_NAME", owners);
-            inputParameters.put("IMAGERY_DATE", imageryDate);
-            inputParameters.put("ADDRESS", address);
-            inputParameters.put("LODGING_DATE", lodgingDate);
-            inputParameters.put("FRONT_IMAGE", featureFront);
-            inputParameters.put("BACK_IMAGE", featureBack);
-            inputParameters.put("FRONT_FLOAT_IMAGE", featureFloatFront);
-            inputParameters.put("BACK_FLOAT_IMAGE", featureFloatBack);
-            inputParameters.put("COMMENCING_DATE", commencingDate);
-            inputParameters.put("REFNR", title);
-            inputParameters.put("GROUND_RENT", groundRent);
         }
-
-        inputParameters.put("REPORT_LOCALE", Locale.getDefault());
-        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
-        inputParameters.put("TIME_DEVELOP", timeToDevelop);
-        inputParameters.put("VALUE_IMPROV", valueForImprov);
-        inputParameters.put("TERM", term);
-        inputParameters.put("LAND_USE", landUse);
-        inputParameters.put("LGA", lga);
-        inputParameters.put("WARD", ward);
-        inputParameters.put("STATE", state);
-
+                
         BaUnitBean[] beans = new BaUnitBean[1];
         beans[0] = baUnitBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
-        InputStream inputStream = ReportManager.class.getClassLoader().getResourceAsStream(cofoReport);
-
+        InputStream inputStream =  ReportManager.class.getClassLoader().getResourceAsStream(cofoReport);
+        
         try {
-            JasperPrint report = JasperFillManager.fillReport(
+            JasperPrint report =JasperFillManager.fillReport(
                     inputStream,
                     inputParameters, jds);
-            inputStream.close();
-
+                inputStream.close();
+           
+            
             return report;
         } catch (JRException ex) {
             MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
                     new Object[]{ex.getLocalizedMessage()});
             return null;
-        } catch (IOException ex) {
-            Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
         }
-
+        catch (IOException ex) {
+                Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+        }
+       
     }
+      
+    
+
 
     /**
      * Generates and displays <b>Systematic registration Certificates
