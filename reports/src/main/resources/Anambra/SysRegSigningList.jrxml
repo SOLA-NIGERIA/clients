@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Signing List" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="org.sola.clients.reports.locale.SysRegSigningList" uuid="6fa2cba5-4686-4f71-9b94-96d37a4e5d21">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="31"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -495,10 +495,10 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="139" uuid="ff1e0b1b-ee9b-46cf-b2bb-f80bbcfc342c">
+					<jr:column width="202" uuid="ff1e0b1b-ee9b-46cf-b2bb-f80bbcfc342c">
 						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-								<reportElement mode="Transparent" x="0" y="0" width="139" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="ef2ad177-ff78-4a3a-8013-95380f626137"/>
+								<reportElement mode="Transparent" x="0" y="0" width="202" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="ef2ad177-ff78-4a3a-8013-95380f626137"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
 									<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single" leftIndent="5"/>
@@ -508,7 +508,7 @@
 						</jr:columnHeader>
 						<jr:detailCell height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Transparent" x="0" y="0" width="139" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="db767918-6c4f-4d64-be7f-0eae6b11fde2"/>
+								<reportElement mode="Transparent" x="0" y="0" width="202" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="db767918-6c4f-4d64-be7f-0eae6b11fde2"/>
 								<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 									<font fontName="SansSerif" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>

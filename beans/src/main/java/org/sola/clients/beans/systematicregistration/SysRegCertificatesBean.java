@@ -53,7 +53,25 @@ public class SysRegCertificatesBean extends AbstractIdBean {
     private Integer CofO;
     private String surveyor;
     private String rank;
+    private Integer term;
+    private BigDecimal rent;
 
+    public Integer getTerm() {
+        return term;
+    }
+
+    public void setTerm(Integer term) {
+        this.term = term;
+    }
+
+    public BigDecimal getRent() {
+        return rent;
+    }
+
+    public void setRent(BigDecimal rent) {
+        this.rent = rent;
+    }
+    
     public String getRank() {
         return rank;
     }

@@ -133,10 +133,10 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
         cadastreObjectSearch = new org.sola.clients.swing.ui.cadastre.LocationSearch();
         configureSRWU = new javax.swing.JButton();
         labHeader = new javax.swing.JLabel();
+        labHeader1 = new javax.swing.JLabel();
         srwuPanel = new javax.swing.JPanel();
         srwuToolBar = new javax.swing.JToolBar();
         btnSave1 = new org.sola.clients.swing.common.buttons.BtnSave();
-        labHeader1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         panelManuallyEntered = new javax.swing.JPanel();
         panelSltrOffice = new javax.swing.JPanel();
@@ -192,27 +192,11 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
         labHeader.setText(bundle1.getString("SysRegWorkUnitForm.labHeader.text")); // NOI18N
         labHeader.setOpaque(true);
 
-        javax.swing.GroupLayout selectionPanelLayout = new javax.swing.GroupLayout(selectionPanel);
-        selectionPanel.setLayout(selectionPanelLayout);
-        selectionPanelLayout.setHorizontalGroup(
-            selectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(selectionPanelLayout.createSequentialGroup()
-                .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(configureSRWU)
-                .addContainerGap())
-            .addComponent(labHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        selectionPanelLayout.setVerticalGroup(
-            selectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(selectionPanelLayout.createSequentialGroup()
-                .addComponent(labHeader)
-                .addGap(10, 10, 10)
-                .addGroup(selectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(configureSRWU))
-                .addContainerGap(197, Short.MAX_VALUE))
-        );
+        labHeader1.setBackground(new java.awt.Color(153, 153, 153));
+        labHeader1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labHeader1.setForeground(new java.awt.Color(255, 255, 255));
+        labHeader1.setText(bundle1.getString("SysRegWorkUnitForm.labHeader1.text")); // NOI18N
+        labHeader1.setOpaque(true);
 
         srwuToolBar.setFloatable(false);
         srwuToolBar.setRollover(true);
@@ -226,12 +210,6 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
             }
         });
         srwuToolBar.add(btnSave1);
-
-        labHeader1.setBackground(new java.awt.Color(153, 153, 153));
-        labHeader1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        labHeader1.setForeground(new java.awt.Color(255, 255, 255));
-        labHeader1.setText(bundle1.getString("SysRegWorkUnitForm.labHeader1.text")); // NOI18N
-        labHeader1.setOpaque(true);
 
         panelManuallyEntered.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -334,7 +312,7 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, sysRegWorkUnitBean, org.jdesktop.beansbinding.ELProperty.create("${recordedclaims}"), txtRecordedClaims, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        jLabel2.setText("Recorded Parcels");
+        jLabel2.setText("Mapped Parcels");
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, sysRegWorkUnitBean, org.jdesktop.beansbinding.ELProperty.create("${recordedparcel}"), txtRecordedParcel, org.jdesktop.beansbinding.BeanProperty.create("text"), "workunitGroup");
         bindingGroup.addBinding(binding);
@@ -403,7 +381,7 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
                 .addContainerGap(131, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab(" Input", panelManuallyEntered);
+        jTabbedPane1.addTab("Main", panelManuallyEntered);
 
         panelSolaCalculated.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -412,11 +390,11 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, sysRegStatusBean, org.jdesktop.beansbinding.ELProperty.create("${estimatedparcel}"), txtEnteredParcels, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        jLabel5.setText("Mapped Parcels");
+        jLabel5.setText("Entered Parcels");
 
         txtEnteredClaims.setEnabled(false);
 
-        jLabel8.setText("Entered Claims");
+        jLabel8.setText("SLTR Claims");
 
         txtReadyPD.setEnabled(false);
 
@@ -521,13 +499,12 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
                 .addGap(0, 276, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("View", panelSolaCalculated);
+        jTabbedPane1.addTab("Other Metrics", panelSolaCalculated);
 
         javax.swing.GroupLayout srwuPanelLayout = new javax.swing.GroupLayout(srwuPanel);
         srwuPanel.setLayout(srwuPanelLayout);
         srwuPanelLayout.setHorizontalGroup(
             srwuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(srwuPanelLayout.createSequentialGroup()
                 .addGroup(srwuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(srwuToolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -537,29 +514,54 @@ public class SysRegWorkUnitForm extends javax.swing.JDialog {
         srwuPanelLayout.setVerticalGroup(
             srwuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(srwuPanelLayout.createSequentialGroup()
-                .addComponent(labHeader1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(21, 21, 21)
                 .addComponent(srwuToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
 
+        javax.swing.GroupLayout selectionPanelLayout = new javax.swing.GroupLayout(selectionPanel);
+        selectionPanel.setLayout(selectionPanelLayout);
+        selectionPanelLayout.setHorizontalGroup(
+            selectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(selectionPanelLayout.createSequentialGroup()
+                .addGroup(selectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(selectionPanelLayout.createSequentialGroup()
+                        .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(configureSRWU))
+                    .addComponent(labHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(srwuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        selectionPanelLayout.setVerticalGroup(
+            selectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(selectionPanelLayout.createSequentialGroup()
+                .addComponent(labHeader)
+                .addGap(10, 10, 10)
+                .addGroup(selectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cadastreObjectSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(configureSRWU))
+                .addGap(49, 49, 49)
+                .addComponent(labHeader1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(srwuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(srwuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(selectionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(selectionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(srwuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(selectionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();

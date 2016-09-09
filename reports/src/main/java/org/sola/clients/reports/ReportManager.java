@@ -481,7 +481,9 @@ public class ReportManager {
         String lga = location.replace("/" + tmpLocation, " LGA");
         String section = tmpLocation.substring(tmpLocation.indexOf("/") + 1);
         String ward = tmpLocation.replace("/" + section, ", ");
-        location = "PD Area " + section + ", Ward " + ward + lga + " ( " + upiCode + " )";
+        location = "Public Display Area " + section + ", Ward " + ward + lga + " ( " + upiCode + " )";
+        Date currentdate = new Date(System.currentTimeMillis());
+        inputParameters.put("CURRENT_DATE", currentdate);
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("FROM_DATE", dateFrom);
@@ -524,10 +526,10 @@ public class ReportManager {
         String lga = location.replace("/" + tmpLocation, " LGA");
         String section = tmpLocation.substring(tmpLocation.indexOf("/") + 1);
         String ward = tmpLocation.replace("/" + section, ", ");
-        location = "PD Area " + section + ", Ward " + ward + lga + " ( " + upiCode + " )";
+        location = "Public Display Area " + section + ", Ward " + ward + lga + " ( " + upiCode + " )";
 
-//	Date currentdate = new Date(System.currentTimeMillis());
-//        inputParameters.put("CURRENT_DATE", currentdate);
+	Date currentdate = new Date(System.currentTimeMillis());
+        inputParameters.put("CURRENT_DATE", currentdate);
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("FROM_DATE", dateFrom);
@@ -564,8 +566,8 @@ public class ReportManager {
     public static JasperPrint getSysRegPubDisStateLandReport(StateLandListingListBean statelandList,
             Date dateFrom, Date dateTo, String location, String subReport) {
         HashMap inputParameters = new HashMap();
-//	Date currentdate = new Date(System.currentTimeMillis());
-//        inputParameters.put("CURRENT_DATE", currentdate);
+	Date currentdate = new Date(System.currentTimeMillis());
+        inputParameters.put("CURRENT_DATE", currentdate);
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("FROM_DATE", dateFrom);
@@ -605,8 +607,8 @@ public class ReportManager {
         String ward = tmpLocation.replace("/" + section, ", ");
         location = "Section " + section + ", Ward " + ward + lga + " ( " + upiCode + " )";
 
-//	Date currentdate = new Date(System.currentTimeMillis());
-//        inputParameters.put("CURRENT_DATE", currentdate);
+	Date currentdate = new Date(System.currentTimeMillis());
+        inputParameters.put("CURRENT_DATE", currentdate);
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("LOCATION", location);
@@ -710,7 +712,7 @@ public class ReportManager {
         
         String prefix = getPrefix();
         cofoReport = prefix+"/CofO.jasper"; 
-        cofoReport = prefix+"/newCofO.jasper"; 
+//      ?????  cofoReport = prefix+"/newCofO.jasper"; ????  WHAT IS THIS FOR???
                
         if (! baUnitBean.isIsDeveloped()) {
           if (baUnitBean.getYearsForDev()!=null) {
@@ -892,7 +894,7 @@ public class ReportManager {
             for (Iterator<RrrBean> it = baUnitBean.getRrrList().iterator(); it.hasNext();) {
                 RrrBean rrrDetail = it.next();
                 numberOfOwners = numberOfOwners + rrrDetail.getRightHolderList().size();
-                if (rrrDetail.isPrimary() && !rrrDetail.getCOfO().equalsIgnoreCase(null) && !rrrDetail.getCOfO().equalsIgnoreCase("")) {
+//                if (rrrDetail.isPrimary() && !rrrDetail.getCOfO().equalsIgnoreCase(null) && !rrrDetail.getCOfO().equalsIgnoreCase("")) {
                     reviewPeriod = "Review Period: ";
                     if (rrrDetail.getReviewPeriod()!=null) {
                         reviewPeriod = reviewPeriod + rrrDetail.getReviewPeriod().toString() + " years";
@@ -951,7 +953,7 @@ public class ReportManager {
                              }
                          }
                      }
-                }  
+//                }  
             }
             inputParameters.put("AREA", area);
             inputParameters.put("STAMP_DUTY",stampDuty);
