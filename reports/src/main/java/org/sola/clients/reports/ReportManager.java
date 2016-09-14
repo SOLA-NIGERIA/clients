@@ -698,11 +698,30 @@ public class ReportManager {
         state = appBaunit.getState();
         propAddress = baUnitBean.getLocation();
         //Parcel Plan
-        imageryResolution=appBaunit.getImageryResolution();
-        imagerySource=appBaunit.getImagerySource();        
-        sheetNr=appBaunit.getSheetNr();
-        surveyor=appBaunit.getSurveyor();
-        rank=appBaunit.getRank();   
+        imageryResolution = "";
+        if (appBaunit.getImageryResolution() != null) {
+            imageryResolution=appBaunit.getImageryResolution();
+        }
+        
+        imagerySource = "";
+        if (appBaunit.getImagerySource() != null) {
+            imagerySource = appBaunit.getImagerySource();
+        }; 
+        
+        sheetNr = "";
+        if (appBaunit.getSheetNr() !=null) {
+             appBaunit.getSheetNr();           
+        }
+                 
+        surveyor = "";
+        if (appBaunit.getSurveyor() != null) {
+            surveyor = appBaunit.getSurveyor();
+        };
+        
+        rank = "";
+        if (appBaunit.getRank() != null) {
+            rank = appBaunit.getRank();
+        };   
         String mapImage = featureImageFileName;  
         String mapImageSmall = featureImageFileNameSmall;  
         String utmZone = srid.toString().substring(srid.toString().length()-2);
@@ -712,7 +731,6 @@ public class ReportManager {
         
         String prefix = getPrefix();
         cofoReport = prefix+"/CofO.jasper"; 
-//      ?????  cofoReport = prefix+"/newCofO.jasper"; ????  WHAT IS THIS FOR???
                
         if (! baUnitBean.isIsDeveloped()) {
           if (baUnitBean.getYearsForDev()!=null) {
@@ -816,6 +834,7 @@ public class ReportManager {
             String premium = "";
             String purpose = "Permitted Purpose: ";
             String governor = "";
+            String surveyorGeneral = "";
             String diagramImage = null;
             String photoImage1 = null;
             String photoImage2 = null;
@@ -832,7 +851,7 @@ public class ReportManager {
             Integer numberOfOwners = 0;
             
             lga = "Local Government Area: " + lga;
-                 
+            utmZone = "Minna Datum UTM Zone ??? " + srid.toString().substring(srid.toString().length()-2) + "N";     
             parcelNumber = appBaunit.getNameFirstpart();
             parcelDescriptor = appBaunit.getNameLastpart();
        
@@ -870,31 +889,32 @@ public class ReportManager {
             }
             
             purpose = "Permitted Purpose: ";
-//            if (appBaunit.getPurpose() !=null) {
-//                purpose = purpose + appBaunit.getPurpose();
-//            }
+            if (appBaunit.getLandUse()!=null) {
+                purpose = purpose + appBaunit.getLandUse();
+            }
             
             premium = "Improvement Premium: ";
 //            if (appBaunit.getPremium()!=null) {
-//                premium = premium + "N " + intFormat.format(appBaunit.getPremium().toString()) + " Naira";
+//                premium = premium + "N " + intFormat.format(appBaunit.getPremium()).toString() + " Naira";
 //            }
             
             stampDuty = "";
 //            if (appBaunit.getStampDuty()!=null) {
-//                stampDuty = stampDuty + "N " + intFormat.format(appBaunit.getStampDuty().toString()) + " Naira";
+//                stampDuty = stampDuty + "N " + intFormat.format(appBaunit.getStampDuty()).toString() + " Naira";
 //            }
 //
             annualRent = "Annual Rent: ";
-//            if (appBaunit.getRent() !=null) {
-//                annualRent = annualRent + appBaunit.getRent();
-//            }
+            if (appBaunit.getRent() !=null) {
+                annualRent = annualRent + "N " + intFormat.format(appBaunit.getRent()).toString() + " Naira";
+            }
             
             governor = governor + getSettingValue("governorName");
+            surveyorGeneral = getSettingValue("surveyorGeneral");
             
             for (Iterator<RrrBean> it = baUnitBean.getRrrList().iterator(); it.hasNext();) {
                 RrrBean rrrDetail = it.next();
                 numberOfOwners = numberOfOwners + rrrDetail.getRightHolderList().size();
-//                if (rrrDetail.isPrimary() && !rrrDetail.getCOfO().equalsIgnoreCase(null) && !rrrDetail.getCOfO().equalsIgnoreCase("")) {
+                if (rrrDetail.isPrimary() && !rrrDetail.getCOfO().equalsIgnoreCase(null) && !rrrDetail.getCOfO().equalsIgnoreCase("")) {
                     reviewPeriod = "Review Period: ";
                     if (rrrDetail.getReviewPeriod()!=null) {
                         reviewPeriod = reviewPeriod + rrrDetail.getReviewPeriod().toString() + " years";
@@ -953,18 +973,22 @@ public class ReportManager {
                              }
                          }
                      }
-//                }  
+                }  
             }
+            inputParameters.put("LGA", lga);
+            inputParameters.put("UTM", utmZone);
             inputParameters.put("AREA", area);
             inputParameters.put("STAMP_DUTY",stampDuty);
             inputParameters.put("IMPROVEMENT_PREMIUM",premium);
             inputParameters.put("PERMITTED_PURPOSE",purpose);
             inputParameters.put("GOVERNOR", governor);
+            inputParameters.put("SURVEYOR_GENERAL", surveyorGeneral);
             inputParameters.put("CERTIFICATE_TYPE", certificateType);
             inputParameters.put("PHOTO_IMAGE1", photoImage1);
             inputParameters.put("PHOTO_IMAGE2", photoImage2);
             inputParameters.put("ANNUAL_RENT", annualRent);
-            inputParameters.put("REVIEW_PERIOD", rentReviewPeriod);
+            inputParameters.put("TERM", term);
+            inputParameters.put("REVIEW_PERIOD", reviewPeriod);
             inputParameters.put("ADDRESS_NOTICES", addressNotices);
             inputParameters.put("PARCEL", parcelNumber + "/" + parcelDescriptor);
             inputParameters.put("AREA", area);
