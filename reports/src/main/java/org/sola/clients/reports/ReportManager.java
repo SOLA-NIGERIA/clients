@@ -914,7 +914,7 @@ public class ReportManager {
             for (Iterator<RrrBean> it = baUnitBean.getRrrList().iterator(); it.hasNext();) {
                 RrrBean rrrDetail = it.next();
                 numberOfOwners = numberOfOwners + rrrDetail.getRightHolderList().size();
-                if (rrrDetail.isPrimary() && !rrrDetail.getCOfO().equalsIgnoreCase(null) && !rrrDetail.getCOfO().equalsIgnoreCase("")) {
+//                if (rrrDetail.isPrimary() && !rrrDetail.getCOfO().equalsIgnoreCase(null) && !rrrDetail.getCOfO().equalsIgnoreCase("")) {
                     reviewPeriod = "Review Period: ";
                     if (rrrDetail.getReviewPeriod()!=null) {
                         reviewPeriod = reviewPeriod + rrrDetail.getReviewPeriod().toString() + " years";
@@ -973,7 +973,7 @@ public class ReportManager {
                              }
                          }
                      }
-                }  
+//                }  
             }
             inputParameters.put("LGA", lga);
             inputParameters.put("UTM", utmZone);
