@@ -55,7 +55,34 @@ public class SysRegCertificatesBean extends AbstractIdBean {
     private String rank;
     private Integer term;
     private BigDecimal rent;
+    private BigDecimal stampDuty;
+    private Integer premiumStateLand;
+    private Integer premiumNonState;
 
+    public BigDecimal getStampDuty() {
+        return stampDuty;
+    }
+
+    public void setStampDuty(BigDecimal stampDuty) {
+        this.stampDuty = stampDuty;
+    }
+
+    public Integer getPremiumStateLand() {
+        return premiumStateLand;
+    }
+
+    public void setPremiumStateLand(Integer premiumStateLand) {
+        this.premiumStateLand = premiumStateLand;
+    }
+
+    public Integer getPremiumNonState() {
+        return premiumNonState;
+    }
+
+    public void setPremiumNonState(Integer premiumNonState) {
+        this.premiumNonState = premiumNonState;
+    }
+    
     public Integer getTerm() {
         return term;
     }
