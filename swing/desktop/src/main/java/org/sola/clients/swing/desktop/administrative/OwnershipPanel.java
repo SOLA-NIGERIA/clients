@@ -172,9 +172,9 @@ public class OwnershipPanel extends ContentPanel {
 
     private void postInit() {
         this.cofoNumber.setText(baunitBean.getNameLastpart()+"/"+baunitBean.getNameFirstpart());
-        pnlZone.setVisible(false);
-        this.cbxZone.setVisible(false);
-        this.labZone.setVisible(false);
+//        pnlZone.setVisible(false);
+//        this.cbxZone.setVisible(false);
+//        this.labZone.setVisible(false);
         
         templates.loadList(true, rrrBean.getRrrType().getCode());
 //        this.txtCofO.setEnabled(false);
@@ -187,11 +187,11 @@ public class OwnershipPanel extends ContentPanel {
 //        }
 
         String state = ReportManager.getSettingValue("state");
-            pnlZone.setVisible(false);
-            this.cbxZone.setVisible(false);
-            this.labZone.setVisible(false);
+//            pnlZone.setVisible(false);
+//            this.cbxZone.setVisible(false);
+//            this.labZone.setVisible(false);
         
-
+System.out.println("IMPROVEMENT    "+this.rrrBean.getImprovementPremium());
         customizeForm();
         customizeSharesButtons(null);
         saveRrrState();
@@ -422,8 +422,8 @@ public class OwnershipPanel extends ContentPanel {
         jLabel2 = new javax.swing.JLabel();
         cofoNumber = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        txtTerm = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        txtimprPrem = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtAdvPayment = new javax.swing.JTextField();
@@ -444,12 +444,12 @@ public class OwnershipPanel extends ContentPanel {
         jLabel8 = new javax.swing.JLabel();
         txtSignDatetime = new org.sola.clients.swing.common.controls.WatermarkDate();
         btnSignDate = new javax.swing.JButton();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        txtTerm = new javax.swing.JTextField();
         jPanel13 = new javax.swing.JPanel();
         labEstate = new javax.swing.JLabel();
         cbxEstate = new javax.swing.JComboBox();
-        pnlZone = new javax.swing.JPanel();
-        labZone = new javax.swing.JLabel();
-        cbxZone = new javax.swing.JComboBox();
         mainTabbedPanel = new javax.swing.JTabbedPane();
         jPanel15 = new javax.swing.JPanel();
         cbxIsPrimary = new javax.swing.JCheckBox();
@@ -586,36 +586,35 @@ public class OwnershipPanel extends ContentPanel {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cofoNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE))
+                .addComponent(cofoNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
         );
 
         jPanel14.add(jPanel5);
 
         jPanel6.setName("jPanel6"); // NOI18N
 
-        jLabel3.setText(bundle.getString("OwnershipPanel.jLabel3.text")); // NOI18N
-        jLabel3.setName("jLabel3"); // NOI18N
+        jLabel11.setText(bundle.getString("OwnershipPanel.jLabel11.text")); // NOI18N
+        jLabel11.setName("jLabel11"); // NOI18N
 
-        txtTerm.setName("txtTerm"); // NOI18N
+        txtimprPrem.setEditable(false);
+        txtimprPrem.setName("txtimprPrem"); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${term}"), txtTerm, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${improvementPremium}"), txtimprPrem, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(txtTerm)
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+            .addComponent(txtimprPrem)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTerm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(txtimprPrem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel14.add(jPanel6);
@@ -825,6 +824,35 @@ public class OwnershipPanel extends ContentPanel {
 
         jPanel14.add(jPanel9);
 
+        jPanel12.setName("jPanel12"); // NOI18N
+
+        jLabel3.setText(bundle.getString("OwnershipPanel.jLabel3.text")); // NOI18N
+        jLabel3.setName("jLabel3"); // NOI18N
+
+        txtTerm.setName("txtTerm"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${term}"), txtTerm, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 55, Short.MAX_VALUE))
+            .addComponent(txtTerm)
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtTerm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel14.add(jPanel12);
+
         jPanel13.setName("jPanel13"); // NOI18N
 
         labEstate.setText(bundle.getString("OwnershipPanel.labEstate.text")); // NOI18N
@@ -856,40 +884,6 @@ public class OwnershipPanel extends ContentPanel {
         );
 
         jPanel14.add(jPanel13);
-
-        pnlZone.setEnabled(false);
-        pnlZone.setName("pnlZone"); // NOI18N
-        pnlZone.setOpaque(false);
-
-        labZone.setText(bundle.getString("OwnershipPanel.labZone.text")); // NOI18N
-        labZone.setName("labZone"); // NOI18N
-
-        cbxZone.setName("cbxZone"); // NOI18N
-
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${zoneTypeList}");
-        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, zoneTypeListBean1, eLProperty, cbxZone);
-        bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${zoneType}"), cbxZone, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
-
-        javax.swing.GroupLayout pnlZoneLayout = new javax.swing.GroupLayout(pnlZone);
-        pnlZone.setLayout(pnlZoneLayout);
-        pnlZoneLayout.setHorizontalGroup(
-            pnlZoneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlZoneLayout.createSequentialGroup()
-                .addComponent(labZone, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 55, Short.MAX_VALUE))
-            .addComponent(cbxZone, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        pnlZoneLayout.setVerticalGroup(
-            pnlZoneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlZoneLayout.createSequentialGroup()
-                .addComponent(labZone)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxZone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel14.add(pnlZone);
 
         mainTabbedPanel.setName("mainTabbedPanel"); // NOI18N
 
@@ -1037,7 +1031,7 @@ public class OwnershipPanel extends ContentPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))
         );
 
         jPanel4.add(jPanel2);
@@ -1061,7 +1055,7 @@ public class OwnershipPanel extends ContentPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(groupPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(documentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
+                .addComponent(documentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
         );
 
         jPanel4.add(jPanel1);
@@ -1180,7 +1174,7 @@ public class OwnershipPanel extends ContentPanel {
                     .addComponent(cbxConditionsTemplates, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnInsertConditionsText))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1354,7 +1348,6 @@ public class OwnershipPanel extends ContentPanel {
     private javax.swing.JComboBox cbxConditionsTemplates;
     private javax.swing.JComboBox cbxEstate;
     private javax.swing.JCheckBox cbxIsPrimary;
-    private javax.swing.JComboBox cbxZone;
     private javax.swing.JLabel cofoNumber;
     private org.sola.clients.beans.referencedata.CofoTypeListBean cofoTypeListBean1;
     private javax.swing.JPanel conditionsPanel;
@@ -1366,6 +1359,7 @@ public class OwnershipPanel extends ContentPanel {
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
@@ -1379,6 +1373,7 @@ public class OwnershipPanel extends ContentPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
@@ -1396,14 +1391,12 @@ public class OwnershipPanel extends ContentPanel {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JLabel labEstate;
-    private javax.swing.JLabel labZone;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JTabbedPane mainTabbedPanel;
     private javax.swing.JMenuItem menuAddShare;
     private javax.swing.JMenuItem menuChangeShare;
     private javax.swing.JMenuItem menuRemoveShare;
     private javax.swing.JMenuItem menuViewShare;
-    private javax.swing.JPanel pnlZone;
     private javax.swing.JPopupMenu popUpShares;
     private org.sola.clients.beans.referencedata.RotTypeListBean rotTypeListBean1;
     private org.sola.clients.beans.administrative.RrrBean rrrBean;
@@ -1418,6 +1411,7 @@ public class OwnershipPanel extends ContentPanel {
     private javax.swing.JTextField txtRevPeriod;
     private org.sola.clients.swing.common.controls.WatermarkDate txtSignDatetime;
     private javax.swing.JTextField txtTerm;
+    private javax.swing.JTextField txtimprPrem;
     private org.sola.clients.beans.referencedata.ZoneTypeListBean zoneTypeListBean1;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables

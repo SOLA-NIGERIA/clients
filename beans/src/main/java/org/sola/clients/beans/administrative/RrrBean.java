@@ -168,6 +168,15 @@ public class RrrBean extends AbstractTransactionedBean {
     private ZoneTypeBean zoneTypeBean;
     private RotTypeBean rotBean;
     private String instrRegNum;
+    private String improvementPremium;
+
+    public String getImprovementPremium() {
+        return improvementPremium;
+    }
+
+    public void setImprovementPremium(String improvementPremium) {
+        this.improvementPremium = improvementPremium;
+    }
     
     public String getInstrRegNum() {
         return instrRegNum;
