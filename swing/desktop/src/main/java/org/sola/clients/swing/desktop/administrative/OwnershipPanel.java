@@ -191,7 +191,7 @@ public class OwnershipPanel extends ContentPanel {
 //            this.cbxZone.setVisible(false);
 //            this.labZone.setVisible(false);
         
-System.out.println("IMPROVEMENT    "+this.rrrBean.getImprovementPremium());
+//System.out.println("IMPROVEMENT    "+this.rrrBean.getImprovementPremium());
         customizeForm();
         customizeSharesButtons(null);
         saveRrrState();
