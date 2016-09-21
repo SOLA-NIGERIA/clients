@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c25c4057-8d96-4776-b8c8-4645cf4f500f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="8"/>
+	<property name="ireport.y" value="27"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -181,6 +181,7 @@
 		</field>
 	</subDataset>
 	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="PROP_LOCATION" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -227,7 +228,7 @@
 				<textElement>
 					<font size="28" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Title registration]]></text>
+				<text><![CDATA[SLTR Record]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="59" width="76" height="20" uuid="bf079212-3cec-42da-ac2e-0ce288082c2e"/>
@@ -264,7 +265,7 @@
 				<textElement>
 					<font fontName="Tahoma" size="12"/>
 				</textElement>
-				<text><![CDATA[Name first/last part:]]></text>
+				<text><![CDATA[SLTR Reference:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="120" y="13" width="435" height="20" uuid="953e9286-3fa8-4e43-99a0-db36b3e9a468"/>
@@ -292,14 +293,14 @@
 				<textElement>
 					<font fontName="Tahoma" size="12"/>
 				</textElement>
-				<text><![CDATA[Description:]]></text>
+				<text><![CDATA[Location:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="120" y="76" width="435" height="20" uuid="067b5ec8-2ed0-4d23-b59f-f645fe76e1cd"/>
 				<textElement>
-					<font fontName="Tahoma" isItalic="true"/>
+					<font fontName="Tahoma" isBold="true" isItalic="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{PROP_LOCATION}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="108" width="100" height="20" uuid="51288178-2a90-4d5f-8395-79c3b2838669"/>
@@ -322,7 +323,7 @@
 									<font fontName="Tahoma" size="12" isBold="true"/>
 									<paragraph leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
 								</textElement>
-								<text><![CDATA[Code]]></text>
+								<text><![CDATA[Unique Parcel Identifier]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table_TD" height="23" rowSpan="1">
@@ -344,7 +345,7 @@
 									<font fontName="Tahoma" size="12" isBold="true"/>
 									<paragraph leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
 								</textElement>
-								<text><![CDATA[Type]]></text>
+								<text><![CDATA[Cadastre Object Type]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table_TD" height="23" rowSpan="1">
@@ -366,7 +367,7 @@
 									<font fontName="Tahoma" size="12" isBold="true"/>
 									<paragraph leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
 								</textElement>
-								<text><![CDATA[Reference]]></text>
+								<text><![CDATA[Document Ref.]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table_TD" height="23" rowSpan="1">
@@ -425,7 +426,7 @@
 									<font fontName="Tahoma" size="12" isBold="true"/>
 									<paragraph leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
 								</textElement>
-								<text><![CDATA[Type]]></text>
+								<text><![CDATA[Right]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
@@ -447,7 +448,7 @@
 									<font fontName="Tahoma" size="12" isBold="true"/>
 									<paragraph leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
 								</textElement>
-								<text><![CDATA[Registration Date]]></text>
+								<text><![CDATA[Recording Date]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
@@ -486,11 +487,11 @@
 				</jr:table>
 			</componentElement>
 			<staticText>
-				<reportElement positionType="Float" x="0" y="256" width="100" height="20" uuid="e9115869-908e-4e1b-8e43-02883624a6e0"/>
+				<reportElement positionType="Float" x="0" y="256" width="120" height="20" uuid="e9115869-908e-4e1b-8e43-02883624a6e0"/>
 				<textElement>
 					<font fontName="Tahoma" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[OWNERSHIP:]]></text>
+				<text><![CDATA[RIGHT HOLDERS:]]></text>
 			</staticText>
 			<componentElement>
 				<reportElement key="table 3" style="table 3" positionType="Float" x="0" y="276" width="555" height="44" uuid="1e2287ef-24f8-4442-8420-1ce3b4468777"/>
@@ -506,7 +507,7 @@
 									<font fontName="Tahoma" size="12" isBold="true"/>
 									<paragraph leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
 								</textElement>
-								<text><![CDATA[Owners]]></text>
+								<text><![CDATA[Name]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="22" rowSpan="1">
@@ -587,7 +588,7 @@
 									<font fontName="Tahoma" size="12" isBold="true"/>
 									<paragraph leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
 								</textElement>
-								<text><![CDATA[Ref. Number]]></text>
+								<text><![CDATA[SOLA Ref.]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
@@ -609,7 +610,7 @@
 									<font fontName="Tahoma" size="12" isBold="true"/>
 									<paragraph leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
 								</textElement>
-								<text><![CDATA[Notation Text]]></text>
+								<text><![CDATA[Text]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
@@ -658,22 +659,15 @@
 				</jr:barbecue>
 			</componentElement>
 			<staticText>
-				<reportElement x="7" y="25" width="56" height="20" uuid="9ca68720-5bf2-4a91-8bd3-902cd4530be2"/>
+				<reportElement x="7" y="25" width="82" height="20" uuid="9ca68720-5bf2-4a91-8bd3-902cd4530be2"/>
 				<textElement>
 					<font fontName="Tahoma" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Registar]]></text>
+				<text><![CDATA[SLTR Officer]]></text>
 			</staticText>
 			<line>
-				<reportElement x="63" y="38" width="255" height="1" uuid="98c02cb1-22e5-464f-8eb3-7ed6211ef949"/>
+				<reportElement x="90" y="38" width="240" height="1" uuid="98c02cb1-22e5-464f-8eb3-7ed6211ef949"/>
 			</line>
-			<textField>
-				<reportElement x="63" y="38" width="255" height="20" uuid="39e0a867-f83a-4983-9e33-5f29c876252f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Tahoma"/>
-				</textElement>
-				<textFieldExpression><![CDATA["(" + $P{USER} + ")"]]></textFieldExpression>
-			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>

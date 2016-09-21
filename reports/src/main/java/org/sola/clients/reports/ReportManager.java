@@ -150,8 +150,16 @@ public class ReportManager {
      * @param appBean Application bean containing data for the report.
      */
     public static JasperPrint getBaUnitReport(BaUnitBean baUnitBean) {
+        String propAddress;
         HashMap inputParameters = new HashMap();
+        
+        propAddress = "";
+        if (baUnitBean.getLocation() != null)  {
+            propAddress = baUnitBean.getLocation();
+        }
+        
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
+        inputParameters.put("PROP_LOCATION", propAddress);
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         BaUnitBean[] beans = new BaUnitBean[1];
         beans[0] = baUnitBean;
@@ -696,8 +704,12 @@ public class ReportManager {
         lga = appBaunit.getPropLocation();
         ward = appBaunit.getWard();
         state = appBaunit.getState();
-        propAddress = baUnitBean.getLocation();
-        //Parcel Plan
+        
+        propAddress = "";
+        if (baUnitBean.getLocation() != null)  {
+            propAddress = baUnitBean.getLocation();
+        }
+         //Parcel Plan
         imageryResolution = "";
         if (appBaunit.getImageryResolution() != null) {
             imageryResolution=appBaunit.getImageryResolution();
@@ -871,7 +883,7 @@ public class ReportManager {
             }
             addressNotices = "Notices to: ";
             if (appBean.getContactPerson().getAddress().getDescription() !=null) {
-                address = address + appBean.getContactPerson().getAddress().getDescription();
+                addressNotices = addressNotices + appBean.getContactPerson().getAddress().getDescription();
             }
             propAddress = "Location: ";
             if (baUnitBean.getLocation() !=null) {
@@ -894,27 +906,27 @@ public class ReportManager {
             }
             
             premium = "Improvement Premium: ";
-//            if (appBaunit.getPremium()!=null) {
-//                premium = premium + "N " + intFormat.format(appBaunit.getPremium()).toString() + " Naira";
-//            }
+            if (appBaunit.getPremiumNonState()!=null) {
+                premium = premium + "N " + intFormat.format(appBaunit.getPremiumNonState()).toString() + " Naira";
+            }
             
             stampDuty = "";
-//            if (appBaunit.getStampDuty()!=null) {
-//                stampDuty = stampDuty + "N " + intFormat.format(appBaunit.getStampDuty()).toString() + " Naira";
-//            }
-//
+            if (appBaunit.getStampDuty()!=null) {
+                stampDuty = stampDuty + "N " + intFormat.format(appBaunit.getStampDuty()).toString() + " Naira";
+            }
+
             annualRent = "Annual Rent: ";
-            if (appBaunit.getRent() !=null) {
-                annualRent = annualRent + "N " + intFormat.format(appBaunit.getRent()).toString() + " Naira";
+            if (appBaunit.getGroundRent()!=null) {
+                annualRent = annualRent + "N " + intFormat.format(appBaunit.getGroundRent()).toString() + " Naira";
             }
             
             governor = governor + getSettingValue("governorName");
             surveyorGeneral = getSettingValue("surveyorGeneral");
             
-            for (Iterator<RrrBean> it = baUnitBean.getRrrList().iterator(); it.hasNext();) {
+            for (Iterator<RrrBean> it = baUnitBean.getRrrFilteredList().iterator(); it.hasNext();) {
                 RrrBean rrrDetail = it.next();
                 numberOfOwners = numberOfOwners + rrrDetail.getRightHolderList().size();
-//                if (rrrDetail.isPrimary() && !rrrDetail.getCOfO().equalsIgnoreCase(null) && !rrrDetail.getCOfO().equalsIgnoreCase("")) {
+                if (rrrDetail.isPrimary() && !rrrDetail.getCOfO().equalsIgnoreCase(null) && !rrrDetail.getCOfO().equalsIgnoreCase("")) {
                     reviewPeriod = "Review Period: ";
                     if (rrrDetail.getReviewPeriod()!=null) {
                         reviewPeriod = reviewPeriod + rrrDetail.getReviewPeriod().toString() + " years";
@@ -973,7 +985,7 @@ public class ReportManager {
                              }
                          }
                      }
-//                }  
+                }  
             }
             inputParameters.put("LGA", lga);
             inputParameters.put("UTM", utmZone);

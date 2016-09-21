@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="780" columnWidth="485" leftMargin="65" rightMargin="45" topMargin="20" bottomMargin="5" uuid="7e437324-9a14-4a89-98d8-e5b069b6221f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="246"/>
+	<property name="ireport.y" value="817"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -128,6 +128,9 @@
 		</box>
 	</style>
 	<subDataset name="Ownership" uuid="155f5e97-b098-4ae0-a9ff-78d1bbca1d94">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
 		<field name="Name" class="java.lang.String">
 			<fieldDescription><![CDATA[rrrShare.rightHoldersStringList]]></fieldDescription>
 		</field>
@@ -451,7 +454,7 @@
 				<textFieldExpression><![CDATA["Scale: "+$P{SCALE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Transparent" x="244" y="386" width="240" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="fe4daed8-9380-4d7c-9ad7-3308f1df140a"/>
+				<reportElement positionType="Float" mode="Transparent" x="280" y="386" width="200" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="fe4daed8-9380-4d7c-9ad7-3308f1df140a"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Tahoma" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -459,7 +462,7 @@
 				<textFieldExpression><![CDATA["Approved by " + $P{SURVEYOR_GENERAL} + " (Surveyor General)"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Transparent" x="0" y="386" width="240" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="027ea256-3557-464b-8dae-114ac303c2b3"/>
+				<reportElement positionType="Float" mode="Transparent" x="30" y="386" width="240" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="027ea256-3557-464b-8dae-114ac303c2b3"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Tahoma" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -467,7 +470,7 @@
 				<textFieldExpression><![CDATA["Signed by " + $P{SURVEYOR} + " (" + $P{RANK} + ")"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Transparent" x="0" y="405" width="200" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="41e46721-e2ca-4d74-9cf4-b0881bfae5f5"/>
+				<reportElement positionType="Float" mode="Transparent" x="30" y="405" width="200" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="41e46721-e2ca-4d74-9cf4-b0881bfae5f5"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Tahoma" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -491,13 +494,13 @@
 				<textFieldExpression><![CDATA["Parcel Plan of Plot " + $P{PARCEL}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement key="table 5" positionType="Float" x="0" y="429" width="484" height="10" uuid="f5b59a60-8b5e-4155-90bd-c9ce7ab65cf0"/>
+				<reportElement key="table 5" style="table" positionType="Float" x="0" y="429" width="484" height="10" uuid="f5b59a60-8b5e-4155-90bd-c9ce7ab65cf0"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Notations" uuid="76f671ac-82ad-4a0f-a494-6a1d93e28b38">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{allBaUnitNotationList}.toArray())]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="478" uuid="12b01cbb-e57a-4027-923b-51909caa2679">
-						<jr:detailCell height="20" rowSpan="1">
+						<jr:detailCell style="table 1" height="20" rowSpan="1">
 							<textField isStretchWithOverflow="true">
 								<reportElement x="0" y="0" width="470" height="20" uuid="356f68cf-5adf-43ab-9886-652cb3dde1d7"/>
 								<textElement>
@@ -512,7 +515,7 @@ $F{notationText}+ " " ))]]></textFieldExpression>
 				</jr:table>
 			</componentElement>
 			<textField>
-				<reportElement positionType="Float" x="164" y="500" width="50" height="10" uuid="1071c6d7-a6ac-4ee7-a760-e9fbee989b4c"/>
+				<reportElement positionType="Float" x="164" y="501" width="50" height="10" uuid="1071c6d7-a6ac-4ee7-a760-e9fbee989b4c"/>
 				<textElement>
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
@@ -526,13 +529,13 @@ $F{notationText}+ " " ))]]></textFieldExpression>
 				<text><![CDATA[NOTATIONS :]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement key="table 5" positionType="Float" x="0" y="451" width="484" height="10" uuid="d7821688-424c-4570-b798-820987a150f4"/>
+				<reportElement key="table 5" style="table" positionType="Float" x="0" y="452" width="484" height="10" uuid="d7821688-424c-4570-b798-820987a150f4"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Interests" uuid="19e97e33-3272-45f7-ba17-62d3d048209a">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{rrrFilteredList}.toArray())]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="422" uuid="06726856-ec08-46e5-97d9-2c97674dfd10">
-						<jr:detailCell height="20" rowSpan="1">
+						<jr:detailCell style="table 1" height="20" rowSpan="1">
 							<textField isStretchWithOverflow="true">
 								<reportElement x="0" y="0" width="422" height="20" uuid="afb4c3d2-6592-40f7-87ce-5149e74e3c22"/>
 								<textElement>
@@ -545,52 +548,52 @@ $F{notationText}+ " " ))]]></textFieldExpression>
 				</jr:table>
 			</componentElement>
 			<textField>
-				<reportElement positionType="Float" x="0" y="479" width="484" height="20" uuid="ad3df6d8-70fb-4e46-8f35-04877e360fe6"/>
+				<reportElement positionType="Float" x="0" y="480" width="484" height="20" uuid="ad3df6d8-70fb-4e46-8f35-04877e360fe6"/>
 				<textElement>
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA["This certificate was delivered for registration :  On  ........................................... (time)  .......................................................... (date)"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="0" y="467" width="484" height="12" uuid="3d9bc6f8-c714-49d6-8459-d4b3748526ae"/>
+				<reportElement positionType="Float" x="0" y="468" width="484" height="12" uuid="3d9bc6f8-c714-49d6-8459-d4b3748526ae"/>
 				<textElement verticalAlignment="Middle" markup="none">
 					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[REGISTRATION OF CERTIFICATE :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="0" y="439" width="484" height="12" uuid="1bb6e278-c900-4301-931b-645ba439b9b4"/>
+				<reportElement positionType="Float" x="0" y="440" width="484" height="12" uuid="1bb6e278-c900-4301-931b-645ba439b9b4"/>
 				<textElement verticalAlignment="Middle" markup="none">
 					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[OTHER REGISTERED INTERESTS :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="0" y="539" width="484" height="10" uuid="f1220032-5aca-4c89-af05-dbf5b6e119c6"/>
+				<reportElement positionType="Float" x="0" y="540" width="484" height="10" uuid="f1220032-5aca-4c89-af05-dbf5b6e119c6"/>
 				<textElement textAlignment="Center">
 					<font fontName="Tahoma" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Deeds Registrar]]></text>
 			</staticText>
 			<line>
-				<reportElement positionType="Float" x="0" y="550" width="484" height="1" uuid="bbc0798a-963e-411c-900e-93ba1196d808"/>
+				<reportElement positionType="Float" x="0" y="551" width="484" height="1" uuid="bbc0798a-963e-411c-900e-93ba1196d808"/>
 			</line>
 			<textField>
-				<reportElement positionType="Float" x="0" y="555" width="484" height="14" uuid="d54d16a5-a079-4367-a9c5-e7effe262583"/>
+				<reportElement positionType="Float" x="0" y="556" width="484" height="14" uuid="d54d16a5-a079-4367-a9c5-e7effe262583"/>
 				<textElement>
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA["I have assessed the stamp duites chargeable for the registration of this certificate as N" + $P{STAMP_DUTY} + " Naira."]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="0" y="608" width="484" height="12" uuid="8f334bef-237d-43f9-959c-c3b6d7749987"/>
+				<reportElement positionType="Float" x="0" y="609" width="484" height="12" uuid="8f334bef-237d-43f9-959c-c3b6d7749987"/>
 				<textElement textAlignment="Center">
 					<font fontName="Tahoma" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Commissioner for Stamp Duties]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Transparent" x="244" y="405" width="200" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="cf5c54ee-16dc-43aa-908e-380ac48b8b2a"/>
+				<reportElement positionType="Float" mode="Transparent" x="280" y="405" width="200" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="cf5c54ee-16dc-43aa-908e-380ac48b8b2a"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Tahoma" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -598,24 +601,24 @@ $F{notationText}+ " " ))]]></textFieldExpression>
 				<textFieldExpression><![CDATA["Date :  .................................................................."]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement positionType="Float" x="0" y="462" width="484" height="1" uuid="6a6fec3a-0182-4692-8edd-245c1ec4cff8"/>
+				<reportElement positionType="Float" x="0" y="463" width="484" height="1" uuid="6a6fec3a-0182-4692-8edd-245c1ec4cff8"/>
 			</line>
 			<textField>
-				<reportElement positionType="Float" x="108" y="500" width="50" height="10" uuid="db7f606d-02f9-4798-85a1-ef3cd0537c29"/>
+				<reportElement positionType="Float" x="108" y="501" width="50" height="10" uuid="db7f606d-02f9-4798-85a1-ef3cd0537c29"/>
 				<textElement>
 					<font fontName="Tahoma" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" Folio "]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="54" y="500" width="50" height="10" uuid="6ea499fc-76ed-46df-a80d-ef277a90ddec"/>
+				<reportElement positionType="Float" x="54" y="501" width="50" height="10" uuid="6ea499fc-76ed-46df-a80d-ef277a90ddec"/>
 				<textElement>
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nameFirstpart}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="1" y="500" width="50" height="10" uuid="09c5dfa1-9225-4654-b94e-27a90ac4f7c6"/>
+				<reportElement positionType="Float" x="1" y="501" width="50" height="10" uuid="09c5dfa1-9225-4654-b94e-27a90ac4f7c6"/>
 				<textElement>
 					<font fontName="Tahoma" size="8" isBold="true"/>
 				</textElement>
