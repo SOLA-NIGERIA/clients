@@ -655,7 +655,6 @@ public class ReportManager {
      * report.
      *
      */
-     
     public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
        String featureScalebarFileName, Integer srid, Number scale, String  featureFront,String featureBack,String featureImageFileNameSmall, String sourceReferenceNumber) {
         HashMap inputParameters = new HashMap();
@@ -890,34 +889,13 @@ public class ReportManager {
                 propAddress = propAddress + baUnitBean.getLocation();
             }
 
-            commencingDateStr = "";
-            if (appBaunit.getCommencingDate() !=null) {
-                commencingDateStr = regnFormat.format(appBaunit.getCommencingDate()).toString();
-            }
-            
             term = "Term: ";
             if (baUnitBean.getTerm() !=null) {
                 term = term + baUnitBean.getTerm().toString() + " years";
             }
-            
-            purpose = "Permitted Purpose: ";
-            if (appBaunit.getLandUse()!=null) {
-                purpose = purpose + appBaunit.getLandUse();
-            }
-            
-            premium = "Improvement Premium: ";
-            if (appBaunit.getPremiumNonState()!=null) {
-                premium = premium + "N " + intFormat.format(appBaunit.getPremiumNonState()).toString() + " Naira";
-            }
-            
             stampDuty = "";
             if (appBaunit.getStampDuty()!=null) {
-                stampDuty = stampDuty + "N " + intFormat.format(appBaunit.getStampDuty()).toString() + " Naira";
-            }
-
-            annualRent = "Annual Rent: ";
-            if (appBaunit.getGroundRent()!=null) {
-                annualRent = annualRent + "N " + intFormat.format(appBaunit.getGroundRent()).toString() + " Naira";
+                  stampDuty = stampDuty + "N " + intFormat.format(appBaunit.getStampDuty()).toString() + " Naira";
             }
             
             governor = governor + getSettingValue("governorName");
@@ -927,6 +905,11 @@ public class ReportManager {
                 RrrBean rrrDetail = it.next();
                 numberOfOwners = numberOfOwners + rrrDetail.getRightHolderList().size();
                 if (rrrDetail.isPrimary() && !rrrDetail.getCOfO().equalsIgnoreCase(null) && !rrrDetail.getCOfO().equalsIgnoreCase("")) {
+                    commencingDateStr = "";
+                     if (rrrDetail.getDateCommenced() !=null) {
+                         commencingDateStr = regnFormat.format(rrrDetail.getDateCommenced()).toString();
+                     }
+
                     reviewPeriod = "Review Period: ";
                     if (rrrDetail.getReviewPeriod()!=null) {
                         reviewPeriod = reviewPeriod + rrrDetail.getReviewPeriod().toString() + " years";
@@ -941,9 +924,36 @@ public class ReportManager {
                     if (rrrDetail.getCofoType() !=null) {
                         cOfOtype = rrrDetail.getCofoType();
                     }
+                    
+                    purpose = "Permitted Purpose: ";
+                    if (rrrDetail.getCofoType() !=null) {
+                        purpose = purpose + rrrDetail.getCofoType();
+                    } else {
+                        purpose = purpose + "Building";
+                    }
 
+                    premium = "Improvement Premium: ";
+                    if (rrrDetail.getImprovementPremium()!=null) {
+                        premium = premium + "N " + intFormat.format(rrrDetail.getImprovementPremium()).toString() + " Naira";
+                    }
+
+                    annualRent = "Annual Rent: ";
+                    if (rrrDetail.getYearlyRent()!=null) {
+                        annualRent = annualRent + "N " + intFormat.format(rrrDetail.getYearlyRent()).toString() + " Naira";
+                    }
+
+//                    stampDuty = "";
+//                    if (rrrDetail.getStampDuty()!=null) {
+//                          stampDuty = stampDuty + "N " + intFormat.format(rrrDetail.getStampDuty()).toString() + " Naira";
+//                    }
+
+// Counter for person photo source/document records
+                    Integer j = 0;                   
                     for (int i = 0; i < rrrDetail.getSourceList().size(); i++) {
                         SourceBean rrrSource = rrrDetail.getSourceList().get(i);
+                        
+                        j = j + 1;
+                        
                          if (rrrSource.getTypeCode().equalsIgnoreCase("cadastralSurvey")) {
                              diagramImage = cachePath + rrrSource.getArchiveDocument().getFileName();
                              File f = new File(diagramImage);
@@ -953,8 +963,8 @@ public class ReportManager {
                              }
                          }
                          if (rrrSource.getTypeCode().equalsIgnoreCase("personPhoto") && numberOfOwners < 3) {
-                             switch(i) {
-                                 case 0: {
+                             switch(j) {
+                                 case 1: {
                                      photoImage1 = cachePath + rrrSource.getArchiveDocument().getFileName();
                                      File g = new File(photoImage1);
                                      if(!g.exists()){
@@ -962,7 +972,7 @@ public class ReportManager {
                                          DocumentBinaryTO photo1 = DocumentBean.getDocument(rrrSource.getArchiveDocument().getId());
                                      }                                    
                                  }
-                                 case 1: {
+                                 case 2: {
                                     if (photoImage1 != null) {
                                         photoImage2 = cachePath + rrrSource.getArchiveDocument().getFileName();
                                         File h = new File(photoImage2);
@@ -971,16 +981,6 @@ public class ReportManager {
                                             DocumentBinaryTO photo2 = DocumentBean.getDocument(rrrSource.getArchiveDocument().getId());                   
                                         }
                                     }
-                                 }
-                                 case 2: {
-                                    if (photoImage2 == null) {
-                                        photoImage2 = cachePath + rrrSource.getArchiveDocument().getFileName();
-                                        File h = new File(photoImage2);
-                                        if(!h.exists()){
-                                             // Preload file
-                                            DocumentBinaryTO photo2 = DocumentBean.getDocument(rrrSource.getArchiveDocument().getId());                   
-                                        }
-                                    }                                   
                                  }
                              }
                          }
@@ -1035,6 +1035,8 @@ public class ReportManager {
        
     }
       
+    
+
     
 
 

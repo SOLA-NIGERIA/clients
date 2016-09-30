@@ -70,8 +70,11 @@ public class SysRegCertificatesBean extends AbstractIdBean {
     private Integer term;
     private BigDecimal rent;
     private BigDecimal stampDuty;
-    private Integer premiumStateLand;
-    private Integer premiumNonState;
+    private BigDecimal premium;
+    private String estate;
+    private String tarrifType;
+///    private Integer premiumStateLand;
+//    private Integer premiumNonState;
 
     public BigDecimal getStampDuty() {
         return stampDuty;
@@ -81,22 +84,29 @@ public class SysRegCertificatesBean extends AbstractIdBean {
         this.stampDuty = stampDuty;
     }
 
-    public Integer getPremiumStateLand() {
-        return premiumStateLand;
+    public BigDecimal getPremium() {
+        return premium;
     }
 
-    public void setPremiumStateLand(Integer premiumStateLand) {
-        this.premiumStateLand = premiumStateLand;
-    }
-
-    public Integer getPremiumNonState() {
-        return premiumNonState;
-    }
-
-    public void setPremiumNonState(Integer premiumNonState) {
-        this.premiumNonState = premiumNonState;
-    }
-    
+    public void setPremium(BigDecimal premium) {
+        this.premium = premium;
+    }//
+//    public Integer getPremiumStateLand() {
+//        return premiumStateLand;
+//    }
+//
+//    public void setPremiumStateLand(Integer premiumStateLand) {
+//        this.premiumStateLand = premiumStateLand;
+//    }
+//
+//    public Integer getPremiumNonState() {
+//        return premiumNonState;
+//    }
+//
+//    public void setPremiumNonState(Integer premiumNonState) {
+//        this.premiumNonState = premiumNonState;
+//    }
+//    
     public Integer getTerm() {
         return term;
     }

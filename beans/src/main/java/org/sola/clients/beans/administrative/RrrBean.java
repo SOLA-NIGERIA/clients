@@ -115,7 +115,7 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String LEASE_CONDITIONS_PROPERTY = "leaseConditions";
     public static final String DEFINED_SHARES = "In defined shares as specified";
     public static final String UNDEVIDED_SHARES = "In undevided shares";
-    public static final String JOINT = "Joint Claimants";
+    public static final String JOINT = "Joint Right Holders";
     public static final String ZONE_TYPE_PROPERTY = "zoneType";
     public static final String ZONE_CODE_PROPERTY = "zoneCode";
     public static final String ROT_TYPE_PROPERTY = "rotType";
@@ -164,20 +164,13 @@ public class RrrBean extends AbstractTransactionedBean {
     private Integer term = 99;
     private BigDecimal advancePayment;
     private BigDecimal yearlyRent;
+    private BigDecimal improvementPremium;
+    private BigDecimal stampDuty;
     private Integer reviewPeriod = 2;
     private ZoneTypeBean zoneTypeBean;
     private RotTypeBean rotBean;
     private String instrRegNum;
-    private String improvementPremium;
-
-    public String getImprovementPremium() {
-        return improvementPremium;
-    }
-
-    public void setImprovementPremium(String improvementPremium) {
-        this.improvementPremium = improvementPremium;
-    }
-    
+   
     public String getInstrRegNum() {
         return instrRegNum;
     }
@@ -232,6 +225,22 @@ public class RrrBean extends AbstractTransactionedBean {
 
     public void setYearlyRent(BigDecimal yearlyRent) {
         this.yearlyRent = yearlyRent;
+    }
+
+    public BigDecimal getStampDuty() {
+        return stampDuty;
+    }
+
+    public void setStampDuty(BigDecimal stampDuty) {
+        this.stampDuty = stampDuty;
+    }
+
+    public BigDecimal getImprovementPremium() {
+        return improvementPremium;
+    }
+
+    public void setImprovementPremium(BigDecimal improvementPremium) {
+        this.improvementPremium = improvementPremium;
     }
 
     public Integer getReviewPeriod() {
