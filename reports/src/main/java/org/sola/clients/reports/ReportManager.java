@@ -863,7 +863,7 @@ public class ReportManager {
             Integer numberOfOwners = 0;
             
             lga = "Local Government Area: " + lga;
-            utmZone = "Minna Datum UTM Zone ??? " + srid.toString().substring(srid.toString().length()-2) + "N";     
+            utmZone = "Minna Datum UTM Zone  " + srid.toString().substring(srid.toString().length()-2) + "N";     
             parcelNumber = appBaunit.getNameFirstpart();
             parcelDescriptor = appBaunit.getNameLastpart();
        
@@ -926,7 +926,7 @@ public class ReportManager {
             for (Iterator<RrrBean> it = baUnitBean.getRrrFilteredList().iterator(); it.hasNext();) {
                 RrrBean rrrDetail = it.next();
                 numberOfOwners = numberOfOwners + rrrDetail.getRightHolderList().size();
-                if (rrrDetail.isPrimary() && !rrrDetail.getCOfO().equalsIgnoreCase(null) && !rrrDetail.getCOfO().equalsIgnoreCase("")) {
+//                if (rrrDetail.isPrimary() && !rrrDetail.getCOfO().equalsIgnoreCase(null) && !rrrDetail.getCOfO().equalsIgnoreCase("")) {
                     reviewPeriod = "Review Period: ";
                     if (rrrDetail.getReviewPeriod()!=null) {
                         reviewPeriod = reviewPeriod + rrrDetail.getReviewPeriod().toString() + " years";
@@ -984,7 +984,7 @@ public class ReportManager {
                                  }
                              }
                          }
-                     }
+//                     }
                 }  
             }
             inputParameters.put("LGA", lga);

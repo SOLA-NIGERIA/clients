@@ -66,7 +66,8 @@ import org.sola.webservices.transferobjects.casemanagement.PartyTO;
 public class OwnershipPanel extends ContentPanel {
 
     private class ShareFormListener implements PropertyChangeListener {
-
+        final ApplicationServiceBean whichService = appService;
+        private String notationTxt = "";
         @Override
         public void propertyChange(PropertyChangeEvent evt) {
             if (evt.getPropertyName().equals(SharePanel.UPDATED_RRR_SHARE)
@@ -75,14 +76,19 @@ public class OwnershipPanel extends ContentPanel {
                         rrrBean.getRrrShareList(), true);
                 tableShares.clearSelection();
             }
+            
+            if (whichService != null) {
+                notationTxt=   whichService.getRequestType().getNotationTemplate().toString();
+            }             
+            
             if (rrrBean.getFilteredRrrShareList().size() == 1 && rrrBean.getFilteredRrrShareList().get(0).getShare().contains("1/1")) {
                 if (rrrBean.getFilteredRrrShareList().get(0).getRightHolderType().contains("Joint")) {
-                    txtNotationText.setText(rrrBean.JOINT);
+                    txtNotationText.setText(notationTxt+" - "+rrrBean.JOINT);
                 } else {
-                    txtNotationText.setText(rrrBean.UNDEVIDED_SHARES);
+                    txtNotationText.setText(notationTxt+" - "+rrrBean.UNDEVIDED_SHARES);
                 }
             } else {
-                txtNotationText.setText(rrrBean.DEFINED_SHARES);
+                txtNotationText.setText(notationTxt+" - "+rrrBean.DEFINED_SHARES);
             }
         }
     }
@@ -190,7 +196,9 @@ public class OwnershipPanel extends ContentPanel {
 //            pnlZone.setVisible(false);
 //            this.cbxZone.setVisible(false);
 //            this.labZone.setVisible(false);
-        
+        if (txtTerm.getText() == "" || txtTerm.getText() == null || txtTerm.getText().equalsIgnoreCase(null) || txtTerm.getText().equalsIgnoreCase("")) {
+            txtTerm.setText("99");
+        }
 //System.out.println("IMPROVEMENT    "+this.rrrBean.getImprovementPremium());
         customizeForm();
         customizeSharesButtons(null);
@@ -243,7 +251,7 @@ public class OwnershipPanel extends ContentPanel {
     }
 
     private void customizeForm() {
-
+         
         String stringTitle = rrrBean.getRrrType().getDisplayValue();
         if (appService != null) {
             if (appService.getRequestType().getCode().contentEquals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
@@ -360,11 +368,44 @@ public class OwnershipPanel extends ContentPanel {
     }
 
     private boolean saveRrr() {
+        
+       
         if (rrrAction == RrrBean.RRR_ACTION.VIEW) {
             close();
             return true;
         } else if (rrrBean.validate(true, Default.class, OwnershipValidationGroup.class).size() < 1) {
             if (appService.getRequestTypeCode().contentEquals(RequestTypeBean.CODE_NEW_FREEHOLD)) {
+                if (rrrBean.getLeaseConditions() == null || "".equals(rrrBean.getLeaseConditions())) {
+                    MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_LEASE_CONDITIONS);
+                    return false;
+                }
+            }
+            java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle"); // NOI18N
+        
+            if (appService.getRequestTypeCode().contentEquals(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
+                if (rrrBean.getDateCommenced() == null || "".equals(rrrBean.getDateCommenced())) {
+                    MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_FIELDS,
+                     new Object[]{bundle.getString("OwnershipPanel.jLabel5.text")}); 
+                    return false;
+                }
+                if (rrrBean.getRotCode() == null || "".equals(rrrBean.getRotCode())) {
+                    MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_FIELDS,
+                     new Object[]{bundle.getString("OwnershipPanel.labEstate.text")}); 
+                    return false;
+                }
+                
+                if (this.txtTerm.getText() == null || "".equals(this.txtTerm.getText())) {
+                    MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_FIELDS,
+                     new Object[]{bundle.getString("OwnershipPanel.jLabel3.text")}); 
+                    return false;
+                }
+                
+                if (rrrBean.getCofoType() == null || "".equals(rrrBean.getCofoType())) {
+                    MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_FIELDS,
+                     new Object[]{bundle.getString("OwnershipPanel.jLabel9.text")}); 
+                    return false;
+                }
+                
                 if (rrrBean.getLeaseConditions() == null || "".equals(rrrBean.getLeaseConditions())) {
                     MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_LEASE_CONDITIONS);
                     return false;
@@ -624,9 +665,10 @@ public class OwnershipPanel extends ContentPanel {
         jLabel4.setText(bundle.getString("OwnershipPanel.jLabel4.text")); // NOI18N
         jLabel4.setName("jLabel4"); // NOI18N
 
+        txtAdvPayment.setEnabled(false);
         txtAdvPayment.setName("txtAdvPayment"); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${advancePayment}"), txtAdvPayment, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${stampDuty}"), txtAdvPayment, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -653,6 +695,7 @@ public class OwnershipPanel extends ContentPanel {
         jLabel6.setText(bundle.getString("OwnershipPanel.jLabel6.text")); // NOI18N
         jLabel6.setName("jLabel6"); // NOI18N
 
+        txtAnnualRent.setEnabled(false);
         txtAnnualRent.setName("txtAnnualRent"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${yearlyRent}"), txtAnnualRent, org.jdesktop.beansbinding.BeanProperty.create("text"));

@@ -348,10 +348,11 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtAdvPayment">
               <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="txtAdvPayment" noResource="true"/>
               </Properties>
               <BindingProperties>
-                <BindingProperty name="text" source="rrrBean" sourcePath="${advancePayment}" target="txtAdvPayment" targetPath="text" updateStrategy="0" immediately="false">
+                <BindingProperty name="text" source="rrrBean" sourcePath="${stampDuty}" target="txtAdvPayment" targetPath="text" updateStrategy="0" immediately="false">
                   <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
                 </BindingProperty>
               </BindingProperties>
@@ -394,6 +395,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtAnnualRent">
               <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="txtAnnualRent" noResource="true"/>
               </Properties>
               <BindingProperties>

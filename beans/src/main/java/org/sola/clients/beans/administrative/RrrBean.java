@@ -169,7 +169,19 @@ public class RrrBean extends AbstractTransactionedBean {
     private RotTypeBean rotBean;
     private String instrRegNum;
     private String improvementPremium;
+    private BigDecimal stampDuty;
 
+    public BigDecimal getStampDuty() {
+        return stampDuty;
+    }
+
+    public void setStampDuty(BigDecimal stampDuty) {
+        this.stampDuty = stampDuty;
+    }
+    
+    
+    
+    
     public String getImprovementPremium() {
         return improvementPremium;
     }

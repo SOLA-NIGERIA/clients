@@ -459,7 +459,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         }
         else {
             this.form.setVisible(true);
-            this.form.setAlwaysOnTop(true);
+//            this.form.setAlwaysOnTop(true);
         }
     }
     private void btnGenCertificateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenCertificateActionPerformed

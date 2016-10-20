@@ -384,6 +384,10 @@ public class PropertyPanel extends ContentPanel {
     private void customizeForm() {
         this.jLabel5.setVisible(false);
         this.txtName.setVisible(false);
+        this.lblValueToImprove.setVisible(false);
+        this.lblYearsToDev.setVisible(false);
+        this.txtValueToImprove.setVisible(false);
+        this.txtYearsToDev.setVisible(false);       
         if (nameFirstPart != null && nameLastPart != null) {
             headerPanel.setTitleText(String.format(
                     resourceBundle.getString("PropertyPanel.existingProperty.Text"),
@@ -1766,9 +1770,9 @@ public class PropertyPanel extends ContentPanel {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18)))
-                .add(pnlToDevLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(lblValueToImprove)
-                    .add(lblYearsToDev))
+                .add(pnlToDevLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblYearsToDev)
+                    .add(lblValueToImprove))
                 .add(0, 0, Short.MAX_VALUE)
                 .add(pnlToDevLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(txtValueToImprove, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)

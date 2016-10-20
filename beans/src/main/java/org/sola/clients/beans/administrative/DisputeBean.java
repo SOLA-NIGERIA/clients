@@ -111,6 +111,7 @@ public class DisputeBean extends AbstractTransactionedBean {
     private String userId;
     private DisputeBean bean;
     private SolaList<SourceBean> sourceList;
+    private String transactionId;
     
     private SolaList<DisputesCommentsBean> disputeCommentsList;
     private SolaList<DisputePartyBean> disputePartyByDispute;
@@ -118,8 +119,16 @@ public class DisputeBean extends AbstractTransactionedBean {
     private SolaList<DisputePartyBean> disputePartyList;
     private transient DisputePartyBean selectedParty;
     private SolaList<PartySummaryBean> partyList;
-    
 
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+    
+    
     public DisputeBean() {
         super();
         disputePartyByDispute = new SolaList<DisputePartyBean>();
