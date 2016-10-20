@@ -115,7 +115,7 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String LEASE_CONDITIONS_PROPERTY = "leaseConditions";
     public static final String DEFINED_SHARES = "In defined shares as specified";
     public static final String UNDEVIDED_SHARES = "In undevided shares";
-    public static final String JOINT = "Joint Claimants";
+    public static final String JOINT = "Joint Right Holders";
     public static final String ZONE_TYPE_PROPERTY = "zoneType";
     public static final String ZONE_CODE_PROPERTY = "zoneCode";
     public static final String ROT_TYPE_PROPERTY = "rotType";
