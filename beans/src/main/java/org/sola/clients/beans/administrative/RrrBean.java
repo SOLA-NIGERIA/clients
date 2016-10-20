@@ -168,7 +168,7 @@ public class RrrBean extends AbstractTransactionedBean {
     private ZoneTypeBean zoneTypeBean;
     private RotTypeBean rotBean;
     private String instrRegNum;
-    private String improvementPremium;
+    private BigDecimal improvementPremium;
     private BigDecimal stampDuty;
 
     public BigDecimal getStampDuty() {
@@ -182,11 +182,11 @@ public class RrrBean extends AbstractTransactionedBean {
     
     
     
-    public String getImprovementPremium() {
+    public BigDecimal getImprovementPremium() {
         return improvementPremium;
     }
 
-    public void setImprovementPremium(String improvementPremium) {
+    public void setImprovementPremium(BigDecimal improvementPremium) {
         this.improvementPremium = improvementPremium;
     }
     
