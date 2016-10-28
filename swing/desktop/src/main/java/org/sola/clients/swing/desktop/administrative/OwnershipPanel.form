@@ -305,7 +305,7 @@
                 <Property name="name" type="java.lang.String" value="txtimprPrem" noResource="true"/>
               </Properties>
               <BindingProperties>
-                <BindingProperty name="text" source="rrrBean" sourcePath="${improvementPremium}" target="txtimprPrem" targetPath="text" updateStrategy="0" immediately="false">
+                <BindingProperty name="text" source="rrrBean" sourcePath="${improvementPremiumValue}" target="txtimprPrem" targetPath="text" updateStrategy="0" immediately="false">
                   <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
                 </BindingProperty>
               </BindingProperties>
@@ -352,7 +352,7 @@
                 <Property name="name" type="java.lang.String" value="txtAdvPayment" noResource="true"/>
               </Properties>
               <BindingProperties>
-                <BindingProperty name="text" source="rrrBean" sourcePath="${stampDuty}" target="txtAdvPayment" targetPath="text" updateStrategy="0" immediately="false">
+                <BindingProperty name="text" source="rrrBean" sourcePath="${stampDutyValue}" target="txtAdvPayment" targetPath="text" updateStrategy="0" immediately="false">
                   <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
                 </BindingProperty>
               </BindingProperties>
@@ -399,10 +399,13 @@
                 <Property name="name" type="java.lang.String" value="txtAnnualRent" noResource="true"/>
               </Properties>
               <BindingProperties>
-                <BindingProperty name="text" source="rrrBean" sourcePath="${yearlyRent}" target="txtAnnualRent" targetPath="text" updateStrategy="0" immediately="false">
+                <BindingProperty name="text" source="rrrBean" sourcePath="${yearlyRentValue}" target="txtAnnualRent" targetPath="text" updateStrategy="0" immediately="false">
                   <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
                 </BindingProperty>
               </BindingProperties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAnnualRentActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

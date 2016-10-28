@@ -410,6 +410,9 @@ public class OwnershipPanel extends ContentPanel {
                     MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_LEASE_CONDITIONS);
                     return false;
                 }
+                rrrBean.setImprovementPremium(rrrBean.getImprovementPremiumValue());
+                rrrBean.setStampDuty(rrrBean.getStampDutyValue());
+                rrrBean.setYearlyRent(rrrBean.getYearlyRentValue());
             }
 
             firePropertyChange(UPDATED_RRR, null, rrrBean);
@@ -640,7 +643,7 @@ public class OwnershipPanel extends ContentPanel {
         txtimprPrem.setEditable(false);
         txtimprPrem.setName("txtimprPrem"); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${improvementPremium}"), txtimprPrem, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${improvementPremiumValue}"), txtimprPrem, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -668,7 +671,7 @@ public class OwnershipPanel extends ContentPanel {
         txtAdvPayment.setEnabled(false);
         txtAdvPayment.setName("txtAdvPayment"); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${stampDuty}"), txtAdvPayment, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${stampDutyValue}"), txtAdvPayment, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -698,8 +701,14 @@ public class OwnershipPanel extends ContentPanel {
         txtAnnualRent.setEnabled(false);
         txtAnnualRent.setName("txtAnnualRent"); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${yearlyRent}"), txtAnnualRent, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${yearlyRentValue}"), txtAnnualRent, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
+
+        txtAnnualRent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAnnualRentActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -1323,6 +1332,10 @@ public class OwnershipPanel extends ContentPanel {
             }
         }
     }//GEN-LAST:event_btnInsertConditionsTextActionPerformed
+
+    private void txtAnnualRentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnnualRentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnnualRentActionPerformed
 
     private void changeShare() {
 

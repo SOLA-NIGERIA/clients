@@ -163,33 +163,68 @@ public class RrrBean extends AbstractTransactionedBean {
     private Date dateSigned;
     private Integer term = 99;
     private BigDecimal advancePayment;
-    private BigDecimal yearlyRent;
     private Integer reviewPeriod = 2;
     private ZoneTypeBean zoneTypeBean;
     private RotTypeBean rotBean;
     private String instrRegNum;
     private BigDecimal improvementPremium;
+    private BigDecimal yearlyRent;
     private BigDecimal stampDuty;
-
-    public BigDecimal getStampDuty() {
-        return stampDuty;
+    private BigDecimal improvementPremiumValue;
+    private BigDecimal yearlyRentValue;
+    private BigDecimal stampDutyValue;
+    
+    public BigDecimal getYearlyRentValue() {
+        return yearlyRentValue;
     }
 
-    public void setStampDuty(BigDecimal stampDuty) {
-        this.stampDuty = stampDuty;
+    public void setYearlyRentValue(BigDecimal yearlyRentValue) {
+        this.yearlyRentValue = yearlyRentValue;
     }
-    
-    
-    
+
+    public BigDecimal getImprovementPremiumValue() {
+        return improvementPremiumValue;
+    }
+
+    public void setImprovementPremiumValue(BigDecimal improvementPremiumValue) {
+        this.improvementPremiumValue = improvementPremiumValue;
+    }
+
+    public BigDecimal getStampDutyValue() {
+        return stampDutyValue;
+    }
+
+    public void setStampDutyValue(BigDecimal stampDutyValue) {
+        this.stampDutyValue = stampDutyValue;
+    }
     
     public BigDecimal getImprovementPremium() {
         return improvementPremium;
     }
 
     public void setImprovementPremium(BigDecimal improvementPremium) {
-        this.improvementPremium = improvementPremium;
+//        this.improvementPremium = improvementPremium;
+         this.improvementPremium = this.getImprovementPremiumValue();
     }
-    
+
+    public BigDecimal getYearlyRent() {
+        return yearlyRent;
+    }
+
+    public void setYearlyRent(BigDecimal yearlyRent) {
+//        this.yearlyRent = yearlyRent;
+        this.yearlyRent = this.getYearlyRentValue();
+    }
+
+    public BigDecimal getStampDuty() {
+        return stampDuty;
+    }
+
+    public void setStampDuty(BigDecimal stampDuty) {
+//        this.stampDuty = stampDuty;
+        this.stampDuty = this.getStampDutyValue();
+    }
+
     public String getInstrRegNum() {
         return instrRegNum;
     }
@@ -236,14 +271,6 @@ public class RrrBean extends AbstractTransactionedBean {
 
     public void setAdvancePayment(BigDecimal advancePayment) {
         this.advancePayment = advancePayment;
-    }
-
-    public BigDecimal getYearlyRent() {
-        return yearlyRent;
-    }
-
-    public void setYearlyRent(BigDecimal yearlyRent) {
-        this.yearlyRent = yearlyRent;
     }
 
     public Integer getReviewPeriod() {
