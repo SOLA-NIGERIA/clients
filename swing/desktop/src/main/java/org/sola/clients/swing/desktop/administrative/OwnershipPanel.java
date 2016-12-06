@@ -310,6 +310,7 @@ public class OwnershipPanel extends ContentPanel {
             btnSave.setEnabled(false);
             txtNotationText.setEnabled(false);
             txtRegDatetime.setEditable(false);
+            btnRegDate.setEnabled(false);
             cbxIsPrimary.setEnabled(false);
             txtConditionsText.setEnabled(false);
             cbxConditionsTemplates.setEnabled(false);
@@ -480,6 +481,7 @@ public class OwnershipPanel extends ContentPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         txtRegDatetime = new javax.swing.JFormattedTextField();
+        btnRegDate = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         btnCommDate = new javax.swing.JButton();
@@ -650,14 +652,14 @@ public class OwnershipPanel extends ContentPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 160, Short.MAX_VALUE)
             .addComponent(txtimprPrem)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtimprPrem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -771,19 +773,34 @@ public class OwnershipPanel extends ContentPanel {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${registrationDate}"), txtRegDatetime, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
 
+        btnRegDate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
+        btnRegDate.setText(bundle.getString("OwnershipPanel.btnRegDate.text")); // NOI18N
+        btnRegDate.setBorder(null);
+        btnRegDate.setName("btnRegDate"); // NOI18N
+        btnRegDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegDateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(txtRegDatetime)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(txtRegDatetime)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRegDate))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtRegDatetime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtRegDatetime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegDate)))
         );
 
         jPanel14.add(jPanel3);
@@ -1337,6 +1354,10 @@ public class OwnershipPanel extends ContentPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAnnualRentActionPerformed
 
+    private void btnRegDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegDateActionPerformed
+        showCalendar(txtRegDatetime);
+    }//GEN-LAST:event_btnRegDateActionPerformed
+
     private void changeShare() {
 
         this.rrrBean.getFilteredRrrShareList().get(0).setRightHolderType("Share");
@@ -1397,6 +1418,7 @@ public class OwnershipPanel extends ContentPanel {
     private javax.swing.JButton btnChangeShare;
     private javax.swing.JButton btnCommDate;
     private javax.swing.JButton btnInsertConditionsText;
+    private javax.swing.JButton btnRegDate;
     private javax.swing.JButton btnRemoveShare;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSignDate;

@@ -284,7 +284,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="7" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="txtimprPrem" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -464,7 +464,11 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel13" max="32767" attributes="0"/>
-                  <Component id="txtRegDatetime" max="32767" attributes="1"/>
+                  <Group type="102" attributes="0">
+                      <Component id="txtRegDatetime" max="32767" attributes="1"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnRegDate" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -472,7 +476,10 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtRegDatetime" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtRegDatetime" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnRegDate" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -502,6 +509,23 @@
               <BindingProperties>
                 <BindingProperty name="value" source="rrrBean" sourcePath="${registrationDate}" target="txtRegDatetime" targetPath="value" updateStrategy="0" immediately="false"/>
               </BindingProperties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnRegDate">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/common/calendar.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="OwnershipPanel.btnRegDate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="null"/>
+                </Property>
+                <Property name="name" type="java.lang.String" value="btnRegDate" noResource="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegDateActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

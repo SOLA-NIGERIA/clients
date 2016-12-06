@@ -160,7 +160,6 @@ public class PropertyPanel extends ContentPanel {
         if (applicationService.getRequestTypeCode().contains(RequestTypeBean.CODE_SYSTEMATIC_REGISTRATION)) {
 
             this.landUse = this.baUnitBean1.getLandUseType().getCode();
-            String nationality = this.applicationBean.getContactPerson().getNationality().toString();
 
 //            if (landUse.startsWith("res")&& nationality.contains("Nigeria")) {
 //                term=99;
@@ -1089,10 +1088,10 @@ public class PropertyPanel extends ContentPanel {
         if (spatialValueAreaBean != null) {
             if (spatialValueAreaBean.getCalculatedAreaSize() != null) {
                 if (!spatialValueAreaBean.getCalculatedAreaSize().equals(new BigDecimal(0))) {
-                    if (MessageUtility.displayMessage(ClientMessage.BAUNIT_CONFIRM_AREA,
-                            new Object[]{spatialValueAreaBean.getCalculatedAreaSize()}) == MessageUtility.BUTTON_ONE) {
-                        baUnitAreaBean1.setSize(spatialValueAreaBean.getCalculatedAreaSize());
-                    }
+//                    if (MessageUtility.displayMessage(ClientMessage.BAUNIT_CONFIRM_AREA,
+//                            new Object[]{spatialValueAreaBean.getCalculatedAreaSize()}) == MessageUtility.BUTTON_ONE) {
+//                        baUnitAreaBean1.setSize(spatialValueAreaBean.getCalculatedAreaSize());
+//                    }
                 }
             }
         }
@@ -1124,14 +1123,7 @@ public class PropertyPanel extends ContentPanel {
                     return;
                 }
             }
-//            if (((this.baUnitBean1.getRrrFilteredList()!= null && !this.baUnitBean1.getRrrFilteredList().get(0).getRrrType().getCode().contains(RrrBean.CODE_OWNERSHIP_PERPETUITY)))  && (this.txtTerm.getText()==null||this.txtTerm.getText()==""||this.txtTerm.getText().isEmpty())){
-            if ((this.txtTerm.getText() == null || this.txtTerm.getText() == "" || this.txtTerm.getText().isEmpty())) {
-                java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
-//            --  MessageUtility.displayMessage(ClientMessage.CHECK_IN_PERPETUITY);    
-                MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_FIELDS,
-                        new Object[]{bundle.getString("PropertyPanel.lblTerm.text")});
-                return;
-            }
+
             if (this.baUnitBean1.getLandUse() == null) {
                 java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
 //            --  MessageUtility.displayMessage(ClientMessage.CHECK_IN_PERPETUITY);    
